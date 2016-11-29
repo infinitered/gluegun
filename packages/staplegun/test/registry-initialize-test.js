@@ -26,34 +26,37 @@ test('survives strange useFromFile parameters', t => {
   t.deepEqual(r.plugins, [])
   t.deepEqual(r.scripts, [])
   t.deepEqual(r.filters, [])
+  t.deepEqual(r.commands, [])
 })
 
 // much of these tests are handled at the plugin loading stage
 test('handles bad plugins', t => {
   const r = createRegistry()
-  const badPath = `${__dirname}/_registry/_does_not_exist.lol`
+  const badPath = `${__dirname}/_plugins/_does_not_exist.lol`
   const badPlugin = r.useFromFile(badPath)
 
   t.deepEqual(r.invalidPlugins, [badPlugin])
   t.deepEqual(r.plugins, [])
   t.deepEqual(r.scripts, [])
   t.deepEqual(r.filters, [])
+  t.deepEqual(r.commands, [])
 })
 
 test('loads empty plugins', t => {
   const r = createRegistry()
-  const plugin = r.useFromFile(`${__dirname}/_registry/_no-registers.js`)
+  const plugin = r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
 
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [plugin])
   t.deepEqual(r.scripts, [])
   t.deepEqual(r.filters, [])
+  t.deepEqual(r.commands, [])
 })
 
 test('silently ignore duplicate plugins', t => {
   const r = createRegistry()
-  r.useFromFile(`${__dirname}/_registry/_no-registers.js`)
-  r.useFromFile(`${__dirname}/_registry/_no-registers.js`)
+  r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
+  r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
 
   t.deepEqual(r.invalidPlugins, [])
   t.is(r.plugins.length, 1)

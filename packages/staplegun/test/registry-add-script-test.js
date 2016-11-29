@@ -15,7 +15,6 @@ test('detects scripts', t => {
   t.is(r.scripts[0].plugin, plugin)
   t.is(r.scripts[0].name, 'identity')
   t.deepEqual(r.scripts[0].config, {})
-  t.deepEqual(r.filters, [])
 })
 
 test('prevents duplicate scripts', t => {
