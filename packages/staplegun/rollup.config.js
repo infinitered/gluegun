@@ -7,7 +7,7 @@ export default {
     babel({
       babelrc: false,
       presets: ['es2015-rollup', 'stage-0'],
-      plugins: ['transform-decorators-legacy']
+      plugins: ['transform-decorators-legacy', 'transform-flow-strip-types']
     })
   ],
   dest: 'dist/staplegun'
