@@ -1,9 +1,8 @@
 // @flow
 import type { Registry, Filter, Script, Plugin } from '../types'
 import { loadPlugin } from './plugin'
-import { curry, find, where, equals } from 'ramda'
 import { findByProp } from 'ramdasauce'
-import { isBlank, throwWith, isnt } from './utils'
+import createScriptAdder from './script-adder'
 
 /**
  * Create a registry which holds user-defined customizations.
@@ -12,52 +11,22 @@ import { isBlank, throwWith, isnt } from './utils'
  * @returns {Registry}
  */
 export function createRegistry (): Registry {
-  let filters: Array<Filter> = []
-  let scripts: Array<Script> = []
-  let plugins: Array<Plugin> = []
-  let invalidPlugins: Array<Plugin> = []
+  const filters: Array<Filter> = []
+  const scripts: Array<Script> = []
+  const plugins: Array<Plugin> = []
 
-  /**
-   * Add this script to the registry.
-   */
-  const addScript = curry(
-    function addScript (plugin: Plugin, name: string, handler: Function): Script|void {
-      // sanity
-      throwWith('script name cannot be blank', isBlank, name)
-      throwWith('handler must be a function', isnt(Function), handler)
-
-      // prevent a 2nd script with the same name
-      const dupe = find(where({ plugin: equals(plugin), name: equals(name) }))(scripts)
-      if (dupe) {
-        // TODO: warn somewhere, somehow
-        throw new Error(`the script called ${name} already exists in the plugin ${plugin.path}`)
-      }
-
-      // the plugin's config may contain a section for this script
-      const config = plugin.config[name] || {}
-
-      // create thes script object
-      const script: Script = {
-        name,    // the script's name (must be unique within the plugin)
-        handler, // the function that fires
-        plugin,  // the plugin who spawned us
-        config   // any configuration for this script
-      }
-
-      // add this script to registry
-      scripts.push(script)
-      return script
-    }
-  )
+  const invalidPlugins: Array<Plugin> = []
 
   /**
    * Initialize the plugin to give it chance to register it's capabilities.
    */
   function initializePlugin (plugin: Plugin): void {
-    // the object to pass into the plugin to initialize it
+    // plugins will receive this when they get initialized
     const context = {
-      addScript: addScript(plugin) // allows the plugin to register a script
+      addScript: createScriptAdder(plugin, scripts) // when we find a script
     }
+
+    // ok, let's do this!
     if (plugin.initializer) {
       plugin.initializer(context)
     }

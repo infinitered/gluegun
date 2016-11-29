@@ -81,9 +81,9 @@ export type Script = {
  * A command the heart of this system.  They are user-defined functions that provide the core functionality.
  */
 export type Command = {
-  name: string,
-  plugin: Plugin,
-  handler: Function
+  name: string,      // the name of the command (it'll be called with this name)
+  plugin: Plugin,    // the plugin that introduced this command
+  fn: Function       // the command that runs
 }
 
 /**
@@ -94,6 +94,7 @@ export type Registry = {
   plugins: Array<Plugin>,        // holds plugins that were able to load
   scripts: Array<Script>,        // holds scripts that were registered in plugins
   filters: Array<Filter>,        // holds filters that were registered in plugins
+  commands: Array<Command>,      // holds the commands that can get called
 
   load: Function // loads a plugin from a path on the filesystem
 }
