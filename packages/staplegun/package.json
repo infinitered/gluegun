@@ -1,6 +1,6 @@
 {
   "name": "staplegun",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tack stuff on to your codebase.",
   "main": "index.js",
   "bin": {
