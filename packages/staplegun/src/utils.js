@@ -1,5 +1,10 @@
 // @flow
-import { curry, when, pipe, trim, isEmpty, is, always } from 'ramda'
+import { curry, when, pipe, trim, isEmpty, is, always, complement } from 'ramda'
+
+/**
+ * The opposite of is.  Great restraint made me not call this: aint.
+ */
+export const isnt = complement(is)
 
 /**
  * Is this not a string?

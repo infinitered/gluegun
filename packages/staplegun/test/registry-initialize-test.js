@@ -49,3 +49,12 @@ test('loads empty plugins', t => {
   t.deepEqual(r.scripts, [])
   t.deepEqual(r.filters, [])
 })
+
+test('silently ignore duplicate plugins', t => {
+  const r = createRegistry()
+  r.load(`${__dirname}/_registry/_no-registers.js`)
+  r.load(`${__dirname}/_registry/_no-registers.js`)
+
+  t.deepEqual(r.invalidPlugins, [])
+  t.is(r.plugins.length, 1)
+})

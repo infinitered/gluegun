@@ -53,7 +53,8 @@ export type Plugin = {
   path: string,           // the absolute path on the file system
   config: {},             // the default configuration
   initializer: ?Function, // the initializer function to call when setting up the plugin
-  error: ?PluginError     // should there be an error, this is it
+  error: ?PluginError,    // should there be an error, this is it
+  errorMessage: ?string   // a friendly error should there be one
 }
 
 /**
@@ -68,7 +69,10 @@ export type Filter = {
  * A command is a target of an action.  It comes out of a plugin and does stuff.
  */
 export type Script = {
-  type: string,     // the action type which will trigger this command
+  /**
+   * The name of the script.
+   */
+  name: string,     // the name of the script (as it appears on the config (unique within the plugin)
   plugin: Plugin,   // the plugin from whence this command came
   config: {},       // the default configuration for this plugin
   handler: Function // the function which will run

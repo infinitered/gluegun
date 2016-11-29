@@ -38,7 +38,14 @@ export function loadPlugin (path: string): Plugin {
 
   // TODO: load the config
   const config = {}
-  const plugin: Plugin = { config, path, initializer: null, error: null, status: 'Error' }
+  const plugin: Plugin = {
+    config,
+    path,
+    initializer: null,
+    error: null,
+    errorMessage: null,
+    status: 'Error'
+  }
 
   // is the file missing?
   if (isFileMissing(path)) {
