@@ -65,6 +65,7 @@ export type Plugin = {
 export type Filter = {
   name: string,     // the name as it will appear in the template system
   plugin: Plugin,   // the plugin from whence this filter came
+  fn: Function      // the filter that runs
 }
 
 /**

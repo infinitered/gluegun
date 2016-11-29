@@ -4,6 +4,7 @@ import { loadPlugin } from './plugin'
 import { findByProp } from 'ramdasauce'
 import createAddScript from './add-script'
 import createAddCommand from './add-command'
+import createAddFilter from './add-filter'
 
 /**
  * Create a registry which holds user-defined customizations.
@@ -26,7 +27,8 @@ export function createRegistry (): Registry {
     // plugins will receive this when they get initialized
     const context = {
       addScript: createAddScript(plugin, scripts),   // when we find a script
-      addCommand: createAddCommand(plugin, commands) // when we find a command
+      addCommand: createAddCommand(plugin, commands), // when we find a command
+      addFilter: createAddFilter(plugin, filters) // when we find a filter
     }
 
     // ok, let's do this!
