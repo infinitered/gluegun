@@ -99,7 +99,7 @@ export function loadPluginDirectory (path: string): Array<Plugin> {
 /**
  * Creates a loaded plugin, great for testing.
  */
-export function createLoadedPlugin (initializer) {
+export function createLoadedPlugin (initializer :Function): Plugin {
   return {
     initializer,
     config: {},
