@@ -15,11 +15,11 @@ export type ActionArguments = Array<string>
  */
 export type ActionOptions = { [key: string]: any }
 
-// The action is the user's request to run a command.
+// The action is the user's request to run a script.
 export type Action = {
 
   /**
-   * The name of the command we're attempting to target.
+   * The name of the script we're attempting to target.
    */
   type: string,
 
@@ -46,7 +46,7 @@ export type PluginStatus = 'Loaded' | 'Initialized' | 'Error'
 export type PluginError = 'Missing' | 'Invalid' | 'Initialize'
 
 /**
- * A plugin extends the environment by providing commands, filters, and directives.
+ * A plugin extends the environment by providing scripts, filters, and commands.
  */
 export type Plugin = {
   status: PluginStatus,   // the loading status
@@ -58,24 +58,32 @@ export type Plugin = {
 }
 
 /**
- * A filter is a function that can be attached to a template.
+ * A filter is a function that can be attached to a template which
+ * provides a way to customize the output when templating.  These are
+ * only made available to the Nunjucks templating engine.
  */
 export type Filter = {
   name: string,     // the name as it will appear in the template system
-  plugin: Plugin,   // the plugin from whence this command came
+  plugin: Plugin,   // the plugin from whence this filter came
 }
 
 /**
- * A command is a target of an action.  It comes out of a plugin and does stuff.
+ * A script is a target of an action.  It comes out of a plugin and runs commands.
  */
 export type Script = {
-  /**
-   * The name of the script.
-   */
   name: string,     // the name of the script (as it appears on the config (unique within the plugin)
-  plugin: Plugin,   // the plugin from whence this command came
+  plugin: Plugin,   // the birthplace plugin
   config: {},       // the default configuration for this plugin
   handler: Function // the function which will run
+}
+
+/**
+ * A command the heart of this system.  They are user-defined functions that provide the core functionality.
+ */
+export type Command = {
+  name: string,
+  plugin: Plugin,
+  handler: Function
 }
 
 /**
