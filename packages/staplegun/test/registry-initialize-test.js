@@ -12,16 +12,16 @@ test('setups properly', t => {
   t.is(r.scripts.length, 0)
 })
 
-test('survives strange load parameters', t => {
+test('survives strange loadPluginFromFile parameters', t => {
   const r = createRegistry()
 
-  t.falsy(r.load(null))
-  t.falsy(r.load(undefined))
-  t.falsy(r.load(1))
-  t.falsy(r.load(0.1))
-  t.falsy(r.load(true))
-  t.falsy(r.load({}))
-  t.falsy(r.load([]))
+  t.falsy(r.loadPluginFromFile(null))
+  t.falsy(r.loadPluginFromFile(undefined))
+  t.falsy(r.loadPluginFromFile(1))
+  t.falsy(r.loadPluginFromFile(0.1))
+  t.falsy(r.loadPluginFromFile(true))
+  t.falsy(r.loadPluginFromFile({}))
+  t.falsy(r.loadPluginFromFile([]))
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [])
   t.deepEqual(r.scripts, [])
@@ -32,7 +32,7 @@ test('survives strange load parameters', t => {
 test('handles bad plugins', t => {
   const r = createRegistry()
   const badPath = `${__dirname}/_registry/_does_not_exist.lol`
-  const badPlugin = r.load(badPath)
+  const badPlugin = r.loadPluginFromFile(badPath)
 
   t.deepEqual(r.invalidPlugins, [badPlugin])
   t.deepEqual(r.plugins, [])
@@ -42,7 +42,7 @@ test('handles bad plugins', t => {
 
 test('loads empty plugins', t => {
   const r = createRegistry()
-  const plugin = r.load(`${__dirname}/_registry/_no-registers.js`)
+  const plugin = r.loadPluginFromFile(`${__dirname}/_registry/_no-registers.js`)
 
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [plugin])
@@ -52,8 +52,8 @@ test('loads empty plugins', t => {
 
 test('silently ignore duplicate plugins', t => {
   const r = createRegistry()
-  r.load(`${__dirname}/_registry/_no-registers.js`)
-  r.load(`${__dirname}/_registry/_no-registers.js`)
+  r.loadPluginFromFile(`${__dirname}/_registry/_no-registers.js`)
+  r.loadPluginFromFile(`${__dirname}/_registry/_no-registers.js`)
 
   t.deepEqual(r.invalidPlugins, [])
   t.is(r.plugins.length, 1)

@@ -40,7 +40,7 @@ export function createRegistry (): Registry {
   /**
    * Loads a plugin from the given path. Ignore dups.
    */
-  function load (path: string): Plugin|null {
+  function loadPluginFromFile (path: string): Plugin|null {
     // check for duplicate plugins
     if (findByProp('path', path, plugins)) {
       // TODO: log an error or something, but not horrible to just ignore
@@ -80,6 +80,6 @@ export function createRegistry (): Registry {
     commands,
     plugins,
     invalidPlugins,
-    load
+    loadPluginFromFile
   }
 }

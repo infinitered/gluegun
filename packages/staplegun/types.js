@@ -97,6 +97,6 @@ export type Registry = {
   filters: Array<Filter>,        // holds filters that were registered in plugins
   commands: Array<Command>,      // holds the commands that can get called
 
-  load: Function // loads a plugin from a path on the filesystem
+  loadPluginFromFile: Function // loads a plugin from a path on the filesystem
 }
 
