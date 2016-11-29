@@ -34,3 +34,32 @@ export type Action = {
   options: ActionOptions
 
 }
+
+/**
+ * The states of plugin loading.
+ */
+export type PluginStatus = 'Loaded' | 'Initialized' | 'Error'
+
+/**
+ * Reasons the plugin didn't load.
+ */
+export type PluginError = 'Missing' | 'Invalid'
+
+/**
+ * A plugin extends the environment by providing commands, filters, and directives.
+ */
+export type Plugin = {
+  status: PluginStatus,   // the loading status
+  path: string,           // the absolute path on the file system
+  config: {},             // the default configuration
+  initializer: ?Function, // the initializer function to call when setting up the plugin
+  error: ?PluginError     // should there be an error, this is it
+}
+
+/**
+ * Holds the plugins.
+ */
+export type PluginRegistry = {
+  plugins: Array<Plugin>
+}
+
