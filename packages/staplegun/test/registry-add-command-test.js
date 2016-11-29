@@ -1,9 +1,13 @@
 import test from 'ava'
 import { createRegistry } from '../src/registry'
+import { createLoadedPlugin } from '../src/plugin'
 
 test('detects commands', t => {
   const r = createRegistry()
-  const plugin = r.loadPluginFromFile(`${__dirname}/_registry/_has-command.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addCommand('identity', x => x)
+  })
+  r.use(plugin)
 
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [plugin])
@@ -14,18 +18,31 @@ test('detects commands', t => {
 
 test('prevents duplicate commands', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_duplicate-commands.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addCommand('identity', x => x)
+    env.addCommand('identity', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.commands.length, 1)
 })
 
 test('command names must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_bad-name-command.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addCommand('', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.commands.length, 0)
 })
 
 test('commands must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_missing-function-command.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addCommand('hi')
+  })
+  r.use(plugin)
+
   t.is(r.commands.length, 0)
 })

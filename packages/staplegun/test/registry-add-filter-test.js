@@ -1,9 +1,13 @@
 import test from 'ava'
 import { createRegistry } from '../src/registry'
+import { createLoadedPlugin } from '../src/plugin'
 
 test('detects filters', t => {
   const r = createRegistry()
-  const plugin = r.loadPluginFromFile(`${__dirname}/_registry/_has-filter.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addFilter('identity', x => x)
+  })
+  r.use(plugin)
 
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [plugin])
@@ -14,18 +18,31 @@ test('detects filters', t => {
 
 test('prevents duplicate filters', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_duplicate-filters.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addFilter('identity', x => x)
+    env.addFilter('identity', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.filters.length, 1)
 })
 
 test('filter names must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_bad-name-filter.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addFilter('', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.filters.length, 0)
 })
 
 test('filters must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_missing-function-filter.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addFilter('identity')
+  })
+  r.use(plugin)
+
   t.is(r.filters.length, 0)
 })

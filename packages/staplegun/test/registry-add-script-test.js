@@ -1,9 +1,13 @@
 import test from 'ava'
 import { createRegistry } from '../src/registry'
+import { createLoadedPlugin } from '../src/plugin'
 
 test('detects scripts', t => {
   const r = createRegistry()
-  const plugin = r.loadPluginFromFile(`${__dirname}/_registry/_has-script.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addScript('identity', x => x)
+  })
+  r.use(plugin)
 
   t.deepEqual(r.invalidPlugins, [])
   t.deepEqual(r.plugins, [plugin])
@@ -16,18 +20,31 @@ test('detects scripts', t => {
 
 test('prevents duplicate scripts', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_duplicate-scripts.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addScript('identity', x => x)
+    env.addScript('identity', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.scripts.length, 1)
 })
 
 test('script names must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_bad-name-script.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addScript('', x => x)
+  })
+  r.use(plugin)
+
   t.is(r.scripts.length, 0)
 })
 
 test('scripts must be non-blank', t => {
   const r = createRegistry()
-  r.loadPluginFromFile(`${__dirname}/_registry/_missing-function-script.js`)
+  const plugin = createLoadedPlugin(env => {
+    env.addScript('hi')
+  })
+  r.use(plugin)
+
   t.is(r.scripts.length, 0)
 })

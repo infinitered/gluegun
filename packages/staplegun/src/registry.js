@@ -38,38 +38,41 @@ export function createRegistry (): Registry {
   }
 
   /**
+   * Use this plugin.
+   */
+  function use (plugin: Plugin): void {
+    // was this plugin loaded?
+    if (plugin.status === 'Loaded') {
+      try {
+        initializePlugin(plugin)
+        plugin.status = 'Initialized'
+        plugins.push(plugin)
+      } catch (e) {
+        plugin.errorMessage = e.message
+        plugin.status = 'Error'
+        plugin.error = 'Initialize'
+        invalidPlugins.push(plugin)
+      }
+    } else {
+      invalidPlugins.push(plugin)
+    }
+  }
+
+  /**
    * Loads a plugin from the given path. Ignore dups.
    */
-  function loadPluginFromFile (path: string): Plugin|null {
+  function useFromFile (path: string): Plugin|null {
     // check for duplicate plugins
     if (findByProp('path', path, plugins)) {
       // TODO: log an error or something, but not horrible to just ignore
       return null
     }
-
     try {
       // try loading the plugin
       const plugin: Plugin = loadPlugin(path)
-
-      // was this plugin loaded?
-      if (plugin.status === 'Loaded') {
-        try {
-          initializePlugin(plugin)
-          plugin.status = 'Initialized'
-          plugins.push(plugin)
-        } catch (e) {
-          plugin.errorMessage = e.message
-          plugin.status = 'Error'
-          plugin.error = 'Initialize'
-          invalidPlugins.push(plugin)
-        }
-      } else {
-        invalidPlugins.push(plugin)
-      }
-
+      use(plugin)
       return plugin
     } catch (e) {
-      // crap... TODO: log that the plugin had an error?
       return null
     }
   }
@@ -80,6 +83,7 @@ export function createRegistry (): Registry {
     commands,
     plugins,
     invalidPlugins,
-    loadPluginFromFile
+    use,
+    useFromFile
   }
 }

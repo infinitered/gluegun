@@ -95,3 +95,17 @@ export function loadPluginDirectory (path: string): Array<Plugin> {
     without([null])
   )(getFiles(path))
 }
+
+/**
+ * Creates a loaded plugin, great for testing.
+ */
+export function createLoadedPlugin (initializer) {
+  return {
+    initializer,
+    config: {},
+    path: '/tmp/whatever',
+    error: null,
+    errorMessage: null,
+    status: 'Loaded'
+  }
+}
