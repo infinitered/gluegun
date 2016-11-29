@@ -1,0 +1,68 @@
+{
+  "name": "staplegun",
+  "version": "0.0.1",
+  "description": "Tack stuff on to your codebase.",
+  "main": "index.js",
+  "bin": {
+    "staplegun": "./dist/index.js"
+  },
+  "scripts": {
+    "test": "ava",
+    "watch": "ava --watch",
+    "coverage": "nyc ava",
+    "start": "babel-node src/index.js",
+    "build": "rollup -c && mv dist/staplegun dist/staplegun.tmp && echo '#!/usr/bin/env node\n' > ./dist/staplegun && cat dist/staplegun.tmp >> ./dist/staplegun && chmod +x ./dist/staplegun && rm dist/staplegun.tmp",
+    "lint": "standard"
+  },
+  "author": {
+    "name": "Steve Kellock",
+    "email": "steve@kellock.ca",
+    "url": "https://github.com/skellock/staplegun"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "inquirer": "^1.2.3",
+    "lodash": "^4.17.2",
+    "minimist": "^1.2.0",
+    "nunjucks": "^3.0.0",
+    "ramda": "^0.22.1",
+    "ramdasauce": "^1.1.1",
+    "shelljs": "^0.7.5",
+    "toml": "^2.3.0"
+  },
+  "devDependencies": {
+    "autobind-decorator": "^1.3.4",
+    "ava": "^0.17.0",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "nyc": "^10.0.0",
+    "rollup": "^0.36.4",
+    "rollup-plugin-babel": "^2.6.1",
+    "standard": "^8.6.0"
+  },
+  "ava": {
+    "require": [
+      "babel-core/register"
+    ],
+    "babel": {
+      "babelrc": false,
+      "presets": [
+        "es2015",
+        "stage-0"
+      ]
+    }
+  },
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "devEngines": {
+    "node": ">=6.x",
+    "npm": ">=3.x"
+  }
+}

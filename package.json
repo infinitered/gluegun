@@ -1,0 +1,14 @@
+{
+  "name": "staplegun",
+  "version": "0.0.1",
+  "description": "Tack stuff on to your codebase.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo lol && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "lerna": "2.0.0-beta.30"
+  }
+}
