@@ -19,6 +19,11 @@
     "email": "steve@kellock.ca",
     "url": "https://github.com/skellock/staplegun"
   },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "license": "MIT",
   "dependencies": {
     "chalk": "^1.1.3",
