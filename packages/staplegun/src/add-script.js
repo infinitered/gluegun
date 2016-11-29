@@ -6,7 +6,7 @@ import { throwWith, isBlank, isnt } from './utils'
 /**
  * Creates a function, that adds a script from a plugin into our list of scripts.
  */
-export default function createScriptAdded (plugin: Plugin, scripts: Array<Script>): Function {
+export default function createAddScript (plugin: Plugin, scripts: Array<Script>): Function {
   return function addScript (name: string, handler: Function): void {
     // sanity
     throwWith('script name cannot be blank', isBlank, name)

@@ -1,8 +1,9 @@
 // @flow
-import type { Registry, Filter, Script, Plugin } from '../types'
+import type { Registry, Filter, Script, Plugin, Command } from '../types'
 import { loadPlugin } from './plugin'
 import { findByProp } from 'ramdasauce'
-import createScriptAdder from './script-adder'
+import createAddScript from './add-script'
+import createAddCommand from './add-command'
 
 /**
  * Create a registry which holds user-defined customizations.
@@ -14,6 +15,7 @@ export function createRegistry (): Registry {
   const filters: Array<Filter> = []
   const scripts: Array<Script> = []
   const plugins: Array<Plugin> = []
+  const commands: Array<Command> = []
 
   const invalidPlugins: Array<Plugin> = []
 
@@ -23,7 +25,8 @@ export function createRegistry (): Registry {
   function initializePlugin (plugin: Plugin): void {
     // plugins will receive this when they get initialized
     const context = {
-      addScript: createScriptAdder(plugin, scripts) // when we find a script
+      addScript: createAddScript(plugin, scripts),   // when we find a script
+      addCommand: createAddCommand(plugin, commands) // when we find a command
     }
 
     // ok, let's do this!
@@ -31,15 +34,6 @@ export function createRegistry (): Registry {
       plugin.initializer(context)
     }
   }
-
-  /**
-   * Removes the plugin and all dependencies.
-   */
-  // function unload (plugin: Plugin): void {
-  //   plugins = without([plugin])
-  //   scripts = reject(propEq('plugin', plugin), scripts)
-  //   filters = reject(propEq('plugin', plugin), filters)
-  // }
 
   /**
    * Loads a plugin from the given path. Ignore dups.
@@ -81,6 +75,7 @@ export function createRegistry (): Registry {
   return {
     filters,
     scripts,
+    commands,
     plugins,
     invalidPlugins,
     load
