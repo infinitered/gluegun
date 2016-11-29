@@ -1,5 +1,6 @@
 import test from 'ava'
-import { isBlank, isNotString, thrower } from '../src/utils'
+import { isBlank, isNotString, thrower, throwWith } from '../src/utils'
+import { T } from 'ramda'
 
 test('isBlank', t => {
   t.true(isBlank())
@@ -28,4 +29,8 @@ test('isNotString', t => {
 
 test('thrower', t => {
   t.throws(() => thrower('hi'), Error, 'hi')
+})
+
+test('throwWith', t => {
+  t.throws(() => throwWith('lulz', T, 1))
 })

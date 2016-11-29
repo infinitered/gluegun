@@ -1,41 +1,66 @@
 // @flow
-import { when, T, F, cond, always } from 'ramda'
-import { isNotString, isBlank, thrower } from './utils'
+import { isNil, any, keys } from 'ramda'
+import { isNotString, isBlank, throwWith } from './utils'
 import type { Action, ActionArguments, ActionOptions } from '../types'
 
 /**
  * Validates a type.  Throws an error if doesn't pass.
  *
  * @throws Error
- * @param {*} string The type to validate.
+ * @param {*} string - The type to validate.
  */
-export function validateType (value: string): void {
-  when(
-    cond([
-      [isNotString, always('not a string')],
-      [isBlank, always('cannot be blank')],
-      [T, F]
-    ]),
-    thrower,
-    value
-  )
+function validateType (value: string): void {
+  throwWith('type is not a string', isNotString, value)
+  throwWith('type cannot be blank', isBlank, value)
+}
+
+/**
+ * Validates some arguments. Throws an error if there's an issue.
+ *
+ * @param {ActionArguments} value - The arguments to validate
+ */
+function validateArguments (value: ActionArguments): void {
+  throwWith('options are null', isNil, value)
+  throwWith('arguments must be strings', any(isNotString), keys(value))
+}
+
+/**
+ * Validates some options. Throws an error if there's an issue.
+ *
+ * @param {ActionOptions} value - The options to validate
+ */
+function validateOptions (value: ActionOptions): void {
+  throwWith('options are null', isNil, value)
+  throwWith('options keys must be strings', any(isNotString), keys(value))
 }
 
 /**
  * Creates an action for the given type.
  *
  * @export
- * @param {string} type
- * @param {ActionArguments} args
- * @param {ActionOptions} opts
+ * @param {string} type - The type of the action.
+ * @param {ActionArguments} args - Any additional args.
+ * @param {ActionOptions} opts - Any addtional options
  * @returns {Action}
  */
 export function createAction (
   type: string,
-  args: ActionArguments,
-  opts: ActionOptions
+  args?: ActionArguments,
+  opts?: ActionOptions
 ): Action {
-  validateType(type)
+  // default arguments and options
+  const theArguments = args || []
+  const theOptions = opts || {}
 
-  return { type, arguments: [], options: {} }
+  // make sure things are sane
+  validateType(type)
+  validateArguments(theArguments)
+  validateOptions(theOptions)
+
+  // create the action
+  return {
+    type,
+    arguments: theArguments,
+    options: theOptions
+  }
 }
