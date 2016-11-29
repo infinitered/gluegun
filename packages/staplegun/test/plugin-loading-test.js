@@ -18,33 +18,33 @@ test('knows about missing files', t => {
 })
 
 test('knows about corrupt files', t => {
-  const p = loadPlugin(`${__dirname}/_plugins/_corrupt.js`)
+  const p = loadPlugin(`${__dirname}/_plugin_loading/_corrupt.js`)
   t.is(p.error, 'Invalid')
   t.is(p.status, 'Error')
 })
 
 test('knows about missing defaults', t => {
-  const p = loadPlugin(`${__dirname}/_plugins/_nodefault.js`)
+  const p = loadPlugin(`${__dirname}/_plugin_loading/_nodefault.js`)
   t.is(p.error, 'Invalid')
   t.is(p.status, 'Error')
 })
 
 test('knows about wrong default', t => {
-  const p = loadPlugin(`${__dirname}/_plugins/_wrong.js`)
+  const p = loadPlugin(`${__dirname}/_plugin_loading/_wrong.js`)
   t.is(p.error, 'Invalid')
   t.is(p.status, 'Error')
 })
 
 test('knows about wrong requires', t => {
-  const p = loadPlugin(`${__dirname}/_plugins/_bad-require.js`)
+  const p = loadPlugin(`${__dirname}/_plugin_loading/_bad-require.js`)
   t.is(p.error, 'Invalid')
   t.is(p.status, 'Error')
 })
 
 test('loads valid plugins', t => {
-  t.truthy(loadPlugin(`${__dirname}/_plugins/_right.js`))
+  t.truthy(loadPlugin(`${__dirname}/_plugin_loading/_right.js`))
   // dups don't matter at this level
-  t.truthy(loadPlugin(`${__dirname}/_plugins/_right.js`))
+  t.truthy(loadPlugin(`${__dirname}/_plugin_loading/_right.js`))
 })
 
 test('deals with crap', t => {
@@ -57,9 +57,9 @@ test('knows about missing directory', t => {
 })
 
 test('empty directories is totes ok', t => {
-  t.is(loadPluginDirectory(`${__dirname}/_directories/_empty`).length, 0)
+  t.is(loadPluginDirectory(`${__dirname}/_plugin_loading/_directories/_empty`).length, 0)
 })
 
 test('can load multiple files when the whole dir is good', t => {
-  t.is(loadPluginDirectory(`${__dirname}/_directories/_good`).length, 3)
+  t.is(loadPluginDirectory(`${__dirname}/_plugin_loading/_directories/_good`).length, 3)
 })
