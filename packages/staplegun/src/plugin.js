@@ -2,18 +2,13 @@
 import type { Plugin } from '../types'
 import { throwWith, isNotString } from './utils'
 import { is, isNil, map, pipe, without } from 'ramda'
-import shell from 'shelljs'
-
-shell.config.silent = true
-
-// the mask to use when searching for plugins in a directory
-const PLUGIN_FILE_GLOB = '*.js'
+import jetpack from 'fs-jetpack'
 
 // is this file missing?
-const isFileMissing = path => !shell.test('-e', path)
+const isFileMissing = path => !jetpack.exists(path)
 
 // is this a directory
-const isNotDirectory = path => !shell.test('-d', path)
+const isNotDirectory = path => jetpack.exists(path) !== 'dir'
 
 // try loading this module
 function getPluginInitializer (path: string): ?Function {
@@ -54,7 +49,6 @@ export function loadPlugin (path: string): Plugin {
   } else {
     // attempt to load the plugin
     plugin.initializer = getPluginInitializer(path)
-
     // did we load it properly?
     if (is(Function, plugin.initializer)) {
       plugin.status = 'Loaded'
@@ -71,10 +65,9 @@ export function loadPlugin (path: string): Plugin {
  * Gets the names of the files in the given directory.
  */
 function getFiles (path: string): Array<string> {
-  shell.pushd(path)
-  const dirs = shell.ls(PLUGIN_FILE_GLOB).map(x => `${path}/${x}`)
-  shell.popd()
-  return dirs
+  return jetpack
+    .cwd(path)
+    .find({ matching: '*.js', recursive: false })
 }
 
 /**

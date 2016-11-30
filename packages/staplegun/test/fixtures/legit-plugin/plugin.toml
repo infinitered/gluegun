@@ -1,0 +1,10 @@
+[scripts]
+namespace = 'legit'
+
+[scripts.welcome]
+summary = "says hello"
+
+[scripts.farewell]
+summary = "says goodbye"
+
+  [scripts.farewell.defaults]

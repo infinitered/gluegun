@@ -5,8 +5,7 @@ import jetpack from 'fs-jetpack'
 import chalk from 'chalk'
 import { drawHeader, drawLine, drawBlank, drawText } from './drawing'
 import { createRuntime } from './runtime'
-import { createAction } from './action'
-import type { Runtime, Action } from '../types'
+import type { Runtime } from '../types'
 
 // parse the command line into what we need
 const args = minimist(process.argv.slice(2))
@@ -30,8 +29,6 @@ drawText(`  ${chalk.gray('options  :')}  ${isNilOrEmpty(commandOptions) ? chalk.
 drawBlank()
 drawLine()
 
-const action: Action = createAction('test', commandArgs, commandOptions)
+const runtime: Runtime = createRuntime({ configPath })
 
-const runtime: Runtime = createRuntime({ configPath, config })
-
-runtime.run(action)
+runtime.run(commandArgs, commandOptions)

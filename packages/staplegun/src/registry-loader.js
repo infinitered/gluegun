@@ -3,7 +3,7 @@ import type { Registry } from '../types'
 import jetpack from 'fs-jetpack'
 import toml from 'toml'
 import { throwWith, isBlank } from './utils'
-import { all, has, keys, isArrayLike, length, complement, equals, isNil, values, is, test } from 'ramda'
+import { all, has, keys, isArrayLike, length, complement, equals, isNil, values, is, test, forEach } from 'ramda'
 import { createRegistry } from './registry'
 
 const hasWhitespace = test(/\s/)
@@ -43,10 +43,11 @@ export function load (path: string): Registry {
   throwWith(`plugins key is missing`, complement(has('plugins')), rootValue)
 
   // plugins must be an array
-  throwWith(`plugins key is not an array, it is ${typeof rootValue.plugins} ${rootValue.plugins}`, notArray, rootValue.plugins)
+  const plugins = rootValue.plugins
+  throwWith(`plugins key is not an array, it is ${typeof rootValue.plugins} ${rootValue.plugins}`, notArray, plugins)
 
   // plugins must have only strings
-  throwWith(`all plugins values should be strings ${rootValue.plugins}`, complement(all(is(String))), rootValue.plugins)
+  throwWith(`all plugins values should be strings ${rootValue.plugins}`, complement(all(is(String))), plugins)
 
   // plugins array should only contain strings
   const namespace = keys(config)[0]
@@ -57,7 +58,15 @@ export function load (path: string): Registry {
   // namespaces cannot have whitespace
   throwWith(`'${namespace}' is an invalid namespace as it has whitespace`, hasWhitespace, namespace)
 
+  // create the registry
   const registry = createRegistry(namespace)
+
+  // load each of the plugins
+  forEach(
+    pluginPath => {
+      const fullPath = `${jetpack.cwd()}/${pluginPath}`
+      registry.useFromFile(fullPath)
+    }, plugins)
 
   return registry
 }
