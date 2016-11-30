@@ -1,5 +1,5 @@
 // @flow
-import { curry, when, pipe, trim, isEmpty, is, always, complement } from 'ramda'
+import { curry, when, pipe, trim, isEmpty, is, always, complement, max, join, repeat } from 'ramda'
 
 /**
  * The opposite of is.  Great restraint made me not call this: aint.
@@ -47,3 +47,7 @@ export const throwWith = curry(
   }
 )
 
+export const leftPad = curry((num, fill, str) => {
+  const again = max(0, num - str.length)
+  return join('', repeat(fill, again)) + str
+})
