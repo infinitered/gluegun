@@ -12,11 +12,8 @@ theme such as **react native**, **fastlane**, or even just **my sandbox**.
 
 # First Steps
 
-A plugin is a directory.
-
-The simplest plugin you can make is an empty directory!
-
-And that's not helpful in the least so, let's start with this.
+A plugin is a directory. The simplest plugin you can make is an empty 
+directory! And that's not helpful in the least so, let's start with this.
 
 ## plugin.toml
 
@@ -31,10 +28,22 @@ want to.
 
 # Directory Structure
 
-### /plugin.toml
+`/plugin.toml`
+
+Your configuration file.
+
+**Example:**
+```toml
+# plugin.toml
+namespace = 'my-plugins'
+
+[commands.hello]
+description = 'Prints hello to the terminal.'
+
+```
 
 
-### /scripts/*.js
+`/scripts/*.js`
 
 The entry points into your plugin.  This is what folks will be typing on 
 the command line to run things you make.  These will be JavaScript (ES6) 
@@ -42,7 +51,8 @@ the command line to run things you make.  These will be JavaScript (ES6)
 
 examples:  hello.js, generate.js, clean.js
 
-### /commands/*.js
+`/commands/*.js`
+
 Commands are JavaScript functions you call from scripts.  `staple-gun` 
 comes with core commands that can be called from anyone's scripts, and 
 here's your opportunity to do the same.
@@ -52,14 +62,16 @@ authors since they will become globally available.
 
 examples: check-npm-version.js, launch-ios-simulator.js, s3-backup.js 
   
-### /filters/*.js
+`/filters/*.js`
 
 Filters are a way to extend the templating system.  They are generally
 short, pure functions which you can then call from your templates.
 
+```
 examples: kebab-case.js, camel-case.js, left-pad.js, fresh-prince.js
+```
 
-### /templates/*.js
+`/templates/*.js`
 
 You're free to create any other directories, however, these 4 have 
 

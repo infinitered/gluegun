@@ -1,10 +1,36 @@
-[scripts]
+# The namespace groups commands together.  Users will
+# type this on the command line prompt to address the
+# other commands you make available in this plugin.
+#
+# By default the namespace is the name of the directory
+# that contains the plugin.toml file.  You can override
+# this here.
+#
+# The end-user can also override this at their project
+# as well.
+#
+# Try to name it something very specific that might not
+# clash with other plugin developers.
+#
+# Good examples: 'ignite', 'reactotron'
+# Bad examples: 'test', 'dev', 'react'
+#
 namespace = 'legit'
 
-[scripts.welcome]
+# Commands will be auto-detected and named based on how
+# they appear in the 'commands' directory.
+#
+# You can 
+#
+# Example of what the user will type:
+#   > staple legit hello
+# or
+#   > staple legit.hello
+[command.hello]
 summary = "says hello"
 
-[scripts.farewell]
+# $ staple legit 
+[scripts.bye]
 summary = "says goodbye"
 
   [scripts.farewell.defaults]
