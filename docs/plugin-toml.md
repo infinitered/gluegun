@@ -35,7 +35,6 @@ The version number. What that means is up to you.
 version = '1.0.3'     # good - semver
 version = '1.15'      # good - comver
 version = 'giraffe-4' # good - 4th release of the giraffe architecture
-
 version = '4'         # bad - is every release a breaking change?
 version = ''          # bad - diy upgrade checking :(
 ```
@@ -48,17 +47,16 @@ will type this first to get to your commands. Pick something specific to
 ensure you play well with others.  There is no central repo for plugins, so 
 ... SPARTA! Users can remap this in their project.
 
-| | |
+|note|description|
 |----|----|
-|`required`|nope|
-|`type`|kebab-case, lower-case, numbers, dashes, no-whitespace|
-|`defaults to`|the name of the directory|
+|required|nope|
+|type|kebab-case, lower-case, numbers, dashes, no-whitespace|
+|defaults to|the name of the directory|
 
 ```toml
 [plugin]
 namespace = 'reactotron' # good - specific
 namespace = 'ignite'     # good - named after a project
-
 namespace = 'dev'        # bad - too generic
 namespace = 'facebook'   # bad - you're not facebook
 namespace = ''
