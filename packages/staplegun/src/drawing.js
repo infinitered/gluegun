@@ -48,6 +48,7 @@ export function drawBlank (): void {
  * Draw the header
  */
 export function drawHeader (): void {
+  drawBlank()
   drawText(chalk.white(HEADER))
   drawBlank()
   drawText(chalk.yellow('           https://github.com/skellock/staplegun'))

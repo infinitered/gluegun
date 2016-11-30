@@ -21,8 +21,8 @@ if (!config) {
 
 // draw the status
 drawBlank()
-drawText(`   ${chalk.gray('config  :')}  ${isNilOrEmpty(config) ? chalk.red('missing') + chalk.white(` (${configPath})`) : chalk.white(configPath)}`)
-drawText(`  ${chalk.gray('command  :')}  ${isNilOrEmpty(commandArgs) ? chalk.red('none') : chalk.white(join(' ', commandArgs))}`)
-drawText(`  ${chalk.gray('options  :')}  ${isNilOrEmpty(commandOptions) ? chalk.red('none') : chalk.white(JSON.stringify(commandOptions))}`)
+drawText(`   ${chalk.gray('config  :')}  ${isNilOrEmpty(config) ? chalk.red('missing') + chalk.white(` (${configPath})`) : chalk.yellow(configPath)}`)
+drawText(`  ${chalk.gray('command  :')}  ${isNilOrEmpty(commandArgs) ? chalk.red('none') : chalk.yellow(join(' ', commandArgs))}`)
+drawText(`  ${chalk.gray('options  :')}  ${isNilOrEmpty(commandOptions) ? chalk.red('none') : chalk.yellow(JSON.stringify(commandOptions))}`)
 drawBlank()
 drawLine()
