@@ -3,7 +3,7 @@ import { createRegistry } from '../src/registry'
 import { createLoadedPlugin } from '../src/plugin'
 
 test('detects commands', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addCommand('identity', x => x)
   })
@@ -17,7 +17,7 @@ test('detects commands', t => {
 })
 
 test('prevents duplicate commands', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addCommand('identity', x => x)
     env.addCommand('identity', x => x)
@@ -28,7 +28,7 @@ test('prevents duplicate commands', t => {
 })
 
 test('command names must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addCommand('', x => x)
   })
@@ -38,7 +38,7 @@ test('command names must be non-blank', t => {
 })
 
 test('commands must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addCommand('hi')
   })

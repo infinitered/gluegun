@@ -2,7 +2,7 @@ import test from 'ava'
 import { createRegistry } from '../src/registry'
 
 test('setups properly', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
 
   t.truthy(r.plugins)
   t.truthy(r.filters)
@@ -13,7 +13,7 @@ test('setups properly', t => {
 })
 
 test('survives strange useFromFile parameters', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
 
   t.falsy(r.useFromFile(null))
   t.falsy(r.useFromFile(undefined))
@@ -31,7 +31,7 @@ test('survives strange useFromFile parameters', t => {
 
 // much of these tests are handled at the plugin loading stage
 test('handles bad plugins', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const badPath = `${__dirname}/_plugins/_does_not_exist.lol`
   const badPlugin = r.useFromFile(badPath)
 
@@ -43,7 +43,7 @@ test('handles bad plugins', t => {
 })
 
 test('loads empty plugins', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
 
   t.deepEqual(r.invalidPlugins, [])
@@ -54,7 +54,7 @@ test('loads empty plugins', t => {
 })
 
 test('silently ignore duplicate plugins', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
   r.useFromFile(`${__dirname}/_plugins/_no-registers.js`)
 

@@ -5,6 +5,7 @@ import { findByProp } from 'ramdasauce'
 import createAddScript from './add-script'
 import createAddCommand from './add-command'
 import createAddFilter from './add-filter'
+import { throwWith, isBlank } from './utils'
 
 /**
  * Create a registry which holds user-defined customizations.
@@ -12,7 +13,9 @@ import createAddFilter from './add-filter'
  * @export
  * @returns {Registry}
  */
-export function createRegistry (): Registry {
+export function createRegistry (namespace: string): Registry {
+  throwWith('registry namespace cannot be blank', isBlank, namespace)
+
   const filters: Array<Filter> = []
   const scripts: Array<Script> = []
   const plugins: Array<Plugin> = []
@@ -78,6 +81,7 @@ export function createRegistry (): Registry {
   }
 
   return {
+    namespace,
     filters,
     scripts,
     commands,

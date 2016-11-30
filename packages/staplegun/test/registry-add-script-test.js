@@ -3,7 +3,7 @@ import { createRegistry } from '../src/registry'
 import { createLoadedPlugin } from '../src/plugin'
 
 test('detects scripts', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addScript('identity', x => x)
   })
@@ -18,7 +18,7 @@ test('detects scripts', t => {
 })
 
 test('prevents duplicate scripts', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addScript('identity', x => x)
     env.addScript('identity', x => x)
@@ -29,7 +29,7 @@ test('prevents duplicate scripts', t => {
 })
 
 test('script names must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addScript('', x => x)
   })
@@ -39,7 +39,7 @@ test('script names must be non-blank', t => {
 })
 
 test('scripts must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addScript('hi')
   })

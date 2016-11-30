@@ -88,9 +88,18 @@ export type Command = {
 }
 
 /**
+ * Registry configuration.
+ */
+export type RegistryConfig = {
+  namespace: string, // the unique namespace of this registry
+  path: string       // the path to the TOML config file
+}
+
+/**
  * Holds the user-configurable things.
  */
 export type Registry = {
+  namespace: string,             // the unique namespace of this registry
   invalidPlugins: Array<Plugin>, // holds plugins that were unable to load
   plugins: Array<Plugin>,        // holds plugins that were able to load
   scripts: Array<Script>,        // holds scripts that were registered in plugins
@@ -101,3 +110,15 @@ export type Registry = {
   use: Function          // loads a plugin from a Plugin
 }
 
+/**
+ * The top-level environment that will run our actions through.
+ */
+export type Runtime = {
+  workingDir: ?string,         // the path that is our root
+  configPath: ?string,         // the full path to the TOML used
+  config: {},                  // the configuration
+  registries: Array<Registry>, // a list of registries providing functionality
+
+  run: Function, // runs an action
+  print: Function, // plugins can call this to print output to the user
+}

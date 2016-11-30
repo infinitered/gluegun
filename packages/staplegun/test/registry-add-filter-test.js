@@ -3,7 +3,7 @@ import { createRegistry } from '../src/registry'
 import { createLoadedPlugin } from '../src/plugin'
 
 test('detects filters', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addFilter('identity', x => x)
   })
@@ -17,7 +17,7 @@ test('detects filters', t => {
 })
 
 test('prevents duplicate filters', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addFilter('identity', x => x)
     env.addFilter('identity', x => x)
@@ -28,7 +28,7 @@ test('prevents duplicate filters', t => {
 })
 
 test('filter names must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addFilter('', x => x)
   })
@@ -38,7 +38,7 @@ test('filter names must be non-blank', t => {
 })
 
 test('filters must be non-blank', t => {
-  const r = createRegistry()
+  const r = createRegistry('test')
   const plugin = createLoadedPlugin(env => {
     env.addFilter('identity')
   })
