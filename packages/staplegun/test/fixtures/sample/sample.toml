@@ -1,7 +1,2 @@
-[general]
-namespace = 'sample'
-
-[[plugin]]
-this=45
-
-[[plugin]]
+[sample]
+plugins=['hey']
