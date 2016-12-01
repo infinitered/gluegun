@@ -43,11 +43,13 @@ semicolons  = false
 [[command]]
 name        = 'setup config'
 file        = 'setup.js'
+function    = 'setup'
 description = 'Creates a Reactotron config file specified directory.'
 
 [[command]]
 name        = 'version'
 file        = 'version.js'
+function    = 'checkVersion'
 description = 'Checks to see if there are new versions available.'
 ```
 
@@ -125,7 +127,15 @@ file = 'version.js'
 The path is relative to this plugin, so you can arrange your
 sub-directories into whatever works for you.
 
-These JavaScript files
+These JavaScript files are ES6 and have access to most modern conveniences.
+
+## function
+
+The function inside the JS file that runs this command.
+
+```toml
+function = 'runForestRun'
+```
 
 
 ## description
