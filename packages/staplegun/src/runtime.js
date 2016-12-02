@@ -51,7 +51,7 @@ class Runtime {
   /**
    * Runs a command.
    */
-  run (
+  async run (
     namespace: string,
     args: string = '',
     opts: any = {}
@@ -65,7 +65,7 @@ class Runtime {
     if (!command) return
 
     // run the command
-    const result = command.run()
+    const result = await command.run()
     return result
   }
 }

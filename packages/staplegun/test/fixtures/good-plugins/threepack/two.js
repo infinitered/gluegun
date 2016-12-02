@@ -1,3 +1,3 @@
-export function omgTwo () {
+export async function omgTwo () {
   return 'two'
 }

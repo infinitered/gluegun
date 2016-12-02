@@ -1,4 +1,3 @@
-// @flow
 import test from 'ava'
 import Plugin from '../src/plugin'
 
@@ -56,7 +55,7 @@ test('sane defaults', t => {
   t.deepEqual(plugin.defaults, {})
 })
 
-test('loads commands', t => {
+test('loads commands', async t => {
   const plugin = new Plugin()
   const dir = `${__dirname}/fixtures/good-plugins/threepack`
   plugin.loadFromDirectory(dir)
@@ -75,5 +74,5 @@ test('loads commands', t => {
   t.is(two.functionName, 'omgTwo')
   t.is(two.description, 'Returns a two')
   t.is(typeof two.run, 'function')
-  t.is(two.run(), 'two')
+  t.is(await two.run(), 'two')
 })

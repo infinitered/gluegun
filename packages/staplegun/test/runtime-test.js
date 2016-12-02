@@ -26,11 +26,11 @@ test('gets a list of commands', t => {
   t.deepEqual(list[0], { plugin: p1.namespace, command: c0.name, description: c0.description })
 })
 
-test('runs a command', t => {
+test('runs a command', async t => {
   const r = new Runtime()
   r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/simplest`)
   r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/threepack`)
 
-  const result = r.run('3pack', 'three')
+  const result = await r.run('3pack', 'three')
   t.deepEqual(result, [1, 2, 3])
 })
