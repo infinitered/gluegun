@@ -1,104 +1,67 @@
 // @flow
-import type { Plugin } from '../types'
-import { throwWith, isNotString } from './utils'
-import { is, isNil, map, pipe, without } from 'ramda'
-import jetpack from 'fs-jetpack'
-
-// is this file missing?
-const isFileMissing = path => !jetpack.exists(path)
-
-// is this a directory
-const isNotDirectory = path => jetpack.exists(path) !== 'dir'
-
-// try loading this module
-function getPluginInitializer (path: string): ?Function {
-  try {
-    require.resolve(path)
-    return require(path).default
-  } catch (e) {
-    return null
-  }
-}
+import autobind from 'autobind-decorator'
+import Command from './command'
 
 /**
- * Creates a plugin.
+ * The plugin's loading stage.
  *
- * @param {string} path - The full path to the plugin.
- * @returns {Plugin}
+ * none = the plugin has not been loaded
+ * ready = we're ready to go
+ * error = something horrible has happened
  */
-export function loadPlugin (path: string): Plugin {
-  // sanity
-  throwWith('path is required', isNil, path)
-  throwWith('path must be a string', isNotString, path)
-
-  // TODO: load the config
-  const config = {}
-  const plugin: Plugin = {
-    config,
-    path,
-    initializer: null,
-    error: null,
-    errorMessage: null,
-    status: 'Error'
-  }
-
-  // is the file missing?
-  if (isFileMissing(path)) {
-    plugin.status = 'Error'
-    plugin.error = 'Missing'
-  } else {
-    // attempt to load the plugin
-    plugin.initializer = getPluginInitializer(path)
-    // did we load it properly?
-    if (is(Function, plugin.initializer)) {
-      plugin.status = 'Loaded'
-    } else {
-      plugin.status = 'Error'
-      plugin.error = 'Invalid'
-    }
-  }
-
-  return plugin
-}
+export type PluginLoadState = 'none' | 'ready' | 'error'
 
 /**
- * Gets the names of the files in the given directory.
- */
-function getFiles (path: string): Array<string> {
-  return jetpack
-    .cwd(path)
-    .find({ matching: '*.js', recursive: false })
-}
-
-/**
- * Loads all the plugins in the given directory.
+ * The error state.
  *
- * @export
- * @param {string} path - The path to search
- * @returns {Array<Plugin>}
+ * none          = no problems
+ * missingdir    = can't find the plugin directory
+ * missingconfig = can't find the config file
+ * badconfig     = the config file is invalid
  */
-export function loadPluginDirectory (path: string): Array<Plugin> {
-  // sanity
-  throwWith('directory path is required', isNil, path)
-  throwWith('directory path must be a string', isNotString, path)
-  throwWith('directory path must be a string', isNotDirectory, path)
-  //  grab all the files
-  return pipe(
-    map(pluginPath => { try { return loadPlugin(pluginPath) } catch (e) { return null } }),
-    without([null])
-  )(getFiles(path))
-}
+export type PluginErrorState = 'none' | 'missingdir' | 'missingconfig' | 'badconfig'
 
 /**
- * Creates a loaded plugin, great for testing.
+ * Extends the environment with new commands.
  */
-export function createLoadedPlugin (initializer :Function): Plugin {
-  return {
-    initializer,
-    config: {},
-    path: '/tmp/whatever',
-    error: null,
-    errorMessage: null,
-    status: 'Loaded'
-  }
+@autobind
+class Plugin {
+
+  /**
+   * The namespace used as a prefix to the commands.
+   */
+  namespace: ?string
+
+  /**
+   * The stage of loading.
+   */
+  loadState: PluginLoadState = 'none'
+
+  /**
+   * The error state
+   */
+  errorState: PluginErrorState = 'none'
+
+  /**
+   * Default plugin configuration.
+   */
+  config: Object = {}
+
+  /**
+   * The location of the plugin on the file system
+   */
+  directory: ?string
+
+  /**
+   * The error message if any.
+   */
+  errorMessage: ?string
+
+  /**
+   * A list of commands.
+   */
+  commands: Command[] = []
+
 }
+
+export default Plugin

@@ -1,5 +1,6 @@
 // @flow
 import { curry, when, pipe, trim, isEmpty, is, always, complement, max, join, repeat } from 'ramda'
+import jetpack from 'fs-jetpack'
 
 /**
  * The opposite of is.  Great restraint made me not call this: aint.
@@ -51,3 +52,13 @@ export const leftPad = curry((num, fill, str) => {
   const again = max(0, num - str.length)
   return join('', repeat(fill, again)) + str
 })
+
+/**
+ * Is this a file?
+ */
+export const isFile = file => jetpack.exists(file) === 'file'
+
+/**
+ * Is this not a file?
+ */
+export const isNotFile = complement(isFile)
