@@ -1,0 +1,10 @@
+{
+  "staplegun": {
+    "namespace": "3pack",
+    "commands": [
+      { "name": "one", "file": "one.js", "description": "Returns a 1" },
+      { "name": "two", "file": "two.js", "functionName": "omgTwo", "description": "Returns a two" },
+      { "name": "three", "file": "three.js", "description": "Says 123 and returns an array" }
+     ]
+  }
+}

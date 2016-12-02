@@ -62,3 +62,13 @@ export const isFile = file => jetpack.exists(file) === 'file'
  * Is this not a file?
  */
 export const isNotFile = complement(isFile)
+
+/**
+ * Is this a directory?
+ */
+export const isDirectory = dir => jetpack.exists(dir) === 'dir'
+
+/**
+ * Is this not a directory?
+ */
+export const isNotDirectory = complement(isDirectory)
