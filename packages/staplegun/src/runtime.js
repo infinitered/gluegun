@@ -1,55 +1,62 @@
 // @flow
-import type { Script, Runtime, Registry } from '../types'
-import { load } from './registry-loader'
-import { forEach, pipe, flatten, pluck } from 'ramda'
+import autobind from 'autobind-decorator'
+import Plugin from './plugin'
+import { append, forEach } from 'ramda'
 
-export function createRuntime (options: any = {}): Runtime {
-  // provide a way for plugins to do their thing
-  const print = options.log || console.log
+/**
+ * Loads plugins an action through the gauntlet.
+ */
+@autobind
+class Runtime {
 
-  // remember the current working directory
-  const workingDir = options.workingDir || process.cwd()
+  plugins = []
 
-  // the location of the config file
-  const configPath = options.configPath
-
-  // the list of registries providing features
-  const registries: Registry[] = []; // eslint-disable-line
-
-  // try loading the Registry
-  const registry: Registry = load(configPath)
-  registries.push(registry)
-
-  function getScripts (): Script[] {
-    return pipe(
-      pluck('scripts'),
-      flatten
-    )(registries)
+  /**
+   * Adds a plugin.
+   */
+  addPlugin (plugin: Plugin): void {
+    this.plugins = append(plugin, this.plugins)
   }
 
   /**
-   * Find the scripts which match this value
+   * Loads a plugin from a directory.
    */
-  const matchScripts = value => {
-    const allScripts = getScripts()
+  addPluginFromDirectory (directory: string): Plugin|void {
+    const plugin = new Plugin()
+    plugin.loadFromDirectory(directory)
+    this.addPlugin(plugin)
+    return plugin
   }
 
   /**
-   * Kicks off a run with an action
+   * Returns a list of commands for printing
    */
-  function run (args: string, options: any = {}): void {
-    forEach(script => {
-      print(`Script: ${script.name}`)
-      script.handler()
-    }, getScripts())
+  listCommands () {
+    const commands = []
+    const eachPlugin = plugin => {
+      const eachCommand = command => {
+        commands.push({
+          plugin: plugin.namespace,
+          command: command.name,
+          description: command.description
+        })
+      }
+      forEach(eachCommand, plugin.commands)
+    }
+    forEach(eachPlugin, this.plugins)
+    return commands
   }
 
-  return {
-    config: {},
-    print,
-    workingDir,
-    registries,
-    configPath,
-    run
+  /**
+   * Runs a command.
+   */
+  run (
+    namespace: string,
+    args: string[] = [],
+    opts: any = {}
+  ): void {
+
   }
 }
+
+export default Runtime

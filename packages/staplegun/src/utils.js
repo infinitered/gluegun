@@ -53,6 +53,11 @@ export const leftPad = curry((num, fill, str) => {
   return join('', repeat(fill, again)) + str
 })
 
+export const rightPad = curry((num, fill, str) => {
+  const again = max(0, num - str.length)
+  return str + join('', repeat(fill, again))
+})
+
 /**
  * Is this a file?
  */
