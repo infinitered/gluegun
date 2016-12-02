@@ -1,7 +1,8 @@
 // @flow
 import autobind from 'autobind-decorator'
 import Plugin from './plugin'
-import { append, forEach } from 'ramda'
+import { find, append, forEach } from 'ramda'
+import { findByProp } from 'ramdasauce'
 
 /**
  * Loads plugins an action through the gauntlet.
@@ -52,10 +53,20 @@ class Runtime {
    */
   run (
     namespace: string,
-    args: string[] = [],
+    args: string = '',
     opts: any = {}
-  ): void {
+  ): any {
+    // find the plugin
+    const plugin = findByProp('namespace', namespace || '', this.plugins)
+    if (!plugin) return
 
+    // find the command
+    const command = find(x => x.name === args, plugin.commands)
+    if (!command) return
+
+    // run the command
+    const result = command.run()
+    return result
   }
 }
 
