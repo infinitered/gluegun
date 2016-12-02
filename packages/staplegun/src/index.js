@@ -13,18 +13,10 @@ const namespace = head(args._)
 const commandArgs = join(' ', slice(1, Infinity, args._))
 const commandOptions = dissoc('_', args)
 
-// config file
-const configPath = './staplegun.toml'    // the config to use
-const config = jetpack.read(configPath)  // try reading the config
-
-// draw a header if haven't found one
-if (!config) {
-  drawHeader()
-}
+drawHeader()
 
 // draw the status
 drawBlank()
-drawText(`    ${chalk.gray('config :')}  ${isNilOrEmpty(config) ? chalk.red('missing') + chalk.white(` (${configPath})`) : chalk.yellow(configPath)}`)
 drawText(` ${chalk.gray('namespace :')}  ${isNilOrEmpty(namespace) ? chalk.red('none') : chalk.yellow(namespace)}`)
 drawText(`   ${chalk.gray('command :')}  ${isNilOrEmpty(commandArgs) ? chalk.red('none') : chalk.yellow(commandArgs)}`)
 drawText(`   ${chalk.gray('options :')}  ${isNilOrEmpty(commandOptions) ? chalk.red('none') : chalk.yellow(JSON.stringify(commandOptions))}`)
@@ -33,6 +25,7 @@ drawLine()
 
 const runtime: Runtime = new Runtime()
 runtime.addPluginFromDirectory(`${__dirname}/../test/fixtures/good-plugins/threepack`)
+runtime.addPluginFromDirectory(jetpack.cwd())
 
 // print the commands
 drawBlank()
