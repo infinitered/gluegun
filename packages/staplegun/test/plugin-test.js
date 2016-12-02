@@ -66,8 +66,8 @@ test('loads commands', t => {
   t.is(plugin.namespace, '3pack')
   t.is(plugin.directory, dir)
   t.falsy(plugin.errorMessage)
-  t.deepEqual(plugin.defaults, {})
   t.is(plugin.commands.length, 3)
+  t.deepEqual(plugin.defaults, { numbers: 3 })
 
   const two = plugin.commands[1]
   t.is(two.name, 'two')
