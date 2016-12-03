@@ -113,23 +113,24 @@ class Runtime {
     if (!plugin) {
       return context
     }
-    context.plugin = plugin
 
     // find the command
     const command: ?Command = this.findCommand(plugin, fullArguments)
-    if (!command) {
-      return context
+    if (command) {
+      // parse & chop up the arguments
+      context.arguments = extractSubArguments(fullArguments, trim(command.name))
+      context.stringArguments = join(COMMAND_DELIMITER, context.arguments)
+
+      // kick it off
+      if (command.run) {
+        try {
+          context.result = await command.run(context)
+        } catch (e) {
+          context.error = e
+        }
+      }
     }
-    context.command = command
 
-    // parse & chop up the arguments
-    context.arguments = extractSubArguments(fullArguments, trim(command.name))
-    context.stringArguments = join(COMMAND_DELIMITER, context.arguments)
-
-    // kick it off
-    await context.run()
-
-    // return the whole RunContext
     return context
   }
 }

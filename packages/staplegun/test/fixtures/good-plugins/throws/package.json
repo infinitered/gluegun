@@ -1,0 +1,10 @@
+{
+  "name": "args",
+  "version": "1.0.0",
+  "staplegun": {
+    "namespace": "throws",
+    "commands": [
+      { "name": "throw", "file": "throw.js", "description": "Throws an error" }
+    ]
+  }
+}

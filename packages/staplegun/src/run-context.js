@@ -1,20 +1,8 @@
 // @flow
 import autobind from 'autobind-decorator'
-import Plugin from './plugin'
-import Command from './command'
 
 @autobind
 export default class RunContext {
-
-  /**
-   * The Plugin to run
-   */
-  plugin: Plugin
-
-  /**
-   * The Command to run
-   */
-  command: Command
 
   /**
    * The full arguments (including command name)
@@ -39,20 +27,11 @@ export default class RunContext {
   /**
    * The result of the run command.
    */
-  result: any
+  result: any = null
 
   /**
-   * Runs the command.
+   * An error, if any.
    */
-  async run () {
-    // run the command
-    if (this.command.run) {
-      // split the arguments apart and sub args get passed along
-      this.result = await this.command.run(this)
-    } else {
-      this.result = null
-    }
-    return this
-  }
+  error: any = null
 
 }
