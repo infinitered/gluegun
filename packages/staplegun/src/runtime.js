@@ -2,7 +2,7 @@
 import autobind from 'autobind-decorator'
 import Plugin from './plugin'
 import Command from './command'
-import { when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } from 'ramda'
+import { clone, when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } from 'ramda'
 import { findByProp, startsWith } from 'ramdasauce'
 import { isBlank } from './utils'
 import RunContext from './run-context'
@@ -113,6 +113,7 @@ class Runtime {
     if (!plugin) {
       return context
     }
+    context.config = clone(plugin.defaults)
 
     // find the command
     const command: ?Command = this.findCommand(plugin, fullArguments)

@@ -1,12 +1,6 @@
 import test from 'ava'
 import Runtime from '../src/runtime'
 
-test('loads the runtime', t => {
-  const r = new Runtime()
-  t.truthy(r)
-  t.is(r.plugins.length, 0)
-})
-
 test('adds a directory', t => {
   const r = new Runtime()
   r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/simplest`)
@@ -70,7 +64,8 @@ test('runs a command', async t => {
 test('can pass arguments', async t => {
   const r = new Runtime()
   r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/args`)
-  const context = await r.run('say', 'hello steve kellock', { caps: false })
+  const context = await r.run('args', 'hello steve kellock', { caps: false })
+
   t.truthy(context)
   t.is(context.fullArguments, 'hello steve kellock')
   t.deepEqual(context.arguments, ['steve', 'kellock'])
@@ -78,4 +73,16 @@ test('can pass arguments', async t => {
   t.is(context.result, 'hi steve kellock')
   t.deepEqual(context.options, { caps: false })
   t.falsy(context.error)
+})
+
+test('can read from config', async t => {
+  const r = new Runtime()
+  const plugin = r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/args`)
+  const context = await r.run('args', 'config')
+
+  t.falsy(plugin.error)
+  t.truthy(plugin.defaults)
+  t.is(plugin.defaults.color, 'blue')
+  t.truthy(context)
+  t.is(context.result, 'blue')
 })

@@ -34,4 +34,9 @@ export default class RunContext {
    */
   error: any = null
 
+  /**
+   * The configuration.  A mashup of defaults + overrides.
+   */
+  config: {}
+
 }

@@ -2,12 +2,13 @@
   "name": "args",
   "version": "1.0.0",
   "staplegun": {
-    "namespace": "say",
+    "namespace": "args",
     "commands": [
-      { "name": "hello", "file": "hello.js", "description": "Greets someone." }
+      { "name": "hello", "file": "hello.js", "description": "Greets someone." },
+      { "name": "config", "file": "config.js", "description": "Picks a color from config."}
     ],
     "defaults": {
-      "numbers": 3
+      "color": "blue"
     }
   }
 }
