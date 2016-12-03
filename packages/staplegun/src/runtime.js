@@ -1,8 +1,27 @@
 // @flow
 import autobind from 'autobind-decorator'
 import Plugin from './plugin'
-import { find, append, forEach } from 'ramda'
-import { findByProp } from 'ramdasauce'
+import Command from './command'
+import { when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } from 'ramda'
+import { findByProp, startsWith } from 'ramdasauce'
+import { isBlank } from './utils'
+import RunContext from './run-context'
+
+const COMMAND_DELIMITER = ' '
+
+/**
+ * Strips the command out of the args returns an array of the rest.
+ *
+ * @param {string} args The full arguments including command.
+ * @param {string} commandName The name of the command to strip.
+ */
+const extractSubArguments = (args: string, commandName: string): string[] =>
+  pipe(
+    replace(commandName, ''),
+    trim,
+    split(COMMAND_DELIMITER),
+    when(equals(['']), always([]))
+  )(args)
 
 /**
  * Loads plugins an action through the gauntlet.
@@ -49,24 +68,65 @@ class Runtime {
   }
 
   /**
+   *
+   * Find the plugin for this namespace.
+   *
+   * @param {string} namespace
+   * @returns {*} A Plugin otherwise null.
+   */
+  findPlugin (namespace: ?string): ?Plugin {
+    return findByProp('namespace', namespace || '', this.plugins)
+  }
+
+  /**
+   * Find the command for this namespace & command.
+   *
+   * @param {Plugin} plugin The plugin in which the command lives.
+   * @param {string} fullArguments The command arguments to parse.
+   * @returns {*} A Command otherwise null.
+   */
+  findCommand (plugin: Plugin, fullArguments: string): ?Command {
+    if (isNil(plugin) || isBlank(fullArguments)) return null
+    if (plugin.commands.length === 0) return null
+
+    return find(
+      (command: Command) => startsWith(command.name, fullArguments)
+      , plugin.commands
+      )
+  }
+
+  /**
    * Runs a command.
    */
-  async run (
-    namespace: string,
-    args: string = '',
-    opts: any = {}
-  ): any {
+  async run (namespace: string, fullArguments: string = '', options: any = {}): RunContext {
+    // prepare the run context
+    const context = new RunContext()
+    context.fullArguments = fullArguments
+    context.options = options
+
     // find the plugin
-    const plugin = findByProp('namespace', namespace || '', this.plugins)
-    if (!plugin) return
+    const plugin = this.findPlugin(namespace)
+    if (!plugin) {
+      return context
+    }
+    context.plugin = plugin
 
     // find the command
-    const command = find(x => x.name === args, plugin.commands)
-    if (!command) return
+    const command: ?Command = this.findCommand(plugin, fullArguments)
+    if (!command) {
+      return context
+    }
+    context.command = command
 
-    // run the command
-    const result = await command.run()
-    return result
+    // parse & chop up the arguments
+    context.arguments = extractSubArguments(fullArguments, trim(command.name))
+    context.stringArguments = join(COMMAND_DELIMITER, context.arguments)
+
+    // kick it off
+    await context.run()
+
+    // return the whole RunContext
+    return context
   }
 }
 

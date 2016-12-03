@@ -1,0 +1,13 @@
+{
+  "name": "args",
+  "version": "1.0.0",
+  "staplegun": {
+    "namespace": "say",
+    "commands": [
+      { "name": "hello", "file": "hello.js", "description": "Greets someone." }
+    ],
+    "defaults": {
+      "numbers": 3
+    }
+  }
+}
