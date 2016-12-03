@@ -6,16 +6,16 @@ import jetpack from 'fs-jetpack'
 import { replace } from 'ramda'
 
 /**
- * The default configuration used by nunjucks.
+ * The default configuration used by nunjucks.  Oh boy.  Tokens are hard.
  */
 const DEFAULT_CONFIG = {
   tags: {
-    blockStart: '<%',
-    blockEnd: '%>',
-    variableStart: '<$',
-    variableEnd: '$>',
-    commentStart: '<#',
-    commentEnd: '#>'
+    blockStart: '💩{',
+    blockEnd: '}💩',
+    variableStart: '💩=',
+    variableEnd: '=💩',
+    commentStart: '#💩',
+    commentEnd: '#💩'
   }
 }
 

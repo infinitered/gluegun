@@ -9,6 +9,11 @@
         "name": "simple",
         "description": "Generates a simple file",
         "file": "simple.js"
+      },
+      {
+        "name": "props",
+        "description": "Replaces props in a template.",
+        "file": "props.js"
       }
     ]
   }
