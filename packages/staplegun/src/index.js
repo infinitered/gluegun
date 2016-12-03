@@ -24,7 +24,6 @@ drawBlank()
 drawLine()
 
 const runtime: Runtime = new Runtime()
-runtime.addPluginFromDirectory(`${__dirname}/../test/fixtures/good-plugins/threepack`)
 runtime.addPluginFromDirectory(jetpack.cwd())
 
 // print the commands
@@ -38,4 +37,3 @@ forEach(line => {
 drawBlank()
 
 runtime.run(namespace, commandArgs, commandOptions)
-

@@ -39,4 +39,11 @@ export default class RunContext {
    */
   config: {}
 
+  /**
+   * A lookup table of known directories.
+   *
+   * Used by the templating system to place your generated files somewhere.
+   */
+  directories: {} = {}
+
 }

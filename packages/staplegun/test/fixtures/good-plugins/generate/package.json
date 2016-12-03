@@ -1,0 +1,16 @@
+{
+  "name": "generate",
+  "version": "1",
+
+  "staplegun": {
+    "namespace": "generate",
+    "commands": [
+      {
+        "name": "simple",
+        "description": "Generates a simple file",
+        "file": "simple.js"
+      }
+    ]
+  }
+
+}

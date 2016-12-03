@@ -58,7 +58,7 @@ class Plugin {
   defaults: Object = {}
 
   /**
-   * The location of the plugin on the file system
+   * The absolute path of the plugin on the file system
    */
   directory: ?string
 

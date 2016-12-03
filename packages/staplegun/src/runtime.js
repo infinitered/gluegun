@@ -6,6 +6,7 @@ import { clone, when, equals, always, join, split, trim, pipe, replace, find, ap
 import { findByProp, startsWith } from 'ramdasauce'
 import { isBlank } from './utils'
 import RunContext from './run-context'
+import createGenerateFeature from './feature-generate'
 
 const COMMAND_DELIMITER = ' '
 
@@ -30,6 +31,8 @@ const extractSubArguments = (args: string, commandName: string): string[] =>
 class Runtime {
 
   plugins = []
+
+  directories = {}
 
   /**
    * Adds a plugin.
@@ -107,6 +110,7 @@ class Runtime {
     const context = new RunContext()
     context.fullArguments = fullArguments
     context.options = options
+    context.directories = clone(this.directories)
 
     // find the plugin
     const plugin = this.findPlugin(namespace)
@@ -124,7 +128,12 @@ class Runtime {
 
       // kick it off
       if (command.run) {
+        // attach features
+        // $FlowFixMe
+        context.generate = createGenerateFeature(plugin, command, context)
+
         try {
+          // $FlowFixMe
           context.result = await command.run(context)
         } catch (e) {
           context.error = e
