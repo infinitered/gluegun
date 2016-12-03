@@ -53,7 +53,7 @@ class Command {
   /**
    * The function to run that has been loaded.
    */
-  run: Function = null
+  run: ?Function
 
   /**
    * The stage of loading.
@@ -93,7 +93,7 @@ class Command {
 
     // let's load
     try {
-      const mod = loadModule(file)
+      const mod: ?Function = loadModule(file)
 
       // should we try the default export?
       if (isNilOrEmpty(functionName)) {
@@ -103,7 +103,7 @@ class Command {
         if (valid) {
           this.loadState = 'ok'
           this.errorState = 'none'
-          this.run = mod.default
+          this.run = mod && mod.default
         } else {
           this.loadState = 'error'
           this.errorState = 'badfunction'
@@ -115,7 +115,7 @@ class Command {
         if (valid) {
           this.loadState = 'ok'
           this.errorState = 'none'
-          this.run = mod[functionName]
+          this.run = mod && mod[functionName]
         } else {
           this.loadState = 'error'
           this.errorState = 'badfunction'

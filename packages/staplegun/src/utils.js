@@ -61,7 +61,7 @@ export const rightPad = curry((num, fill, str) => {
 /**
  * Is this a file?
  */
-export const isFile = file => jetpack.exists(file) === 'file'
+export const isFile = (file: string) => jetpack.exists(file) === 'file'
 
 /**
  * Is this not a file?
@@ -71,7 +71,7 @@ export const isNotFile = complement(isFile)
 /**
  * Is this a directory?
  */
-export const isDirectory = dir => jetpack.exists(dir) === 'dir'
+export const isDirectory = (dir: string) => jetpack.exists(dir) === 'dir'
 
 /**
  * Is this not a directory?

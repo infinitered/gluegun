@@ -143,13 +143,15 @@ class Plugin {
   /**
    * Loads a command based on the entry in the package.json
    */
-  loadCommandFromConfig (config = {}) {
+  loadCommandFromConfig (config: any = {}) {
     const command = new Command()
     const { name, file, functionName, description } = config
-    const fullpath = `${this.directory}/${file}`
     command.name = name
     command.description = description
-    command.loadFromFile(fullpath, functionName)
+    if (this.directory) {
+      const fullpath = `${this.directory}/${file}`
+      command.loadFromFile(fullpath, functionName)
+    }
     return command
   }
 
