@@ -7,7 +7,7 @@ A plugin is collection of any number of:
 * filters
 * templates 
 
-which extends the `staple-gun` environment.  These extensions generally have a
+which extends the `staple-gun` environment. These extensions generally have a
 theme such as **react native**, **fastlane**, or even just **my sandbox**.
 
 
@@ -15,68 +15,84 @@ theme such as **react native**, **fastlane**, or even just **my sandbox**.
 
 A plugin is a directory.
 
-It requires a:
-* a `plugin.toml` file
-* a `package.json` file (the same NPM module)
+The only requirement is a `package.json` file. Which is the same one you'd use 
+for an NPM module making this NPM a great vehicle for distributing your plugins,
+but also simple for extending existing projects.
 
+# Structure
 
-You're free to create any other directories, but these have special meaning.
+Inside the `package.json`, a new root element is needed called `staple-gun`. It
+should be an object with a non-blank string value keyed by `namespace`.
 
-# plugin.toml
+This is a simplest `staple-gun` plugin you can have:
 
-This is the format of the configuration file which accompanies your plugin.
+```json
+{
+  "staplegun": {
+    "namespace": "hello"
+  }
+}
+```
 
-I've divided up these into sections to exlain things as we go, but the `plugin.toml`
-file is a single file.  Everything that appears in the code blocks are the lines
-that go in the file.  Sorry if that seems obvious, just wanted to kind state that
-explicitly.
+Now, it doesn't do very much, but no need to judge!
 
-# Example
+But this one... this one is going places:
 
-```toml
-[plugin]
-namespace   = 'reactotron'
+```json
+{
+  "staplegun": {
+    
+    "namespace": "reactotron",
 
-[config]
-semicolons  = false
+    "commands": [
+      { "name":         "bootstrap native", 
+        "file":         "native.js",
+        "description":  "Installs Reactotron into a React Native project." },
 
-[[command]]
-name        = 'setup config'
-file        = 'setup.js'
-function    = 'setup'
-description = 'Creates a Reactotron config file specified directory.'
+      { "name":         "bootstrap cra", 
+        "file":         "cra.js", 
+        "description":  "Installs Reactotron into a 'create-react-app' React JS app" },
 
-[[command]]
-name        = 'version'
-file        = 'version.js'
-function    = 'checkVersion'
-description = 'Checks to see if there are new versions available.'
+      { "name":         "plugin blank", 
+        "file":         "plugin.js",
+        "functionName": "blank", 
+        "description":  "Make your own Reactotron with a fresh start." },
+
+      { "name":         "plugin loaded", 
+        "file":         "plugin.js",
+        "functionName": "loaded", 
+        "description":  "Make your own Reactotron with every possible feature documented." },
+
+      { "name":         "bug", 
+        "file":         "bug.js",
+        "description":  "Report a bug so we can fix it for you." },
+      
+      { "name":         "twitter", 
+        "file":         "news.js",
+        "description":  "Read what we're saying on Twitter." },
+    ],
+
+    "defaults": {
+      "semicolons": false,
+      "git":        "https://github.com/reactotron/staple-gun-reactotron",
+      "branch":     "master"
+    }
+
+  }
+}
 ```
 
 
-# Plugin
-
-This section outlines details about the plugin.
-
-```toml
-[plugin]
-```
-The square brackets mean that this is an object.
-
-
-## namespace
+## staplegun &gt; namespace
 The namespace is a prefix to all your commands.
 
-```toml
-namespace = 'ignite'
-```
-
 Since many plugins can be installed, we namespace them. If you're creating plugins
-for others to use, try to be very specific about the name.  Naming it after a project
-is a good idea (e.g. 'ignite' or 'reactotron').  Calling it "dev" or "internet" is
+for others to use, try to be very specific about the name. Naming it after a project
+is a good idea (e.g. 'ignite' or 'reactotron'). Calling it "dev" or "internet" is
 probably asking for trouble.
 
-Users can change this namespace from inside their project.
+If you're just making plugins for your project, then please, feel free to call it 
+whatever you'd like.
 
 A namespace:
 
@@ -84,30 +100,23 @@ A namespace:
 * should be **lowercase** 
 * spaces-should-have-**dashes**-if-you-need-them
 
-The **default value** is the name of the plugin directory.
+## staplegun &gt; commands[]
 
-
-# Command
-
-Commands are what people run from the command line.  They are entry
+Commands are what people run from the command line. They are entry
 points into your plugin.
 
-The `[[command]]` has an extra set of brackets because its a list of
-objects. 
 
-
-
-## name
+## staplegun &gt; commands[] &gt; name
 
 The name of the command that people will type.
 
-```toml
-name = 'setup config'
+In the above example, the user would type...
+
+```sh
+$ staple reactotron bug
 ```
 
-In the above example, the user would type `staple reactotron setup config`
-to run the command.  The `reactotron` part is the `namespace` defined in
-`[plugin]` section at the top of the file.
+...to run the command. The `reactotron` part is the `namespace` from above.
 
 The command name:
 
@@ -116,42 +125,28 @@ The command name:
 * spaces-should-have-**dashes**-if-you-need-them
 
 
-## file
+## staplegun &gt; commands[] &gt; file
 
 The JavaScript file that backs this command.
-
-```toml
-file = 'version.js'
-```
 
 The path is relative to this plugin, so you can arrange your
 sub-directories into whatever works for you.
 
 These JavaScript files are ES6 and have access to most modern conveniences.
 
-## function
+## staplegun &gt; commands[] &gt; functionName
 
-The function inside the JS file that runs this command.
+The function inside the JS file that runs this command. When this property
+is not included, it is assumed that the function to run is the default one
+exported by your JavaScript file.
 
-```toml
-function = 'runForestRun'
-```
-
-
-## description
+## staplegun &gt; commands[] &gt; description
 
 A short description of what the command does.
-
-```toml
-description = 'Checks to see if there are new versions available.'
-```
 
 The description should:
 
 * be less than 100 characters
 * start with a capital
 * end with punctuation
-* what am I?  grammar police?
-
-
-
+* seriously? what am I? grammar police?
