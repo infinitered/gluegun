@@ -98,7 +98,11 @@ class Runtime {
   /**
    * Runs a command.
    */
-  async run (namespace: string, fullArguments: string = '', options: any = {}): RunContext {
+  async run (
+    namespace: string,
+    fullArguments: string = '',
+    options: any = {}
+  ): Promise<RunContext> {
     // prepare the run context
     const context = new RunContext()
     context.fullArguments = fullArguments
