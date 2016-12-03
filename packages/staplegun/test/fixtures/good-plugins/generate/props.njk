@@ -1,4 +1,5 @@
-hello 💩= props.thing =💩
-💩{- for color in props.colors }💩
-💩= color =💩
-💩{- endfor }💩
+{{ arguments | first | camelCase }} {{ props.thing }}
+{% for color in props.colors -%}
+{{ color }}
+{% endfor -%}
+{{ '*' | repeat(options.stars if options.stars else 0) }}

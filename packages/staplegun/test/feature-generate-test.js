@@ -15,8 +15,14 @@ test('generates a simple file', async t => {
 })
 
 test('supports props', async t => {
-  const context = await createRuntime().run('generate', 'props')
+  const context = await createRuntime()
+    .run('generate', 'props Greetings_and_salutations', { stars: 5 })
 
   t.falsy(context.error && context.error.message)
-  t.is(context.result, 'hello world\nred\ngreen\nblue\n')
+  t.is(context.result, `greetingsAndSalutations world
+red
+green
+blue
+*****
+`)
 })

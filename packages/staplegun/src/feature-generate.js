@@ -4,18 +4,14 @@ import Command from './command'
 import RunContext from './run-context'
 import jetpack from 'fs-jetpack'
 import { replace } from 'ramda'
+import _ from 'lodash'
 
 /**
- * The default configuration used by nunjucks.  Oh boy.  Tokens are hard.
+ * The default configuration used by nunjucks.
  */
 const DEFAULT_CONFIG = {
+  autoescape: false,
   tags: {
-    blockStart: '💩{',
-    blockEnd: '}💩',
-    variableStart: '💩=',
-    variableEnd: '=💩',
-    commentStart: '#💩',
-    commentEnd: '#💩'
   }
 }
 
@@ -45,7 +41,25 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
 
     // add some goodies to the environment so templates can read them
     env.addGlobal('config', context.config)
+    env.addGlobal('arguments', context.arguments)
+    env.addGlobal('options', context.options)
     env.addGlobal('props', props)
+
+    // add some pre-baked filters -- thanks Lodash!
+    env.addFilter('identity', x => x)
+    env.addFilter('camelCase', _.camelCase)
+    env.addFilter('kebabCase', _.kebabCase)
+    env.addFilter('snakeCase', _.snakeCase)
+    env.addFilter('upperCase', _.upperCase)
+    env.addFilter('lowerCase', _.lowerCase)
+    env.addFilter('startCase', _.startCase)
+    env.addFilter('pad', _.pad)
+    env.addFilter('padStart', _.padStart)
+    env.addFilter('padEnd', _.padEnd)
+    env.addFilter('trim', _.trim)
+    env.addFilter('trimStart', _.trimStart)
+    env.addFilter('trimEnd', _.trimEnd)
+    env.addFilter('repeat', _.repeat)
 
     // prep the destination directory
     const dir = replace(/$(\/)*/g, '', destination)
