@@ -5,7 +5,7 @@ A plugin is collection of any number of:
 * scripts
 * commands
 * filters
-* templates 
+* templates
 
 which extends the `staple-gun` environment. These extensions generally have a
 theme such as **react native**, **fastlane**, or even just **my sandbox**.
@@ -15,7 +15,7 @@ theme such as **react native**, **fastlane**, or even just **my sandbox**.
 
 A plugin is a directory.
 
-The only requirement is a `package.json` file. Which is the same one you'd use 
+The only requirement is a `package.json` file. Which is the same one you'd use
 for an NPM module making this NPM a great vehicle for distributing your plugins,
 but also simple for extending existing projects.
 
@@ -41,33 +41,33 @@ But this one... this one is going places:
 ```json
 {
   "staplegun": {
-    
+
     "namespace": "reactotron",
 
     "commands": [
-      { "name":         "bootstrap native", 
+      { "name":         "bootstrap native",
         "file":         "native.js",
         "description":  "Installs Reactotron into a React Native project." },
 
-      { "name":         "bootstrap cra", 
-        "file":         "cra.js", 
+      { "name":         "bootstrap cra",
+        "file":         "cra.js",
         "description":  "Installs Reactotron into a 'create-react-app' React JS app" },
 
-      { "name":         "plugin blank", 
+      { "name":         "plugin blank",
         "file":         "plugin.js",
-        "functionName": "blank", 
+        "functionName": "blank",
         "description":  "Make your own Reactotron with a fresh start." },
 
-      { "name":         "plugin loaded", 
+      { "name":         "plugin loaded",
         "file":         "plugin.js",
-        "functionName": "loaded", 
+        "functionName": "loaded",
         "description":  "Make your own Reactotron with every possible feature documented." },
 
-      { "name":         "bug", 
+      { "name":         "bug",
         "file":         "bug.js",
         "description":  "Report a bug so we can fix it for you." },
-      
-      { "name":         "twitter", 
+
+      { "name":         "twitter",
         "file":         "news.js",
         "description":  "Read what we're saying on Twitter." },
     ],
@@ -91,22 +91,22 @@ for others to use, try to be very specific about the name. Naming it after a pro
 is a good idea (e.g. 'ignite' or 'reactotron'). Calling it "dev" or "internet" is
 probably asking for trouble.
 
-If you're just making plugins for your project, then please, feel free to call it 
+If you're just making plugins for your project, then please, feel free to call it
 whatever you'd like.
 
 A namespace:
 
 * can contain **numbers & letters**
-* should be **lowercase** 
+* should be **lowercase**
 * spaces-should-have-**dashes**-if-you-need-them
 
-## staplegun &gt; commands[]
+## staplegun &gt; commands
 
 Commands are what people run from the command line. They are entry
 points into your plugin.
 
 
-## staplegun &gt; commands[] &gt; name
+## staplegun &gt; commands &gt; { } &gt; name
 
 The name of the command that people will type.
 
@@ -121,11 +121,11 @@ $ staple reactotron bug
 The command name:
 
 * can contain **numbers & letters**
-* should be **lowercase** 
+* should be **lowercase**
 * spaces-should-have-**dashes**-if-you-need-them
 
 
-## staplegun &gt; commands[] &gt; file
+## staplegun &gt; commands &gt; { } &gt; file
 
 The JavaScript file that backs this command.
 
@@ -134,13 +134,13 @@ sub-directories into whatever works for you.
 
 These JavaScript files are ES6 and have access to most modern conveniences.
 
-## staplegun &gt; commands[] &gt; functionName
+## staplegun &gt; commands &gt; { } &gt; functionName
 
 The function inside the JS file that runs this command. When this property
 is not included, it is assumed that the function to run is the default one
 exported by your JavaScript file.
 
-## staplegun &gt; commands[] &gt; description
+## staplegun &gt; commands &gt; { } &gt; description
 
 A short description of what the command does.
 
@@ -150,3 +150,101 @@ The description should:
 * start with a capital
 * end with punctuation
 * seriously? what am I? grammar police?
+
+# JavaScript
+
+To create a plugin, you start with an empty directory and drop a `package.json` file
+in it.  Here we started with `name` and `version`.   Then added a `staplegun` node
+to it as well.
+
+> Notice at this point we don't even have `dependencies` or `devDependencies`!  
+> If you
+> stick to the build-in modules, you won't need them.
+
+```js
+// package.json (decorated in JavaScript because JSON doesn't support comments)
+{
+  // normal NPM stuff
+  "name": "MyPlugin",
+  "version": "0.0.7",
+
+  // staplegun support
+  "staplegun": {
+    "namespace": "things",
+    "commands":  [],
+    "defaults":  {}
+  }
+}
+```
+
+Even though you have no code, if you open a terminal to this directory and type:
+
+```sh
+$ staple things
+```
+
+It will list the commands available.  Which are nothing.  So let's create some.
+
+#### Creating Commands
+
+A command is a function.  It gets registered in the `commands` section you saw above.
+They live inside `*.js` files that live in this directory (or any sub-directory below).
+
+Here's a plugin that does nothing.  It lives in `nothing.js` and exports a function
+(`ES6` in this example).
+
+```js
+// nothing.js
+module.exports = () => {
+}
+```
+
+> NOTE: I'm still working through the right mix of babel, nodejs, and sanity.  I'd like
+> to be as inclusive as possible, but no default `import` support in nodejs is making things
+> challenging.
+
+Then we register it in `packages.json` under the `commands` array.
+
+```js
+// package.json
+// ...commands: [
+     {
+       "name": "nothing",
+       "file": "nothing.js",
+       "description": "Does very little, but scales really well."
+     }
+// ]...
+```
+
+Now type:
+```sh
+$ staple things nothing
+```
+
+And it runs!
+
+:shipit:
+
+
+
+
+
+## 3rd Party Modules Available
+
+| module     | purpose              |
+|------------|----------------------|
+| [inquirer.js](https://github.com/SBoudrias/Inquirer.js) | prompts & user input |
+| [fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders |
+| [nunjucks](https://github.com/mozilla/nunjucks)         | templates |
+| [cross-env](https://github.com/kentcdodds/cross-env)    | executing programs |
+| [axios](https://github.com/mzabriskie/axios)            | http requests |
+| [lodash](https://github.com/lodash/lodash)              | utilities |
+| [chalk](https://github.com/chalk/chalk)                 | terminal code color |
+| [ramda](https://github.com/ramda/ramda)                 | functional utilities |
+| [ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities |
+
+## Including Modules
+
+> TODO: verify that this can be done.  We're talking about 2 different babel environments.
+
+Nothing really changes here.  Just `yarn add` or `npm i --save` as usual.
