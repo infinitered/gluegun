@@ -6,6 +6,7 @@ import chalk from 'chalk'
 import { drawHeader, drawLine, drawBlank, drawText } from './drawing'
 import Runtime from './runtime'
 import { rightPad } from './utils'
+import getPluginDirectoriesFromPackage from './plugins-from-package'
 
 // parse the command line into what we need
 const args = minimist(process.argv.slice(2))
@@ -25,6 +26,10 @@ drawLine()
 
 const runtime: Runtime = new Runtime()
 runtime.addPluginFromDirectory(jetpack.cwd())
+forEach(
+  runtime.addPluginFromDirectory,
+  getPluginDirectoriesFromPackage(jetpack.cwd())
+)
 
 // print the commands
 drawBlank()
