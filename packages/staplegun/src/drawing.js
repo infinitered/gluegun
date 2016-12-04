@@ -1,5 +1,5 @@
 // @flow
-import chalk from 'chalk'
+import colors from 'colors'
 import { length } from 'ramda'
 import { leftPad } from './utils'
 import jetpack from 'fs-jetpack'
@@ -15,13 +15,13 @@ const version = `${pkg.version}`
 
 const versionPad = leftPad(Math.round((60 + length(version)) / 2), ' ', version)
 
-const HEADER = `          |              |                            
+const HEADER = `          |              |
      ,---.|--- ,---.,---.|    ,---.    ,---..   .,---.
      \`---.|    ,---||   ||    |---'    |   ||   ||   |
      \`---'\`---'\`---^|---'\`---'\`---'    \`---|\`---'\`   '
                     |                  \`---'          `
 
-const LINE = chalk.gray(leftPad(60, '-', ''))
+const LINE = colors.gray(leftPad(60, '-', ''))
 
 /**
  * Draws some text.
@@ -49,11 +49,10 @@ export function drawBlank (): void {
  */
 export function drawHeader (): void {
   drawBlank()
-  drawText(chalk.white(HEADER))
+  drawText(colors.white(HEADER))
   drawBlank()
-  drawText(chalk.yellow('           https://github.com/skellock/staplegun'))
-  drawText(chalk.white(versionPad))
+  drawText(colors.yellow('           https://github.com/skellock/staplegun'))
+  drawText(colors.white(versionPad))
   drawBlank()
   drawLine()
 }
-

@@ -3,7 +3,7 @@ import minimist from 'minimist'
 import { forEach, head, slice, join, dissoc } from 'ramda'
 import { isNilOrEmpty } from 'ramdasauce'
 import jetpack from 'fs-jetpack'
-import chalk from 'chalk'
+import colors from 'colors'
 import { drawHeader, drawLine, drawBlank, drawText } from './drawing'
 import Runtime from './runtime'
 import { rightPad } from './utils'
@@ -19,9 +19,9 @@ drawHeader()
 
 // draw the status
 drawBlank()
-drawText(` ${chalk.gray('namespace :')}  ${isNilOrEmpty(namespace) ? chalk.red('none') : chalk.yellow(namespace)}`)
-drawText(`   ${chalk.gray('command :')}  ${isNilOrEmpty(commandArgs) ? chalk.red('none') : chalk.yellow(commandArgs)}`)
-drawText(`   ${chalk.gray('options :')}  ${isNilOrEmpty(commandOptions) ? chalk.red('none') : chalk.yellow(JSON.stringify(commandOptions))}`)
+drawText(` ${colors.gray('namespace :')}  ${isNilOrEmpty(namespace) ? colors.red('none') : colors.yellow(namespace)}`)
+drawText(`   ${colors.gray('command :')}  ${isNilOrEmpty(commandArgs) ? colors.red('none') : colors.yellow(commandArgs)}`)
+drawText(`   ${colors.gray('options :')}  ${isNilOrEmpty(commandOptions) ? colors.red('none') : colors.yellow(JSON.stringify(commandOptions))}`)
 drawBlank()
 drawLine()
 
@@ -36,8 +36,8 @@ forEach(
 drawBlank()
 forEach(line => {
   const { plugin, command, description } = line
-  const col1 = chalk.white(rightPad(20, ' ', `${plugin} ${command}`))
-  const col2 = chalk.grey(description)
+  const col1 = colors.white(rightPad(20, ' ', `${plugin} ${command}`))
+  const col2 = colors.grey(description)
   drawText(`  ${col1} ${col2}`)
 }, runtime.listCommands())
 drawBlank()

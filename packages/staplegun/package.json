@@ -40,7 +40,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
     "babel-runtime": "^6.18.0",
-    "chalk": "^1.1.3",
+    "colors": "^1.1.2",
     "fs-jetpack": "^0.10.3",
     "inquirer": "^1.2.3",
     "lodash": "^4.17.2",
@@ -49,6 +49,7 @@
     "ramda": "^0.22.1",
     "ramdasauce": "^1.1.1",
     "shelljs": "^0.7.5",
+    "string-table": "^0.1.5",
     "toml": "^2.3.0"
   },
   "devDependencies": {
