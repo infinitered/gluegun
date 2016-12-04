@@ -17,7 +17,7 @@ function getPluginDirectoriesFromPackage (directory: ?string): string[] {
     dotPath('staplegun.plugins'),                   // grab the plugins
     when(isNilOrEmpty, always({})),                 // default to {}
     keys,                                           // grab the keys
-    map(x => `node_modules/${x}`)                   // those are our modules
+    map(x => `${jetpack.cwd()}/node_modules/${x}`)  // those are our modules
   )(directory)
 }
 
