@@ -39,7 +39,7 @@ function divider () {
  * Prints an object to table format.  The values will already be
  * stringified.
  *
- * @param  {{}} object The object to turn into a table.
+ * @param {{}} object The object to turn into a table.
  */
 function table (data: [], options: any = {}) {
   const t = new AsciiTable()
@@ -54,9 +54,9 @@ function table (data: [], options: any = {}) {
  * Use this when you're writing stuff outside the context of our
  * printing scheme.  hint: rarely.
  *
- * @param  {string} message The message to write.
+ * @param {string} message The message to write.
  */
-function freestyle (message: ?string) {
+function fancy (message: ?string) {
   log(message)
 }
 
@@ -65,7 +65,7 @@ function freestyle (message: ?string) {
  *
  * This is the default type you should use.
  *
- * @param  {string} message The message to show.
+ * @param {string} message The message to show.
  */
 function info (message: ?string) {
   log(colors.info(message))
@@ -76,7 +76,7 @@ function info (message: ?string) {
  *
  * This is when something horribly goes wrong.
  *
- * @param  {string} message The message to show.
+ * @param {string} message The message to show.
  */
 function error (message: ?string) {
   log(colors.error(message))
@@ -87,7 +87,7 @@ function error (message: ?string) {
  *
  * This is when the user might not be getting what they're expecting.
  *
- * @param  {string} message The message to show.
+ * @param {string} message The message to show.
  */
 function warning (message: ?string) {
   log(colors.warning(message))
@@ -98,7 +98,7 @@ function warning (message: ?string) {
  *
  * This is for devs only.
  *
- * @param  {string} message The message to show.
+ * @param {string} message The message to show.
  */
 function debug (message: ?string, title: string = 'DEBUG') {
   const topLine = `vvv -----[ ${title} ]----- vvv`
@@ -114,21 +114,20 @@ function debug (message: ?string, title: string = 'DEBUG') {
  *
  * When something is successful.  Use sparingly.
  *
- * @param  {string} message The message to show.
+ * @param {string} message The message to show.
  */
 function success (message: ?string) {
   log(colors.success(message))
 }
 
-
 /**
  * Writes a step message.  Features or plugins can call this to indicate
  * something important is happening.
  *
- * @param  {string} action  The action name (max 20 characters)
- * @param  {string} message The message name (max 100 characters)
+ * @param {string} action  The action name (max 20 characters)
+ * @param {string} message The message name (max 100 characters)
  */
-function step(action: string, message: string): void {
+function step (action: string, message: string): void {
   const col1 = colors.info(toLower(action))
   const col2 = colors.highlight(message)
   const say = `${col1} ${col2}`
@@ -141,7 +140,7 @@ export default {
   success,
   error,
   debug,
-  freestyle,
+  fancy,
   divider,
   newline,
   table,

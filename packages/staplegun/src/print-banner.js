@@ -21,10 +21,10 @@ const versionPad = leftPad(Math.round((60 + length(version)) / 2), ' ', version)
  */
 export default function printBanner () {
   print.newline()
-  print.freestyle(colors.white(L33T_BRANDING))
+  print.fancy(colors.white(L33T_BRANDING))
   print.newline()
-  print.freestyle(colors.yellow('           https://github.com/skellock/staplegun'))
-  print.freestyle(colors.white(versionPad))
+  print.fancy(colors.yellow('           https://github.com/skellock/staplegun'))
+  print.fancy(colors.white(versionPad))
   print.newline()
   print.divider()
 }
