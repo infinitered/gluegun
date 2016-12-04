@@ -1,5 +1,5 @@
 export default async (context) => {
-  const source = 'props.njk'
+  const template = 'props.njk'
   const dir = context.directories['root'] || 'generated'
   const target = `${dir}/props.txt`
   const props = {
@@ -7,5 +7,5 @@ export default async (context) => {
     colors: [ 'red', 'green', 'blue' ]
   }
 
-  return context.generate(source, target, props)
+  return context.generate({ template, target, props })
 }

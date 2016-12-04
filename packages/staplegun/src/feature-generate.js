@@ -5,6 +5,7 @@ import RunContext from './run-context'
 import jetpack from 'fs-jetpack'
 import { replace, pipe } from 'ramda'
 import _ from 'lodash'
+import { isBlank } from './utils'
 
 /**
  * The default configuration used by nunjucks.
@@ -27,12 +28,17 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
   /**
    * Generates a file from a template.
    *
-   * @param  {string} template    The relative path of the template to use.
-   * @param  {string} destination The path to the file to make (stars with a $directory key)
-   * @param  {{}}                 props A bag of extra properties to use for template generation
+   * @param  {{}}    Generation options.
    * @return {void}
    */
-  function generate (template: string, destination: string, props: any = {}): void {
+  function generate (opts = {}): void {
+    // required
+    const template: string = opts.template
+
+    // optional
+    const target: string = opts.target
+    const props = opts.props || {}
+
     // grab the path to the plugin
     const pluginTemplatesLoader = new nunjucks.FileSystemLoader(plugin.directory)
 
@@ -64,16 +70,18 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
     env.addFilter('trimEnd', _.trimEnd)
     env.addFilter('repeat', _.repeat)
 
-    // prep the destination directory
-    const dir = replace(/$(\/)*/g, '', destination)
-    const dest = `${jetpack.cwd()}/${dir}`
-
     // render the template
     const content = env.render(template)
 
     // save it to the file system
-    jetpack.write(dest, content)
+    if (!isBlank(target)) {
+      // prep the destination directory
+      const dir = replace(/$(\/)*/g, '', target)
+      const dest = `${jetpack.cwd()}/${dir}`
+      jetpack.write(dest, content)
+    }
 
+    // send back the rendered string
     return content
   }
 
