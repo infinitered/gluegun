@@ -3,7 +3,7 @@ import Plugin from './plugin'
 import Command from './command'
 import RunContext from './run-context'
 import jetpack from 'fs-jetpack'
-import { replace } from 'ramda'
+import { replace, pipe } from 'ramda'
 import _ from 'lodash'
 
 /**
@@ -53,6 +53,9 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
     env.addFilter('upperCase', _.upperCase)
     env.addFilter('lowerCase', _.lowerCase)
     env.addFilter('startCase', _.startCase)
+    env.addFilter('upperFirst', _.upperFirst)
+    env.addFilter('lowerFirst', _.lowerFirst)
+    env.addFilter('classCase', pipe(_.camelCase, _.upperFirst))
     env.addFilter('pad', _.pad)
     env.addFilter('padStart', _.padStart)
     env.addFilter('padEnd', _.padEnd)
