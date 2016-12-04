@@ -76,3 +76,22 @@ test('loads commands', async t => {
   t.is(typeof two.run, 'function')
   t.is(await two.run(), 'two')
 })
+
+test('load from front matter', async t => {
+  const plugin = new Plugin()
+  const dir = `${__dirname}/fixtures/good-plugins/front-matter`
+  plugin.loadFromDirectory(dir)
+
+  t.is(plugin.loadState, 'ok')
+  t.is(plugin.errorState, 'none')
+  t.is(plugin.commands.length, 1)
+
+  const full = plugin.commands[0]
+  t.is(full.name, 'full')
+  t.is(full.file, `${dir}/commands/full.js`)
+  t.is(full.functionName, 'jimmy')
+  t.is(full.description, 'This is the full meal deal.')
+  t.is(typeof full.run, 'function')
+  t.is(await full.run(), 123)
+
+})

@@ -2,7 +2,9 @@
 import autobind from 'autobind-decorator'
 import { isNotFile, isBlank } from './utils'
 import loadModule from './module-loader'
-import { isNilOrEmpty } from 'ramdasauce'
+import { isNilOrEmpty, startsWith } from 'ramdasauce'
+import jetpack from 'fs-jetpack'
+import { has, toLower, join, head, tail, replace, filter, when, always, pipe, split, trim, map, fromPairs } from 'ramda'
 
 /**
  * The load state of the command.
@@ -93,10 +95,32 @@ class Command {
 
     // let's load
     try {
+      // try reading in front matter
+      const tokens = pipe(
+        jetpack.read,                       // read the file
+        when(isNilOrEmpty, always('')),     // default to blank
+        split('\n'),                        // split on new lines
+        map(trim),                          // trim
+        filter(startsWith('//')),           // only comments
+        map(replace(/^\/\/\s*/, '')),       // remove comments
+        map(trim),                          // trim again
+        map(split(/\s/)),                   // split on whitespace
+        map(x => [                          // turn into a 2d array
+          pipe(head, tail)(x),              // 0 = remove the @
+          pipe(tail, join(' '), trim)(x)    // join & trim the reset
+        ]),
+        fromPairs                           // as an object
+      )(file)
+
+      // let's override if we've found these tokens
+      this.name = tokens.command || this.name
+      this.description = tokens.description || this.description
+      this.functionName = tokens.functionName || this.functionName
+
       const mod: ?Function = loadModule(file)
 
       // should we try the default export?
-      if (isNilOrEmpty(functionName)) {
+      if (isNilOrEmpty(this.functionName)) {
         // are we expecting this?
         const valid = mod && mod.default && typeof mod.default === 'function'
 
@@ -110,12 +134,12 @@ class Command {
         }
       } else {
         // we're after a named function
-        const valid = mod && mod[functionName] && typeof mod[functionName] === 'function'
+        const valid = mod && mod[this.functionName] && typeof mod[this.functionName] === 'function'
 
         if (valid) {
           this.loadState = 'ok'
           this.errorState = 'none'
-          this.run = mod && mod[functionName]
+          this.run = mod && mod[this.functionName]
         } else {
           this.loadState = 'error'
           this.errorState = 'badfunction'

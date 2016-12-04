@@ -3,7 +3,7 @@ import autobind from 'autobind-decorator'
 import Command from './command'
 import { isNotFile, isNotDirectory, isBlank } from './utils'
 import jetpack from 'fs-jetpack'
-import { map } from 'ramda'
+import { without, map, flatten } from 'ramda'
 
 const PACKAGE_FILENAME = 'package.json'
 const ROOT_KEY = 'staplegun'
@@ -111,7 +111,7 @@ class Plugin {
       return
     }
 
-    // load the toml file
+    // Load 'er up
     try {
       // read the file
       const pkg = jetpack.read(packagePath, 'json')
@@ -128,7 +128,15 @@ class Plugin {
       // read the defaults & commands
       this.namespace = root.namespace
       this.defaults = root.defaults || {}
-      this.commands = map(this.loadCommandFromConfig, root.commands || [])
+      // grab the commands from the package.json
+      const commandsFromConfig = map(this.loadCommandFromConfig, root.commands || [])
+
+      // grab the commands from the commands sub directory
+      const commandFiles = jetpack.cwd(this.directory).find({ matching: 'commands/*.js' })
+      const commandsFromCommandsDir = map(this.loadCommandFromFile, commandFiles)
+
+      // glue them together
+      this.commands = without([null], flatten([commandsFromConfig, commandsFromCommandsDir]))
 
       // we are good!
       this.loadState = 'ok'
@@ -151,6 +159,19 @@ class Plugin {
     if (this.directory) {
       const fullpath = `${this.directory}/${file}`
       command.loadFromFile(fullpath, functionName)
+    }
+    return command
+  }
+
+  /**
+   * Loads a command from a file, attempting to use tokens to auto-detect.
+   * @param {?string} filename The relative path to the file.
+   */
+  loadCommandFromFile (file: string) {
+    const command = new Command()
+    if (this.directory) {
+      const fullpath = `${this.directory}/${file}`
+      command.loadFromFile(fullpath)
     }
     return command
   }

@@ -1,0 +1,7 @@
+{
+  "name": "frontmatter",
+  "version": "1",
+  "staplegun": {
+    "namespace": "frontmatter"
+  }
+}
