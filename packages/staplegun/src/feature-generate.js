@@ -7,6 +7,7 @@ import { replace, pipe } from 'ramda'
 import _ from 'lodash'
 import { isBlank } from './utils'
 import inquirer from 'inquirer'
+import print from './print'
 
 /**
  * The default configuration used by nunjucks.
@@ -93,7 +94,10 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
       // prep the destination directory
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
-      const save = () => jetpack.write(dest, content)
+      const save = () => {
+        print.step('generating', target)
+        jetpack.write(dest, content)
+      }
 
       // prompt to overwrite?
       if (jetpack.exists(dest) && askToOverwrite) {

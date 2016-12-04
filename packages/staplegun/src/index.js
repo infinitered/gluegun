@@ -9,24 +9,29 @@ import printBanner from './print-banner'
 import printCommands from './print-commands'
 import printCommandLineOptions from './print-command-line-options'
 
-// parse the command line into what we need
-const { namespace, args, options } = parseCommandLine()
-
-// create the runtime
-const runtime: Runtime = new Runtime()
-
-// add any plugins for the current directory
-runtime.addPluginFromDirectory(jetpack.cwd())
-
-// add any plugins from the package.json in the current directory too
-forEach(
-  runtime.addPluginFromDirectory,
-  getPluginDirectoriesFromPackage(jetpack.cwd())
-)
-
-printCommandLineOptions(namespace, args, options)
-
+/**
+ * Our main entry point.
+ *
+ * This is async because our runtime execution is.
+ */
 async function run () {
+  // parse the command line into what we need
+  const { namespace, args, options } = parseCommandLine()
+
+  // create the runtime
+  const runtime: Runtime = new Runtime()
+
+  // add any plugins for the current directory
+  runtime.addPluginFromDirectory(jetpack.cwd())
+
+  // add any plugins from the package.json in the current directory too
+  forEach(
+    runtime.addPluginFromDirectory,
+    getPluginDirectoriesFromPackage(jetpack.cwd())
+  )
+
+  printCommandLineOptions(namespace, args, options)
+
   // let's do this!
   const context = await runtime.run(namespace, args, options)
 

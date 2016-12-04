@@ -1,6 +1,7 @@
 // @flow
 import colors from 'colors'
 import AsciiTable from 'ascii-table'
+import { toLower } from 'ramda'
 
 /**
  * The target output.  Terminal for now.
@@ -119,6 +120,21 @@ function success (message: ?string) {
   log(colors.success(message))
 }
 
+
+/**
+ * Writes a step message.  Features or plugins can call this to indicate
+ * something important is happening.
+ *
+ * @param  {string} action  The action name (max 20 characters)
+ * @param  {string} message The message name (max 100 characters)
+ */
+function step(action: string, message: string): void {
+  const col1 = colors.info(toLower(action))
+  const col2 = colors.highlight(message)
+  const say = `${col1} ${col2}`
+  log(say)
+}
+
 export default {
   info,
   warning,
@@ -129,5 +145,6 @@ export default {
   divider,
   newline,
   table,
-  colors
+  colors,
+  step
 }
