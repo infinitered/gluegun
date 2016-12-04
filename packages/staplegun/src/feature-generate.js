@@ -6,6 +6,7 @@ import jetpack from 'fs-jetpack'
 import { replace, pipe } from 'ramda'
 import _ from 'lodash'
 import { isBlank } from './utils'
+import inquirer from 'inquirer'
 
 /**
  * The default configuration used by nunjucks.
@@ -14,6 +15,19 @@ const DEFAULT_CONFIG = {
   autoescape: false,
   tags: {
   }
+}
+
+/**
+ * The question to ask when attempting an overwrite.
+ */
+const Q_OVERWRITE = {
+  type: 'list',
+  name: 'overwrite',
+  message: 'Overwrite existing file?',
+  choices: [
+    { name: 'Yes', value: true },
+    { name: 'No, keep existing file', value: false }
+  ]
 }
 
 /**
@@ -31,13 +45,14 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
    * @param  {{}}    Generation options.
    * @return {void}
    */
-  function generate (opts = {}): void {
+  async function generate (opts = {}): void {
     // required
     const template: string = opts.template
 
     // optional
     const target: string = opts.target
     const props = opts.props || {}
+    const askToOverwrite = opts.askToOverwrite === true
 
     // grab the path to the plugin
     const pluginTemplatesLoader = new nunjucks.FileSystemLoader(plugin.directory)
@@ -78,7 +93,17 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
       // prep the destination directory
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
-      jetpack.write(dest, content)
+      const save = () => jetpack.write(dest, content)
+
+      // prompt to overwrite?
+      if (jetpack.exists(dest) && askToOverwrite) {
+        const answers = await inquirer.prompt([Q_OVERWRITE])
+        if (answers.overwrite === 'yes') {
+          save()
+        }
+      } else {
+        save()
+      }
     }
 
     // send back the rendered string

@@ -1,3 +1,4 @@
+import 'babel-register'
 import minimist from 'minimist'
 import { forEach, head, slice, join, dissoc } from 'ramda'
 import { isNilOrEmpty } from 'ramdasauce'

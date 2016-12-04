@@ -3,5 +3,5 @@ export default async (context) => {
   const dir = context.directories['root'] || 'generated'
   const target = `${dir}/simple.txt`
 
-  return context.generate({ template, target })
+  return context.generate({ template, target, askToOverwrite: false })
 }

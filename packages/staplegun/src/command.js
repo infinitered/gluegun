@@ -4,7 +4,7 @@ import { isNotFile, isBlank } from './utils'
 import loadModule from './module-loader'
 import { isNilOrEmpty, startsWith } from 'ramdasauce'
 import jetpack from 'fs-jetpack'
-import { has, toLower, join, head, tail, replace, filter, when, always, pipe, split, trim, map, fromPairs } from 'ramda'
+import { join, head, tail, replace, filter, when, always, pipe, split, trim, map, fromPairs } from 'ramda'
 
 /**
  * The load state of the command.
@@ -146,6 +146,7 @@ class Command {
         }
       }
     } catch (e) {
+      console.log(e.message) // TODO: need to surface this error for debugging
       this.loadState = 'error'
       this.errorState = 'badfile'
     }

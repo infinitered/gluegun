@@ -7,5 +7,5 @@ export default async (context) => {
     colors: [ 'red', 'green', 'blue' ]
   }
 
-  return context.generate({ template, target, props })
+  return context.generate({ template, target, props, askToOverwrite: false })
 }

@@ -2,4 +2,4 @@
 // @description  This is the full meal deal.
 // @functionName jimmy
 
-export const jimmy = context => 123
+export const jimmy = async context => 123
