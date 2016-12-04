@@ -58,11 +58,7 @@ class Runtime {
     const commands = []
     const eachPlugin = plugin => {
       const eachCommand = command => {
-        commands.push({
-          plugin: plugin.namespace,
-          command: command.name,
-          description: command.description
-        })
+        commands.push({ plugin, command })
       }
       forEach(eachCommand, plugin.commands)
     }

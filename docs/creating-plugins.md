@@ -162,8 +162,8 @@ The description should:
 | [cross-env](https://github.com/kentcdodds/cross-env)    | executing programs |
 | [axios](https://github.com/mzabriskie/axios)            | http requests |
 | [lodash](https://github.com/lodash/lodash)              | utilities |
-| [colors](https://github.com/Marak/colors.js)            | terminal code color |
-| [string-table](https://github.com/dtao/string-table)    | terminal text tables |
+| [colors](https://github.com/Marak/colors.js)            | colors in your terminal |
+| [ascii-table](https://github.com/sorensen/ascii-table)  | tables in your terminal |
 | [ramda](https://github.com/ramda/ramda)                 | functional utilities |
 | [ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities |
 

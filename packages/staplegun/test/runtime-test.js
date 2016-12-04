@@ -17,7 +17,7 @@ test('gets a list of commands', t => {
   const list = r.listCommands()
 
   t.is(list.length, 3)
-  t.deepEqual(list[0], { plugin: p1.namespace, command: c0.name, description: c0.description })
+  t.deepEqual(list[0], { plugin: p1, command: c0 })
 })
 
 test('cannot find a command', async t => {
