@@ -1,9 +1,8 @@
-// @flow
-import print from './print'
-import colors from 'colors'
-import jetpack from 'fs-jetpack'
-import { length } from 'ramda'
-import { leftPad } from './utils'
+const print = require('./print')
+const colors = require('colors')
+const jetpack = require('fs-jetpack')
+const { length } = require('ramda')
+const { leftPad } = require('./utils')
 
 const L33T_BRANDING = `          |              |
      ,---.|--- ,---.,---.|    ,---.    ,---..   .,---.
@@ -19,7 +18,7 @@ const versionPad = leftPad(Math.round((60 + length(version)) / 2), ' ', version)
 /**
  * Prints the bruce banner.
  */
-export default function printBanner () {
+function printBanner () {
   print.newline()
   print.fancy(colors.white(L33T_BRANDING))
   print.newline()
@@ -28,3 +27,5 @@ export default function printBanner () {
   print.newline()
   print.divider()
 }
+
+module.exports = printBanner

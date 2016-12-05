@@ -1,5 +1,5 @@
-import test from 'ava'
-import Runtime from '../src/runtime'
+const test = require('ava')
+const Runtime = require('../src/runtime')
 
 test('adds a directory', t => {
   const r = new Runtime()

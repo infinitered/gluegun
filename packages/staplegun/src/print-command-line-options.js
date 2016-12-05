@@ -1,6 +1,6 @@
-import print from './print'
-import { isNilOrEmpty } from 'ramdasauce'
-import colors from 'colors'
+const print = require('./print')
+const { isNilOrEmpty } = require('ramdasauce')
+const colors = require('colors')
 
 /**
  * Prints the command line options & arguments the user typed.
@@ -14,4 +14,4 @@ function printCommandLineOptions (namespace, args, options) {
   print.divider()
 }
 
-export default printCommandLineOptions
+module.exports = printCommandLineOptions

@@ -1,5 +1,5 @@
-import minimist from 'minimist'
-import { head, join, dissoc, slice } from 'ramda'
+const minimist = require('minimist')
+const { head, join, dissoc, slice } = require('ramda')
 
 /**
  * Parses the command-line arguments into our expected constiutents.
@@ -24,4 +24,4 @@ function parseCommandLine () {
   return { namespace, args, options }
 }
 
-export default parseCommandLine
+module.exports = parseCommandLine

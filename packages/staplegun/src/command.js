@@ -1,10 +1,9 @@
-// @flow
-import autobind from 'autobind-decorator'
-import { isNotFile, isBlank } from './utils'
-import loadModule from './module-loader'
-import { isNilOrEmpty, startsWith } from 'ramdasauce'
-import jetpack from 'fs-jetpack'
-import { join, head, tail, replace, filter, when, always, pipe, split, trim, map, fromPairs } from 'ramda'
+const autobind = require('autobind-decorator')
+const { isNotFile, isBlank } = require('./utils')
+const loadModule = require('./module-loader')
+const { isNilOrEmpty, startsWith } = require('ramdasauce')
+const jetpack = require('fs-jetpack')
+const { join, head, tail, replace, filter, when, always, pipe, split, trim, map, fromPairs } = require('ramda')
 
 /**
  * The load state of the command.
@@ -13,7 +12,7 @@ import { join, head, tail, replace, filter, when, always, pipe, split, trim, map
  * ok    = the command is ready to go
  * error = an error has happened
  */
-export type CommandLoadState = 'none' | 'ok' | 'error'
+// export type CommandLoadState = 'none' | 'ok' | 'error'
 
 /**
  * The error state.
@@ -24,53 +23,27 @@ export type CommandLoadState = 'none' | 'ok' | 'error'
  * badfile     = not a valid javascript file
  * badfunction = the function has not been exported or it's not a function
  */
-export type CommandErrorState = 'none' | 'input' | 'missing' | 'badfile' | 'badfunction'
+// export type CommandErrorState = 'none' | 'input' | 'missing' | 'badfile' | 'badfunction'
 
 /**
  * A command is user-callable function that runs stuff.
  */
-@autobind
 class Command {
 
-  /**
-   * How the user invokes it.
-   */
-  name : ?string
-
-  /**
-   * A human friendly explanation.
-   */
-  description: ?string
-
-  /**
-   * The relative path to the command from the plugin directory.
-   */
-  file: ?string
-
-  /**
-   * The name of the function exported from the file.
-   */
-  functionName: ?string
-
-  /**
-   * The function to run that has been loaded.
-   */
-  run: ?Function
-
-  /**
-   * The stage of loading.
-   */
-  loadState: CommandLoadState = 'none'
-
-  /**
-   * The error state
-   */
-  errorState: CommandErrorState = 'none'
+  constructor () {
+    this.name = null
+    this.description = null
+    this.file = null
+    this.function = null
+    this.run = null
+    this.loadState = 'none'
+    this.errorState = 'none'
+  }
 
   /**
    * Loads the command from the given file. We try not to bubble errors up from here.
    */
-  loadFromFile (file: string, functionName: ?string): void {
+  loadFromFile (file, functionName) {
     // reset state
     this.run = null
     this.loadState = 'none'
@@ -117,29 +90,28 @@ class Command {
       this.description = tokens.description || this.description
       this.functionName = tokens.functionName || this.functionName
 
-      const mod: ?Function = loadModule(file)
+      const commandModule = loadModule(file)
 
       // should we try the default export?
       if (isNilOrEmpty(this.functionName)) {
         // are we expecting this?
-        const valid = mod && mod.default && typeof mod.default === 'function'
+        const valid = commandModule && typeof commandModule === 'function'
 
         if (valid) {
           this.loadState = 'ok'
           this.errorState = 'none'
-          this.run = mod && mod.default
+          this.run = commandModule
         } else {
           this.loadState = 'error'
           this.errorState = 'badfunction'
         }
       } else {
         // we're after a named function
-        const valid = mod && mod[this.functionName] && typeof mod[this.functionName] === 'function'
-
+        const valid = commandModule && commandModule[this.functionName] && typeof commandModule[this.functionName] === 'function'
         if (valid) {
           this.loadState = 'ok'
           this.errorState = 'none'
-          this.run = mod && mod[this.functionName]
+          this.run = commandModule && commandModule[this.functionName]
         } else {
           this.loadState = 'error'
           this.errorState = 'badfunction'
@@ -154,4 +126,4 @@ class Command {
 
 }
 
-export default Command
+module.exports = autobind(Command)

@@ -4,7 +4,9 @@ const after = time => {
   })
 }
 
-export async function hi () {
+async function hi () {
   await after(50)
   return 'hi'
 }
+
+module.exports = { hi }

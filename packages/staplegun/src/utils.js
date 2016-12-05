@@ -1,23 +1,22 @@
-// @flow
-import { curry, when, pipe, trim, isEmpty, is, always, complement, max, join, repeat } from 'ramda'
-import jetpack from 'fs-jetpack'
+const { curry, when, pipe, trim, isEmpty, is, always, complement, max, join, repeat } = require('ramda')
+const jetpack = require('fs-jetpack')
 
 /**
  * The opposite of is.  Great restraint made me not call this: aint.
  */
-export const isnt = complement(is)
+const isnt = complement(is)
 
 /**
  * Is this not a string?
  */
-export function isNotString (value: any): bool {
+const isNotString = (value) => {
   return !is(String, value)
 }
 
 /**
  * Is this value a blank string?
  */
-export function isBlank (value: any): bool {
+const isBlank = (value) => {
   const check = pipe(
     when(isNotString, always('')),
     trim,
@@ -30,7 +29,7 @@ export function isBlank (value: any): bool {
 /**
  * Throw an error with the given message.
  */
-export function thrower (message?: string): void {
+function thrower (message) {
   throw new Error(message)
 }
 
@@ -42,8 +41,8 @@ export function thrower (message?: string): void {
  * @param {Function} predicate - The function to invoke
  * @param {*} value - The value to apply to the predicate
  */
-export const throwWith = curry(
-  function throwWith (message: string, predicate: Function, value: any): void {
+const throwWith = curry(
+  function throwWith (message, predicate, value) {
     when(predicate, () => thrower(message), value)
   }
 )
@@ -56,7 +55,7 @@ export const throwWith = curry(
  * @param {string} fill   The character to fill with
  * @param {string} value  The string we want to fill
  */
-export const leftPad = curry((length, fill, value) => {
+const leftPad = curry((length, fill, value) => {
   const again = max(0, length - value.length)
   return join('', repeat(fill, again)) + value
 })
@@ -69,7 +68,7 @@ export const leftPad = curry((length, fill, value) => {
  * @param {string} fill   The character to fill with
  * @param {string} value  The string we want to fill
  */
-export const rightPad = curry((length, fill, value) => {
+const rightPad = curry((length, fill, value) => {
   const again = max(0, length - value.length)
   return value + join('', repeat(fill, again))
 })
@@ -77,19 +76,33 @@ export const rightPad = curry((length, fill, value) => {
 /**
  * Is this a file?
  */
-export const isFile = (file: string) => jetpack.exists(file) === 'file'
+const isFile = (file) => jetpack.exists(file) === 'file'
 
 /**
  * Is this not a file?
  */
-export const isNotFile = complement(isFile)
+const isNotFile = complement(isFile)
 
 /**
  * Is this a directory?
  */
-export const isDirectory = (dir: string) => jetpack.exists(dir) === 'dir'
+const isDirectory = (dir) => jetpack.exists(dir) === 'dir'
 
 /**
  * Is this not a directory?
  */
-export const isNotDirectory = complement(isDirectory)
+const isNotDirectory = complement(isDirectory)
+
+module.exports = {
+  isNotDirectory,
+  isDirectory,
+  isNotFile,
+  isFile,
+  rightPad,
+  leftPad,
+  isnt,
+  isNotString,
+  isBlank,
+  thrower,
+  throwWith
+}

@@ -7,10 +7,10 @@
     "staplegun": "./dist/staplegun"
   },
   "scripts": {
-    "test": "ava",
-    "watch": "ava --watch",
+    "test": "node --harmony_async_await node_modules/.bin/ava",
+    "watch": "node --harmony node_modules/.bin/ava --watch",
     "coverage": "nyc ava",
-    "start": "babel-node src/index.js",
+    "start": "node --harmony_async_await src/index.js",
     "build": "rollup -c && mv dist/staplegun dist/staplegun.tmp && echo '#!/usr/bin/env node\n' > ./dist/staplegun && cat dist/staplegun.tmp >> ./dist/staplegun && chmod +x ./dist/staplegun && rm dist/staplegun.tmp",
     "lint": "standard"
   },
@@ -30,17 +30,6 @@
   "dependencies": {
     "ascii-table": "^0.0.9",
     "autobind-decorator": "^1.3.4",
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.18.2",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-flow-strip-types": "^6.18.0",
-    "babel-plugin-transform-regenerator": "^6.16.1",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-polyfill": "^6.16.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "babel-runtime": "^6.18.0",
     "colors": "^1.1.2",
     "fs-jetpack": "^0.10.3",
     "inquirer": "^1.2.3",
@@ -55,30 +44,12 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "babel-eslint": "^7.1.1",
-    "babel-plugin-external-helpers": "^6.18.0",
-    "babel-preset-es2015-rollup": "^1.2.0",
     "flow-bin": "^0.36.0",
     "nyc": "^10.0.0",
     "rollup": "^0.36.4",
-    "rollup-plugin-babel": "^2.6.1",
     "standard": "^8.6.0"
   },
-  "ava": {
-    "require": [
-      "babel-register",
-      "babel-polyfill"
-    ],
-    "babel": {
-      "babelrc": false,
-      "presets": [
-        "es2015",
-        "stage-0"
-      ],
-      "plugins": [
-        "transform-flow-strip-types"
-      ]
-    }
-  },
+  "ava": {},
   "standard": {
     "parser": "babel-eslint"
   },

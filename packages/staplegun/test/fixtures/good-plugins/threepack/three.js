@@ -1,5 +1,7 @@
 const R = require('ramda')
 
-export default async () => {
+async function three () {
   return R.range(1, 4)
 }
+
+module.exports = three

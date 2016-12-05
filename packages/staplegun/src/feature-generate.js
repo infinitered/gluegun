@@ -1,13 +1,11 @@
-import nunjucks from 'nunjucks'
-import Plugin from './plugin'
-import Command from './command'
-import RunContext from './run-context'
-import jetpack from 'fs-jetpack'
-import { replace, pipe } from 'ramda'
-import _ from 'lodash'
-import { isBlank } from './utils'
-import inquirer from 'inquirer'
-import print from './print'
+const nunjucks = require('nunjucks')
+const Command = require('./command')
+const jetpack = require('fs-jetpack')
+const { replace, pipe } = require('ramda')
+const _ = require('lodash')
+const { isBlank } = require('./utils')
+const inquirer = require('inquirer')
+const print = require('./print')
 
 /**
  * The default configuration used by nunjucks.
@@ -39,19 +37,19 @@ const Q_OVERWRITE = {
  * @param  {RunContext} context The running context.
  * @return {Function}           A function to attach to the context.
  */
-export default (plugin: Plugin, command: Command, context: RunContext) => {
+function attach (plugin, command, context) {
   /**
    * Generates a file from a template.
    *
    * @param  {{}}    Generation options.
    * @return {void}
    */
-  async function generate (opts = {}): void {
+  async function generate (opts = {}) {
     // required
-    const template: string = opts.template
+    const template = opts.template
 
     // optional
-    const target: string = opts.target
+    const target = opts.target
     const props = opts.props || {}
     const askToOverwrite = opts.askToOverwrite === true
 
@@ -116,3 +114,5 @@ export default (plugin: Plugin, command: Command, context: RunContext) => {
 
   return generate
 }
+
+module.exports = attach
