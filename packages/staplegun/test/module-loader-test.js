@@ -1,6 +1,6 @@
-import test from 'ava'
-import loadModule from '../src/module-loader'
-import { keys } from 'ramda'
+const test = require('ava')
+const loadModule = require('../src/module-loader')
+const { keys } = require('ramda')
 
 test('handles weird input', t => {
   t.throws(() => loadModule())
@@ -50,29 +50,16 @@ test('module.exports = function', t => {
   t.is(m(), 'hi')
 })
 
-test('module.exports = {}', t => {
+test('module.exports = {}', async t => {
   const m = loadModule(`${__dirname}/fixtures/good-modules/module-exports-object.js`)
   t.is(typeof m, 'object')
-  t.is(m.hi(), 'hi')
+  t.is(await m.hi(), 'hi')
 })
 
 test('module.exports fat arrow function', t => {
   const m = loadModule(`${__dirname}/fixtures/good-modules/module-exports-fat-arrow-fn.js`)
   t.is(typeof m, 'function')
   t.is(m(), 'hi')
-})
-
-test('export named function', t => {
-  const m = loadModule(`${__dirname}/fixtures/good-modules/export-named-function.js`)
-  t.is(typeof m, 'object')
-  t.is(m.hi(), 'hi')
-})
-
-test('export default function', t => {
-  const m = loadModule(`${__dirname}/fixtures/good-modules/export-default-function.js`)
-  t.is(typeof m, 'object')
-  t.is(typeof m.default, 'function')
-  t.is(m.default(), 'hi')
 })
 
 test('async function', async t => {

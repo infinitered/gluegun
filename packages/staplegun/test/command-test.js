@@ -1,8 +1,8 @@
-import test from 'ava'
-import Command from '../src/command'
+const test = require('ava')
+const Command = require('../src/command')
 
 test('default state', t => {
-  const command: Command = new Command()
+  const command = new Command()
   t.truthy(command)
   t.falsy(command.name)
   t.falsy(command.functionName)
@@ -14,7 +14,7 @@ test('default state', t => {
 })
 
 test('loading from a missing file', t => {
-  const command: Command = new Command()
+  const command = new Command()
   command.loadFromFile('foo.js')
   t.falsy(command.run)
   t.is(command.loadState, 'error')
@@ -22,7 +22,7 @@ test('loading from a missing file', t => {
 })
 
 test('deals with wierd input', t => {
-  const command: Command = new Command()
+  const command = new Command()
   command.loadFromFile()
   t.falsy(command.run)
   t.is(command.loadState, 'error')
@@ -30,34 +30,17 @@ test('deals with wierd input', t => {
 })
 
 test('default but none exported', t => {
-  const command: Command = new Command()
+  const command = new Command()
   command.loadFromFile(`${__dirname}/fixtures/good-modules/module-exports-object.js`)
   t.falsy(command.run)
   t.is(command.loadState, 'error')
   t.is(command.errorState, 'badfunction')
 })
 
-test('default and got it', t => {
-  const command: Command = new Command()
-  command.loadFromFile(`${__dirname}/fixtures/good-modules/export-default-function.js`)
+test('fat arrows', t => {
+  const command = new Command()
+  command.loadFromFile(`${__dirname}/fixtures/good-modules/module-exports-fat-arrow-fn.js`)
   t.is(typeof command.run, 'function')
-  t.is(command.loadState, 'ok')
-  t.is(command.errorState, 'none')
-})
-
-test('named function not there', t => {
-  const command: Command = new Command()
-  command.loadFromFile(`${__dirname}/fixtures/good-modules/export-named-function.js`, 'lol')
-  t.falsy(command.run)
-  t.is(command.loadState, 'error')
-  t.is(command.errorState, 'badfunction')
-})
-
-test('named function was there', t => {
-  const command: Command = new Command()
-  command.loadFromFile(`${__dirname}/fixtures/good-modules/export-named-function.js`, 'hi')
-  t.is(typeof command.run, 'function')
-  t.is(command.run.name, 'hi')
   t.is(command.loadState, 'ok')
   t.is(command.errorState, 'none')
 })

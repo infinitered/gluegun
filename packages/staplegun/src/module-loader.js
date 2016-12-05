@@ -1,8 +1,7 @@
-// @flow
-import { isBlank, throwWith, isNotFile } from './utils'
+const { isBlank, throwWith, isNotFile } = require('./utils')
 
 // try loading this module
-function loadModule (path: string): any|void {
+function loadModule (path) {
   throwWith('path is required', isBlank, path)
   throwWith(`${path} is not a file`, isNotFile, path)
 
@@ -10,4 +9,4 @@ function loadModule (path: string): any|void {
   return require(path)
 }
 
-export default loadModule
+module.exports = loadModule

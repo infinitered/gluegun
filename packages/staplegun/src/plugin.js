@@ -1,9 +1,8 @@
-// @flow
-import autobind from 'autobind-decorator'
-import Command from './command'
-import { isNotFile, isNotDirectory, isBlank } from './utils'
-import jetpack from 'fs-jetpack'
-import { without, map, flatten } from 'ramda'
+const autobind = require('autobind-decorator')
+const Command = require('./command')
+const { isNotFile, isNotDirectory, isBlank } = require('./utils')
+const jetpack = require('fs-jetpack')
+const { without, map, flatten } = require('ramda')
 
 const PACKAGE_FILENAME = 'package.json'
 const ROOT_KEY = 'staplegun'
@@ -15,7 +14,7 @@ const ROOT_KEY = 'staplegun'
  * ok    = we're ready to go
  * error = something horrible has happened
  */
-export type PluginLoadState = 'none' | 'ok' | 'error'
+// export type PluginLoadState = 'none' | 'ok' | 'error'
 
 /**
  * The error state.
@@ -27,64 +26,33 @@ export type PluginLoadState = 'none' | 'ok' | 'error'
  * badpackage     = the package.json is invalid
  * namespace      = the package.json is missing namespace
  */
-export type PluginErrorState =
-  'none' | 'input' | 'missingdir' | 'missingpackage' |
-  'badpackage' | 'namespace'
+// export type PluginErrorState =
+//   'none' | 'input' | 'missingdir' | 'missingpackage' |
+//   'badpackage' | 'namespace'
 
 /**
  * Extends the environment with new commands.
  */
-@autobind
 class Plugin {
 
-  /**
-   * The namespace used as a prefix to the commands.
-   */
-  namespace: ?string
-
-  /**
-   * The stage of loading.
-   */
-  loadState: PluginLoadState = 'none'
-
-  /**
-   * The error state
-   */
-  errorState: PluginErrorState = 'none'
-
-  /**
-   * Default plugin configuration.
-   */
-  defaults: Object = {}
-
-  /**
-   * The absolute path of the plugin on the file system
-   */
-  directory: ?string
-
-  /**
-   * The error message if any.
-   */
-  errorMessage: ?string
-
-  /**
-   * A list of commands.
-   */
-  commands: Command[] = []
+  constructor () {
+    this.reset()
+  }
 
   reset () {
-    this.commands = []
-    this.defaults = {}
+    this.namespace = null
     this.loadState = 'none'
     this.errorState = 'none'
-    this.namespace = null
+    this.defaults = {}
+    this.directory = null
     this.errorMessage = null
+    this.commands = []
   }
 
   /**
    * Loads a plugin from a directory.
    */
-  loadFromDirectory (directory: string) {
+  loadFromDirectory (directory) {
     this.reset()
 
     // sanity check
@@ -151,7 +119,7 @@ class Plugin {
   /**
    * Loads a command based on the entry in the package.json
    */
-  loadCommandFromConfig (config: any = {}) {
+  loadCommandFromConfig (config) {
     const command = new Command()
     const { name, file, functionName, description } = config
     command.name = name
@@ -167,7 +135,7 @@ class Plugin {
    * Loads a command from a file, attempting to use tokens to auto-detect.
    * @param {?string} filename The relative path to the file.
    */
-  loadCommandFromFile (file: string) {
+  loadCommandFromFile (file) {
     const command = new Command()
     if (this.directory) {
       const fullpath = `${this.directory}/${file}`
@@ -178,4 +146,4 @@ class Plugin {
 
 }
 
-export default Plugin
+module.exports = autobind(Plugin)

@@ -1,4 +1,4 @@
-export default async (context) => {
+async function hello (context) {
   const name = context && context.stringArguments
   if (name) {
     return `hi ${name}`
@@ -6,3 +6,5 @@ export default async (context) => {
     return 'hi'
   }
 }
+
+module.exports = hello

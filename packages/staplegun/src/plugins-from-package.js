@@ -1,7 +1,6 @@
-// @flow
-import jetpack from 'fs-jetpack'
-import { isNilOrEmpty, dotPath } from 'ramdasauce'
-import { keys, map, when, always, pipe } from 'ramda'
+const jetpack = require('fs-jetpack')
+const { isNilOrEmpty, dotPath } = require('ramdasauce')
+const { keys, map, when, always, pipe } = require('ramda')
 
 /**
  * Gets a list of directories paths for the staplegun plugins
@@ -9,7 +8,7 @@ import { keys, map, when, always, pipe } from 'ramda'
  * @param  {?string}  directory The starting directory
  * @return {string[]}             A list of directories.
  */
-function getPluginDirectoriesFromPackage (directory: ?string): string[] {
+function getPluginDirectoriesFromPackage (directory) {
   return pipe(
     when(isNilOrEmpty, always(jetpack.cwd())),      // default to the current directory
     x => jetpack.read(`${x}/package.json`, 'json'), // read the package.json there
@@ -21,4 +20,4 @@ function getPluginDirectoriesFromPackage (directory: ?string): string[] {
   )(directory)
 }
 
-export default getPluginDirectoriesFromPackage
+module.exports = getPluginDirectoriesFromPackage

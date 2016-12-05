@@ -1,3 +1,5 @@
-export async function omgTwo () {
+async function omgTwo () {
   return 'two'
 }
+
+module.exports = { omgTwo }

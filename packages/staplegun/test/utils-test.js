@@ -1,6 +1,6 @@
-import test from 'ava'
-import { isBlank, isNotString, thrower, throwWith } from '../src/utils'
-import { T } from 'ramda'
+const test = require('ava')
+const { isBlank, isNotString, thrower, throwWith } = require('../src/utils')
+const { T } = require('ramda')
 
 test('isBlank', t => {
   t.true(isBlank())

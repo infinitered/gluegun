@@ -1,7 +1,6 @@
-// @flow
-import colors from 'colors'
-import AsciiTable from 'ascii-table'
-import { toLower } from 'ramda'
+const colors = require('colors')
+const AsciiTable = require('ascii-table')
+const { toLower } = require('ramda')
 
 /**
  * The target output.  Terminal for now.
@@ -41,7 +40,7 @@ function divider () {
  *
  * @param {{}} object The object to turn into a table.
  */
-function table (data: [], options: any = {}) {
+function table (data, options) {
   const t = new AsciiTable()
   t.addRowMatrix(data)
   t.removeBorder()
@@ -56,7 +55,7 @@ function table (data: [], options: any = {}) {
  *
  * @param {string} message The message to write.
  */
-function fancy (message: ?string) {
+function fancy (message) {
   log(message)
 }
 
@@ -67,7 +66,7 @@ function fancy (message: ?string) {
  *
  * @param {string} message The message to show.
  */
-function info (message: ?string) {
+function info (message) {
   log(colors.info(message))
 }
 
@@ -78,7 +77,7 @@ function info (message: ?string) {
  *
  * @param {string} message The message to show.
  */
-function error (message: ?string) {
+function error (message) {
   log(colors.error(message))
 }
 
@@ -89,7 +88,7 @@ function error (message: ?string) {
  *
  * @param {string} message The message to show.
  */
-function warning (message: ?string) {
+function warning (message) {
   log(colors.warning(message))
 }
 
@@ -100,7 +99,7 @@ function warning (message: ?string) {
  *
  * @param {string} message The message to show.
  */
-function debug (message: ?string, title: string = 'DEBUG') {
+function debug (message, title = 'DEBUG') {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
@@ -116,7 +115,7 @@ function debug (message: ?string, title: string = 'DEBUG') {
  *
  * @param {string} message The message to show.
  */
-function success (message: ?string) {
+function success (message) {
   log(colors.success(message))
 }
 
@@ -127,14 +126,14 @@ function success (message: ?string) {
  * @param {string} action  The action name (max 20 characters)
  * @param {string} message The message name (max 100 characters)
  */
-function step (action: string, message: string): void {
+function step (action, message) {
   const col1 = colors.info(toLower(action))
   const col2 = colors.highlight(message)
   const say = `${col1} ${col2}`
   log(say)
 }
 
-export default {
+module.exports = {
   info,
   warning,
   success,
