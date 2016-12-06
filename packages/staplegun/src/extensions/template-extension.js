@@ -115,7 +115,7 @@ function attach (plugin, command, context) {
     return content
   }
 
-  return generate
+  return { generate }
 }
 
 module.exports = attach

@@ -3,7 +3,8 @@ async function simple (context) {
   const dir = context.directories['root'] || 'generated'
   const target = `${dir}/simple.txt`
 
-  return context.generate({ template, target, askToOverwrite: false })
+  const result = await context.template.generate({ template, target, askToOverwrite: false })
+  return result
 }
 
 module.exports = simple

@@ -57,7 +57,7 @@ async function run (namespace, fullArguments = '', options = {}) {
     if (command.run) {
       // attach features
       context.print = addPrintExtension(plugin, command, context)
-      context.generate = addTemplateExtension(plugin, command, context)
+      context.template = addTemplateExtension(plugin, command, context)
 
       try {
         context.result = await command.run(context)

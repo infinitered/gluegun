@@ -7,7 +7,8 @@ async function command (context) {
     colors: [ 'red', 'green', 'blue' ]
   }
 
-  return context.generate({ template, target, props, askToOverwrite: false })
+  const result = await context.template.generate({ template, target, props, askToOverwrite: false })
+  return result
 }
 
 module.exports = command
