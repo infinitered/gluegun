@@ -1,5 +1,3 @@
-const autobind = require('autobind-decorator')
-
 class RunContext {
 
   constructor () {
@@ -48,4 +46,4 @@ class RunContext {
 
 }
 
-module.exports = autobind(RunContext)
+module.exports = RunContext

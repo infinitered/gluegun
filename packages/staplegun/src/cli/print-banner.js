@@ -1,8 +1,8 @@
-const print = require('./print')
+const print = require('../utils/print')
 const colors = require('colors')
 const jetpack = require('fs-jetpack')
 const { length } = require('ramda')
-const { leftPad } = require('./utils')
+const { leftPad } = require('../utils/string-utils')
 
 const L33T_BRANDING = `          |              |
      ,---.|--- ,---.,---.|    ,---.    ,---..   .,---.
@@ -11,7 +11,7 @@ const L33T_BRANDING = `          |              |
                     |                  \`---'          `
 
 // grab the version
-const pkg = jetpack.read(`${__dirname}/../package.json`, 'json')
+const pkg = jetpack.read(`${__dirname}/../../package.json`, 'json')
 const version = `${pkg.version}`
 const versionPad = leftPad(Math.round((60 + length(version)) / 2), ' ', version)
 

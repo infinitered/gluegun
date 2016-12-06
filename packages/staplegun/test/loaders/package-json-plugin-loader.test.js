@@ -1,50 +1,34 @@
 const test = require('ava')
-const Plugin = require('../src/plugin')
-
-test('default state', t => {
-  const plugin = new Plugin()
-  t.truthy(plugin)
-  t.is(plugin.loadState, 'none')
-  t.is(plugin.errorState, 'none')
-  t.falsy(plugin.directory)
-  t.falsy(plugin.namespace)
-  t.deepEqual(plugin.commands, [])
-  t.deepEqual(plugin.defaults, {})
-})
+const load = require('../../src/loaders/package-json-plugin-loader')
 
 test('deals with wierd input', t => {
-  const plugin = new Plugin()
-  plugin.loadFromDirectory()
+  const plugin = load()
   t.falsy(plugin.run)
   t.is(plugin.loadState, 'error')
   t.is(plugin.errorState, 'input')
 })
 
 test('directory not found', t => {
-  const plugin = new Plugin()
-  plugin.loadFromDirectory('gonebabygone')
+  const plugin = load(`${__dirname}/gonebabygone`)
   t.is(plugin.loadState, 'error')
   t.is(plugin.errorState, 'missingdir')
 })
 
 test('missing package', t => {
-  const plugin = new Plugin()
-  plugin.loadFromDirectory(`${__dirname}/fixtures/bad-plugins/empty`)
+  const plugin = load(`${__dirname}/../fixtures/bad-plugins/empty`)
   t.is(plugin.loadState, 'error')
   t.is(plugin.errorState, 'missingpackage')
 })
 
 test('missing namespace', t => {
-  const plugin = new Plugin()
-  plugin.loadFromDirectory(`${__dirname}/fixtures/bad-plugins/missing-namespace`)
+  const plugin = load(`${__dirname}/../fixtures/bad-plugins/missing-namespace`)
   t.is(plugin.loadState, 'error')
   t.is(plugin.errorState, 'namespace')
 })
 
 test('sane defaults', t => {
-  const plugin = new Plugin()
-  const dir = `${__dirname}/fixtures/good-plugins/simplest`
-  plugin.loadFromDirectory(dir)
+  const dir = `${__dirname}/../fixtures/good-plugins/simplest`
+  const plugin = load(dir)
 
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
@@ -56,12 +40,12 @@ test('sane defaults', t => {
 })
 
 test('loads commands', async t => {
-  const plugin = new Plugin()
-  const dir = `${__dirname}/fixtures/good-plugins/threepack`
-  plugin.loadFromDirectory(dir)
+  const dir = `${__dirname}/../fixtures/good-plugins/threepack`
+  const plugin = load(dir)
 
-  t.is(plugin.loadState, 'ok')
+  t.falsy(plugin.exception && plugin.exception.message)
   t.is(plugin.errorState, 'none')
+  t.is(plugin.loadState, 'ok')
   t.is(plugin.namespace, '3pack')
   t.is(plugin.directory, dir)
   t.falsy(plugin.errorMessage)
@@ -71,16 +55,14 @@ test('loads commands', async t => {
   const two = plugin.commands[1]
   t.is(two.name, 'two')
   t.is(two.file, `${dir}/two.js`)
-  t.is(two.functionName, 'omgTwo')
   t.is(two.description, 'Returns a two')
-  // t.is(typeof two.run, Promise)  // grrr.. failing
+  t.is(typeof two.run, 'function')
   t.is(await two.run(), 'two')
 })
 
 test('load from front matter', async t => {
-  const plugin = new Plugin()
-  const dir = `${__dirname}/fixtures/good-plugins/front-matter`
-  plugin.loadFromDirectory(dir)
+  const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
+  const plugin = load(dir)
 
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')

@@ -2,9 +2,9 @@ const nunjucks = require('nunjucks')
 const jetpack = require('fs-jetpack')
 const { replace, pipe } = require('ramda')
 const _ = require('lodash')
-const { isBlank } = require('./utils')
+const { isBlank } = require('../utils/string-utils')
 const inquirer = require('inquirer')
-const print = require('./print')
+const print = require('../utils/print')
 
 /**
  * The default configuration used by nunjucks.

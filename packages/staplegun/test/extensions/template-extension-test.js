@@ -1,10 +1,11 @@
 const test = require('ava')
-const Runtime = require('../src/runtime')
+const Runtime = require('../../src/domain/runtime')
+const loadPluginFromPackageJson = require('../../src/loaders/package-json-plugin-loader')
 
 const createRuntime = () => {
   const r = new Runtime()
   r.directories.root = 'generated'
-  r.addPluginFromDirectory(`${__dirname}/fixtures/good-plugins/generate`)
+  r.addPlugin(loadPluginFromPackageJson(`${__dirname}/../fixtures/good-plugins/generate`))
   return r
 }
 

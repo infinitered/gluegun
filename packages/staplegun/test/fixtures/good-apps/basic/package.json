@@ -1,0 +1,8 @@
+{
+  "staplegun": {
+    "plugins": [
+      "inapp",
+      "node_modules/another-pack"
+    ]
+  }
+}

@@ -1,6 +1,5 @@
 const test = require('ava')
-const { isBlank, isNotString, thrower, throwWith } = require('../src/utils')
-const { T } = require('ramda')
+const { isBlank, isNotString } = require('../../src/utils/string-utils')
 
 test('isBlank', t => {
   t.true(isBlank())
@@ -25,12 +24,4 @@ test('isNotString', t => {
   t.true(isNotString([]))
   t.false(isNotString(''))
   t.false(isNotString('s'))
-})
-
-test('thrower', t => {
-  t.throws(() => thrower('hi'), Error, 'hi')
-})
-
-test('throwWith', t => {
-  t.throws(() => throwWith('lulz', T, 1))
 })

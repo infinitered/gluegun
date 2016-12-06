@@ -1,4 +1,4 @@
-const print = require('./print')
+const print = require('../utils/print')
 const { map } = require('ramda')
 
 /**

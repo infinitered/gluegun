@@ -6,9 +6,9 @@ const { head, join, dissoc, slice } = require('ramda')
  *
  * @return {{}} And object with our awesome keys.
  */
-function parseCommandLine () {
+function parseCommandLine (argv = []) {
   // chop it up minimist!
-  const cmd = minimist(process.argv.slice(2))
+  const cmd = minimist(argv.slice(2))
 
   // the namespace is the first word
   const namespace = head(cmd._)

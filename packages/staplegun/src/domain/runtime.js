@@ -1,17 +1,17 @@
 const autobind = require('autobind-decorator')
-const Plugin = require('./plugin')
 const { clone, when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } = require('ramda')
 const { findByProp, startsWith } = require('ramdasauce')
-const { isBlank } = require('./utils')
+const { isBlank } = require('../utils/string-utils')
 const RunContext = require('./run-context')
-const createGenerateFeature = require('./feature-generate')
+
+const createGenerateFeature = require('../extensions/template-extension')
 
 const COMMAND_DELIMITER = ' '
 
 /**
  * Strips the command out of the args returns an array of the rest.
  *
- * @param {string} args The full arguments including command.
+ * @param {string} args        The full arguments including command.
  * @param {string} commandName The name of the command to strip.
  */
 const extractSubArguments = (args, commandName) =>
@@ -25,10 +25,10 @@ const extractSubArguments = (args, commandName) =>
 /**
 * Runs a command.
 *
-* @param  {string} namespace     The namespace to run.
-* @param  {string} fullArguments The complete list of arguments to target the right command.
-* @param  {{}}     options       Additional options to pass to the commane
-* @return {RunContext}           The RunContext object indicating what happened.
+* @param  {string}     namespace     The namespace to run.
+* @param  {string}     fullArguments The complete list of arguments to target the right command.
+* @param  {{}}         options       Additional options to pass to the command
+* @return {RunContext}               The RunContext object indicating what happened.
 */
 async function run (namespace, fullArguments = '', options = {}) {
   // prepare the run context
@@ -88,18 +88,6 @@ class Runtime {
    */
   addPlugin (plugin) {
     this.plugins = append(plugin, this.plugins)
-  }
-
-  /**
-   * Loads a plugin from a directory.
-   *
-   * @param {string} directory The full path to a directory.
-   * @returns {Plugin}         The plugin that was just created.  Healthy or not.
-   */
-  addPluginFromDirectory (directory) {
-    const plugin = new Plugin()
-    plugin.loadFromDirectory(directory)
-    this.addPlugin(plugin)
     return plugin
   }
 
