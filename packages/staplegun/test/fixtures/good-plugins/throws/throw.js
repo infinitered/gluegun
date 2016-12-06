@@ -1,4 +1,4 @@
-async function thrower (context)  {
+async function thrower (context) {
   throw new Error()
 }
 

@@ -44,7 +44,6 @@ async function run (namespace, fullArguments = '', options = {}) {
   }
   context.config = clone(plugin.defaults)
 
-
   // find the command
   const command = this.findCommand(plugin, fullArguments)
 

@@ -1,5 +1,4 @@
 const nunjucks = require('nunjucks')
-const Command = require('./command')
 const jetpack = require('fs-jetpack')
 const { replace, pipe } = require('ramda')
 const _ = require('lodash')
