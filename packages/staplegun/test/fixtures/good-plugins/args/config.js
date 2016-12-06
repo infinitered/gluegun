@@ -1,5 +1,5 @@
 function config (context) {
-  return context && context.config && context.config.color || 'red'
+  return context.config.args.color || 'red'
 }
 
 module.exports = config

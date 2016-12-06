@@ -1,5 +1,5 @@
-{{ arguments | first | camelCase }} {{ props.thing }}
+{{ parameters.first | camelCase }} {{ props.thing }}
 {% for color in props.colors -%}
 {{ color }}
 {% endfor -%}
-{{ '*' | repeat(options.stars if options.stars else 0) }}
+{{ '*' | repeat(parameters.options.stars if parameters.options.stars else 0) }}

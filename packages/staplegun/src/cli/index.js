@@ -56,7 +56,7 @@ async function run () {
     printBanner()
   }
 
-  if (isBlank(context.fullArguments)) {
+  if (isBlank(context.parameters.string)) {
     printCommands(runtime)
   }
 

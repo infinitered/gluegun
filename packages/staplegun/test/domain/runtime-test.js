@@ -26,12 +26,12 @@ test('cannot find a command', async t => {
   const context = await r.run('bloo', 'blah', {})
 
   t.truthy(context)
-  t.is(context.fullArguments, 'blah')
-  t.falsy(context.arguments)
-  t.falsy(context.stringArguments)
+  t.is(context.parameters.full, 'blah')
+  t.falsy(context.parameters.array)
+  t.falsy(context.parameters.string)
+  t.deepEqual(context.parameters.options, {})
   t.falsy(context.result)
   t.falsy(context.error)
-  t.deepEqual(context.options, {})
 })
 
 test('survives exceptions', async t => {
@@ -40,12 +40,12 @@ test('survives exceptions', async t => {
   const context = await r.run('throws', 'throw')
 
   t.truthy(context)
-  t.is(context.fullArguments, 'throw')
-  t.deepEqual(context.arguments, [])
-  t.falsy(context.stringArguments)
+  t.is(context.parameters.full, 'throw')
+  t.deepEqual(context.parameters.array, [])
+  t.falsy(context.parameters.string)
+  t.deepEqual(context.parameters.options, {})
   t.falsy(context.result)
   t.truthy(context.error)
-  t.deepEqual(context.options, {})
 })
 
 test('runs a command', async t => {
@@ -55,9 +55,9 @@ test('runs a command', async t => {
   const context = await r.run('3pack', 'three')
 
   t.truthy(context)
-  t.is(context.fullArguments, 'three')
-  t.deepEqual(context.arguments, [])
-  t.deepEqual(context.stringArguments, '')
+  t.is(context.parameters.full, 'three')
+  t.deepEqual(context.parameters.array, [])
+  t.deepEqual(context.parameters.string, '')
   t.deepEqual(context.result, [1, 2, 3])
   t.falsy(context.error)
 })
@@ -68,11 +68,11 @@ test('can pass arguments', async t => {
   const context = await r.run('args', 'hello steve kellock', { caps: false })
 
   t.truthy(context)
-  t.is(context.fullArguments, 'hello steve kellock')
-  t.deepEqual(context.arguments, ['steve', 'kellock'])
-  t.deepEqual(context.stringArguments, 'steve kellock')
+  t.is(context.parameters.full, 'hello steve kellock')
+  t.deepEqual(context.parameters.array, ['steve', 'kellock'])
+  t.deepEqual(context.parameters.string, 'steve kellock')
+  t.deepEqual(context.parameters.options, { caps: false })
   t.is(context.result, 'hi steve kellock')
-  t.deepEqual(context.options, { caps: false })
   t.falsy(context.error)
 })
 

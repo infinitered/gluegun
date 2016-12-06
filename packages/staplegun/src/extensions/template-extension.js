@@ -63,8 +63,7 @@ function attach (plugin, command, context) {
 
     // add some goodies to the environment so templates can read them
     env.addGlobal('config', context.config)
-    env.addGlobal('arguments', context.arguments)
-    env.addGlobal('options', context.options)
+    env.addGlobal('parameters', context.parameters)
     env.addGlobal('props', props)
 
     // add some pre-baked filters -- thanks Lodash!

@@ -1,14 +1,13 @@
 async function command (context) {
   const template = 'props.njk'
-  const dir = context.directories['root'] || 'generated'
+  const dir = 'generated'
   const target = `${dir}/props.txt`
   const props = {
     thing: 'world',
     colors: [ 'red', 'green', 'blue' ]
   }
 
-  const result = await context.template.generate({ template, target, props, askToOverwrite: false })
-  return result
+  return await context.template.generate({ template, target, props, askToOverwrite: false })
 }
 
 module.exports = command

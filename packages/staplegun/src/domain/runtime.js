@@ -26,32 +26,43 @@ const extractSubArguments = (args, commandName) =>
 /**
 * Runs a command.
 *
-* @param  {string}     namespace     The namespace to run.
-* @param  {string}     fullArguments The complete list of arguments to target the right command.
-* @param  {{}}         options       Additional options to pass to the command
-* @return {RunContext}               The RunContext object indicating what happened.
+* @param  {string}     namespace The namespace to run.
+* @param  {string}     full      The complete list of arguments to target the right command.
+* @param  {{}}         options   Additional options to pass to the command
+* @return {RunContext}           The RunContext object indicating what happened.
 */
-async function run (namespace, fullArguments = '', options = {}) {
+async function run (namespace, full = '', options = {}) {
   // prepare the run context
   const context = new RunContext()
-  context.fullArguments = fullArguments
-  context.options = options
-  context.directories = clone(this.directories)
+
+  // setup the context parameters that we know
+  context.parameters = {
+    namespace,
+    options,
+    full
+  }
 
   // find the plugin
   const plugin = this.findPlugin(namespace)
   if (!plugin) {
     return context
   }
-  context.config = clone(plugin.defaults)
+
+  // setup the config
+  context.config = {}
+  context.config[plugin.namespace] = clone(plugin.defaults)
 
   // find the command
-  const command = this.findCommand(plugin, fullArguments)
+  const command = this.findCommand(plugin, full)
 
   if (command) {
-    // parse & chop up the arguments
-    context.arguments = extractSubArguments(fullArguments, trim(command.name))
-    context.stringArguments = join(COMMAND_DELIMITER, context.arguments)
+    // setup the rest of the parameters
+    const subArgs = extractSubArguments(full, trim(command.name))
+    context.parameters.array = subArgs
+    context.parameters.first = subArgs[0]
+    context.parameters.second = subArgs[1]
+    context.parameters.third = subArgs[2]
+    context.parameters.string = join(COMMAND_DELIMITER, subArgs)
 
     // kick it off
     if (command.run) {

@@ -1,5 +1,5 @@
 async function hello (context) {
-  const name = context && context.stringArguments
+  const name = context.parameters.string
   if (name) {
     return `hi ${name}`
   } else {
