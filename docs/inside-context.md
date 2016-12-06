@@ -1,6 +1,14 @@
 # Inside Context
 
-Here's what's available inside context.
+So you're making a plugin.
+
+```js
+module.exports = async function (context) {
+  // great!  now what?
+}
+```
+
+Here's what's available inside `context` object.
 
 |name|provides the...
 |---|---|
@@ -21,47 +29,92 @@ Information about how the command was invoked.
 Options are the command line flags.  Always exists however it may be empty.
 
 ```sh
-$ staple say hello --loud -v  # { loud: true, v: true }
-$ staple wave --times 5       # { times: 5 } 
+staple say hello --loud -v --wave furiously
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.options // { loud: true, v: true, wave: 'furiously' }
+}
 ```
 
 ### string
 Everything else after the command as a string.
 
 ```sh
-$ staple say hello there  # hello there
+staple say hello there
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.string // 'hello there'
+}
 ```
 
 ### array
 Everything else after the command, but as an array.
 
 ```sh
-staple reactotron plugin full  # ['plugin', 'full']
+staple reactotron plugin full
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.array // ['plugin', 'full']
+}
 ```
 
 ### first
 The first element in `array`.
 
 ```sh
-staple reactotron plugin full  # plugin
+staple reactotron plugin full
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.first // 'plugin'
+}
 ```
 
 ### second
 The second element in `array`.
 
 ```sh
-staple reactotron plugin full  # full
+staple reactotron plugin full
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.second // 'full'
+}
 ```
 
 ### third
 The third element in `array`.
 
 ```sh
-staple reactotron plugin full  # undefined
+staple reactotron plugin full
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.third // undefined
+}
 ```
 
 ### full
 This is a string of everything after the namespace.  I'm unclear why I have this here.
+
+```sh
+staple reactotron plugin full
+```
+
+```js
+module.exports = async function (context) {
+  context.parameters.full // 'reactotron plugin full'
+}
+```
 
 # context.config
 This is an object.  Each plugin will have it's own root level key. 
@@ -73,9 +126,7 @@ It takes the plugin's defaults, and merges the user's changes overtop.
 {
   "staplegun": {
     "namespace": "myPlugin",
-    "defaults": {
-      "fun": false
-    }
+    "defaults": { "fun": false, "level": 10 }
   }
 }
 
@@ -83,16 +134,18 @@ It takes the plugin's defaults, and merges the user's changes overtop.
 {
   "staplegun": {
     "config": {
-      "myPlugin": {
-        "fun": true
-      }
+      "myPlugin": { "fun": true }
     }
   }
 }
 
-context.config.myPlugin.fun // true
 ```
 
+```js
+module.exports = async function (context) {
+  context.config.myPlugin // { fun: true, level: 10 }
+}
+```
 
 # context.print
 Features for allowing you to print to the console.
