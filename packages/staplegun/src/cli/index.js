@@ -34,8 +34,7 @@ async function run () {
   // grab more plugins that are listed in the package.json in the current directory
   const morePlugins = map(
     relativeDir => {
-      const fullDir = `${cwd}/node_modules/${relativeDir}`
-      console.log(relativeDir, fullDir)
+      const fullDir = `${cwd}/${relativeDir}`
       return loadPluginFromPackageJson(fullDir, { key, commandFilePattern })
     },
     getPluginsFromPackage(`${cwd}/package.json`, key)
