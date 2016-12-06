@@ -17,7 +17,7 @@ Here's what's available inside context.
 ## context.parameters
 Information about how the command was invoked.
 
-#### options
+### options
 Options are the command line flags.  Always exists however it may be empty.
 
 ```sh
@@ -25,42 +25,42 @@ $ staple say hello --loud -v  # { loud: true, v: true }
 $ staple wave --times 5       # { times: 5 } 
 ```
 
-#### string
+### string
 Everything else after the command as a string.
 
 ```sh
 $ staple say hello there  # hello there
 ```
 
-#### array
+### array
 Everything else after the command, but as an array.
 
 ```sh
 staple reactotron plugin full  # ['plugin', 'full']
 ```
 
-#### first
+### first
 The first element in `array`.
 
 ```sh
 staple reactotron plugin full  # plugin
 ```
 
-#### second
+### second
 The second element in `array`.
 
 ```sh
 staple reactotron plugin full  # full
 ```
 
-#### third
+### third
 The third element in `array`.
 
 ```sh
 staple reactotron plugin full  # undefined
 ```
 
-#### full
+### full
 This is a string of everything after the namespace.  I'm unclear why I have this here.
 
 ## context.config
@@ -97,7 +97,7 @@ context.config.myPlugin.fun // true
 ## context.print
 Features for allowing you to print to the console.
 
-#### stepComplete(action, message)
+### stepComplete(action, message)
 Indicates to that something relevant has been done.
 
 The `action` parameter is string up to 20 characters long.  It should be the 
@@ -106,10 +106,10 @@ passed-tense verb like "generated" or "deleted".
 The `message` parameter is a string up to 80 characters long.  It can be anything
 relevant to what happened.  You're welcome to to use colors here like `highlight` to emphasize your message.
 
-#### debug()
+### debug()
 Only used for debugging your plugins.  You can pass this function a string or an object. 
 
-#### colors
+### colors
 An object for working with printing colors on the command line.  It is from the `colors` NPM package, 
 however we define a theme to make things a bit consistent.
 
@@ -132,7 +132,7 @@ because of the embedded color codes that disappear when you print them. 🔥
 ## context.template
 Features for generating files based on a template.
 
-#### generate(options)
+### generate(options)
 
 Generates a new file based on a template.
 
@@ -145,22 +145,22 @@ option        | type    | purpose                              | notes
 ## context.prompt
 Features for getting additional information from the user on the command line.
 
-#### yesOrNo
+### yesOrNo
 
 :(
 
-#### multipleChoice
+### multipleChoice
 
 :(
 
-#### input
+### input
 
 :(
 
 
 ## context.filesystem
 
-#### read(file, format)
+### read(file, format)
 
 Reads a file from the file system.
 
@@ -171,49 +171,49 @@ param    | purpose              | notes
 
 :(
 
-#### write(file, format)
+### write(file, format)
 :(
 
-#### copy()
+### copy()
 :(
 
-#### delete()
+### delete()
 :(
 
-#### move()
+### move()
 :(
 
 ## context.system
 
-#### execute
+### execute
 :(
 
-#### open
+### open
 :(
 
-#### copyToClipboard
+### copyToClipboard
 :(
 
 ## context.http 
 Interact with the information superhighway!
 
-#### get
+### get
 :(
 
-#### post
+### post
 :(
 
-#### delete
+### delete
 :(
 
-#### head
+### head
 :(
 
-#### put
+### put
 :(
 
-#### patch
+### patch
 :(
 
-#### download
+### download
 :(
