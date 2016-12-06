@@ -1,6 +1,5 @@
 const colors = require('colors')
 const AsciiTable = require('ascii-table')
-const { toLower } = require('ramda')
 
 /**
  * The target output.  Terminal for now.
@@ -11,7 +10,7 @@ const log = console.log
  * Sets the color scheme.
  */
 colors.setTheme({
-  highlight: 'yellow',
+  highlight: 'cyan',
   info: 'reset',
   warning: 'yellow',
   success: 'green',
@@ -119,20 +118,6 @@ function success (message) {
   log(colors.success(message))
 }
 
-/**
- * Writes a step message.  Features or plugins can call this to indicate
- * something important is happening.
- *
- * @param {string} action  The action name (max 20 characters)
- * @param {string} message The message name (max 100 characters)
- */
-function step (action, message) {
-  const col1 = colors.info(toLower(action))
-  const col2 = colors.highlight(message)
-  const say = `${col1} ${col2}`
-  log(say)
-}
-
 module.exports = {
   info,
   warning,
@@ -143,6 +128,5 @@ module.exports = {
   divider,
   newline,
   table,
-  colors,
-  step
+  colors
 }

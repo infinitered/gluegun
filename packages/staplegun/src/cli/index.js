@@ -6,7 +6,7 @@ const Runtime = require('../domain/runtime')
 const loadPluginFromPackageJson = require('../loaders/package-json-plugin-loader')
 const getPluginsFromPackage = require('../loaders/plugins-from-package')
 
-const print = require('../utils/print')
+// const print = require('../utils/print')
 const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
 const printCommandLineOptions = require('./print-command-line-options')
@@ -60,7 +60,7 @@ async function run () {
     printCommands(runtime)
   }
 
-  print.debug(context, 'run context')
+  // print.debug(context, 'run context')
 }
 
 run()

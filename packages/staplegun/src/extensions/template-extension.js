@@ -4,7 +4,6 @@ const { replace, pipe } = require('ramda')
 const _ = require('lodash')
 const { isBlank } = require('../utils/string-utils')
 const inquirer = require('inquirer')
-const print = require('../utils/print')
 
 /**
  * The default configuration used by nunjucks.
@@ -40,8 +39,8 @@ function attach (plugin, command, context) {
   /**
    * Generates a file from a template.
    *
-   * @param  {{}}    Generation options.
-   * @return {void}
+   * @param  {{}} opts Generation options.
+   * @return {string}  The generated string.
    */
   async function generate (opts = {}) {
     // required
@@ -51,6 +50,10 @@ function attach (plugin, command, context) {
     const target = opts.target
     const props = opts.props || {}
     const askToOverwrite = opts.askToOverwrite === true
+
+    // grab some features
+    const { print } = context
+    const { stepComplete, colors } = print
 
     // grab the path to the plugin
     const pluginTemplatesLoader = new nunjucks.FileSystemLoader(plugin.directory)
@@ -92,7 +95,8 @@ function attach (plugin, command, context) {
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
       const save = () => {
-        print.step('generating', target)
+        const colorTemplate = colors.muted(`from ${template}`)
+        stepComplete(`generated`, `${target} ${colorTemplate}`)
         jetpack.write(dest, content)
       }
 

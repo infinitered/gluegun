@@ -4,7 +4,8 @@ const { findByProp, startsWith } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const RunContext = require('./run-context')
 
-const createGenerateFeature = require('../extensions/template-extension')
+const addTemplateExtension = require('../extensions/template-extension')
+const addPrintExtension = require('../extensions/print-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -55,7 +56,8 @@ async function run (namespace, fullArguments = '', options = {}) {
     // kick it off
     if (command.run) {
       // attach features
-      context.generate = createGenerateFeature(plugin, command, context)
+      context.print = addPrintExtension(plugin, command, context)
+      context.generate = addTemplateExtension(plugin, command, context)
 
       try {
         context.result = await command.run(context)
