@@ -14,7 +14,7 @@ Here's what's available inside context.
 |**http**|ability to to the web|
 
 
-## context.parameters
+# context.parameters
 Information about how the command was invoked.
 
 ### options
@@ -63,7 +63,7 @@ staple reactotron plugin full  # undefined
 ### full
 This is a string of everything after the namespace.  I'm unclear why I have this here.
 
-## context.config
+# context.config
 This is an object.  Each plugin will have it's own root level key. 
 
 It takes the plugin's defaults, and merges the user's changes overtop.
@@ -94,7 +94,7 @@ context.config.myPlugin.fun // true
 ```
 
 
-## context.print
+# context.print
 Features for allowing you to print to the console.
 
 ### stepComplete(action, message)
@@ -129,7 +129,7 @@ One gotcha here is that the length of the string is longer than you think
 because of the embedded color codes that disappear when you print them. 🔥
 
 
-## context.template
+# context.template
 Features for generating files based on a template.
 
 ### generate(options)
@@ -142,7 +142,7 @@ option        | type    | purpose                              | notes
 `target`      | string  | path to create the file              | relative from user's working directory  
 `props`       | object  | more data to render in your template |  
 
-## context.prompt
+# context.prompt
 Features for getting additional information from the user on the command line.
 
 ### yesOrNo
@@ -158,7 +158,7 @@ Features for getting additional information from the user on the command line.
 :(
 
 
-## context.filesystem
+# context.filesystem
 
 ### read(file, format)
 
@@ -183,7 +183,7 @@ param    | purpose              | notes
 ### move()
 :(
 
-## context.system
+# context.system
 
 ### execute
 :(
@@ -194,7 +194,7 @@ param    | purpose              | notes
 ### copyToClipboard
 :(
 
-## context.http 
+# context.http 
 Interact with the information superhighway!
 
 ### get
