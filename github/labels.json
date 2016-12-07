@@ -1,0 +1,74 @@
+[
+  {
+    "name": "priority: critical",
+    "color": "#e11d21"
+  },
+  {
+    "name": "priority: high",
+    "color": "#eb6420"
+  },
+  {
+    "name": "priority: low",
+    "color": "#009800"
+  },
+  {
+    "name": "priority: medium",
+    "color": "#fbca04"
+  },
+  {
+    "name": "status: abandoned",
+    "color": "#000000"
+  },
+  {
+    "name": "status: accepted",
+    "color": "#009800"
+  },
+  {
+    "name": "status: available",
+    "color": "#bfe5bf"
+  },
+  {
+    "name": "status: blocked",
+    "color": "#e11d21"
+  },
+  {
+    "name": "status: completed",
+    "color": "#006b75"
+  },
+  {
+    "name": "status: in progress",
+    "color": "#cccccc"
+  },
+  {
+    "name": "status: on hold",
+    "color": "#e11d21"
+  },
+  {
+    "name": "status: pending",
+    "color": "#fef2c0"
+  },
+  {
+    "name": "status: review needed",
+    "color": "#fbca04"
+  },
+  {
+    "name": "status: revision needed",
+    "color": "#e11d21"
+  },
+  {
+    "name": "type: bug",
+    "color": "#e11d21"
+  },
+  {
+    "name": "type: enhancement",
+    "color": "#84b6eb"
+  },
+  {
+    "name": "type: maintenance",
+    "color": "#fbca04"
+  },
+  {
+    "name": "type: question",
+    "color": "#cc317c"
+  }
+]
