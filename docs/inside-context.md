@@ -12,16 +12,16 @@ module.exports = async function (context) {
 
 Here's what's available inside `context` object.
 
-name            | provides the...
-----------------|--------------------------------------------------------------
-**parameters**  | command line arguments and options
-**config**      | configuration options from the app or plugin
-**print**       | tools to print output to the command line
-**template**    | code generation from templates
-**prompt**      | tools to acquire extra command line user input
-**filesystem**  | ability to copy, move & delete files & directories
-**system**      | ability to execute & copy to the clipboard
-**http**        | ability to talk to the web
+name            | provides the...                                     | 3rd party 
+----------------|-----------------------------------------------------|--------
+**parameters**  | command line arguments and options                  | minimist
+**config**      | configuration options from the app or plugin        | 
+**print**       | tools to print output to the command line           | colors
+**template**    | code generation from templates                      | nunjucks
+**prompt**      | tools to acquire extra command line user input      | inquirer
+**filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
+**system**      | ability to execute & copy to the clipboard          | cross-env
+**http**        | ability to talk to the web                          | axios
 
 If this is starting to sound like a scripting language, then good.  That's exactly how to think of it.  Except
 we're not inventing another language.  And we're still running in a `node.js` environment, so you can do whatever you want.
@@ -218,51 +218,12 @@ option           | type    | purpose                              | notes
 
 
 # context.prompt
-Features for getting additional information from the user on the command line.
 
-### context.prompt.yesNo
-
-:(
-
-### context.prompt.multipleChoice
-
-:(
-
-### context.prompt.input
-
-:(
-
+Let's drop `inquirer` here.
 
 # context.filesystem
 
-### context.filesystem.read
-
-Reads a file from the file system.
-
-param    | purpose              | notes
----------|----------------------|----------------------------------------------
-`file`   | The path to the file | relative from plugin directory
-`format` | Optional format      | `null` - text file<br/>`'json'` - JSON object
-
-:(
-
-### context.filesystem.write
-:(
-
-### context.filesystem.copy
-:(
-
-### context.filesystem.delete
-:(
-
-### context.filesystem.move
-:(
-
-### context.filesystem.createDirectory
-:(
-
-### context.filesystem.info
-:(
+Honestly, the `fs-jetpack` API is so well done, let's just drop that here. Provide examples.
 
 # context.system
 
@@ -277,25 +238,5 @@ param    | purpose              | notes
 
 
 # context.http 
-Interact with the information superhighway!
 
-### context.http.get
-:(
-
-### context.http.post
-:(
-
-### context.http.delete
-:(
-
-### context.http.head
-:(
-
-### context.http.put
-:(
-
-### context.http.patch
-:(
-
-### context.http.download
-:(
+`axios` gets this spot.  Provide examples though.
