@@ -1,5 +1,5 @@
 {
-  "staplegun": {
+  "gluegun": {
     "namespace": "3pack",
     "commands": [
       { "name": "one", "file": "one.js", "description": "Returns a 1" },

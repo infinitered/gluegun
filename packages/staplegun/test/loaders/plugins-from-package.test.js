@@ -23,7 +23,7 @@ test('non-existant key', t => {
 
 test('valid plugins', t => {
   const file = `${__dirname}/../fixtures/good-apps/basic/package.json`
-  const keys = getPluginsFromPackage(file, 'staplegun')
+  const keys = getPluginsFromPackage(file, 'gluegun')
   t.deepEqual(keys, ['inapp', 'node_modules/another-pack'])
 })
 

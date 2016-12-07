@@ -4,21 +4,21 @@ When installed globally it is very trivial to create plugins.
 
 Let's get started.  This will be lame, but very quick.
 
-## Creating The `staple-loves` Plugin
+## Creating The `gluegun-loves` Plugin
 
-* Create a new directory called `staple-loves`. Seriously. It's awesome.
-* `cd staple-loves`
+* Create a new directory called `gluegun-loves`. Seriously. It's awesome.
+* `cd gluegun-loves`
 * Make a `package.json` file.
 * Here we started with `name` and `version`.
-* Then add a `staplegun` object like below.
+* Then add a `gluegungun` object like below.
 
 ```js
 // package.json (don't include this line -- JSON gets grumpy)
 {
-  "name": "staple-loves",
+  "name": "gluegun-loves",
   "version": "0.0.7",
 
-  "staplegun": {
+  "gluegungun": {
     "namespace": "loves",
     "commands":  [],
     "defaults":  {}
@@ -32,7 +32,7 @@ Let's get started.  This will be lame, but very quick.
 Even though you have no code, if you open a terminal to this directory and type:
 
 ```sh
-$ staple loves
+$ gluegun loves
 ```
 It will list the commands available.  Which are nothing.  So let's create some.
 
@@ -80,7 +80,7 @@ Then we register it in `package.json` under the `commands` array.
 
 Now type:
 ```sh
-$ staple loves you
+$ gluegun loves you
 ```
 
 And it runs!

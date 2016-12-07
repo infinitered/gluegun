@@ -17,7 +17,7 @@ const printCommandLineOptions = require('./print-command-line-options')
  * This is async because our runtime execution is.
  */
 async function run () {
-  const key = 'staplegun'
+  const key = 'gluegun'
   const commandFilePattern = 'commands/*.js'
   const cwd = jetpack.cwd()
 

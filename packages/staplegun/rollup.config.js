@@ -34,5 +34,5 @@ export default {
       ]
     })
   ],
-  dest: 'dist/staplegun'
+  dest: 'dist/gluegun'
 }

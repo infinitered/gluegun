@@ -7,7 +7,7 @@ A plugin is collection of any number of:
 * filters
 * templates
 
-which extends the `staple-gun` environment. These extensions generally have a
+which extends the `gluegun` environment. These extensions generally have a
 theme such as **react native**, **fastlane**, or even just **my sandbox**.
 
 
@@ -21,14 +21,14 @@ but also simple for extending existing projects.
 
 # Structure
 
-Inside the `package.json`, a new root element is needed called `staple-gun`. It
+Inside the `package.json`, a new root element is needed called `gluegun`. It
 should be an object with a non-blank string value keyed by `namespace`.
 
-This is a simplest `staple-gun` plugin you can have:
+This is a simplest `gluegun` plugin you can have:
 
 ```json
 {
-  "staplegun": {
+  "gluegun": {
     "namespace": "hello"
   }
 }
@@ -40,7 +40,7 @@ But this one... this one is going places:
 
 ```json
 {
-  "staplegun": {
+  "gluegun": {
 
     "namespace": "reactotron",
 
@@ -74,7 +74,7 @@ But this one... this one is going places:
 
     "defaults": {
       "semicolons": false,
-      "git":        "https://github.com/reactotron/staple-gun-reactotron",
+      "git":        "https://github.com/reactotron/gluegun-reactotron",
       "branch":     "master"
     }
 
@@ -83,7 +83,7 @@ But this one... this one is going places:
 ```
 
 
-## staplegun &gt; namespace
+## gluegun &gt; namespace
 The namespace is a prefix to all your commands.
 
 Since many plugins can be installed, we namespace them. If you're creating plugins
@@ -100,20 +100,20 @@ A namespace:
 * should be **lowercase**
 * spaces-should-have-**dashes**-if-you-need-them
 
-## staplegun &gt; commands
+## gluegun &gt; commands
 
 Commands are what people run from the command line. They are entry
 points into your plugin.
 
 
-## staplegun &gt; commands &gt; { } &gt; name
+## gluegun &gt; commands &gt; { } &gt; name
 
 The name of the command that people will type.
 
 In the above example, the user would type...
 
 ```sh
-$ staple reactotron bug
+$ gluegun reactotron bug
 ```
 
 ...to run the command. The `reactotron` part is the `namespace` from above.
@@ -125,7 +125,7 @@ The command name:
 * spaces-should-have-**dashes**-if-you-need-them
 
 
-## staplegun &gt; commands &gt; { } &gt; file
+## gluegun &gt; commands &gt; { } &gt; file
 
 The JavaScript file that backs this command.
 
@@ -134,13 +134,13 @@ sub-directories into whatever works for you.
 
 These JavaScript files are ES6 and have access to most modern conveniences.
 
-## staplegun &gt; commands &gt; { } &gt; functionName
+## gluegun &gt; commands &gt; { } &gt; functionName
 
 The function inside the JS file that runs this command. When this property
 is not included, it is assumed that the function to run is the default one
 exported by your JavaScript file.
 
-## staplegun &gt; commands &gt; { } &gt; description
+## gluegun &gt; commands &gt; { } &gt; description
 
 A short description of what the command does.
 

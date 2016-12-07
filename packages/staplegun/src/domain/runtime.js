@@ -105,7 +105,7 @@ class Runtime {
 
   /**
    * Adds the core extensions.  These provide the basic features
-   * available in staple gun, but follow the exact same method
+   * available in gluegun, but follow the exact same method
    * for extending the core as 3rd party extensions do.
    */
   addCoreExtensions () {

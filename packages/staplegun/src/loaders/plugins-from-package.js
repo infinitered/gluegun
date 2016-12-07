@@ -3,14 +3,14 @@ const { isNilOrEmpty, dotPath } = require('ramdasauce')
 const { when, always, pipe } = require('ramda')
 
 /**
- * Gets a list of directories paths for the staplegun plugins
+ * Gets a list of directories paths for the gluegun plugins
  * listed in the package.json.
  *
  * @param  {string}  path The path to the package.json
- * @param  {string}  key  The key to the staplegun node.
+ * @param  {string}  key  The key to the gluegun node.
  * @return {string[]}     A list of plugin keys.
  */
-function getPluginsFromPackage (path, key = 'staplegun') {
+function getPluginsFromPackage (path, key = 'gluegun') {
   return pipe(
     x => jetpack.read(x, 'json'),   // read the package.json there
     when(isNilOrEmpty, always({})), // default to {}

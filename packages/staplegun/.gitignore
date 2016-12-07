@@ -3,5 +3,5 @@ npm-debug.log
 coverage
 .nyc_output
 dist
-staplegun.toml
-generated/
+gluegun.toml
+generated

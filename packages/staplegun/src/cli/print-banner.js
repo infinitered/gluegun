@@ -22,7 +22,7 @@ function printBanner () {
   print.newline()
   print.fancy(colors.white(L33T_BRANDING))
   print.newline()
-  print.fancy(colors.yellow('           https://github.com/skellock/staplegun'))
+  print.fancy(colors.yellow('           https://github.com/skellock/gluegun'))
   print.fancy(colors.white(versionPad))
   print.newline()
   print.divider()

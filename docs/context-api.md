@@ -33,7 +33,7 @@ it is possible to call it from the API if you're writing your own CLI.
 Check out this example of creating a new Reactotron plugin.
 
 ```sh
-staple reactotron plugin MyAwesomePlugin full --comments --lint standard
+glue reactotron plugin MyAwesomePlugin full --comments --lint standard
 ```
 
 name          | type   | purpose                           | from the example above
@@ -51,7 +51,7 @@ name          | type   | purpose                           | from the example ab
 Options are the command line flags. Always exists however it may be empty.
 
 ```sh
-staple say hello --loud -v --wave furiously
+gluegun say hello --loud -v --wave furiously
 ```
 
 ```js
@@ -64,7 +64,7 @@ module.exports = async function (context) {
 Everything else after the command as a string.
 
 ```sh
-staple say hello there
+gluegun say hello there
 ```
 
 ```js
@@ -77,7 +77,7 @@ module.exports = async function (context) {
 Everything else after the command, but as an array.
 
 ```sh
-staple reactotron plugin full
+gluegun reactotron plugin full
 ```
 
 ```js
@@ -91,7 +91,7 @@ The first, second, and third element in `array`. It is provided as a shortcut, a
 this will be `undefined`.
 
 ```sh
-staple reactotron plugin full
+gluegun reactotron plugin full
 ```
 
 ```js
@@ -110,7 +110,7 @@ It takes the plugin's defaults, and merges the user's changes overtop.
 ```js
 // package.json from the plugin
 {
-  "staplegun": {
+  "gluegun": {
     "namespace": "myPlugin",
     "defaults": { "fun": false, "level": 10 }
   }
@@ -118,7 +118,7 @@ It takes the plugin's defaults, and merges the user's changes overtop.
 
 // package.json from the user
 {
-  "staplegun": {
+  "gluegun": {
     "config": {
       "myPlugin": { "fun": true }
     }

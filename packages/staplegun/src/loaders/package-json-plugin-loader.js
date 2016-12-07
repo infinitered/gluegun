@@ -23,7 +23,7 @@ function loadCommandFromConfig (directory, config) {
  * @param {{}}     options   Additional options to customize the loading process.
  */
 function loadFromDirectory (directory, options = {}) {
-  const key = options.key || 'staplegun'
+  const key = options.key || 'gluegun'
   const commandFilePattern = options.commandFilePattern || 'commands/*.js'
 
   const plugin = new Plugin()

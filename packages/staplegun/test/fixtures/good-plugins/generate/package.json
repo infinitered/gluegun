@@ -2,7 +2,7 @@
   "name": "generate",
   "version": "1",
 
-  "staplegun": {
+  "gluegun": {
     "namespace": "generate",
     "commands": [
       {

@@ -1,30 +1,28 @@
 {
-  "name": "staplegun",
-  "version": "0.1.1",
-  "description": "Tack stuff on to your codebase.",
+  "name": "gluegun",
+  "version": "0.2.0",
+  "description": "Tack stuff on to your code base.",
   "main": "src/index.js",
   "bin": {
-    "staplegun": "./dist/staplegun"
+    "gluegun": "bin/gluegun"
   },
   "scripts": {
     "test": "node --harmony_async_await node_modules/.bin/ava",
     "watch": "node --harmony node_modules/.bin/ava --watch",
     "coverage": "nyc ava",
     "start": "node --harmony_async_await src/index.js",
-    "build": "rollup -c && mv dist/staplegun dist/staplegun.tmp && echo '#!/usr/bin/env node\n' > ./dist/staplegun && cat dist/staplegun.tmp >> ./dist/staplegun && chmod +x ./dist/staplegun && rm dist/staplegun.tmp",
     "lint": "standard"
   },
   "author": {
     "name": "Steve Kellock",
     "email": "steve@kellock.ca",
-    "url": "https://github.com/skellock/staplegun"
+    "url": "https://github.com/skellock/gluegun"
   },
   "files": [
-    "dist",
     "src",
     "LICENSE",
-    "types.js",
-    "README.md"
+    "readme.md",
+    "docs"
   ],
   "license": "MIT",
   "dependencies": {

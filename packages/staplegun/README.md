@@ -1,10 +1,10 @@
-# staple-gun
+# gluegun
 
 Tack on to your codebase.
 
 # Environment File
 
-Staple Gun is configured with staplegun.toml.  It is placed in the root directory of your project. 
+`gluegun` is configured with gluegun.toml.  It is placed in the root directory of your project. 
 
 The environment file wires everything up.  It provides instructions such as:
 
@@ -13,5 +13,5 @@ The environment file wires everything up.  It provides instructions such as:
 * which commands to use
 * defining important directories
 
-If the current directory is doesn't have a staplegun.toml file, we will check your
-$HOME/.staplegun/staplegun.toml file. 
+If the current directory is doesn't have a gluegun.toml file, we will check your
+$HOME/.gluegun/gluegun.toml file. 

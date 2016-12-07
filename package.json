@@ -1,7 +1,7 @@
 {
-  "name": "staplegun",
+  "name": "gluegun-monorepo",
   "version": "0.0.1",
-  "description": "Tack stuff on to your codebase.",
+  "description": "Tack stuff on to your code base.",
   "main": "index.js",
   "scripts": {
     "test": "echo lol && exit 1"

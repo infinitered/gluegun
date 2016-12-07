@@ -13,7 +13,7 @@ And that's not very helpful at all right?
 So how do you load a plugin?
 
 ```js
-const { loadPluginFromPackageJson } = require('staplegun')
+const { loadPluginFromPackageJson } = require('gluegun')
 
 runtime.addPlugin(loadPluginFromPackageJson('/path/to/some/directory'))
 ```
