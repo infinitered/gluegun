@@ -4,6 +4,7 @@ const { findByProp, startsWith } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const RunContext = require('./run-context')
 
+// core extensions
 const addTemplateExtension = require('../extensions/template-extension')
 const addPrintExtension = require('../extensions/print-extension')
 
@@ -66,9 +67,13 @@ async function run (namespace, full = '', options = {}) {
 
     // kick it off
     if (command.run) {
-      // attach features
-      context.print = addPrintExtension(plugin, command, context)
-      context.template = addTemplateExtension(plugin, command, context)
+      // attach extensions
+      forEach(
+        extension => {
+          context[extension.name] = extension.setup(plugin, command, context)
+        },
+        this.extensions
+      )
 
       try {
         context.result = await command.run(context)
@@ -91,9 +96,34 @@ class Runtime {
    * Create and initialize an empty Runtime.
    */
   constructor () {
+    this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []
     this.directories = {}
-    this.run = run.bind(this)
+    this.extensions = []
+    this.addCoreExtensions()
+  }
+
+  /**
+   * Adds the core extensions.  These provide the basic features
+   * available in staple gun, but follow the exact same method
+   * for extending the core as 3rd party extensions do.
+   */
+  addCoreExtensions () {
+    this.addExtension('print', addPrintExtension)
+    this.addExtension('template', addTemplateExtension)
+  }
+
+  /**
+   * Adds an extension so it is available when commands run. They live
+   * as the given name on the context object passed to commands. The
+   * 2nd parameter is a function that, when called, creates that object.
+   *
+   * @param {string} name   The context property name.
+   * @param {object} setup  The setup function.
+   */
+  addExtension (name, setup) {
+    this.extensions.push({ name, setup })
+    return this
   }
 
   /**
@@ -150,8 +180,5 @@ class Runtime {
   }
 
 }
-
-//
-// Runtime.run = run
 
 module.exports = autobind(Runtime)
