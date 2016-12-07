@@ -7,6 +7,7 @@ const RunContext = require('./run-context')
 // core extensions
 const addTemplateExtension = require('../extensions/template-extension')
 const addPrintExtension = require('../extensions/print-extension')
+const addFilesystemExtension = require('../extensions/filesystem-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -111,6 +112,7 @@ class Runtime {
   addCoreExtensions () {
     this.addExtension('print', addPrintExtension)
     this.addExtension('template', addTemplateExtension)
+    this.addExtension('filesystem', addFilesystemExtension)
   }
 
   /**
