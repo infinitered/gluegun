@@ -1,11 +1,10 @@
 const test = require('ava')
 const Runtime = require('../../src/domain/runtime')
-const loadPluginFromPackageJson = require('../../src/loaders/package-json-plugin-loader')
+const load = require('../../src/loaders/toml-plugin-loader')
 
 const createRuntime = () => {
   const r = new Runtime()
-  r.directories.root = 'generated'
-  r.addPlugin(loadPluginFromPackageJson(`${__dirname}/../fixtures/good-plugins/generate`))
+  r.addPlugin(load(`${__dirname}/../fixtures/good-plugins/generate`))
   return r
 }
 

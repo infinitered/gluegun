@@ -1,7 +1,0 @@
-{
-  "name": "frontmatter",
-  "version": "1",
-  "gluegun": {
-    "namespace": "frontmatter"
-  }
-}

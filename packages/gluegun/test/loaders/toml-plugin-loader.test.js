@@ -1,5 +1,5 @@
 const test = require('ava')
-const load = require('../../src/loaders/package-json-plugin-loader')
+const load = require('../../src/loaders/toml-plugin-loader')
 
 test('deals with wierd input', t => {
   const plugin = load()
@@ -14,16 +14,18 @@ test('directory not found', t => {
   t.is(plugin.errorState, 'missingdir')
 })
 
-test('missing package', t => {
-  const plugin = load(`${__dirname}/../fixtures/bad-plugins/empty`)
-  t.is(plugin.loadState, 'error')
-  t.is(plugin.errorState, 'missingpackage')
+test('missing config files is fine', t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/empty`)
+  t.is(plugin.loadState, 'ok')
+  t.is(plugin.errorState, 'none')
+  t.deepEqual(plugin.commands, [])
 })
 
-test('missing namespace', t => {
+test('default namespace', t => {
   const plugin = load(`${__dirname}/../fixtures/bad-plugins/missing-namespace`)
-  t.is(plugin.loadState, 'error')
-  t.is(plugin.errorState, 'namespace')
+  t.is(plugin.loadState, 'ok')
+  t.is(plugin.errorState, 'none')
+  t.is(plugin.namespace, 'missing-namespace')
 })
 
 test('sane defaults', t => {
