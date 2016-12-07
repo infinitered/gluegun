@@ -11,12 +11,12 @@ It sits in that spot between DIY scripts & full-featured monsters like Yeoman.
 
 It comes with an API for:
 
-✅ code generation
-✅ massaging the filesystem
-✅ interacting with the Information Superhighway
-✅ reading command line parameters
-✅ writing colored console output
-✅ executing scripts
+✅ code generation<br />
+✅ massaging the filesystem<br />
+✅ interacting with the Information Superhighway<br />
+✅ reading command line parameters<br />
+✅ writing colored console output<br />
+✅ executing scripts<br />
 
 
 ### Extending
