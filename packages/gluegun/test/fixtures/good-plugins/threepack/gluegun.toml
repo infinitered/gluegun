@@ -1,0 +1,21 @@
+namespace = '3pack'
+
+[[commands]]
+name        = 'one'
+file        = 'one.js'
+description = 'Returns a 1'
+
+[[commands]]
+name         = 'two'
+file         = 'two.js'
+functionName = 'omgTwo'
+description  = 'Returns a two'
+
+[[commands]]
+name         = 'three'
+file         = 'three.js'
+description  = 'Says 123 and returns an array'
+
+[defaults]
+numbers = 3
+

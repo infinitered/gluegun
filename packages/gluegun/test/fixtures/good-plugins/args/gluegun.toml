@@ -1,0 +1,15 @@
+namespace = 'args'
+
+[[commands]]
+name        = 'hello'
+file        = 'hello.js'
+description = 'Greets someone.'
+
+[[commands]]
+name        = 'config'
+file        = 'config.js'
+description = 'Picks a color from config.'
+
+[defaults]
+color = 'blue'
+
