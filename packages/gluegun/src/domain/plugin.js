@@ -13,13 +13,11 @@
  * none           = no problems
  * input          = invalid directory input
  * missingdir     = can't find the plugin directory
- * missingpackage = can't find package.json
  * badpackage     = the package.json is invalid
  * namespace      = the package.json is missing namespace
  */
 // export type PluginErrorState =
-//   'none' | 'input' | 'missingdir' | 'missingpackage' |
-//   'badpackage' | 'namespace'
+//   'none' | 'input' | 'missingdir' | 'badpackage' | 'namespace'
 
 /**
  * Extends the environment with new commands.
