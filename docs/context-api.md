@@ -199,27 +199,60 @@ module.exports = async function (context) {
   await context.template.generate({
     template: 'templates/component.njk',
     target: `app/components/${name}-view.js`,
-    props: { name, semicolon },
-    askToOverwrite: true
+    props: { name, semicolon }
   })
 
 }
 ```
 
+Note: `generate()` will always overwrite the target if given.  Make sure to prompt your users if that's
+the behaviour you're after.
 
 option           | type    | purpose                              | notes
 -----------------|---------|--------------------------------------|----------------------------
 `template`       | string  | path to the Nunjucks template        | relative from plugin directory 
 `target`         | string  | path to create the file              | relative from user's working directory  
 `props`          | object  | more data to render in your template | 
-`askToOverwrite` | boolean | show a prompt before overwriting?    | 
 
 `generate()` returns the string that was generated in case you didn't want to render to a target.
 
 
 # context.prompt
 
-Let's drop `inquirer` here.
+### context.prompt.ask
+
+**async**
+
+This is the lovely and talented [inquirer.js](https://github.com/SBoudrias/Inquirer.js).  Here's some examples:
+
+```js
+// a thought-provoking question
+const askAge = { 
+  type: 'input', 
+  name: 'age', 
+  message: 'How old are you?'
+  }
+
+// now let's get to what we REALLY want to know...
+const askShoe = { 
+  type: 'input', 
+  name: 'shoe', 
+  message: 'What shoes are you wearing?', 
+  choices: ['Clown', context.prompt.separator(), 'Other'] 
+  }
+
+// ask the question
+const { age, shoe } = await context.prompt.ask([askAge, askShoe])
+```
+
+### context.prompt.separator
+
+Call `context.prompt.separator()` to return a separator you can use in some of your questions.
+
+### context.prompt.askToOverwrite
+
+A pre-built prompt which asks the user if they would like to overwrite a file.  The first parameter
+to this function is `message` which can be customized to what you need.  The function returns `boolean`.
 
 # context.filesystem
 
