@@ -38,7 +38,7 @@ async function run () {
   // check for a branded directory for plugins
   const brandSubdir = `${cwd}/${brand}`
   if (isDirectory(brandSubdir)) {
-    const cwdBrandPlugin = loadPluginFromDirectory(brandSubdir, { brand })
+    const cwdBrandPlugin = loadPluginFromDirectory(brandSubdir, { brand, namespace: 'project' })
     runtime.addPlugin(cwdBrandPlugin)
   }
 

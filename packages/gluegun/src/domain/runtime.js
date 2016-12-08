@@ -100,7 +100,7 @@ class Runtime {
   /**
    * Create and initialize an empty Runtime.
    */
-  constructor (brand = null) {
+  constructor (brand) {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []

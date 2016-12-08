@@ -21,8 +21,12 @@ function printCommands (runtime) {
       ? print.colors.success('ok')
       : print.colors.error(command.errorState)
 
+    const col1 = runtime.brand !== 'gluegun' && runtime.brand === plugin.namespace
+      ? `${command.name}`
+      : `${plugin.namespace} ${command.name}`
+
     return [
-      print.colors.highlight(`${plugin.namespace} ${command.name}`),
+      print.colors.highlight(col1),
       command.description,
       commandErrorState
     ]
