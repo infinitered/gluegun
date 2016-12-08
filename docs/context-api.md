@@ -227,8 +227,26 @@ Honestly, the `fs-jetpack` API is so well done, let's just drop that here. Provi
 
 # context.system
 
-### context.system.execute
-:(
+### context.system.run
+
+**async**
+
+Runs a shell command and returns the output as a string.
+
+The first parameter `commandLine` is the shell command to run.  It can have pipes! The
+second parameter is `options`, object. This is a promise wrapped around node.js `child-process.exec`
+[api call](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback).  
+
+Should the process fail, an `error` will be thrown with properties such as:
+
+property | type   | purpose
+---------|--------|------------------------------------------------------------
+code     | number | the exit code
+cmd      | string | the command we asked to run
+stderr   | string | any information the process wrote to `stderr`
+killed   | bool   | if the process was killed or not
+signal   | number | the signal number used to off the process (if killed)
+
 
 ### context.system.open
 :(
