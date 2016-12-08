@@ -3,7 +3,6 @@ const jetpack = require('fs-jetpack')
 const { replace, pipe } = require('ramda')
 const _ = require('lodash')
 const { isBlank } = require('../utils/string-utils')
-const inquirer = require('inquirer')
 
 /**
  * The default configuration used by nunjucks.
@@ -12,19 +11,6 @@ const DEFAULT_CONFIG = {
   autoescape: false,
   tags: {
   }
-}
-
-/**
- * The question to ask when attempting an overwrite.
- */
-const Q_OVERWRITE = {
-  type: 'list',
-  name: 'overwrite',
-  message: 'Overwrite existing file?',
-  choices: [
-    { name: 'Yes', value: true },
-    { name: 'No, keep existing file', value: false }
-  ]
 }
 
 /**
@@ -49,7 +35,6 @@ function attach (plugin, command, context) {
     // optional
     const target = opts.target
     const props = opts.props || {}
-    const askToOverwrite = opts.askToOverwrite === true
 
     // grab some features
     const { print } = context
@@ -93,21 +78,10 @@ function attach (plugin, command, context) {
       // prep the destination directory
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
-      const save = () => {
-        const colorTemplate = colors.muted(`from ${template}`)
-        stepComplete(`generated`, `${target} ${colorTemplate}`)
-        jetpack.write(dest, content)
-      }
 
-      // prompt to overwrite?
-      if (jetpack.exists(dest) && askToOverwrite) {
-        const answers = await inquirer.prompt([Q_OVERWRITE])
-        if (answers.overwrite === 'yes') {
-          save()
-        }
-      } else {
-        save()
-      }
+      const colorTemplate = colors.muted(`from ${template}`)
+      stepComplete(`generated`, `${target} ${colorTemplate}`)
+      jetpack.write(dest, content)
     }
 
     // send back the rendered string

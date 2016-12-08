@@ -14,7 +14,7 @@ module.exports = async function (context) {
   if (isNilOrEmpty(parameters.array)) return
 
   // read some configuration
-  const { askToOverwrite, tests } = config.ignite
+  const { tests } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = capsCase(parameters.first)
@@ -24,16 +24,14 @@ module.exports = async function (context) {
   await generate({
     template: 'templates/component.njk',
     target: `App/Components/${name}.js`,
-    props,
-    askToOverwrite
+    props
   })
 
   // generate the style
   await generate({
     template: 'templates/component-style.njk',
     target: `App/Components/Styles/${name}Style.js`,
-    props,
-    askToOverwrite
+    props
   })
 
   // generate the AVA test
@@ -41,8 +39,7 @@ module.exports = async function (context) {
     await generate({
       template: 'templates/component-test.njk',
       target: `Tests/Components/${name}Test.js`,
-      props,
-      askToOverwrite
+      props
     })
   }
 }

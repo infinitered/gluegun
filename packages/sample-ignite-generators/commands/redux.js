@@ -14,7 +14,7 @@ module.exports = async function (context) {
   if (isNilOrEmpty(parameters.string)) return
 
   // read some configuration
-  const { askToOverwrite, tests } = config.ignite
+  const { tests } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = capsCase(parameters.first)
@@ -24,8 +24,7 @@ module.exports = async function (context) {
   await generate({
     template: 'templates/redux.njk',
     target: `App/Redux/${name}Redux.js`,
-    props,
-    askToOverwrite
+    props
   })
 
   // generate the appropriate test
@@ -33,8 +32,7 @@ module.exports = async function (context) {
     await generate({
       template: `templates/redux-test-${tests}.njk`,
       target: `Tests/Redux/${name}ReduxTest.js`,
-      props,
-      askToOverwrite
+      props
     })
   }
 }

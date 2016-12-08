@@ -5,15 +5,11 @@ const { capsCase } = require('../shared/utils')
 
 module.exports = async function (context) {
   // grab some features
-  const { parameters, config, template } = context
+  const { parameters, template } = context
   const { generate } = template
 
   // TODO: validation
   if (isNilOrEmpty(parameters.string)) return
-
-  // read some configuration
-  const { askToOverwrite } = config.ignite
-  console.log(config)
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = capsCase(parameters.first)
@@ -23,15 +19,13 @@ module.exports = async function (context) {
   await generate({
     template: 'templates/screen.njk',
     target: `App/Containers/${name}Screen.js`,
-    props,
-    askToOverwrite
+    props
   })
 
   // generate the style
   await generate({
     template: 'templates/screen-style.njk',
     target: `App/Containers/Styles/${name}ScreenStyle.js`,
-    props,
-    askToOverwrite
+    props
   })
 }
