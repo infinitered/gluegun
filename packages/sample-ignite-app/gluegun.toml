@@ -1,0 +1,4 @@
+plugins = ['../sample-ignite-generators']
+
+[defaults]
+tests = 'ava'
