@@ -1,6 +1,11 @@
+// @extension patching
+// @description Provides textfile patching functionality
+
+// TODO: migrate to jetpack
 const fs = require('fs')
 /**
- * Extensions to print to the console.
+ * @extension patching
+ * @description Provides textfile patching functionality
  *
  * @param  {Plugin}     plugin  The plugin that triggered.
  * @param  {Command}    command The current command that is running.
