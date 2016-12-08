@@ -1,0 +1,5 @@
+namespace = 'ignite-basic-generators'
+
+[defaults]
+tests          = 'ava'
+askToOverwrite = true
