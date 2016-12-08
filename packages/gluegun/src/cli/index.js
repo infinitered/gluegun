@@ -21,7 +21,7 @@ async function run () {
   const cwd = jetpack.cwd()
 
   // parse the command line into what we need
-  const {
+  let {
     namespace,
     args,
     options,
@@ -53,6 +53,16 @@ async function run () {
 
   // add them to the runtime
   forEach(runtime.addPlugin, morePlugins)
+
+  // in branded mode, let's see if there's match prepending the
+  // branded namespace to the front and searching for a command
+  const brandPlugin = runtime.findPlugin(brand)
+  const foundCommand = runtime.findCommand(brandPlugin, `${namespace} ${args}`)
+  // we found a short cut via the brand, so let's doctor the input to target the right thing
+  if (foundCommand) {
+    args = `${namespace} ${args}`
+    namespace = brand
+  }
 
   // print what we're trying to do
   // TODO: divide run up into a query and an execution so we
