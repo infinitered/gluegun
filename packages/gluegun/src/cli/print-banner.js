@@ -1,29 +1,29 @@
 const print = require('../utils/print')
 const colors = require('colors')
 const jetpack = require('fs-jetpack')
-const { length } = require('ramda')
-const { leftPad } = require('../utils/string-utils')
+const { split } = require('ramda')
 
-const L33T_BRANDING = `          |              |
-     ,---.|--- ,---.,---.|    ,---.    ,---..   .,---.
-     \`---.|    ,---||   ||    |---'    |   ||   ||   |
-     \`---'\`---'\`---^|---'\`---'\`---'    \`---|\`---'\`   '
-                    |                  \`---'          `
-
-// grab the version
+// grab ze files 
+const BANNER = split('\n', jetpack.read(`${__dirname}/banner.txt`))
 const pkg = jetpack.read(`${__dirname}/../../package.json`, 'json')
-const version = `${pkg.version}`
-const versionPad = leftPad(Math.round((60 + length(version)) / 2), ' ', version)
 
 /**
  * Prints the bruce banner.
  */
 function printBanner () {
   print.newline()
-  print.fancy(colors.white(L33T_BRANDING))
+  print.fancy(colors.random(BANNER[0]))
+  print.fancy(colors.random(BANNER[1]))
+  print.fancy(colors.random(BANNER[2]))
+  print.fancy(colors.random(BANNER[3]))
+  print.fancy(colors.random(BANNER[4]))
+  print.fancy(colors.random(BANNER[5]))
+  print.fancy(colors.random(BANNER[6]))
+  print.fancy(colors.random(BANNER[7]))
   print.newline()
-  print.fancy(colors.yellow('           https://github.com/skellock/gluegun'))
-  print.fancy(colors.white(versionPad))
+  print.newline()
+  print.fancy(colors.yellow('  https://github.com/skellock/gluegun'))
+  print.fancy(colors.white(`  ${pkg.version}`))
   print.newline()
   print.divider()
 }
