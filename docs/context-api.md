@@ -197,7 +197,7 @@ module.exports = async function (context) {
   const semicolon = context.options.useSemicolons && ';'
 
   await context.template.generate({
-    template: 'templates/component.njk',
+    template: 'component.njk',
     target: `app/components/${name}-view.js`,
     props: { name, semicolon }
   })
@@ -210,7 +210,7 @@ the behaviour you're after.
 
 option           | type    | purpose                              | notes
 -----------------|---------|--------------------------------------|----------------------------
-`template`       | string  | path to the Nunjucks template        | relative from plugin directory 
+`template`       | string  | path to the Nunjucks template        | relative from plugin's `templates` directory 
 `target`         | string  | path to create the file              | relative from user's working directory  
 `props`          | object  | more data to render in your template | 
 

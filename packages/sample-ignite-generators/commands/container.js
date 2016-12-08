@@ -19,14 +19,14 @@ module.exports = async function (context) {
 
   // generate the smart component
   await generate({
-    template: 'templates/container.njk',
+    template: 'container.njk',
     target: `App/Containers/${name}.js`,
     props
   })
 
   // generate the style
   await generate({
-    template: 'templates/container-style.njk',
+    template: 'container-style.njk',
     target: `App/Containers/Styles/${name}Style.js`,
     props
   })

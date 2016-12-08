@@ -41,7 +41,7 @@ function attach (plugin, command, context) {
     const { stepComplete, colors } = print
 
     // grab the path to the plugin
-    const pluginTemplatesLoader = new nunjucks.FileSystemLoader(plugin.directory)
+    const pluginTemplatesLoader = new nunjucks.FileSystemLoader(`${plugin.directory}/templates`)
 
     // create a nunjucks environment
     const env = new nunjucks.Environment(pluginTemplatesLoader, DEFAULT_CONFIG)

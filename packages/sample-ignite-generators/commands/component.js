@@ -22,14 +22,14 @@ module.exports = async function (context) {
 
   // generate the React component
   await generate({
-    template: 'templates/component.njk',
+    template: 'component.njk',
     target: `App/Components/${name}.js`,
     props
   })
 
   // generate the style
   await generate({
-    template: 'templates/component-style.njk',
+    template: 'component-style.njk',
     target: `App/Components/Styles/${name}Style.js`,
     props
   })
@@ -37,7 +37,7 @@ module.exports = async function (context) {
   // generate the AVA test
   if (tests === 'ava') {
     await generate({
-      template: 'templates/component-test.njk',
+      template: 'component-test.njk',
       target: `Tests/Components/${name}Test.js`,
       props
     })
