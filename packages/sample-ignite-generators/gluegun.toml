@@ -1,4 +1,4 @@
-namespace = 'ignite-basic-generators'
+namespace = 'ignite'
 
 [defaults]
 tests = 'ava'

@@ -1,5 +1,5 @@
 const minimist = require('minimist')
-const { head, join, dissoc, slice } = require('ramda')
+const { head, join, dissoc, slice, pipe } = require('ramda')
 
 /**
  * Parses the command-line arguments into our expected constiutents.
@@ -16,12 +16,18 @@ function parseCommandLine (argv = []) {
   // the arguments are the rest of the words
   const args = join(' ', slice(1, Infinity, cmd._))
 
+  // grab the brand if any
+  const brand = cmd['gluegun-brand']
+
   // the options are the - and -- things that minimist parses
-  // without the _ which is their arguments.
-  const options = dissoc('_', cmd)
+  // but also, pull out all the things we don't want to see
+  const options = pipe(
+    dissoc('_'),
+    dissoc('gluegun-brand')
+  )(cmd)
 
   // :shipit:
-  return { namespace, args, options }
+  return { namespace, args, options, brand }
 }
 
 module.exports = parseCommandLine
