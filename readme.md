@@ -39,6 +39,15 @@ is the real MVP.
 Or, make your own CLI and just use parts of `gluegun` for what you need.
 
 
+### People Using Gluegun
+
+Who's gluing apps together with gluegun?  You can see this tool in action with 
+the following victims... technologies.
+
+* [Reactotron](https://github.com/reactotron/reactotron) - App for React App Inspection
+* [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
+* ...next?
+
 ### Under Construction
 
 We're just getting started.
