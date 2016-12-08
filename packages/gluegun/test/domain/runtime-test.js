@@ -1,6 +1,7 @@
 const test = require('ava')
 const Runtime = require('../../src/domain/runtime')
 const loadFromToml = require('../../src/loaders/toml-plugin-loader')
+const { pipe, identity, pluck, join } = require('ramda')
 
 test('adds a directory', t => {
   const r = new Runtime()
@@ -86,4 +87,11 @@ test('can read from config', async t => {
   t.is(plugin.defaults.color, 'blue')
   t.truthy(context)
   t.is(context.result, 'blue')
+})
+
+test('loads the core extensions in the right order', t => {
+  const r = new Runtime()
+  const list = pipe(pluck('name'), join(', '))(r.extensions)
+
+  t.is(list, 'print, template, filesystem, system, http, prompt')
 })

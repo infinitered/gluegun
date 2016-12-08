@@ -21,7 +21,7 @@ name            | provides the...                                     | 3rd part
 **prompt**      | tools to acquire extra command line user input      | inquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
 **system**      | ability to execute & copy to the clipboard          | cross-env
-**http**        | ability to talk to the web                          | axios
+**http**        | ability to talk to the web                          | apisauce
 
 If this is starting to sound like a scripting language, then good.  That's exactly how to think of it.  Except
 we're not inventing another language.  And we're still running in a `node.js` environment, so you can do whatever you want.
@@ -288,6 +288,34 @@ signal   | number | the signal number used to off the process (if killed)
 :(
 
 
-# context.http 
+# context.http
 
-`axios` gets this spot.  Provide examples though.
+Gives you the ability to talk to HTTP(s) web and API servers using [apisauce](https://github.com/skellock/apisauce) which
+is a thin wrapper around [axios](https://github.com/mzabriskie/axios).
+
+### context.http.create
+
+This creates an `apisauce` client.  It takes 1 parameter called `options` which is an object.
+
+```js
+const api = context.http.create({
+  baseURL: 'https://api.github.com',
+  headers: {'Accept': 'application/vnd.github.v3+json'}
+})
+```
+
+Once you have this api object, you can then call `HTTP` verbs on it. All verbs are `async` so don't forget your `await` call.
+
+```js
+// GET
+const { ok, data } = await api.get('/repos/skellock/apisauce/commits')
+
+// and others
+api.get('/repos/skellock/apisauce/commits')
+api.head('/me')
+api.delete('/users/69')
+api.post('/todos', {note: 'jump around'}, {headers: {'x-ray': 'machine'}})
+api.patch('/servers/1', {live: false})
+api.put('/servers/1', {live: true})
+```
+
