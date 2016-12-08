@@ -48,3 +48,6 @@ If you have any questions, feel free to file an issue or contact me steve@kelloc
 
 * [Context API](./docs/context-api.md)
 * [Runtime API](./docs/runtime-api.md)
+* [Contributing](./docs/contributing.md)
+
+
