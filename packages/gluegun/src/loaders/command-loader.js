@@ -66,6 +66,9 @@ function loadFromFile (file, functionName) {
     return command
   }
 
+  // default name is the name without the file extension
+  command.name = head(split('.', jetpack.inspect(file).name))
+
   // let's load
   try {
     // try reading in front matter
