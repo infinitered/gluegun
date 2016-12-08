@@ -3,8 +3,8 @@ const { forEach, map } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
-const loadPluginFromPackageJson = require('../loaders/package-json-plugin-loader')
-const getPluginsFromPackage = require('../loaders/plugins-from-package')
+const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
+const getPluginsFromConfig = require('../loaders/plugins-from-config')
 
 // const print = require('../utils/print')
 const printBanner = require('./print-banner')
@@ -28,16 +28,16 @@ async function run () {
   const runtime = new Runtime()
 
   // check the current directory for plugins
-  const cwdPlugin = loadPluginFromPackageJson(cwd, { key, commandFilePattern })
+  const cwdPlugin = loadPluginFromDirectory(cwd, { key, commandFilePattern })
   runtime.addPlugin(cwdPlugin)
 
   // grab more plugins that are listed in the package.json in the current directory
   const morePlugins = map(
     relativeDir => {
       const fullDir = `${cwd}/${relativeDir}`
-      return loadPluginFromPackageJson(fullDir, { key, commandFilePattern })
+      return loadPluginFromDirectory(fullDir, { key, commandFilePattern })
     },
-    getPluginsFromPackage(`${cwd}/package.json`, key)
+    getPluginsFromConfig(`${cwd}/${key}.toml`)
   )
 
   // add them to the runtime
