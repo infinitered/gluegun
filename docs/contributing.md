@@ -56,6 +56,21 @@ We'll be mostly living in the `/packages/gluegun` directory.  Documentation live
 `/docs`. 
 
 
+## Running
+
+For now, I'd recommend setting it up like this for testing:
+
+```sh
+alias gluegun='node --harmony /full/path/to/this/repo/packages/gluegun/src/index.js'
+```
+
+Then you should be able to type:
+
+```sh
+gluegun
+```
+
+
 ## Running Test And Linting
 
 ```sh
