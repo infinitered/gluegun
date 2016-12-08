@@ -11,6 +11,7 @@ const addFilesystemExtension = require('../extensions/filesystem-extension')
 const addSystemExtension = require('../extensions/system-extension')
 const addPromptExtension = require('../extensions/prompt-extension')
 const addHttpExtension = require('../extensions/http-extension')
+const addStringsExtension = require('../extensions/strings-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -113,6 +114,7 @@ class Runtime {
    * for extending the core as 3rd party extensions do.
    */
   addCoreExtensions () {
+    this.addExtension('strings', addStringsExtension)
     this.addExtension('print', addPrintExtension)
     this.addExtension('template', addTemplateExtension)
     this.addExtension('filesystem', addFilesystemExtension)
