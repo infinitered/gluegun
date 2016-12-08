@@ -70,6 +70,14 @@ Then you should be able to type:
 gluegun
 ```
 
+For branded mode:
+
+```sh
+alias brand='node --harmony /full/path/to/this/repo/packages/gluegun/src/index.js --gluegun-brand brand'
+```
+
+Where `brand` is the brand you're creating. 
+
 
 ## Running Test And Linting
 

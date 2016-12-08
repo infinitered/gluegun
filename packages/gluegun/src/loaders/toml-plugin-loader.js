@@ -14,11 +14,15 @@ const toml = require('toml')
  * @param {{}}     options   Additional options to customize the loading process.
  */
 function loadFromDirectory (directory, options = {}) {
+  const plugin = new Plugin()
+
   const key = options.key || 'gluegun'
   const commandFilePattern = options.commandFilePattern || 'commands/*.js'
   const extensionFilePattern = options.extensionFilePattern || 'extensions/*.js'
-
-  const plugin = new Plugin()
+  const namespace = options.namespace
+  if (!isBlank(namespace)) {
+    plugin.namespace = namespace
+  }
 
   // sanity check the input
   if (isBlank(directory)) {
@@ -36,8 +40,10 @@ function loadFromDirectory (directory, options = {}) {
 
   plugin.directory = directory
 
-  // the directory is the default namespace
-  plugin.namespace = jetpack.inspect(directory).name
+  // the directory is the default namespace (unless we were told what it was)
+  if (isBlank(namespace)) {
+    plugin.namespace = jetpack.inspect(directory).name
+  }
 
   // load the commands found in the commands sub-directory
   plugin.commands = map(
@@ -59,8 +65,10 @@ function loadFromDirectory (directory, options = {}) {
     // read it
     const config = toml.parse(jetpack.read(tomlFile))
 
-    // set the namespace if we have one
-    plugin.namespace = config.namespace || plugin.namespace
+    // set the namespace if we have one (unless we were told what it was)
+    if (isBlank(namespace)) {
+      plugin.namespace = config.namespace || plugin.namespace
+    }
     plugin.defaults = config.defaults || {}
 
     // also load commands located in the commands key
