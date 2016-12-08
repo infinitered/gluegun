@@ -10,6 +10,7 @@ const addPrintExtension = require('../extensions/print-extension')
 const addFilesystemExtension = require('../extensions/filesystem-extension')
 const addSystemExtension = require('../extensions/system-extension')
 const addPromptExtension = require('../extensions/prompt-extension')
+const addHttpExtension = require('../extensions/http-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -116,6 +117,7 @@ class Runtime {
     this.addExtension('template', addTemplateExtension)
     this.addExtension('filesystem', addFilesystemExtension)
     this.addExtension('system', addSystemExtension)
+    this.addExtension('http', addHttpExtension)
     this.addExtension('prompt', addPromptExtension)
   }
 

@@ -26,6 +26,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "apisauce": "^0.7.0",
     "ascii-table": "^0.0.9",
     "autobind-decorator": "^1.3.4",
     "colors": "^1.1.2",
