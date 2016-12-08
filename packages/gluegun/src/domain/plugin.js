@@ -13,11 +13,9 @@
  * none           = no problems
  * input          = invalid directory input
  * missingdir     = can't find the plugin directory
- * badpackage     = the package.json is invalid
- * namespace      = the package.json is missing namespace
  */
 // export type PluginErrorState =
-//   'none' | 'input' | 'missingdir' | 'badpackage' | 'namespace'
+//   'none' | 'input' | 'missingdir'
 
 /**
  * Extends the environment with new commands.
@@ -32,6 +30,7 @@ class Plugin {
     this.directory = null
     this.errorMessage = null
     this.commands = []
+    this.extensions = []
     this.exception = null
   }
 

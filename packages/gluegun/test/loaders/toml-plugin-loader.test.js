@@ -19,6 +19,7 @@ test('missing config files is fine', t => {
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
   t.deepEqual(plugin.commands, [])
+  t.deepEqual(plugin.extensions, [])
 })
 
 test('default namespace', t => {
@@ -37,6 +38,7 @@ test('sane defaults', t => {
   t.is(plugin.namespace, 'simplest')
   t.is(plugin.directory, dir)
   t.falsy(plugin.errorMessage)
+  t.deepEqual(plugin.extensions, [])
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.defaults, {})
 })
@@ -62,7 +64,7 @@ test('loads commands', async t => {
   t.is(await two.run(), 'two')
 })
 
-test('load from front matter', async t => {
+test('load commands with front matter', async t => {
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = load(dir)
 
@@ -70,6 +72,7 @@ test('load from front matter', async t => {
   t.is(plugin.errorState, 'none')
   t.is(plugin.commands.length, 1)
 
+  // test the command
   const full = plugin.commands[0]
   t.is(full.name, 'full')
   t.is(full.file, `${dir}/commands/full.js`)
@@ -78,3 +81,25 @@ test('load from front matter', async t => {
   t.is(typeof full.run, 'function')
   t.is(await full.run(), 123)
 })
+
+test('loads extensions with front matter', async t => {
+  const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
+  const plugin = load(dir)
+
+  // test the extension
+  t.is(plugin.extensions.length, 1)
+  const ext = plugin.extensions[0]
+  t.is(ext.name, 'hello')
+  t.is(ext.description, 'Drops \'very\' on the context.')
+  t.is(typeof ext.setup, 'function')
+  const live = ext.setup()
+  t.truthy(live)
+  t.is(live.very, 'little')
+})
+
+test('names default to the filename', async t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/auto-detect`)
+  t.is(plugin.commands[0].name, 'detectCommand')
+  t.is(plugin.extensions[0].name, 'detectExtension')
+})
+

@@ -1,6 +1,7 @@
 const jetpack = require('fs-jetpack')
 const Plugin = require('../domain/plugin')
 const loadCommandFromFile = require('./command-loader')
+const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
 const { concat, map } = require('ramda')
@@ -15,6 +16,7 @@ const toml = require('toml')
 function loadFromDirectory (directory, options = {}) {
   const key = options.key || 'gluegun'
   const commandFilePattern = options.commandFilePattern || 'commands/*.js'
+  const extensionFilePattern = options.extensionFilePattern || 'extensions/*.js'
 
   const plugin = new Plugin()
 
@@ -41,6 +43,12 @@ function loadFromDirectory (directory, options = {}) {
   plugin.commands = map(
     file => loadCommandFromFile(`${directory}/${file}`),
     jetpack.cwd(plugin.directory).find({ matching: commandFilePattern })
+    )
+
+  // load the commands found in the commands sub-directory
+  plugin.extensions = map(
+    file => loadExtensionFromFile(`${directory}/${file}`),
+    jetpack.cwd(plugin.directory).find({ matching: extensionFilePattern })
     )
 
   // if we have a config toml

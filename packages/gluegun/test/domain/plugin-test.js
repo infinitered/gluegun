@@ -9,6 +9,7 @@ test('default state', t => {
   t.falsy(plugin.directory)
   t.falsy(plugin.namespace)
   t.deepEqual(plugin.commands, [])
+  t.deepEqual(plugin.extensions, [])
   t.deepEqual(plugin.defaults, {})
   t.falsy(plugin.exception)
 })
