@@ -1,5 +1,7 @@
-// @command      generate screen
-// @description  Generates an opinionated container.
+// ----------------------------------------------------------------------------
+// @cliCommand      generate screen
+// @cliDescription  Generates an opinionated container.
+// ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 
 module.exports = async function (context) {

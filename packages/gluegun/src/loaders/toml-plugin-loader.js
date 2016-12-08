@@ -66,8 +66,8 @@ function loadFromDirectory (directory, options = {}) {
     // also load commands located in the commands key
     const commandsFromConfig = map(
       config => {
-        const { name, file, functionName, description } = config
-        const command = loadCommandFromFile(`${directory}/${file}`, functionName)
+        const { name, file, description } = config
+        const command = loadCommandFromFile(`${directory}/${file}`)
         command.name = name
         command.description = description
         return command

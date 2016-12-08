@@ -67,7 +67,6 @@ function loadFromFile (file) {
 
     // let's override if we've found these tokens
     extension.name = tokens.extension || extension.name
-    extension.description = tokens.description || extension.description
 
     // require in the module -- best chance to bomb is here
     const extensionModule = loadModule(file)

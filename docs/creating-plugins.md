@@ -30,23 +30,21 @@ At the top of these `*.js` files you have the ability to customize some meta dat
 For example, you might have a command called `commands/say.js` that looks like this:
 
 ```js
-// @command     say
-// @description This command will say the word you tell it to.
+// @cliCommand     say
+// @cliDescription This command will say the word you tell it to.
 module.exports = async function (context) {
   const { print, parameters } = context  
   print.info(`hello ${parameters.first}`)
 }
 ```
 
-This `@command` and the `@description` will be detected and will populate the information that
+This `@cliCommand` and the `@cliDescription` will be detected and will populate the information that
 the user sees when they ask for help or a list of commands.
 
-Extensions are similar.
+Extensions are similar except they use the `@contextExtension` 
 
 ```js
-// @extension   appstore
-// @description Finds out information about the products on the AppStore.
-
+// @contextExtension   appstore
 module.exports = function (plugin, command, context) {
 
   async function getAppDetails (productId) {

@@ -2,4 +2,4 @@ async function omgTwo (context) {
   return 'two'
 }
 
-module.exports = { omgTwo }
+module.exports = omgTwo

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
-// @command      generate redux
-// @description  Generates a action/creator/reducer set for Redux.
+// @cliCommand      generate redux
+// @cliDescription  Generates a action/creator/reducer set for Redux.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 
