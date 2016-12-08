@@ -22,7 +22,7 @@ module.exports = async function (context) {
 
   // generate the React component
   await generate({
-    template: 'templates/redux.njk',
+    template: 'redux.njk',
     target: `App/Redux/${name}Redux.js`,
     props
   })
@@ -30,7 +30,7 @@ module.exports = async function (context) {
   // generate the appropriate test
   if (tests) {
     await generate({
-      template: `templates/redux-test-${tests}.njk`,
+      template: `redux-test-${tests}.njk`,
       target: `Tests/Redux/${name}ReduxTest.js`,
       props
     })

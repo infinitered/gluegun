@@ -20,7 +20,7 @@ module.exports = async function (context) {
 
   // generate the saga
   await generate({
-    template: 'templates/saga.njk',
+    template: 'saga.njk',
     target: `App/Sagas/${name}Sagas.js`,
     props
   })
@@ -28,7 +28,7 @@ module.exports = async function (context) {
   // generate the appropriate test
   if (tests) {
     await generate({
-      template: `templates/saga-test-${tests}.njk`,
+      template: `saga-test-${tests}.njk`,
       target: `Tests/Saga/${name}SagaTest.js`,
       props
     })

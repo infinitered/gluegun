@@ -39,14 +39,14 @@ module.exports = async function (context) {
 
   // generate the React component
   await generate({
-    template: `templates/${componentTemplate}.njk`,
+    template: `${componentTemplate}.njk`,
     target: `App/Containers/${name}.js`,
     props
   })
 
   // generate the style
   await generate({
-    template: `templates/${styleTemplate}.njk`,
+    template: `${styleTemplate}.njk`,
     target: `App/Containers/Styles/${name}Style.js`,
     props
   })
