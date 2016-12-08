@@ -73,7 +73,7 @@ git branch fun
 yarn run test
 yarn run lint
 git commit -m "Adds fun"
-git push origin --HEAD
+git push -u origin --HEAD
 ```
 
 Please ensure lint linting & testing passes.  That'd be pretty cool.
