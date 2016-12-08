@@ -1,5 +1,4 @@
-// @extension   hello
-// @description Drops 'very' on the context.
+// @contextExtension   hello
 
 /**
  * An extension that returns very little.

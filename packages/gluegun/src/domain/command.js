@@ -27,7 +27,6 @@ class Command {
     this.name = null
     this.description = null
     this.file = null
-    this.function = null
     this.run = null
     this.loadState = 'none'
     this.errorState = 'none'

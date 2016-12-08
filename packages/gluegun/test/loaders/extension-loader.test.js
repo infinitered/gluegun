@@ -52,6 +52,5 @@ test('has front matter', t => {
   t.is(extension.loadState, 'ok')
   t.is(extension.errorState, 'none')
   t.is(extension.name, 'hello')
-  t.is(extension.description, 'Drops \'very\' on the context.')
 })
 

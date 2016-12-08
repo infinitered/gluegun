@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
-// @command      generate container
-// @description  Generates a redux smart component.
+// @cliCommand      generate container
+// @cliDescription  Generates a redux smart component.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 

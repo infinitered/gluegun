@@ -1,5 +1,7 @@
-// @command      generate saga
-// @description  Generates a saga with an optional test.
+// ----------------------------------------------------------------------------
+// @cliCommand      generate saga
+// @cliDescription  Generates a saga with an optional test.
+// ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 
 module.exports = async function (context) {

@@ -76,7 +76,6 @@ test('load commands with front matter', async t => {
   const full = plugin.commands[0]
   t.is(full.name, 'full')
   t.is(full.file, `${dir}/commands/full.js`)
-  t.is(full.functionName, 'jimmy')
   t.is(full.description, 'This is the full meal deal.')
   t.is(typeof full.run, 'function')
   t.is(await full.run(), 123)
@@ -90,7 +89,6 @@ test('loads extensions with front matter', async t => {
   t.is(plugin.extensions.length, 1)
   const ext = plugin.extensions[0]
   t.is(ext.name, 'hello')
-  t.is(ext.description, 'Drops \'very\' on the context.')
   t.is(typeof ext.setup, 'function')
   const live = ext.setup()
   t.truthy(live)

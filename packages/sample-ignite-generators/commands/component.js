@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
-// @command      generate component
-// @description  Generates a component, styles, and an optional test.
+// @cliCommand      generate component
+// @cliDescription  Generates a component, styles, and an optional test.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 

@@ -1,9 +1,8 @@
-// @command      full
-// @description  This is the full meal deal.
-// @functionName jimmy
+// @cliCommand      full
+// @cliDescription  This is the full meal deal.
 
 async function jimmy (context) {
   return 123
 }
 
-module.exports = { jimmy }
+module.exports = jimmy

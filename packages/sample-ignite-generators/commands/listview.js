@@ -1,5 +1,7 @@
-// @command      generate listview
-// @description  Generates a screen with a ListView + walkthrough.
+// ----------------------------------------------------------------------------
+// @cliCommand      generate listview
+// @cliDescription  Generates a screen with a ListView + walkthrough.
+// ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
 
 module.exports = async function (context) {

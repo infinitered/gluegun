@@ -43,9 +43,8 @@ const Command = require('../domain/command')
  * Loads the command from the given file.
  *
  * @param {string} file         The full path to the file to load.
- * @param {string} functionName An optional function name to load.
  */
-function loadFromFile (file, functionName) {
+function loadFromFile (file) {
   const command = new Command()
 
   // sanity check the input
@@ -57,7 +56,6 @@ function loadFromFile (file, functionName) {
 
   // remember the file & function
   command.file = file
-  command.functionName = functionName
 
   // not a file?
   if (isNotFile(file)) {
@@ -89,40 +87,22 @@ function loadFromFile (file, functionName) {
     )(file)
 
     // let's override if we've found these tokens
-    command.name = tokens.command || command.name
-    command.description = tokens.description || command.description
-    command.functionName = tokens.functionName || command.functionName
+    command.name = tokens.cliCommand || command.name
+    command.description = tokens.cliDescription || command.description
 
     // require in the module -- best chance to bomb is here
     const commandModule = loadModule(file)
 
-    // should we try the default export?
-    if (isNilOrEmpty(command.functionName)) {
-      // are we expecting this?
-      const valid = commandModule && typeof commandModule === 'function'
+    // are we expecting this?
+    const valid = commandModule && typeof commandModule === 'function'
 
-      if (valid) {
-        command.loadState = 'ok'
-        command.errorState = 'none'
-        command.run = commandModule
-      } else {
-        command.loadState = 'error'
-        command.errorState = 'badfunction'
-      }
+    if (valid) {
+      command.loadState = 'ok'
+      command.errorState = 'none'
+      command.run = commandModule
     } else {
-      // we're after a named function
-      const valid = commandModule &&
-        commandModule[command.functionName] &&
-        typeof commandModule[command.functionName] === 'function'
-
-      if (valid) {
-        command.loadState = 'ok'
-        command.errorState = 'none'
-        command.run = commandModule && commandModule[command.functionName]
-      } else {
-        command.loadState = 'error'
-        command.errorState = 'badfunction'
-      }
+      command.loadState = 'error'
+      command.errorState = 'badfunction'
     }
   } catch (e) {
     command.exception = e

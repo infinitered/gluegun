@@ -1,11 +1,9 @@
-// @extension patching
-// @description Provides textfile patching functionality
+// @contextExtension patching
 
 // TODO: migrate to jetpack
 const fs = require('fs')
 /**
- * @extension patching
- * @description Provides textfile patching functionality
+ * @contextExtension patching
  *
  * @param  {Plugin}     plugin  The plugin that triggered.
  * @param  {Command}    command The current command that is running.
