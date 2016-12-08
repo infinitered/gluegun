@@ -3,12 +3,12 @@
 // @description  Generates a action/creator/reducer set for Redux.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
-const { capsCase } = require('../shared/utils')
 
 module.exports = async function (context) {
   // grab some features
-  const { parameters, config, template } = context
+  const { parameters, config, template, strings } = context
   const { generate } = template
+  const { pascalCase } = strings
 
   // TODO: validation
   if (isNilOrEmpty(parameters.string)) return
@@ -17,7 +17,7 @@ module.exports = async function (context) {
   const { tests } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this
-  const name = capsCase(parameters.first)
+  const name = pascalCase(parameters.first)
   const props = { name }
 
   // generate the React component

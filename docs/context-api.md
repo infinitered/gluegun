@@ -22,6 +22,7 @@ name            | provides the...                                     | 3rd part
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
 **system**      | ability to execute & copy to the clipboard          | cross-env
 **http**        | ability to talk to the web                          | apisauce
+**strings**     | some string helpers like case conversion, etc.      | lodash & ramda
 
 If this is starting to sound like a scripting language, then good.  That's exactly how to think of it.  Except
 we're not inventing another language.  And we're still running in a `node.js` environment, so you can do whatever you want.
@@ -286,6 +287,34 @@ signal   | number | the signal number used to off the process (if killed)
 
 ### context.system.copyToClipboard
 :(
+
+
+# context.strings
+
+Provides some helper functions to work with strings.  This list is also added to the available filters
+inside your Nunjucks templates.
+
+function    | parameters          | usage
+------------|---------------------|---------------------------------------
+identity    | value               | returns itself
+isBlank     | value               | true if its null, or trimmed to empty
+isNotString | value               | true if it's not `typeof 'string'`
+camelCase   | value               | thisIsCamelCase
+kebabCase   | value               | this-is-kebab-case
+snakeCase   | value               | this_is_snake_case
+upperCase   | value               | THIS IS UPPER CASE
+lowerCase   | value               | this is lower case
+startCase   | value               | This is start case
+upperFirst  | value               | Changes the first character to upper case
+lowerFirst  | value               | changes the first character to lower case 
+pascalCase  | value               | ThisIsPascalCase
+pad         | value, length, char | Pads a string to a length with by filling char
+padStart    | value, length, char | Pads the start of a string
+padEnd      | value, length, char | Pads the end of string
+trim        | value, length, char | Removes whitespace from the edges
+trimStart   | value               | Removes whitespace from the front
+trimEnd     | value               | Removes whitespace from the back
+repeat      | value, count        | Repeats a value, count times
 
 
 # context.http
