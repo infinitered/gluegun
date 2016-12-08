@@ -12,7 +12,7 @@ module.exports = async function (context) {
   if (isNilOrEmpty(parameters.string)) return
 
   // read some configuration
-  const { tests } = config.ignite
+  const { tests } = config['ignite-basic-generators']
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = pascalCase(parameters.first)
