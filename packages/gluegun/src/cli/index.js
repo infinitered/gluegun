@@ -81,7 +81,7 @@ async function run () {
   const context = await runtime.run(namespace, args, options)
 
   // print
-  if (isBlank(namespace)) {
+  if (isBlank(namespace) && brand === 'gluegun') {
     printBanner()
   }
 
