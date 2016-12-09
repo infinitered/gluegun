@@ -2,4 +2,4 @@ namespace = 'ignite'
 
 [defaults]
 tests = 'ava'
-
+askToOverwrite = true

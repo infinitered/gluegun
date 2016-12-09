@@ -1,5 +1,8 @@
 const inquirer = require('inquirer')
 
+// the askYesNo defaults
+const NO = 'No'
+const YES = 'Yes'
 
 /**
  * Provides user input prompts via inquirer.js.
@@ -13,21 +16,31 @@ function attach () {
   // make the separator available
   const separator = line => new inquirer.Separator(line)
 
-  // a helper to ask to overwrite
-  async function askToOverwrite (message = 'Overwrite existing file?') {
-    const { overwrite } = await ask({
+  /**
+   * Asks a question with a yes or no outcome.
+   *
+   * @param  {string} message The message to display
+   * @param  {{}} options     The prompt configuration options.
+   * @return {bool}           The user's choice.
+   */
+  async function askYesOrNo (message, options = {}) {
+    const answer = await ask({
       type: 'list',
-      name: 'overwrite',
+      name: 'yesOrNo',
       message: message,
       choices: [
-        { name: 'Yes', value: true },
-        { name: 'No', value: false }
+        { name: options.yes || YES, value: true },
+        { name: options.no || NO, value: false }
       ]
     })
-    return overwrite
+    return answer.yesOrNo
   }
 
-  return { ask, separator, askToOverwrite }
+  return {
+    ask,
+    separator,
+    askYesOrNo
+  }
 }
 
 module.exports = attach
