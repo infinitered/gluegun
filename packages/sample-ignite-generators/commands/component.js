@@ -15,10 +15,6 @@ module.exports = async function (context) {
   if (isNilOrEmpty(parameters.array)) return
 
   // read some configuration
-  print.info('info')
-  print.warning('warning')
-  print.error('error')
-  print.success('success')
   const { tests, askToOverwrite } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this
@@ -44,6 +40,7 @@ module.exports = async function (context) {
       target: targetComponent,
       props
     })
+    print.info(`${print.checkmark} ${targetComponent}`)
   }
 
   // generate the style
@@ -53,6 +50,7 @@ module.exports = async function (context) {
       target: targetStyle,
       props
     })
+    print.info(`${print.checkmark} ${targetStyle}`)
   }
 
   // generate the AVA test
@@ -62,5 +60,6 @@ module.exports = async function (context) {
       target: targetTest,
       props
     })
+    print.info(`${print.checkmark} ${targetTest}`)
   }
 }

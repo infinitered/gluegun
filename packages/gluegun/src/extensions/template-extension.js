@@ -65,9 +65,6 @@ function attach (plugin, command, context) {
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
 
-      const generated = colors.cyan(`generated`)
-      const colorTemplate = colors.muted(`from ${template}`)
-      print.info(`${print.checkmark} ${generated} ${target} ${colorTemplate}`)
       jetpack.write(dest, content)
     }
 
