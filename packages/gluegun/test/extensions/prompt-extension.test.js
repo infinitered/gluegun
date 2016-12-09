@@ -6,5 +6,5 @@ test('has the proper interface', t => {
   t.truthy(ext)
   t.is(typeof ext.ask, 'function')
   t.is(typeof ext.separator, 'function')
-  t.is(typeof ext.askToOverwrite, 'function')
+  t.is(typeof ext.askYesOrNo, 'function')
 })

@@ -1,5 +1,5 @@
 const autobind = require('autobind-decorator')
-const { clone, when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } = require('ramda')
+const { clone, merge, when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } = require('ramda')
 const { findByProp, startsWith } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const RunContext = require('./run-context')
@@ -55,8 +55,8 @@ async function run (namespace, full = '', options = {}) {
   }
 
   // setup the config
-  context.config = {}
-  context.config[plugin.namespace] = clone(plugin.defaults)
+  context.config = clone(this.defaults)
+  context.config[plugin.namespace] = merge(plugin.defaults, this.defaults[plugin.namespace] || {})
 
   // find the command
   const command = this.findCommand(plugin, full)
@@ -106,6 +106,7 @@ class Runtime {
     this.plugins = []
     this.directories = {}
     this.extensions = []
+    this.defaults = {}
     this.addCoreExtensions()
   }
 

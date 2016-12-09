@@ -3,7 +3,7 @@ async function simple (context) {
   const dir = 'generated'
   const target = `${dir}/simple.txt`
 
-  const result = await context.template.generate({ template, target, askToOverwrite: false })
+  const result = await context.template.generate({ template, target })
   return result
 }
 

@@ -26,7 +26,7 @@ function attach (plugin, command, context) {
     // const colNamespaceCommand = rightPad(0, ' ', `${plugin.namespace} ${command.name}`)
     const col1 = toLower(action)
     const col2 = colors.highlight(message)
-    const say = ` ${checkmark} ${col1} ${colDivide} ${col2}`
+    const say = `${checkmark} ${col1} ${colDivide} ${col2}`
 
     print.fancy(say)
   }

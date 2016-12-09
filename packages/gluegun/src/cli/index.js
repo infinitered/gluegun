@@ -1,11 +1,13 @@
 const parseCommandLine = require('./parse-command-line')
-const { forEach, map } = require('ramda')
+const { forEach, map, when, always, pipe, propOr, tryCatch } = require('ramda')
+const { log } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const { isDirectory } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 const getPluginsFromConfig = require('../loaders/plugins-from-config')
+const toml = require('toml')
 
 // const print = require('../utils/print')
 const printBanner = require('./print-banner')
@@ -53,6 +55,13 @@ async function run () {
 
   // add them to the runtime
   forEach(runtime.addPlugin, morePlugins)
+
+  // load the config
+  runtime.defaults = pipe(
+    jetpack.read,
+    tryCatch(toml.parse, {}),
+    propOr({}, 'defaults')
+    )(`${cwd}/${brand}.toml`)
 
   // in branded mode, let's see if there's match prepending the
   // branded namespace to the front and searching for a command
