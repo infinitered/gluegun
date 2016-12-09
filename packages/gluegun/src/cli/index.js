@@ -1,7 +1,7 @@
 const parseCommandLine = require('./parse-command-line')
 const { forEach, map, pipe, propOr, tryCatch } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
-const { isDirectory } = require('../utils/filesystem-utils')
+const { isDirectory, isFile } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
@@ -12,6 +12,7 @@ const toml = require('toml')
 const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
 const printCommandLineOptions = require('./print-command-line-options')
+const printBrandHeader = require('./print-brand-header')
 
 /**
  * Our main entry point.
@@ -81,8 +82,12 @@ async function run () {
   const context = await runtime.run(namespace, args, options)
 
   // print
-  if (isBlank(namespace) && brand === 'gluegun') {
-    printBanner()
+  if (isBlank(namespace)) {
+    if (brand === 'gluegun') {
+      printBanner()
+    } else {
+      printBrandHeader(runtime, brandPlugin)
+    }
   }
 
   if (isBlank(context.parameters.string)) {
