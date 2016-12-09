@@ -37,7 +37,7 @@ function attach (plugin, command, context) {
 
     // grab some features
     const { print } = context
-    const { stepComplete, colors } = print
+    const { colors } = print
 
     // grab the path to the plugin
     const pluginTemplatesLoader = new nunjucks.FileSystemLoader(`${plugin.directory}/templates`)
@@ -65,8 +65,9 @@ function attach (plugin, command, context) {
       const dir = replace(/$(\/)*/g, '', target)
       const dest = `${jetpack.cwd()}/${dir}`
 
+      const generated = colors.cyan(`generated`)
       const colorTemplate = colors.muted(`from ${template}`)
-      stepComplete(`generated`, `${target} ${colorTemplate}`)
+      print.info(`${print.checkmark} ${generated} ${target} ${colorTemplate}`)
       jetpack.write(dest, content)
     }
 

@@ -1,6 +1,5 @@
 const parseCommandLine = require('./parse-command-line')
-const { forEach, map, when, always, pipe, propOr, tryCatch } = require('ramda')
-const { log } = require('ramdasauce')
+const { forEach, map, pipe, propOr, tryCatch } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
 const { isDirectory } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
