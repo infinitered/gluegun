@@ -21,3 +21,9 @@ test('captures stderr', async t => {
     t.is(e.stderr, `/bin/sh: omgdontrunlol: command not found\n`)
   }
 })
+
+test('reads and writes the clipboard', t => {
+  system.writeToClipboard('hello!')
+  const clip = system.readFromClipboard()
+  t.is(clip, 'hello!')
+})
