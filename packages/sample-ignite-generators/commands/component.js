@@ -6,7 +6,7 @@ const { isNilOrEmpty } = require('ramdasauce')
 
 module.exports = async function (context) {
   // grab some features
-  const { parameters, config, template, strings, prompt, filesystem } = context
+  const { parameters, config, template, strings, prompt, filesystem, print } = context
   const { askYesOrNo } = prompt
   const { generate } = template
   const { pascalCase } = strings
@@ -15,7 +15,10 @@ module.exports = async function (context) {
   if (isNilOrEmpty(parameters.array)) return
 
   // read some configuration
-  console.log(config.ignite)
+  print.info('info')
+  print.warning('warning')
+  print.error('error')
+  print.success('success')
   const { tests, askToOverwrite } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this

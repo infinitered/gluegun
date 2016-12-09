@@ -1,6 +1,4 @@
 const print = require('../utils/print')
-const { toLower } = require('ramda')
-// const { rightPad } = require('../utils/string-utils')
 
 /**
  * Extensions to print to the console.
@@ -12,31 +10,50 @@ const { toLower } = require('ramda')
  */
 function attach (plugin, command, context) {
   const { colors, debug } = print
-  const colDivide = colors.muted('>')
   const checkmark = colors.success('✔︎')
-  // const xmark = colors.error('ⅹ')
+  const xmark = colors.error('ⅹ')
 
   /**
-   * Prints when a step has completed.
-   *
-   * @param {string} action  The verb that just happened.
-   * @param {string} message The message to say.
+   * Prints an informational message.  Use this as your goto.
    */
-  function stepComplete (action, message) {
-    // const colNamespaceCommand = rightPad(0, ' ', `${plugin.namespace} ${command.name}`)
-    const col1 = toLower(action)
-    const col2 = colors.highlight(message)
-    const say = `${checkmark} ${col1} ${colDivide} ${col2}`
+  function info (message) {
+    print.info(message)
+  }
 
-    print.fancy(say)
+  /**
+   * Prints a warning message.  Use this when you feel a disturbance in the force.
+   */
+  function warning (message) {
+    print.warning(message)
+  }
+
+  /**
+   * Prints an error message.  Use this when something goes Pants-On-Head wrong.
+   * What does that mean?  Well, if your next line of code isn't process.exit(0), then
+   * it was probably a warning.
+   */
+  function error (message) {
+    print.error(message)
+  }
+
+  /**
+   * Prints a success message.  Use this when something awesome just happened.
+   */
+  function success (message) {
+    print.success(message)
   }
 
   // return back the feature set
   return {
-    stepComplete,
+    info,
+    warning,
+    error,
+    success,
+    debug,
     colors,
-    color: colors,
-    debug
+    checkmark,
+    xmark,
+    color: colors
   }
 }
 

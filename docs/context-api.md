@@ -137,18 +137,36 @@ module.exports = async function (context) {
 # context.print
 Features for allowing you to print to the console.
 
-### context.print.stepComplete
-Indicates to that something relevant has been done.
+
+### context.print.info
+Prints an informational message.  Use this as your goto.
 
 ```js
-context.print.stepComplete('added android permission', 'RECEIVE_SMS')
+context.print.info('Hello.  I am a chatty plugin.')
 ```
 
-The `action` parameter is string up to 30 characters long. It should be the 
-passed-tense verb like "generated" or "deleted".
+### context.print.success
+Print a "something good just happened" message.
 
-The `message` parameter is a string up to 80 characters long. It can be anything
-relevant to what happened. You're welcome to to use colors here like `highlight` to emphasize your message.
+```js
+context.print.success('We did it!')
+```
+
+### context.print.warning
+Prints a warning message.  Use this when you feel a disturbance in the force.
+
+```js
+context.print.warning('Your system does not have Yarn installed.  It\'s awesome.')
+```
+
+### context.print.error
+Prints an error message.  Use this when something goes Pants-On-Head wrong.
+What does that mean?  Well, if your next line of code isn't `process.exit(0)`, then
+it was probably a warning.
+
+```js
+context.print.warning('Out of disk space.  lol.')
+```
 
 ### context.print.debug
 Only used for debugging your plugins. You can pass this function a string or an object.
