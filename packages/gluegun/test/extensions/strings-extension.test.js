@@ -1,5 +1,5 @@
 const test = require('ava')
-const createExtension = require('../../src/extensions/strings-extension')
+const createExtension = require('../../src/core-extensions/strings-extension')
 
 test('has the proper interface', t => {
   const ext = createExtension()

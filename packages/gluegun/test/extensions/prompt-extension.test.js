@@ -1,5 +1,5 @@
 const test = require('ava')
-const createExtension = require('../../src/extensions/prompt-extension')
+const createExtension = require('../../src/core-extensions/prompt-extension')
 
 test('has the proper interface', t => {
   const ext = createExtension()
