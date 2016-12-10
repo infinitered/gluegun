@@ -1,22 +1,9 @@
 const { isNotFile } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
 const loadModule = require('./module-loader')
-const { isNilOrEmpty, startsWith } = require('ramdasauce')
+const findTokens = require('./find-tokens')
 const jetpack = require('fs-jetpack')
-const {
-  always,
-  filter,
-  fromPairs,
-  head,
-  join,
-  map,
-  pipe,
-  replace,
-  split,
-  tail,
-  trim,
-  when
-} = require('ramda')
+const { head, split } = require('ramda')
 const Extension = require('../domain/extension')
 
 /**
@@ -48,22 +35,8 @@ function loadFromFile (file) {
 
   // let's load
   try {
-    // try reading in front matter
-    const tokens = pipe(
-      jetpack.read,                       // read the file
-      when(isNilOrEmpty, always('')),     // default to blank
-      split('\n'),                        // split on new lines
-      map(trim),                          // trim
-      filter(startsWith('//')),           // only comments
-      map(replace(/^\/\/\s*/, '')),       // remove comments
-      map(trim),                          // trim again
-      map(split(/\s/)),                   // split on whitespace
-      map(x => [                          // turn into a 2d array
-        pipe(head, tail)(x),              // 0 = remove the @
-        pipe(tail, join(' '), trim)(x)    // join & trim the reset
-      ]),
-      fromPairs                           // as an object
-    )(file)
+    // try reading in tokens embedded in the file
+    const tokens = findTokens(jetpack.read(file) || '')
 
     // let's override if we've found these tokens
     extension.name = tokens.extension || extension.name
