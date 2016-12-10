@@ -5,13 +5,13 @@ const { isBlank } = require('../utils/string-utils')
 const RunContext = require('./run-context')
 
 // core extensions
-const addTemplateExtension = require('../extensions/template-extension')
-const addPrintExtension = require('../extensions/print-extension')
-const addFilesystemExtension = require('../extensions/filesystem-extension')
-const addSystemExtension = require('../extensions/system-extension')
-const addPromptExtension = require('../extensions/prompt-extension')
-const addHttpExtension = require('../extensions/http-extension')
-const addStringsExtension = require('../extensions/strings-extension')
+const addTemplateExtension = require('../core-extensions/template-extension')
+const addPrintExtension = require('../core-extensions/print-extension')
+const addFilesystemExtension = require('../core-extensions/filesystem-extension')
+const addSystemExtension = require('../core-extensions/system-extension')
+const addPromptExtension = require('../core-extensions/prompt-extension')
+const addHttpExtension = require('../core-extensions/http-extension')
+const addStringsExtension = require('../core-extensions/strings-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -72,6 +72,9 @@ async function run (namespace, full = '', options = {}) {
 
     // kick it off
     if (command.run) {
+      // attach the runtime
+      context.runtime = this
+
       // attach extensions
       forEach(
         extension => {

@@ -1,5 +1,5 @@
 const test = require('ava')
-const create = require('../../src/extensions/system-extension')
+const create = require('../../src/core-extensions/system-extension')
 
 const system = create()
 
