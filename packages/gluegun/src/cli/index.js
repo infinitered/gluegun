@@ -79,7 +79,7 @@ async function run () {
   // print what we're trying to do
   // TODO: divide run up into a query and an execution so we
   // have a better sense on if the command was found or not
-  printCommandLineOptions(namespace, args, options)
+  // printCommandLineOptions(namespace, args, options)
 
   // let's do this!
   const context = await runtime.run(namespace, args, options)
@@ -93,8 +93,8 @@ async function run () {
     }
   }
 
-  if (isBlank(context.parameters.string)) {
-    // printCommands(runtime)
+  if (!context.command) {
+    printCommands(runtime)
   }
 
   // print.debug(context, 'run context')
