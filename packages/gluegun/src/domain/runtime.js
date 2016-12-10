@@ -62,6 +62,8 @@ async function run (namespace, full = '', options = {}) {
   const command = this.findCommand(plugin, full)
 
   if (command) {
+    context.command = command
+    context.plugin = plugin
     // setup the rest of the parameters
     const subArgs = extractSubArguments(full, trim(command.name))
     context.parameters.array = subArgs
