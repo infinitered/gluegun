@@ -1,17 +1,15 @@
 const parseCommandLine = require('./parse-command-line')
-const { forEach, map, pipe, propOr, tryCatch } = require('ramda')
+const { forEach, map, pipe, propOr, tryCatch, always } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
 const { isDirectory } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 const getPluginsFromConfig = require('../loaders/plugins-from-config')
+const homePluginDirectories = require('../loaders/home-plugin-directories')
 const toml = require('toml')
-
-// const print = require('../utils/print')
 const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
-// const printCommandLineOptions = require('./print-command-line-options')
 const printWtf = require('./print-wtf')
 const printBrandHeader = require('./print-brand-header')
 
@@ -35,21 +33,21 @@ async function run () {
   // create the runtime
   const runtime = new Runtime(brand)
 
-  // core plugins come first
+  // --- PLUGINS #1 - core plugins
   runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/spork`))
 
-  // check the current directory for plugins
+  // --- PLUGINS #2 - current working directory
   const cwdPlugin = loadPluginFromDirectory(cwd, { brand })
   runtime.addPlugin(cwdPlugin)
 
-  // check for a branded directory for plugins
+  // --- PLUGINS #3 - current working directory's branded subdir
   const brandSubdir = `${cwd}/${brand}`
   if (isDirectory(brandSubdir)) {
     const cwdBrandPlugin = loadPluginFromDirectory(brandSubdir, { brand, namespace: 'project' })
     runtime.addPlugin(cwdBrandPlugin)
   }
 
-  // grab more plugins that are listed in the package.json in the current directory
+  // --- PLUGINS #4 - ones specified in the config file
   const morePlugins = map(
     relativeDir => {
       const fullDir = `${cwd}/${relativeDir}`
@@ -57,14 +55,18 @@ async function run () {
     },
     getPluginsFromConfig(`${cwd}/${brand}.toml`)
   )
-
-  // add them to the runtime
   forEach(runtime.addPlugin, morePlugins)
+
+  // --- PLUGINS #5 - the user's $HOME/.${brand}/plugins/*
+  forEach(
+    dir => runtime.addPlugin(loadPluginFromDirectory(dir, { brand })),
+    homePluginDirectories(brand)
+  )
 
   // load the config
   runtime.defaults = pipe(
     jetpack.read,
-    tryCatch(toml.parse, {}),
+    tryCatch(toml.parse, always({})),
     propOr({}, 'defaults')
     )(`${cwd}/${brand}.toml`)
 
@@ -81,7 +83,6 @@ async function run () {
   // print what we're trying to do
   // TODO: divide run up into a query and an execution so we
   // have a better sense on if the command was found or not
-  // printCommandLineOptions(namespace, args, options)
 
   // wtf mode
   if (wtf) {
@@ -95,7 +96,7 @@ async function run () {
   // print
   if (isBlank(namespace)) {
     if (brand === 'gluegun') {
-      printBanner()
+      // printBanner()
     } else {
       printBrandHeader(runtime, brandPlugin)
     }
@@ -104,8 +105,6 @@ async function run () {
   if (!context.command) {
     printCommands(runtime)
   }
-
-  // print.debug(context, 'run context')
 }
 
 run()
