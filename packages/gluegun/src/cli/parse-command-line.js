@@ -18,16 +18,18 @@ function parseCommandLine (argv = []) {
 
   // grab the brand if any
   const brand = cmd['gluegun-brand']
+  const wtf = cmd['wtf']
 
   // the options are the - and -- things that minimist parses
   // but also, pull out all the things we don't want to see
   const options = pipe(
     dissoc('_'),
-    dissoc('gluegun-brand')
+    dissoc('gluegun-brand'),
+    dissoc('wtf')
   )(cmd)
 
   // :shipit:
-  return { namespace, args, options, brand }
+  return { namespace, args, options, brand, wtf }
 }
 
 module.exports = parseCommandLine

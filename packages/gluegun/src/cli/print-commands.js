@@ -1,5 +1,18 @@
 const print = require('../utils/print')
-const { map } = require('ramda')
+const { map, propEq, reject } = require('ramda')
+
+/**
+ * Does this have a loadState error?
+ */
+const hasLoadStateError = propEq('loadState', 'error')
+
+/**
+ * Does this plugin have any problems?
+ *
+ * @param  {{}}   item The listCommand item
+ * @return {bool}          `true` if problems otherwise `false`
+ */
+const hasProblem = item => hasLoadStateError(item.command)
 
 /**
  * Prints the list of commands.
@@ -16,21 +29,15 @@ function printCommands (runtime) {
   const data = map(line => {
     const { plugin, command } = line
 
-    // the error state of the command
-    const commandErrorState = command.errorState === 'none'
-      ? print.colors.success('ok')
-      : print.colors.error(command.errorState)
-
     const col1 = runtime.brand !== 'gluegun' && runtime.brand === plugin.namespace
       ? `${command.name}`
       : `${plugin.namespace} ${command.name}`
 
     return [
       print.colors.highlight(col1),
-      command.description,
-      commandErrorState
+      command.description
     ]
-  }, commands)
+  }, reject(hasProblem, commands))
 
   // print the table
   print.table(data)

@@ -14,6 +14,4 @@ module.exports = function (plugin, print) {
   fancy('')
   fancy('An unfair headstart for your React Native apps.')
   fancy(colors.yellow('https://infinite.red/ignite'))
-  fancy('')
-  fancy('-----------------------------------------------')
 }

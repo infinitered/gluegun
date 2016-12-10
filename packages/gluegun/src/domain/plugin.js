@@ -13,6 +13,7 @@
  * none           = no problems
  * input          = invalid directory input
  * missingdir     = can't find the plugin directory
+ * baddnamespace  = this namespace is not permitted
  */
 // export type PluginErrorState =
 //   'none' | 'input' | 'missingdir'

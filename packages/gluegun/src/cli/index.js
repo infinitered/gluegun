@@ -1,7 +1,7 @@
 const parseCommandLine = require('./parse-command-line')
 const { forEach, map, pipe, propOr, tryCatch } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
-const { isDirectory, isFile } = require('../utils/filesystem-utils')
+const { isDirectory } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
@@ -11,7 +11,8 @@ const toml = require('toml')
 // const print = require('../utils/print')
 const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
-const printCommandLineOptions = require('./print-command-line-options')
+// const printCommandLineOptions = require('./print-command-line-options')
+const printWtf = require('./print-wtf')
 const printBrandHeader = require('./print-brand-header')
 
 /**
@@ -27,7 +28,8 @@ async function run () {
     namespace,
     args,
     options,
-    brand = 'gluegun'
+    brand = 'gluegun',
+    wtf
   } = parseCommandLine(process.argv)
 
   // create the runtime
@@ -80,6 +82,12 @@ async function run () {
   // TODO: divide run up into a query and an execution so we
   // have a better sense on if the command was found or not
   // printCommandLineOptions(namespace, args, options)
+
+  // wtf mode
+  if (wtf) {
+    printWtf(runtime)
+    return
+  }
 
   // let's do this!
   const context = await runtime.run(namespace, args, options)
