@@ -4,8 +4,16 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { concat, map } = require('ramda')
+const { concat, map, contains, __ } = require('ramda')
 const toml = require('toml')
+
+/**
+ * Is this namespace permitted?
+ *
+ * @param  {string} namespace The namespace to check
+ * @return {bool}             `true` if this is restricted, otherwise `false`
+ */
+const isRestrictedNamespace = contains(__, ['project'])
 
 /**
  * Loads a plugin from a directory.
@@ -71,6 +79,8 @@ function loadFromDirectory (directory, options = {}) {
     }
     plugin.defaults = config.defaults || {}
 
+    // restrict name
+
     // also load commands located in the commands key
     const commandsFromConfig = map(
       config => {
@@ -87,6 +97,13 @@ function loadFromDirectory (directory, options = {}) {
     plugin.commands = concat(commandsFromConfig, plugin.commands)
   } catch (e) {
     // no worries, configs are optional
+  }
+
+    // check for restricted names
+  if (isRestrictedNamespace(plugin.namespace)) {
+    plugin.loadState = 'error'
+    plugin.errorState = 'badnamespace'
+    return plugin
   }
 
   // we are good!

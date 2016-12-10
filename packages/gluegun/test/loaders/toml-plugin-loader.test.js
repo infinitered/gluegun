@@ -23,7 +23,7 @@ test('missing config files is fine', t => {
 })
 
 test('default namespace', t => {
-  const plugin = load(`${__dirname}/../fixtures/bad-plugins/missing-namespace`)
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/missing-namespace`)
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
   t.is(plugin.namespace, 'missing-namespace')
@@ -99,5 +99,19 @@ test('names default to the filename', async t => {
   const plugin = load(`${__dirname}/../fixtures/good-plugins/auto-detect`)
   t.is(plugin.commands[0].name, 'detectCommand')
   t.is(plugin.extensions[0].name, 'detectExtension')
+})
+
+test('blank namespaces fallback to directory name', t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-namespace`)
+  t.is(plugin.namespace, 'blank-namespace')
+  t.is(plugin.loadState, 'ok')
+  t.is(plugin.errorState, 'none')
+})
+
+test('prevent reserved namespaces', t => {
+  const plugin = load(`${__dirname}/../fixtures/bad-plugins/reserved-namespace`)
+  t.is(plugin.namespace, 'project')
+  t.is(plugin.loadState, 'error')
+  t.is(plugin.errorState, 'badnamespace')
 })
 
