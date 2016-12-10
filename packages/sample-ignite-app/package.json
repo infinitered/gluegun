@@ -1,0 +1,13 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "standard",
+    "test": "echo lol"
+  },
+  "standard": {
+     "ignore": [
+       "App/**"
+     ]
+  }
+}

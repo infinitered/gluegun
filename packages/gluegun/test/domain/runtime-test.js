@@ -1,13 +1,12 @@
 const test = require('ava')
 const Runtime = require('../../src/domain/runtime')
 const loadFromToml = require('../../src/loaders/toml-plugin-loader')
-const { pipe, identity, pluck, join } = require('ramda')
+const { pipe, pluck, join } = require('ramda')
 
 test('adds a directory', t => {
   const r = new Runtime()
   r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/simplest`))
   r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/threepack`))
-
   t.is(r.plugins.length, 2)
 })
 

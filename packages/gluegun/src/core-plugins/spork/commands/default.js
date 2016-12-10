@@ -1,5 +1,5 @@
 // @cliDescription Copies some templates from a plugin.
-const { pluck, pipe, without, sortBy, identity, find, propEq, replace, map, forEach } = require('ramda')
+const { pluck, pipe, without, sortBy, identity, find, propEq, replace, map } = require('ramda')
 
 /**
  * Provides sporking ability to clone templates from a plugin.

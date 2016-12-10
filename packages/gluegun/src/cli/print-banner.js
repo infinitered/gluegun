@@ -3,7 +3,7 @@ const colors = require('colors')
 const jetpack = require('fs-jetpack')
 const { split } = require('ramda')
 
-// grab ze files 
+// grab ze files
 const BANNER = split('\n', jetpack.read(`${__dirname}/banner.txt`))
 const pkg = jetpack.read(`${__dirname}/../../package.json`, 'json')
 
