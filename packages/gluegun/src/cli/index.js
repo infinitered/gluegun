@@ -33,6 +33,9 @@ async function run () {
   // create the runtime
   const runtime = new Runtime(brand)
 
+  // core plugins come first
+  runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/spork`))
+
   // check the current directory for plugins
   const cwdPlugin = loadPluginFromDirectory(cwd, { brand })
   runtime.addPlugin(cwdPlugin)
@@ -91,7 +94,7 @@ async function run () {
   }
 
   if (isBlank(context.parameters.string)) {
-    printCommands(runtime)
+    // printCommands(runtime)
   }
 
   // print.debug(context, 'run context')

@@ -35,15 +35,14 @@ function attach (plugin, command, context) {
     const target = opts.target
     const props = opts.props || {}
 
-    // grab some features
-    const { print } = context
-    const { colors } = print
+    // the sporked template
+    const sporkTemplatesLoader = new nunjucks.FileSystemLoader(`${jetpack.cwd()}/${context.runtime.brand}/templates/${plugin.namespace}`)
 
     // grab the path to the plugin
     const pluginTemplatesLoader = new nunjucks.FileSystemLoader(`${plugin.directory}/templates`)
 
     // create a nunjucks environment
-    const env = new nunjucks.Environment(pluginTemplatesLoader, DEFAULT_CONFIG)
+    const env = new nunjucks.Environment([sporkTemplatesLoader, pluginTemplatesLoader], DEFAULT_CONFIG)
 
     // add some goodies to the environment so templates can read them
     env.addGlobal('config', context.config)

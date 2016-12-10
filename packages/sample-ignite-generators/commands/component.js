@@ -7,7 +7,7 @@ const { isNilOrEmpty } = require('ramdasauce')
 module.exports = async function (context) {
   // grab some features
   const { parameters, config, template, strings, prompt, filesystem, print } = context
-  const { askYesOrNo } = prompt
+  const { confirm } = prompt
   const { generate } = template
   const { pascalCase } = strings
 
@@ -30,7 +30,7 @@ module.exports = async function (context) {
   const shouldGenerate = async (target) => {
     if (!askToOverwrite) return true
     if (!filesystem.exists(target)) return true
-    return await askYesOrNo(`overwrite ${target}`)
+    return await confirm(`overwrite ${target}`)
   }
 
   // generate the React component

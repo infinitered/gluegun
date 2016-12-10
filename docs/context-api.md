@@ -268,7 +268,7 @@ const { age, shoe } = await context.prompt.ask([askAge, askShoe])
 
 Call `context.prompt.separator()` to return a separator you can use in some of your questions.
 
-### context.prompt.askYesOrNo
+### context.prompt.confirm
 
 **async**
 
@@ -277,15 +277,6 @@ A pre-built prompt which asks a yes or no question.
 ##### parameters
 
 `message` is a `string` required for displaying a message to user.  It's the question you're asking. 
-
-`options` is an object.
-
-It has 3 keys which are `string`s used for customizing the prompt.
-
-key     | default  | purpose 
---------|----------|----------------------------------------------------
-yes     | 'Yes'    | The wording of the affirmative text.
-no      | 'No'     | The wording of the negative text.
 
 ##### returns
 
