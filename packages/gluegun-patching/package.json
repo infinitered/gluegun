@@ -1,0 +1,8 @@
+{
+  "name": "gluegun-patching",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "standard",
+    "test": "echo test > /dev/null"
+  }
+}
