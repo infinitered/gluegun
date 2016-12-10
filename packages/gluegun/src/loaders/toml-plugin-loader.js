@@ -25,8 +25,8 @@ function loadFromDirectory (directory, options = {}) {
   const plugin = new Plugin()
 
   const key = options.key || 'gluegun'
-  const commandFilePattern = options.commandFilePattern || 'commands/*.js'
-  const extensionFilePattern = options.extensionFilePattern || 'extensions/*.js'
+  const commandFilePattern = options.commandFilePattern || '*.js'
+  const extensionFilePattern = options.extensionFilePattern || '*.js'
   const namespace = options.namespace
   if (!isBlank(namespace)) {
     plugin.namespace = namespace
@@ -53,18 +53,27 @@ function loadFromDirectory (directory, options = {}) {
     plugin.namespace = jetpack.inspect(directory).name
   }
 
-  // load the commands found in the commands sub-directory
-  plugin.commands = map(
-    file => loadCommandFromFile(`${directory}/${file}`),
-    jetpack.cwd(plugin.directory).find({ matching: commandFilePattern })
-    )
+  const jetpackPlugin = jetpack.cwd(plugin.directory)
 
   // load the commands found in the commands sub-directory
-  plugin.extensions = map(
-    file => loadExtensionFromFile(`${directory}/${file}`),
-    jetpack.cwd(plugin.directory).find({ matching: extensionFilePattern })
-    )
+  if (jetpackPlugin.exists('commands') === 'dir') {
+    plugin.commands = map(
+      file => loadCommandFromFile(`${directory}/commands/${file}`),
+      jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: false })
+      )
+  } else {
+    plugin.commands = []
+  }
 
+  // load the commands found in the commands sub-directory
+  if (jetpackPlugin.exists('extensions') === 'dir') {
+    plugin.extensions = map(
+      file => loadExtensionFromFile(`${directory}/extensions/${file}`),
+      jetpackPlugin.cwd('extensions').find({ matching: extensionFilePattern, recursive: false })
+      )
+  } else {
+    plugin.extensions = []
+  }
   // if we have a config toml
   try {
     // attempt to load the toml file
