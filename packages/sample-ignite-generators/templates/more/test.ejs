@@ -1,26 +1,26 @@
 // @flow
 import React from 'react'
 import { View, Text } from 'react-native'
-import styles from './Styles/{{ props.name }}Style'
+import styles from './Styles/<%= props.name %>Style'
 
-export default class {{ props.name }} extends React.Component {
+export default class <%= props.name %> extends React.Component {
 
   render () {
     return (
       <View style={styles.container}>
-        <Text>{{ props.name }} Component</Text>
+        <Text><%= props.name %> Component</Text>
       </View>
     )
   }
 }
 
 // // Prop type warnings
-// {{ props.name }}.propTypes = {
+// <%= props.name %>.propTypes = {
 //   someProperty: React.PropTypes.object,
 //   someSetting: React.PropTypes.bool.isRequired
 // }
 //
 // // Defaults for props
-// {{ props.name }}.defaultProps = {
+// <%= props.name %>.defaultProps = {
 //   someSetting: false
 // }

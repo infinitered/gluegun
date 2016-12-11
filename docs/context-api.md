@@ -17,7 +17,7 @@ name            | provides the...                                     | 3rd part
 **parameters**  | command line arguments and options                  | minimist
 **config**      | configuration options from the app or plugin        | 
 **print**       | tools to print output to the command line           | colors
-**template**    | code generation from templates                      | nunjucks
+**template**    | code generation from templates                      | ejs
 **prompt**      | tools to acquire extra command line user input      | inquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
 **system**      | ability to execute & copy to the clipboard          | cross-env
@@ -229,7 +229,7 @@ the behaviour you're after.
 
 option           | type    | purpose                              | notes
 -----------------|---------|--------------------------------------|----------------------------
-`template`       | string  | path to the Nunjucks template        | relative from plugin's `templates` directory 
+`template`       | string  | path to the EJS template             | relative from plugin's `templates` directory 
 `target`         | string  | path to create the file              | relative from user's working directory  
 `props`          | object  | more data to render in your template | 
 
@@ -422,7 +422,7 @@ context.system.writeToClipboard('8675309')
 # context.strings
 
 Provides some helper functions to work with strings.  This list is also added to the available filters
-inside your Nunjucks templates.
+inside your EJS templates.
 
 function    | parameters          | usage
 ------------|---------------------|---------------------------------------

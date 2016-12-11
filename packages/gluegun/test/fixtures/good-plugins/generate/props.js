@@ -1,5 +1,5 @@
 async function command (context) {
-  const template = 'props.njk'
+  const template = 'props.ejs'
   const dir = 'generated'
   const target = `${dir}/props.txt`
   const props = {

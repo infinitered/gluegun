@@ -104,18 +104,18 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 
 ## 3rd Party Modules Available
 
-| module     | purpose              |
-|------------|----------------------|
-| [inquirer.js](https://github.com/SBoudrias/Inquirer.js) | prompts & user input |
-| [fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders |
-| [nunjucks](https://github.com/mozilla/nunjucks)         | templates |
-| [cross-env](https://github.com/kentcdodds/cross-env)    | executing programs |
-| [apisauce](https://github.com/skellock/apisauce)        | http requests |
-| [lodash](https://github.com/lodash/lodash)              | utilities |
-| [colors](https://github.com/Marak/colors.js)            | colors in your terminal |
-| [ascii-table](https://github.com/sorensen/ascii-table)  | tables in your terminal |
-| [ramda](https://github.com/ramda/ramda)                 | functional utilities |
-| [ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities |
+module                                                  | purpose
+--------------------------------------------------------|-------------------------
+[inquirer.js](https://github.com/SBoudrias/Inquirer.js) | prompts & user input
+[fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders
+[ejs](https://github.com/mde/ejs)                       | templates
+[cross-env](https://github.com/kentcdodds/cross-env)    | executing programs
+[apisauce](https://github.com/skellock/apisauce)        | http requests
+[lodash](https://github.com/lodash/lodash)              | utilities
+[colors](https://github.com/Marak/colors.js)            | colors in your terminal
+[ascii-table](https://github.com/sorensen/ascii-table)  | tables in your terminal
+[ramda](https://github.com/ramda/ramda)                 | functional utilities
+[ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities
 
 ## Including Modules
 
