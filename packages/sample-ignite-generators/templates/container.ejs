@@ -8,9 +8,9 @@ import { connect } from 'react-redux'
 import { Actions as NavigationActions } from 'react-native-router-flux'
 
 // Styles
-import styles from './Styles/{{ props.name }}Style'
+import styles from './Styles/<%= props.name %>Style'
 
-class {{ props.name }} extends React.Component {
+class <%= props.name %> extends React.Component {
 
   // constructor (props) {
   //   super(props)
@@ -20,7 +20,7 @@ class {{ props.name }} extends React.Component {
   render () {
     return (
       <ScrollView style={styles.container}>
-        <Text>{{ props.name }} Container</Text>
+        <Text><%= props.name %> Container</Text>
       </ScrollView>
     )
   }
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)({{ props.name }})
+export default connect(mapStateToProps, mapDispatchToProps)(<%= props.name %>)

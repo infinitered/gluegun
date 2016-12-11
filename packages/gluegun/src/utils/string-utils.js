@@ -1,9 +1,6 @@
 const { always, is, isEmpty, pipe, when } = require('ramda')
 const _ = require('lodash')
 
-// NOTE: These functions all lead with the string first because
-// that format is compatible with Nunjucks' filters.
-
 /**
  * Is this not a string?
  *

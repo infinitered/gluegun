@@ -4,12 +4,12 @@ import Immutable from 'seamless-immutable'
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
-  {{ props.name | camelCase }}Request: ['data'],
-  {{ props.name | camelCase }}Success: ['payload'],
-  {{ props.name | camelCase }}Failure: null
+  <%= camelCase(props.name) %>Request: ['data'],
+  <%= camelCase(props.name) %>Success: ['payload'],
+  <%= camelCase(props.name) %>Failure: null
 })
 
-export const {{ props.name }}Types = Types
+export const <%= props.name %>Types = Types
 export default Creators
 
 /* ------------- Initial State ------------- */

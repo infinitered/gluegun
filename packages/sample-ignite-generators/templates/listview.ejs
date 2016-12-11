@@ -9,9 +9,9 @@ import { connect } from 'react-redux'
 import AlertMessage from '../Components/AlertMessage'
 
 // Styles
-import styles from './Styles/{{ props.name }}Style'
+import styles from './Styles/<%= props.name %>Style'
 
-class {{ props.name }} extends React.Component {
+class <%= props.name %> extends React.Component {
 
   state: {
     dataSource: Object
@@ -129,4 +129,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)({{ props.name }})
+export default connect(mapStateToProps, mapDispatchToProps)(<%= props.name %>)

@@ -1,5 +1,5 @@
 async function simple (context) {
-  const template = 'simple.njk'
+  const template = 'simple.ejs'
   const dir = 'generated'
   const target = `${dir}/simple.txt`
 
