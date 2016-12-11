@@ -9,30 +9,18 @@
   },
   {
     "name": "priority: low",
-    "color": "#009800"
-  },
-  {
-    "name": "priority: medium",
-    "color": "#fbca04"
+    "color": "#d2f0c6"
   },
   {
     "name": "status: abandoned",
     "color": "#000000"
   },
   {
-    "name": "status: accepted",
-    "color": "#009800"
-  },
-  {
-    "name": "status: available",
-    "color": "#bfe5bf"
-  },
-  {
     "name": "status: blocked",
     "color": "#e11d21"
   },
   {
-    "name": "status: completed",
+    "name": "status: help wanted",
     "color": "#006b75"
   },
   {
@@ -60,12 +48,24 @@
     "color": "#e11d21"
   },
   {
+    "name": "type: discussion",
+    "color": "#0052cc"
+  },
+  {
+    "name": "type: docs",
+    "color": "#cfe4f2"
+  },
+  {
     "name": "type: enhancement",
     "color": "#84b6eb"
   },
   {
     "name": "type: maintenance",
     "color": "#fbca04"
+  },
+  {
+    "name": "type: marketing",
+    "color": "#d4c5f9"
   },
   {
     "name": "type: question",
