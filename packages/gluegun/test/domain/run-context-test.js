@@ -10,5 +10,4 @@ test('initial state', t => {
   t.falsy(ctx.result)
   t.falsy(ctx.error)
   t.falsy(ctx.config)
-  t.falsy(ctx.directories)
 })

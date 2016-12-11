@@ -35,13 +35,6 @@ class RunContext {
      * The configuration.  A mashup of defaults + overrides.
      */
     this.config = null
-
-    /**
-     * A lookup table of known directories.
-     *
-     * Used by the templating system to place your generated files somewhere.
-     */
-    this.directories = null
   }
 
 }
