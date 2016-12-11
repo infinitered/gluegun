@@ -41,10 +41,11 @@ async function run () {
   runtime.addPlugin(cwdPlugin)
 
   // --- PLUGINS #3 - current working directory's branded subdir
-  const brandSubdir = `${cwd}/${brand}`
-  if (isDirectory(brandSubdir)) {
-    const cwdBrandPlugin = loadPluginFromDirectory(brandSubdir, { brand, namespace: 'project' })
-    runtime.addPlugin(cwdBrandPlugin)
+  const projectBrandDir = `${cwd}/${brand}`
+  if (isDirectory(projectBrandDir)) {
+    runtime.addPlugin(
+      loadPluginFromDirectory(projectBrandDir, { brand, namespace: 'project' })
+    )
   }
 
   // --- PLUGINS #4 - ones specified in the config file
