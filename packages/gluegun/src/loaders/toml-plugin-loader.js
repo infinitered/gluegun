@@ -24,7 +24,7 @@ const isRestrictedNamespace = contains(__, ['project'])
 function loadFromDirectory (directory, options = {}) {
   const plugin = new Plugin()
 
-  const key = options.key || 'gluegun'
+  const brand = options.brand || 'gluegun'
   const commandFilePattern = options.commandFilePattern || '*.js'
   const extensionFilePattern = options.extensionFilePattern || '*.js'
   const namespace = options.namespace
@@ -77,7 +77,7 @@ function loadFromDirectory (directory, options = {}) {
   // if we have a config toml
   try {
     // attempt to load the toml file
-    const tomlFile = `${directory}/${key}.toml`
+    const tomlFile = `${directory}/${brand}.toml`
 
     // read it
     const config = toml.parse(jetpack.read(tomlFile))
@@ -91,7 +91,7 @@ function loadFromDirectory (directory, options = {}) {
 
     // restrict name
 
-    // also load commands located in the commands key
+    // also load commands located in the commands brand
     const commandsFromConfig = map(
       config => {
         const { name, file, description } = config
