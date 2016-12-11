@@ -15,7 +15,7 @@ function attach () {
   enquirer.register('radio', require('prompt-radio'))
   enquirer.register('password', require('prompt-password'))
   enquirer.register('question', require('prompt-question'))
-  enquirer.register('autocomplete', require('prompt-autocomplete'))
+  enquirer.register('autocomplete', require('prompt-autocompletion'))
   return enquirer
 }
 
