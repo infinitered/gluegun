@@ -1,65 +1,41 @@
-// ----------------------------------------------------------------------------
 // @cliCommand      generate component
 // @cliDescription  Generates a component, styles, and an optional test.
 // ----------------------------------------------------------------------------
-const { isNilOrEmpty } = require('ramdasauce')
+const generate = require('../shared/generate-utils')
 
 module.exports = async function (context) {
   // grab some features
-  const { parameters, config, template, strings, prompt, filesystem, print } = context
-  const { confirm } = prompt
-  const { generate } = template
-  const { pascalCase } = strings
+  const { parameters, config, strings, print } = context
+  const { pascalCase, isBlank } = strings
 
-  // TODO: validation
-  if (isNilOrEmpty(parameters.array)) return
+  // validation
+  if (isBlank(parameters.first)) {
+    print.info(`${context.runtime.brand} generate component <name>\n`)
+    print.info('A component name is required.')
+    return
+  }
 
   // read some configuration
-  const { tests, askToOverwrite } = config.ignite
+  const { tests } = config.ignite
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = pascalCase(parameters.first)
   const props = { name }
 
-  // a bunch of files
-  const targetComponent = `App/Components/${name}.js`
-  const targetStyle = `App/Components/Styles/${name}Style.js`
-  const targetTest = `Tests/Components/${name}Test.js`
-
-  // If the file exists
-  const shouldGenerate = async (target) => {
-    if (!askToOverwrite) return true
-    if (!filesystem.exists(target)) return true
-    return await confirm(`overwrite ${target}`)
+  const component = {
+    template: 'component.njk',
+    target: `App/Components/${name}.js`
   }
-
-  // generate the React component
-  if (await shouldGenerate(targetComponent)) {
-    await generate({
-      template: 'component.njk',
-      target: targetComponent,
-      props
-    })
-    print.info(`${print.checkmark} ${targetComponent}`)
+  const style = {
+    template: 'component-style.njk',
+    target: `App/Components/Styles/${name}Style.js`
   }
-
-  // generate the style
-  if (await shouldGenerate(targetStyle)) {
-    await generate({
-      template: 'component-style.njk',
-      target: targetStyle,
-      props
-    })
-    print.info(`${print.checkmark} ${targetStyle}`)
+  const test = {
+    template: 'component.njk',
+    target: `Test/Components/${name}Test.js`
   }
+  const jobs = [component, style, tests === 'ava' && test]
 
-  // generate the AVA test
-  if (tests === 'ava' && await shouldGenerate(targetTest)) {
-    await generate({
-      template: 'component-test.njk',
-      target: targetTest,
-      props
-    })
-    print.info(`${print.checkmark} ${targetTest}`)
-  }
+  // make the templates
+  await generate(context, jobs, props)
 }

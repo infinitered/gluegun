@@ -1,4 +1,5 @@
 namespace = 'ignite'
+description = 'React Native awesomeness.'
 
 [defaults]
 tests = 'ava'

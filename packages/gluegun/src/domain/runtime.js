@@ -41,6 +41,9 @@ async function run (namespace, full = '', options = {}) {
   // prepare the run context
   const context = new RunContext()
 
+  // attach the runtime
+  context.runtime = this
+
   // setup the context parameters that we know
   context.parameters = {
     namespace,
@@ -53,6 +56,7 @@ async function run (namespace, full = '', options = {}) {
   if (!plugin) {
     return context
   }
+  context.plugin = plugin
 
   // setup the config
   context.config = clone(this.defaults)
@@ -63,7 +67,6 @@ async function run (namespace, full = '', options = {}) {
 
   if (command) {
     context.command = command
-    context.plugin = plugin
     // setup the rest of the parameters
     const subArgs = extractSubArguments(full, trim(command.name))
     context.parameters.array = subArgs
@@ -74,9 +77,6 @@ async function run (namespace, full = '', options = {}) {
 
     // kick it off
     if (command.run) {
-      // attach the runtime
-      context.runtime = this
-
       // attach extensions
       forEach(
         extension => {
