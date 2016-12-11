@@ -87,6 +87,7 @@ function loadFromDirectory (directory, options = {}) {
       plugin.namespace = config.namespace || plugin.namespace
     }
     plugin.defaults = config.defaults || {}
+    plugin.description = config.description
 
     // restrict name
 

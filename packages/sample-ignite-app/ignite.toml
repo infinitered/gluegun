@@ -11,5 +11,5 @@ plugins = [
 
 # these are the new default values for the ignite plugin
 [defaults.ignite]
-tests          = 'ava'   # use AVA-based tests
-askToOverwrite = false   # don't prompt when overwriting existing files
+tests          = 'ava'  # use AVA-based tests
+askToOverwrite = true   # don't prompt when overwriting existing files

@@ -27,6 +27,7 @@ class Plugin {
     this.namespace = null
     this.loadState = 'none'
     this.errorState = 'none'
+    this.description = null
     this.defaults = {}
     this.directory = null
     this.errorMessage = null

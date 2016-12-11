@@ -103,7 +103,7 @@ async function run () {
   }
 
   if (!context.command) {
-    printCommands(runtime)
+    printCommands(context, brandPlugin)
   }
 }
 
