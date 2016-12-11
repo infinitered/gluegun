@@ -109,7 +109,6 @@ class Runtime {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []
-    this.directories = {}
     this.extensions = []
     this.defaults = {}
     this.addCoreExtensions()
