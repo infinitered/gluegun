@@ -13,7 +13,7 @@ const toml = require('toml')
  * @param  {string} namespace The namespace to check
  * @return {bool}             `true` if this is restricted, otherwise `false`
  */
-const isRestrictedNamespace = contains(__, ['project'])
+const isRestrictedNamespace = contains(__, [''])
 
 /**
  * Loads a plugin from a directory.

@@ -11,6 +11,7 @@ const {
   reject,
   cond,
   always,
+  replace,
   concat,
   head
 } = require('ramda')
@@ -48,12 +49,18 @@ function printCommands (context, brandPlugin) {
     // don't list the brandPlugin itself when we're running in plugin mode
     reject(plugin => brandPlugin && brandPlugin.namespace === plugin.namespace),
     sortBy(prop('namespace')),
-    map(plugin => [plugin.namespace, plugin.description || '-']),
+    map(plugin => [
+      plugin.namespace,
+      replace('$BRAND', context.runtime.brand, plugin.description || '-')
+    ]),
     data => {
       if (brandPlugin) {
         return pipe(
           reject(hasLoadStateError),
-          map(command => [command.name, command.description || '-']),
+          map(command => [
+            command.name,
+            replace('$BRAND', context.runtime.brand, command.description || '-')
+          ]),
           concat(data)
         )(brandPlugin.commands)
       } else {
@@ -67,7 +74,10 @@ function printCommands (context, brandPlugin) {
   const dataForCommand = pipe(
     dotPath('plugin.commands'),
     reject(hasLoadStateError),
-    map(command => [command.name, command.description || '-'])
+    map(command => [
+      command.name,
+      replace('$BRAND', context.runtime.brand, command.description || '-')
+    ])
     )
 
   // decide what set of data to show

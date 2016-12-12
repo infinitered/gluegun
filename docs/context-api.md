@@ -20,7 +20,7 @@ name            | provides the...                                     | 3rd part
 **template**    | code generation from templates                      | ejs
 **prompt**      | tools to acquire extra command line user input      | inquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
-**system**      | ability to execute & copy to the clipboard          | cross-env
+**system**      | ability to execute & copy to the clipboard          | 
 **http**        | ability to talk to the web                          | apisauce
 **strings**     | some string helpers like case conversion, etc.      | lodash & ramda
 

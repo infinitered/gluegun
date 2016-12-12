@@ -37,7 +37,7 @@ module.exports = async function spork (context) {
   // prepare a list of templates to choose from
   const templatePaths = filesystem
     .cwd(templatesDir)
-    .find('', { matching: '*.njk' })
+    .find('', { matching: '*.ejs' })
 
   const templates = map(replace(/\..*$/g, ''), templatePaths)
 
@@ -59,7 +59,7 @@ module.exports = async function spork (context) {
       const x = templateAnswers.templates[index]
 
       // create a print-friendly version
-      const printPath = `${runtime.brand}/templates/${plugin.namespace}/${x}.njk`
+      const printPath = `${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`
 
       // overwrite checking
       let overwrite = true
@@ -71,12 +71,12 @@ module.exports = async function spork (context) {
         // copy the file
         filesystem
           .cwd(templatesDir)
-          .copy(`${x}.njk`, `${destDir}/${x}.njk`, { overwrite: true })
+          .copy(`${x}.ejs`, `${destDir}/${x}.ejs`, { overwrite: true })
 
         // print the news
-        print.success(`${print.checkmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.njk`)
+        print.success(`${print.checkmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`)
       } else {
-        print.warning(`${print.xmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.njk`)
+        print.warning(`${print.xmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`)
       }
     }// end the loop through the templates to copy
   } else {
