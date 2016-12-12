@@ -1,12 +1,12 @@
 const parseCommandLine = require('./parse-command-line')
 const { forEach, map, pipe, propOr, tryCatch, always } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
-const { isDirectory } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 const getPluginsFromConfig = require('../loaders/plugins-from-config')
 const homePluginDirectories = require('../loaders/home-plugin-directories')
+const projectPluginDirectories = require('../loaders/project-plugin-directories')
 const toml = require('toml')
 // const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
@@ -34,35 +34,31 @@ async function run () {
   const runtime = new Runtime(brand)
 
   // --- PLUGINS #1 - core plugins
+  runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/project`))
   runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/spork`))
 
-  // --- PLUGINS #2 - current working directory
-  const cwdPlugin = loadPluginFromDirectory(cwd, { brand })
-  runtime.addPlugin(cwdPlugin)
-
-  // --- PLUGINS #3 - current working directory's branded subdir
-  const projectBrandDir = `${cwd}/${brand}`
-  if (isDirectory(projectBrandDir)) {
-    runtime.addPlugin(
-      loadPluginFromDirectory(projectBrandDir, { brand, namespace: 'project' })
-    )
-  }
-
-  // --- PLUGINS #4 - ones specified in the config file
-  const morePlugins = map(
-    relativeDir => {
-      const fullDir = `${cwd}/${relativeDir}`
-      return loadPluginFromDirectory(fullDir, { brand })
-    },
-    getPluginsFromConfig(`${cwd}/${brand}.toml`)
-  )
-  forEach(runtime.addPlugin, morePlugins)
-
-  // --- PLUGINS #5 - the user's $HOME/.${brand}/plugins/*
+  // --- PLUGINS #2 - $HOME/.${brand}/plugins/*
   forEach(
     dir => runtime.addPlugin(loadPluginFromDirectory(dir, { brand })),
     homePluginDirectories(brand)
   )
+
+  // --- PLUGINS #3 - in ./<brand>/plugins and ./<brand>/plugins-remote
+  const projectBrandDir = `${cwd}/${brand}`
+  forEach(
+    dir => runtime.addPlugin(loadPluginFromDirectory(dir), { brand }),
+    projectPluginDirectories(projectBrandDir)
+  )
+
+  // --- PLUGINS #4 - in ./<brand>/<brand>.toml in the plugins key
+  const morePlugins = map(
+    relativeDir => {
+      const fullDir = `${cwd}/${brand}/${relativeDir}`
+      return loadPluginFromDirectory(fullDir, { brand })
+    },
+    getPluginsFromConfig(`${projectBrandDir}/${brand}.toml`)
+  )
+  forEach(runtime.addPlugin, morePlugins)
 
   // load the config
   runtime.defaults = pipe(
@@ -91,18 +87,15 @@ async function run () {
     return
   }
 
+  // print the header
+  if (brand !== 'gluegun') {
+    printBrandHeader(runtime, brandPlugin)
+  }
+
   // let's do this!
   const context = await runtime.run(namespace, args, options)
 
-  // print
-  if (isBlank(namespace)) {
-    if (brand === 'gluegun') {
-      // printBanner()
-    } else {
-      printBrandHeader(runtime, brandPlugin)
-    }
-  }
-
+  // print the command list
   if (!context.command) {
     printCommands(context, brandPlugin)
   }

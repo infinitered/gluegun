@@ -109,7 +109,6 @@ module                                                  | purpose
 [inquirer.js](https://github.com/SBoudrias/Inquirer.js) | prompts & user input
 [fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders
 [ejs](https://github.com/mde/ejs)                       | templates
-[cross-env](https://github.com/kentcdodds/cross-env)    | executing programs
 [apisauce](https://github.com/skellock/apisauce)        | http requests
 [lodash](https://github.com/lodash/lodash)              | utilities
 [colors](https://github.com/Marak/colors.js)            | colors in your terminal

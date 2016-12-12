@@ -32,9 +32,28 @@ const isDirectory = path => jetpack.exists(path) === 'dir'
  */
 const isNotDirectory = complement(isDirectory)
 
+/**
+ * Gets the immediate subdirectories.
+ *
+ * @param  {string} path Path to a directory to check.
+ * @return {string[]}    A list of directories relative to the base
+ */
+const subdirectories = base => {
+  if (!isDirectory(base)) return []
+  return jetpack
+    .cwd(base)
+    .find({
+      matching: '*',
+      directories: true,
+      recursive: false,
+      files: false
+    })
+}
+
 module.exports = {
   isFile,
   isNotFile,
   isDirectory,
-  isNotDirectory
+  isNotDirectory,
+  subdirectories
 }
