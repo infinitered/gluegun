@@ -54,7 +54,7 @@ const subdirectories = (base, isRelative) => {
   if (isRelative) {
     return dirs
   } else {
-    return map(concat(`${base}`), dirs)
+    return map(concat(`${base}/`), dirs)
   }
 }
 
