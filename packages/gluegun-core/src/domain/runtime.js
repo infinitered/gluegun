@@ -1,8 +1,27 @@
 const autobind = require('autobind-decorator')
-const { clone, merge, when, equals, always, join, split, trim, pipe, replace, find, append, forEach, isNil } = require('ramda')
+const {
+  clone,
+  merge,
+  when,
+  equals,
+  always,
+  join,
+  split,
+  trim,
+  pipe,
+  replace,
+  find,
+  append,
+  forEach,
+  isNil,
+  concat,
+  map
+} = require('ramda')
 const { findByProp, startsWith } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
+const { subdirectories, isDirectory } = require('../utils/filesystem-utils')
 const RunContext = require('./run-context')
+const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 
 // core extensions
 const addTemplateExtension = require('../core-extensions/template-extension')
@@ -143,11 +162,30 @@ class Runtime {
   }
 
   /**
-   * Adds a plugin.
+   * Loads a plugin from a directory.
+   *
+   * @param  {string} directory The directory to load from.
+   * @return {Plugin}           A plugin.
    */
-  addPlugin (plugin) {
+  load (directory) {
+    const plugin = loadPluginFromDirectory(directory)
     this.plugins = append(plugin, this.plugins)
     return plugin
+  }
+
+  /**
+   * Loads a bunch of plugins from the immediate sub-directories of a directory.
+   *
+   * @param {string} directory The directory to grab from.
+   * @return {Plugin[]}        A bunch of plugins
+   */
+  loadAll (directory) {
+    if (isBlank(directory) || !isDirectory(directory)) return []
+    return pipe(
+      subdirectories,
+      map(concat(`${directory}/`)),
+      map(this.load)
+    )(directory)
   }
 
   /**

@@ -1,14 +1,11 @@
 const parseCommandLine = require('./parse-command-line')
-const { forEach, map, pipe, propOr, tryCatch, always } = require('ramda')
-const { isBlank } = require('../utils/string-utils')
+const { forEach, map, pipe, propOr, tryCatch, always, concat } = require('ramda')
 const jetpack = require('fs-jetpack')
 const Runtime = require('../domain/runtime')
-const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 const getPluginsFromConfig = require('../loaders/plugins-from-config')
 const homePluginDirectories = require('../loaders/home-plugin-directories')
 const projectPluginDirectories = require('../loaders/project-plugin-directories')
 const toml = require('toml')
-// const printBanner = require('./print-banner')
 const printCommands = require('./print-commands')
 const printWtf = require('./print-wtf')
 const printBrandHeader = require('./print-brand-header')
@@ -34,31 +31,28 @@ async function run () {
   const runtime = new Runtime(brand)
 
   // --- PLUGINS #1 - core plugins
-  runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/project`))
-  runtime.addPlugin(loadPluginFromDirectory(`${__dirname}/../core-plugins/spork`))
+  runtime.load(`${__dirname}/../core-plugins/project`)
+  runtime.load(`${__dirname}/../core-plugins/spork`)
 
   // --- PLUGINS #2 - $HOME/.${brand}/plugins/*
   forEach(
-    dir => runtime.addPlugin(loadPluginFromDirectory(dir, { brand })),
+    runtime.load,
     homePluginDirectories(brand)
   )
 
   // --- PLUGINS #3 - in ./<brand>/plugins and ./<brand>/plugins-remote
   const projectBrandDir = `${cwd}/${brand}`
   forEach(
-    dir => runtime.addPlugin(loadPluginFromDirectory(dir), { brand }),
+    runtime.load,
     projectPluginDirectories(projectBrandDir)
   )
 
   // --- PLUGINS #4 - in ./<brand>/<brand>.toml in the plugins key
   const morePlugins = map(
-    relativeDir => {
-      const fullDir = `${cwd}/${brand}/${relativeDir}`
-      return loadPluginFromDirectory(fullDir, { brand })
-    },
+    concat(`${cwd}/${brand}/`),
     getPluginsFromConfig(`${projectBrandDir}/${brand}.toml`)
   )
-  forEach(runtime.addPlugin, morePlugins)
+  forEach(runtime.load, morePlugins)
 
   // load the config
   runtime.defaults = pipe(
@@ -76,10 +70,6 @@ async function run () {
     args = `${namespace} ${args}`
     namespace = brand
   }
-
-  // print what we're trying to do
-  // TODO: divide run up into a query and an execution so we
-  // have a better sense on if the command was found or not
 
   // wtf mode
   if (wtf) {

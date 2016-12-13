@@ -1,19 +1,39 @@
 const test = require('ava')
 const Runtime = require('../../src/domain/runtime')
-const loadFromToml = require('../../src/loaders/toml-plugin-loader')
 const { pipe, pluck, join } = require('ramda')
 
-test('adds a directory', t => {
+test('load a directory', t => {
   const r = new Runtime()
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/simplest`))
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/threepack`))
+  r.load(`${__dirname}/../fixtures/good-plugins/simplest`)
+  r.load(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.is(r.plugins.length, 2)
+})
+
+test('allows plugins with broken dirs', t => {
+  const r = new Runtime()
+  r.load(__filename)
+  t.is(r.plugins.length, 1)
+})
+
+test('loads all sub-directories', t => {
+  const r = new Runtime()
+  r.loadAll(`${__dirname}/../fixtures/good-plugins`)
+  t.is(r.plugins.length, 10)
+})
+
+test('loadAll ignores bad directories', t => {
+  const r = new Runtime()
+  r.loadAll(__filename)
+  r.loadAll(null)
+  r.loadAll(undefined)
+  r.loadAll('')
+  t.is(r.plugins.length, 0)
 })
 
 test('gets a list of commands', t => {
   const r = new Runtime()
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/simplest`))
-  const p1 = r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/threepack`))
+  r.load(`${__dirname}/../fixtures/good-plugins/simplest`)
+  const p1 = r.load(`${__dirname}/../fixtures/good-plugins/threepack`)
   const c0 = p1.commands[0]
   const list = r.listCommands()
 
@@ -36,7 +56,7 @@ test('cannot find a command', async t => {
 
 test('survives exceptions', async t => {
   const r = new Runtime()
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/throws`))
+  r.load(`${__dirname}/../fixtures/good-plugins/throws`)
   const context = await r.run('throws', 'throw')
 
   t.truthy(context)
@@ -50,8 +70,8 @@ test('survives exceptions', async t => {
 
 test('runs a command', async t => {
   const r = new Runtime()
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/simplest`))
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/threepack`))
+  r.load(`${__dirname}/../fixtures/good-plugins/simplest`)
+  r.load(`${__dirname}/../fixtures/good-plugins/threepack`)
   const context = await r.run('3pack', 'three')
 
   t.truthy(context)
@@ -64,7 +84,7 @@ test('runs a command', async t => {
 
 test('can pass arguments', async t => {
   const r = new Runtime()
-  r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/args`))
+  r.load(`${__dirname}/../fixtures/good-plugins/args`)
   const context = await r.run('args', 'hello steve kellock', { caps: false })
 
   t.truthy(context)
@@ -78,7 +98,7 @@ test('can pass arguments', async t => {
 
 test('can read from config', async t => {
   const r = new Runtime()
-  const plugin = r.addPlugin(loadFromToml(`${__dirname}/../fixtures/good-plugins/args`))
+  const plugin = r.load(`${__dirname}/../fixtures/good-plugins/args`)
   const context = await r.run('args', 'config')
 
   t.falsy(plugin.error)
