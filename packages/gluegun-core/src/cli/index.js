@@ -20,7 +20,7 @@ async function run () {
 
   // parse the command line into what we need
   let {
-    namespace,
+    name,
     args,
     options,
     brand = 'gluegun',
@@ -58,13 +58,13 @@ async function run () {
     )(`${cwd}/${brand}.toml`)
 
   // in branded mode, let's see if there's match prepending the
-  // branded namespace to the front and searching for a command
+  // branded name to the front and searching for a command
   const brandPlugin = runtime.findPlugin(brand)
-  const foundCommand = runtime.findCommand(brandPlugin, `${namespace} ${args}`)
+  const foundCommand = runtime.findCommand(brandPlugin, `${name} ${args}`)
   // we found a short cut via the brand, so let's doctor the input to target the right thing
   if (foundCommand) {
-    args = `${namespace} ${args}`
-    namespace = brand
+    args = `${name} ${args}`
+    name = brand
   }
 
   // wtf mode
@@ -79,7 +79,7 @@ async function run () {
   }
 
   // let's do this!
-  const context = await runtime.run(namespace, args, options)
+  const context = await runtime.run(name, args, options)
 
   // print the command list
   if (!context.command) {

@@ -23,11 +23,11 @@ test('missing config files is fine', t => {
   t.deepEqual(plugin.extensions, [])
 })
 
-test('default namespace', t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/missing-namespace`)
+test('default name', t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/missing-name`)
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
-  t.is(plugin.namespace, 'missing-namespace')
+  t.is(plugin.name, 'missing-name')
 })
 
 test('sane defaults', t => {
@@ -36,7 +36,7 @@ test('sane defaults', t => {
 
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
-  t.is(plugin.namespace, 'simplest')
+  t.is(plugin.name, 'simplest')
   t.is(plugin.directory, dir)
   t.falsy(plugin.errorMessage)
   t.deepEqual(plugin.extensions, [])
@@ -51,7 +51,7 @@ test('loads commands', async t => {
   t.falsy(plugin.exception && plugin.exception.message)
   t.is(plugin.errorState, 'none')
   t.is(plugin.loadState, 'ok')
-  t.is(plugin.namespace, '3pack')
+  t.is(plugin.name, '3pack')
   t.is(plugin.directory, dir)
   t.falsy(plugin.errorMessage)
   t.is(plugin.commands.length, 3)
@@ -100,9 +100,9 @@ test('names default to the filename', async t => {
   t.is(plugin.extensions[0].name, 'detectExtension')
 })
 
-test('blank namespaces fallback to directory name', t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-namespace`)
-  t.is(plugin.namespace, 'blank-namespace')
+test('blank names fallback to directory name', t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-name`)
+  t.is(plugin.name, 'blank-name')
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
 })

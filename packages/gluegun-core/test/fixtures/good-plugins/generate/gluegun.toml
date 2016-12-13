@@ -1,4 +1,4 @@
-namespace = 'generate'
+name = 'generate'
 
 [[commands]]
 description = 'Generates a simple file'

@@ -128,9 +128,9 @@ async function movieQuotes () {
   // or call with parameters if you've got your own way of handling things...
   //
   await runtime.run({
-    namespace: 'quotes',
+    pluginName: 'quotes',
     arguments: 'random',
-    options: { title: 'Kingping', json: true }
+    options: { title: 'Kingpin', json: true }
   })
 }
 ```

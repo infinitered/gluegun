@@ -13,7 +13,7 @@
  * none           = no problems
  * input          = invalid directory input
  * missingdir     = can't find the plugin directory
- * baddnamespace  = this namespace is not permitted
+ * baddname       = this name is not permitted
  */
 // export type PluginErrorState =
 //   'none' | 'input' | 'missingdir'
@@ -24,7 +24,7 @@
 class Plugin {
 
   constructor () {
-    this.namespace = null
+    this.name = null
     this.loadState = 'none'
     this.errorState = 'none'
     this.description = null

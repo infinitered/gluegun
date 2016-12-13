@@ -7,7 +7,7 @@ test('default state', t => {
   t.is(plugin.loadState, 'none')
   t.is(plugin.errorState, 'none')
   t.falsy(plugin.directory)
-  t.falsy(plugin.namespace)
+  t.falsy(plugin.name)
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.extensions, [])
   t.deepEqual(plugin.defaults, {})

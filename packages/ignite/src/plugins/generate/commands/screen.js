@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------
-// @cliCommand      generate screen
 // @cliDescription  Generates an opinionated container.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
@@ -19,14 +17,14 @@ module.exports = async function (context) {
 
   // generate the smart component
   await generate({
-    template: 'screen.njk',
+    template: 'screen.ejs',
     target: `App/Containers/${name}Screen.js`,
     props
   })
 
   // generate the style
   await generate({
-    template: 'screen-style.njk',
+    template: 'screen-style.ejs',
     target: `App/Containers/Styles/${name}ScreenStyle.js`,
     props
   })

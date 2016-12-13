@@ -41,7 +41,7 @@ const hasProblem = plugin =>
 const humanizePluginError = cond([
   [equals('ok'), identity],
   [equals('missingdir'), always('Missing Directory')],
-  [equals('badnamespace'), always('Invalid Namespace')],
+  [equals('badname'), always('Invalid Name')],
   [always, concat('Unknown Error - ')]
 ])
 
@@ -70,7 +70,7 @@ module.exports = function (runtime) {
   // grab the printable errors
   const printable = pipe(
     filter(hasProblem),
-    sortBy(prop('namespace'))
+    sortBy(prop('name'))
   )(runtime.plugins)
 
   // and print!
@@ -85,7 +85,7 @@ module.exports = function (runtime) {
     const pluginWriter = hasProblem(plugin) ? print.colors.error : print.colors.success
     const problemDescription = plugin.errorState !== 'none' &&
       print.colors.error(`-- ${humanizePluginError(plugin.errorState)}`)
-    print.fancy(print.colors.muted('plugin ') + pluginWriter(`${plugin.namespace} ${problemDescription}`))
+    print.fancy(print.colors.muted('plugin ') + pluginWriter(`${plugin.name} ${problemDescription}`))
     print.info('  ' + pluginRelativeDir)
     print.newline()
 

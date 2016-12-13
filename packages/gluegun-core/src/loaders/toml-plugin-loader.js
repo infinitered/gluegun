@@ -8,12 +8,12 @@ const { map, contains, __ } = require('ramda')
 const toml = require('toml')
 
 /**
- * Is this namespace permitted?
+ * Is this name permitted?
  *
- * @param  {string} namespace The namespace to check
+ * @param  {string} name The name to check
  * @return {bool}             `true` if this is restricted, otherwise `false`
  */
-const isRestrictedNamespace = contains(__, [''])
+const isRestrictedName = contains(__, [''])
 
 /**
  * Loads a plugin from a directory.
@@ -31,11 +31,11 @@ function loadFromDirectory (directory, options = {}) {
     commandNameToken,
     commandDescriptionToken,
     extensionNameToken,
-    namespace
+    name
   } = options
 
-  if (!isBlank(namespace)) {
-    plugin.namespace = namespace
+  if (!isBlank(name)) {
+    plugin.name = name
   }
 
   // sanity check the input
@@ -54,9 +54,9 @@ function loadFromDirectory (directory, options = {}) {
 
   plugin.directory = directory
 
-  // the directory is the default namespace (unless we were told what it was)
-  if (isBlank(namespace)) {
-    plugin.namespace = jetpack.inspect(directory).name
+  // the directory is the default name (unless we were told what it was)
+  if (isBlank(name)) {
+    plugin.name = jetpack.inspect(directory).name
   }
 
   const jetpackPlugin = jetpack.cwd(plugin.directory)
@@ -91,9 +91,9 @@ function loadFromDirectory (directory, options = {}) {
     // read it
     const config = toml.parse(jetpack.read(tomlFile))
 
-    // set the namespace if we have one (unless we were told what it was)
-    if (isBlank(namespace)) {
-      plugin.namespace = config.namespace || plugin.namespace
+    // set the name if we have one (unless we were told what it was)
+    if (isBlank(name)) {
+      plugin.name = config.name || plugin.name
     }
     plugin.defaults = config.defaults || {}
     plugin.description = config.description
@@ -104,9 +104,9 @@ function loadFromDirectory (directory, options = {}) {
   }
 
     // check for restricted names
-  if (isRestrictedNamespace(plugin.namespace)) {
+  if (isRestrictedName(plugin.name)) {
     plugin.loadState = 'error'
-    plugin.errorState = 'badnamespace'
+    plugin.errorState = 'badname'
     return plugin
   }
 

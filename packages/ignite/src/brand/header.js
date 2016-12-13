@@ -19,4 +19,6 @@ module.exports = function () {
   info('')
   info('An unfair headstart for your React Native apps.')
   info(yellow('https://infinite.red/ignite'))
+  info('')
+  info('-----------------------------------------------')
 }

@@ -10,9 +10,9 @@ module.exports = async function spork (context) {
   const { runtime, prompt, print, filesystem } = context
   const { confirm } = prompt
 
-  //  get a list of plugin namespaces to choose from
+  //  get a list of plugin names to choose from
   const plugins = pipe(
-    pluck('namespace'),
+    pluck('name'),
     without(['spork', 'project']),
     sortBy(identity)
   )(runtime.plugins)
@@ -24,13 +24,13 @@ module.exports = async function spork (context) {
     message: 'Choose a plugin',
     choices: plugins
   })
-  const plugin = find(propEq('namespace', answers.plugin), runtime.plugins)
+  const plugin = find(propEq('name', answers.plugin), runtime.plugins)
 
   // do we have templates?
   const templatesDir = `${plugin.directory}/templates`
   const hasTemplatesDir = filesystem.exists(templatesDir) === 'dir'
   if (!hasTemplatesDir) {
-    print.warning(`${plugin.namespace} has no templates.`)
+    print.warning(`${plugin.name} has no templates.`)
     return
   }
 
@@ -51,7 +51,7 @@ module.exports = async function spork (context) {
   // did we select anything?
   if (templateAnswers.templates.length > 0) {
     // the project template/plugin directory
-    const destDir = `${filesystem.cwd()}/${runtime.brand}/templates/${plugin.namespace}`
+    const destDir = `${filesystem.cwd()}/${runtime.brand}/templates/${plugin.nae}`
 
     // go through each of the templates the user has selected
     for (let index = 0; index < templateAnswers.templates.length; index++) {
@@ -59,7 +59,7 @@ module.exports = async function spork (context) {
       const x = templateAnswers.templates[index]
 
       // create a print-friendly version
-      const printPath = `${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`
+      const printPath = `${runtime.brand}/templates/${plugin.nae}/${x}.ejs`
 
       // overwrite checking
       let overwrite = true
@@ -74,9 +74,9 @@ module.exports = async function spork (context) {
           .copy(`${x}.ejs`, `${destDir}/${x}.ejs`, { overwrite: true })
 
         // print the news
-        print.success(`${print.checkmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`)
+        print.success(`${print.checkmark} sporked to ${runtime.brand}/templates/${plugin.nae}/${x}.ejs`)
       } else {
-        print.warning(`${print.xmark} sporked to ${runtime.brand}/templates/${plugin.namespace}/${x}.ejs`)
+        print.warning(`${print.xmark} sporked to ${runtime.brand}/templates/${plugin.nae}/${x}.ejs`)
       }
     }// end the loop through the templates to copy
   } else {

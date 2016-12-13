@@ -27,34 +27,33 @@ const hasLoadStateError = propEq('loadState', 'error')
  * Prints the list of commands.
  *
  * @param {RunContext} context     The context that was used
- * @param {Plugin}     brandPlugin The branded plugin used
  */
-function printCommands (context, brandPlugin) {
-  const isInvalidNamespace =
-    isNil(context.plugin) && !isBlank(context.parameters.namespace)
+function printCommands (context) {
+  const isInvalidName =
+    isNil(context.plugin) && !isBlank(context.parameters.pluginName)
   const isInvalidCommand =
-    isNil(context.command) && !isBlank(context.parameters.namespace) && !isBlank(context.parameters.full)
+    isNil(context.command) && !isBlank(context.parameters.pluginName) && !isBlank(context.parameters.rawCommand)
 
   // was there user error involved?
-  if (isInvalidNamespace) {
-    print.info(`${context.runtime.brand} '${context.parameters.namespace}' is not a command.`)
+  if (isInvalidName) {
+    print.info(`${context.runtime.brand} '${context.parameters.pluginName}' is not a command.`)
   } else if (isInvalidCommand) {
-    print.info(`${context.runtime.brand} ${context.parameters.namespace} '${context.parameters.full}' is not a command.`)
+    print.info(`${context.runtime.brand} ${context.parameters.pluginName} '${context.parameters.rawCommand}' is not a command.`)
   }
 
-  // the columns to display when we don't have a namespace
-  const dataForNamespace = pipe(
+  // the columns to display when we don't have a name
+  const dataForName = pipe(
     dotPath('runtime.plugins'),
     reject(hasLoadStateError),
-    // don't list the brandPlugin itself when we're running in plugin mode
-    reject(plugin => brandPlugin && brandPlugin.namespace === plugin.namespace),
-    sortBy(prop('namespace')),
+    // don't list the context.defaultPlugin itself when we're running in plugin mode
+    reject(plugin => context.defaultPlugin && context.defaultPlugin.name === plugin.name),
+    sortBy(prop('name')),
     map(plugin => [
-      plugin.namespace,
+      plugin.name,
       replace('$BRAND', context.runtime.brand, plugin.description || '-')
     ]),
     data => {
-      if (brandPlugin) {
+      if (context.defaultPlugin) {
         return pipe(
           reject(hasLoadStateError),
           map(command => [
@@ -62,7 +61,7 @@ function printCommands (context, brandPlugin) {
             replace('$BRAND', context.runtime.brand, command.description || '-')
           ]),
           concat(data)
-        )(brandPlugin.commands)
+        )(context.defaultPlugin.commands)
       } else {
         return data
       }
@@ -82,8 +81,8 @@ function printCommands (context, brandPlugin) {
 
   // decide what set of data to show
   const data = cond([
-    // should we show the list of namespaces?
-    [propSatisfies(isNil, 'plugin'), dataForNamespace],
+    // should we show the list of names?
+    [propSatisfies(isNil, 'plugin'), dataForName],
 
     // should we show the list of commands in a plugin?
     [propSatisfies(isNil, 'command'), dataForCommand],

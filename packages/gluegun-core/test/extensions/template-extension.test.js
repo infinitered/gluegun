@@ -8,14 +8,20 @@ const createRuntime = () => {
 }
 
 test('generates a simple file', async t => {
-  const context = await createRuntime().run('generate', 'simple')
+  const context = await createRuntime().run({
+    pluginName: 'generate',
+    rawCommand: 'simple'
+  })
 
   t.is(context.result, 'simple file\n')
 })
 
 test('supports props', async t => {
-  const context = await createRuntime()
-    .run('generate', 'props Greetings_and_salutations', { stars: 5 })
+  const context = await createRuntime().run({
+    pluginName: 'generate',
+    rawCommand: 'props Greetings_and_salutations',
+    options: { stars: 5 }
+  })
 
   t.falsy(context.error && context.error.message)
   t.is(context.result, `greetingsAndSalutations world

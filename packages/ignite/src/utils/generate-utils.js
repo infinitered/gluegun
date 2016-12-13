@@ -11,7 +11,7 @@ module.exports = async function (context, jobs, props) {
   const { generate } = template
 
   // read some configuration
-  const { askToOverwrite } = config.ignite
+  const { askToOverwrite } = config.generate
 
   // If the file exists
   const shouldGenerate = async (target) => {

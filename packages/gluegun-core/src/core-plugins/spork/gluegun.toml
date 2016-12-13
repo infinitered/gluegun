@@ -1,2 +1,2 @@
-namespace = 'spork'
+name = 'spork'
 description = 'Copies templates.'
