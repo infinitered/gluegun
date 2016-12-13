@@ -1,16 +1,17 @@
-const { Runtime } = require('gluegun-core')
-
-const BRAND = 'gluegun'
+const { create } = require('gluegun-core')
 
 /**
  * Create the cli and kick it off
  */
 async function run (argv) {
   // create a runtime
-  const runtime = new Runtime(BRAND)
+  const runtime = create('gluegun')
 
   // and run it
-  await runtime.run()
+  const context = await runtime.run()
+
+  // send it back
+  return context
 }
 
 module.exports = run

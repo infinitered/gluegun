@@ -18,5 +18,8 @@ const Runtime = require('./domain/runtime')
 
 // export our API
 module.exports = {
-  Runtime
+  create: (brand) => {
+    const runtime = new Runtime(brand)
+    return runtime
+  }
 }
