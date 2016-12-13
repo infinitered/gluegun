@@ -7,10 +7,10 @@
     "gluegun": "bin/gluegun"
   },
   "scripts": {
-    "test": "node --harmony_async_await node_modules/.bin/ava",
+    "test": "node --harmony node_modules/.bin/ava",
     "watch": "node --harmony node_modules/.bin/ava --watch",
     "coverage": "nyc ava",
-    "start": "node --harmony_async_await src/index.js",
+    "start": "node --harmony src/index.js",
     "lint": "standard"
   },
   "author": {
