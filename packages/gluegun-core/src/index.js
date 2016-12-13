@@ -13,8 +13,10 @@
 require('app-module-path').addPath(`${__dirname}/../node_modules`)
 // ----------------------------------------------------------------------------
 
-// Now... on with the show!
+// import a bunch of things we want to make available
+const Runtime = require('./domain/runtime')
 
-// kick off the CLI
-require('./cli')
-
+// export our API
+module.exports = {
+  Runtime
+}

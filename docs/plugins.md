@@ -1,25 +1,34 @@
-# Creating Plugins
+# Plugins
 
-A plugin are set of functions & templates which extends the `gluegun` 
-environment. These extensions generally have a theme such as 
-**react native**, **fastlane**, or even just **my sandbox**.
+Functionality is added to the `Runtime` with plugins.  Plugins can be yours or the end users.
 
-# Directory Structure
+A plugin is directory.
 
-A plugin is a directory.
+It contains 3 optional sub-directories:
 
-A `gluegun` plugin generally has 4 things.
+* `commands`
+* `templates`
+* `extensions`
 
-path          | purpose
---------------|-------------------
-/gluegun.toml | the plugin's configuration file
-/commands     | the scripts that people will run from the command line
-/extensions   | features that you can make available to scripts
-/templates    | used to code generate files
+And 1 optional file:
 
-And generally a configuration file:
+* `<brand>.toml`
 
-`gluegun.toml`
+Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
+
+Since multiple plugins can be loaded, they must have unique names.  The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself. 
+
+## commands
+
+TODO: What are commands?
+
+## templates
+
+TODO: What are templates?
+
+## extensions
+
+TODO: What are extensions?
 
 
 `commands` and `extensions` contain plain NodeJS JavaScript files.  Files located in these
