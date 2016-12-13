@@ -30,10 +30,6 @@ async function run () {
   // create the runtime
   const runtime = new Runtime(brand)
 
-  // --- PLUGINS #1 - core plugins
-  runtime.load(`${__dirname}/../core-plugins/project`)
-  runtime.load(`${__dirname}/../core-plugins/spork`)
-
   // --- PLUGINS #2 - $HOME/.${brand}/plugins/*
   forEach(
     runtime.load,
