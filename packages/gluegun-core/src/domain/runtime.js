@@ -120,7 +120,6 @@ async function run (options) {
       try {
         context.result = await command.run(context)
       } catch (e) {
-        console.dir(e)
         context.error = e
       }
     }
