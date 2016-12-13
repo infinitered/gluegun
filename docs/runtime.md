@@ -4,20 +4,31 @@ With the Gluegun API, you're able to load & execute commands.
 
 Check out the [sanity](./sanity.md) module for detecting if your environment is able to run.
 
-# Gluegun
+# Gluegun.build
 
-This is the main class in `gluegun-core`. Let's require it in.
+Grab the `build` function from `gluegun-core`.
 
 ```js
-const Gluegun = require('gluegun-core')
+const { build } = require('gluegun-core')
 ```
 
-You create a `Gluegun` object by passing a string that represents the brand.
+Now let's build a `gluegun` runtime environment by configuring various features.
+
+```js
+const runtime = build()
+```
+
+But out of the box, it does very little.  And by very little I mean nothing.  So let's configure this.
+
+We'll be chaining the `build()` function from here.
+
+
+# Brand
 
 **Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
  
 ```js
-const glue = Gluegun.create('movie')
+  .brand('movie')
 ```
 
 The brand is most likely to share the same name of the CLI.
@@ -29,22 +40,39 @@ Functionality is added to the `Gluegun` object with [plugins](./plugins.md). Plu
 You can load a plugin from a directory:
 
 ```js
-glue.load('~/Desktop/movie/quote')
-glue.load('~/Desktop/movie/credits')
+  .load('~/Desktop/movie/quote')
+  .load('~/Desktop/movie/credits')
 ```
 
 You can also load all immediate sub-directories located within it a directory.
 
 ```js
-glue.loadAll('~/Downloads/VariousMoviePlugins')
+  .loadAll('~/Downloads/VariousMoviePlugins')
 ```
 
-# Ready To Run
+# Finishing Configuration
 
-At this point, the `Gluegun` environment is ready to go. We've loaded a few plugins, so next we call:
+At this point, we've been configuring our environment.  When we're ready, we call:
 
 ```js
-await glue.run()
+  .createRuntime()
+```
+
+This command makes applies the configuration that you were just chaining, and turns it into a `Runtime` which supports calling `run()`.
+
+```js
+  const runtime = build()
+    .brand('movie')
+    .load('~/Desktop/movie/quote')
+    .load('~/Desktop/movie/credits')
+    .loadAll('~/Downloads/VariousMoviePlugins')
+    .createRuntime()
+```
+
+And now we're ready to run:
+
+```js
+  runtime.run()
 ```
 
 With no parameters, `gluegun-core` will parse the command line arguments looking for the commmand to run.
@@ -78,7 +106,7 @@ Which sucks, if it weren't for:
 One of your plugins can be a special snowflake.
 
 ```js
-glue.loadDefault('~/Desktop/movie/credits')
+  .loadDefault('~/Desktop/movie/credits')
 ```
 
 Normally the command line order goes:
@@ -112,7 +140,7 @@ For simpler CLIs, you might find this is a much easier way to build. You might n
 `Gluegun` can also be `run()` with options.
 
 ```js
-glue.run({
+await runtime.run({
   pluginName: 'quote',
   commandName: 'random',
   arguments: '"*johnny"',
@@ -133,22 +161,45 @@ There's a few situations that make this useful.
 
 Bottom line, is you get to pick. It's yours. `gluegun-core` is just glue.
 
-# Recap
+# Tokens
 
-So that's it. Here's the full API in action.
+Command and extension can have some meta data embedded in a JavaScript comment. This is how you're able to set the:
+
+* command name
+* command description
+* extension name
+
+You can configure this setting
 
 ```js
-const Gluegun = 'gluegun-core'
+  .token('commandName', 'omgCommand')
+  .token('commandDescription', 'lolDescription')
+  .token('extensionName', 'sweet!!!')
+```
 
-// create a gluegun environment
-const glue = Gluegun.create('movies')
+The token you choose will still be prefixed by a `@` when it searches in the file.  It also needs to remain located within a JavaScript comment.
 
-// our plugins
-glue.loadDefault(`${__dirname}/core`)
 
-// their plugins
-glue.load(`~/.${glue.brand}`)
-glue.loadAll(`./${glue.brand}/plugins`)
+# Summary
 
-await glue.run()
+Here's the full API in action.
+
+```js
+const { build } = 'gluegun-core'
+
+await build()
+  .brand('movie')
+  .loadDefault(`${__dirname}/core-plugins`)
+  .load('~/Desktop/movie/quote')
+  .load('~/Desktop/movie/credits')
+  .loadAll('~/Downloads/VariousMoviePlugins')
+  .token('commandName', 'cliCommand')
+  .token('commandDescription', 'cliDescription')
+  .token('extensionName', 'contextExtension')
+  .on('start', () => {
+    console.log('Welcome to movie CLI!')
+  })
+  .createRuntime()
+  .run()
+
 ```
