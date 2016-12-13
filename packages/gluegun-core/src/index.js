@@ -15,8 +15,12 @@ require('app-module-path').addPath(`${__dirname}/../node_modules`)
 
 // import a bunch of things we want to make available
 const build = require('./domain/builder')
+const strings = require('./utils/string-utils')
+const print = require('./utils/print')
 
 // export our API
 module.exports = {
-  build
+  build,
+  print,
+  strings
 }

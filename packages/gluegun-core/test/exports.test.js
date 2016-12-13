@@ -8,4 +8,7 @@ test('create', t => {
   const { build } = exported
   const runtime = build().brand('test').createRuntime()
   t.is(runtime.brand, 'test')
+
+  t.is(typeof exported.print.info, 'function')
+  t.is(exported.strings.lowerCase('HI'), 'hi')
 })
