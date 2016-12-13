@@ -1,5 +1,7 @@
 const jetpack = require('fs-jetpack')
-const { complement } = require('ramda')
+const { map, concat, complement } = require('ramda')
+const { isBlank } = require('./string-utils')
+
 /**
  * Is this a file?
  *
@@ -35,12 +37,13 @@ const isNotDirectory = complement(isDirectory)
 /**
  * Gets the immediate subdirectories.
  *
- * @param  {string} path Path to a directory to check.
- * @return {string[]}    A list of directories relative to the base
+ * @param  {string} path       Path to a directory to check.
+ * @param  {bool}   isRelative Return back the relative directory?
+ * @return {string[]}          A list of directories
  */
-const subdirectories = base => {
-  if (!isDirectory(base)) return []
-  return jetpack
+const subdirectories = (base, isRelative) => {
+  if (isBlank(base) || !isDirectory(base)) return []
+  const dirs = jetpack
     .cwd(base)
     .find({
       matching: '*',
@@ -48,6 +51,11 @@ const subdirectories = base => {
       recursive: false,
       files: false
     })
+  if (isRelative) {
+    return dirs
+  } else {
+    return map(concat(`${base}`), dirs)
+  }
 }
 
 module.exports = {

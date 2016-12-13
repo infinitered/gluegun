@@ -14,7 +14,6 @@ const {
   append,
   forEach,
   isNil,
-  concat,
   map
 } = require('ramda')
 const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
@@ -199,7 +198,6 @@ class Runtime {
     if (isBlank(directory) || !isDirectory(directory)) return []
     return pipe(
       subdirectories,
-      map(concat(`${directory}/`)),
       map(this.load)
     )(directory)
   }

@@ -1,4 +1,3 @@
-const { map, concat } = require('ramda')
 const { subdirectories } = require('../utils/filesystem-utils')
 
 /**
@@ -9,13 +8,8 @@ const { subdirectories } = require('../utils/filesystem-utils')
  * @return {string[]}     A string list of directories.
  */
 module.exports = function (dir) {
-  const localPlugins = map(
-    concat(`${dir}/plugins/`),
-    subdirectories(`${dir}/plugins`)
-  )
-  const remotePlugins = map(
-    concat(`${dir}/plugins/`),
-    subdirectories(`${dir}/plugins-remote`)
-  )
+  const localPlugins = subdirectories(`${dir}/plugins`)
+  const remotePlugins = subdirectories(`${dir}/plugins-remote`)
+
   return [ ...localPlugins, ...remotePlugins ]
 }
