@@ -1,8 +1,0 @@
-{
-  "name": "sample-ignite-generators",
-  "version": "1.0.0",
-  "scripts": {
-    "lint": "standard",
-    "test": "echo lol"
-  }
-}

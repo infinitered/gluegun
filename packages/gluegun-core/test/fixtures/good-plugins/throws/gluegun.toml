@@ -1,0 +1,5 @@
+namespace = 'throws'
+
+[[commands]]
+description = 'Throws and error'
+

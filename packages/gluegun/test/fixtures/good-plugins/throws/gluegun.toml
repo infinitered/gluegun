@@ -1,7 +1,0 @@
-namespace = 'throws'
-
-[[commands]]
-name        = 'throw'
-file        = 'throw.js'
-description = 'Throws and error'
-

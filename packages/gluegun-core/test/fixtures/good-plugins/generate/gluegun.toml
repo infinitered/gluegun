@@ -1,0 +1,8 @@
+namespace = 'generate'
+
+[[commands]]
+description = 'Generates a simple file'
+
+[[commands]]
+description = 'Replaces props in a template.'
+

@@ -1,10 +1,10 @@
 {
-  "name": "gluegun",
+  "name": "ignite",
   "version": "0.2.0",
-  "description": "Tack stuff on to your code base.",
+  "description": "Never trust a big butt and a smile.",
   "main": "src/index.js",
   "bin": {
-    "gluegun": "bin/gluegun"
+    "ignite": "bin/ignite"
   },
   "scripts": {
     "test": "node --harmony node_modules/.bin/ava",
@@ -14,14 +14,15 @@
     "lint": "standard"
   },
   "author": {
-    "name": "Steve Kellock",
-    "email": "steve@kellock.ca",
-    "url": "https://github.com/skellock/gluegun"
+    "name": "Gant Laborde",
+    "email": "gantman@gmail.com",
+    "url": "https://github.com/infinitered/ignite"
   },
   "files": [
     "LICENSE",
     "readme.md",
-    "docs"
+    "src",
+    "bin"
   ],
   "license": "MIT",
   "dependencies": {
