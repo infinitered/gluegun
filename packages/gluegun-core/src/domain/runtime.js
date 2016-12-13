@@ -17,7 +17,7 @@ const {
   concat,
   map
 } = require('ramda')
-const { findByProp, startsWith } = require('ramdasauce')
+const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const { subdirectories, isDirectory } = require('../utils/filesystem-utils')
 const RunContext = require('./run-context')
@@ -70,8 +70,11 @@ async function run (namespace, full = '', options = {}) {
     full
   }
 
+  // try finding the command in the default plugin first
+  const defaultPlugin = this.findCommand(this.defaultPlugin, full) && this.defaultPlugin
+
   // find the plugin
-  const plugin = this.findPlugin(namespace)
+  const plugin = defaultPlugin || this.findPlugin(namespace)
   if (!plugin) {
     return context
   }
@@ -130,6 +133,7 @@ class Runtime {
     this.plugins = []
     this.extensions = []
     this.defaults = {}
+    this.defaultPlugin = null
     this.addCoreExtensions()
   }
 
@@ -170,6 +174,18 @@ class Runtime {
   load (directory) {
     const plugin = loadPluginFromDirectory(directory)
     this.plugins = append(plugin, this.plugins)
+    return plugin
+  }
+
+  /**
+   * Loads a plugin from a directory and sets it as the default.
+   *
+   * @param  {string} directory The directory to load from.
+   * @return {Plugin}           A plugin.
+   */
+  loadDefault (directory) {
+    const plugin = this.load(directory)
+    this.defaultPlugin = plugin
     return plugin
   }
 
@@ -225,7 +241,7 @@ class Runtime {
    */
   findCommand (plugin, fullArguments) {
     if (isNil(plugin) || isBlank(fullArguments)) return null
-    if (plugin.commands.length === 0) return null
+    if (isNilOrEmpty(plugin.commands)) return null
 
     return find(
       (command) => startsWith(command.name, fullArguments)
