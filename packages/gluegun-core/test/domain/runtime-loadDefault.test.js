@@ -6,7 +6,7 @@ test('runs a command', async t => {
   t.falsy(r.defaultPlugin)
   const plugin = r.loadDefault(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.is(r.defaultPlugin, plugin)
-  const context = await r.run(null, 'three')
+  const context = await r.run({ rawCommand: 'three' })
 
   t.deepEqual(context.result, [1, 2, 3])
 })

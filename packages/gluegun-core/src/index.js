@@ -17,10 +17,12 @@ require('app-module-path').addPath(`${__dirname}/../node_modules`)
 const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
+const printCommands = require('./cli/print-commands')
 
 // export our API
 module.exports = {
   build,
   print,
-  strings
+  strings,
+  printCommands
 }

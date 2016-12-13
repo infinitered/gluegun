@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------
-// @cliCommand      generate container
 // @cliDescription  Generates a redux smart component.
 // ----------------------------------------------------------------------------
 const generate = require('../shared/generate-utils')
@@ -21,11 +19,11 @@ module.exports = async function (context) {
   const props = { name }
 
   const component = {
-    template: 'container.njk',
+    template: 'container.ejs',
     target: `App/Containers/${name}.js`
   }
   const style = {
-    template: 'container-style.njk',
+    template: 'container-style.ejs',
     target: `App/Containers/Styles/${name}Style.js`
   }
   const jobs = [component, style]

@@ -1,2 +1,2 @@
-namespace = 'project'
+name = 'project'
 description = 'Integrate $BRAND into your project.'

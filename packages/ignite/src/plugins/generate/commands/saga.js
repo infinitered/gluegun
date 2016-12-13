@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------
-// @cliCommand      generate saga
 // @cliDescription  Generates a saga with an optional test.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
@@ -22,7 +20,7 @@ module.exports = async function (context) {
 
   // generate the saga
   await generate({
-    template: 'saga.njk',
+    template: 'saga.ejs',
     target: `App/Sagas/${name}Sagas.js`,
     props
   })
@@ -30,7 +28,7 @@ module.exports = async function (context) {
   // generate the appropriate test
   if (tests) {
     await generate({
-      template: `saga-test-${tests}.njk`,
+      template: `saga-test-${tests}.ejs`,
       target: `Tests/Saga/${name}SagaTest.js`,
       props
     })

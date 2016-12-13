@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------
-// @cliCommand      generate redux
 // @cliDescription  Generates a action/creator/reducer set for Redux.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
@@ -22,7 +20,7 @@ module.exports = async function (context) {
 
   // generate the React component
   await generate({
-    template: 'redux.njk',
+    template: 'redux.ejs',
     target: `App/Redux/${name}Redux.js`,
     props
   })
@@ -30,7 +28,7 @@ module.exports = async function (context) {
   // generate the appropriate test
   if (tests) {
     await generate({
-      template: `redux-test-${tests}.njk`,
+      template: `redux-test-${tests}.ejs`,
       target: `Tests/Redux/${name}ReduxTest.js`,
       props
     })

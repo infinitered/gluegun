@@ -1,7 +1,6 @@
-// @cliCommand      generate component
 // @cliDescription  Generates a component, styles, and an optional test.
 // ----------------------------------------------------------------------------
-const generate = require('../shared/generate-utils')
+const generate = require('../../../utils/generate-utils')
 
 module.exports = async function (context) {
   // grab some features
@@ -16,22 +15,22 @@ module.exports = async function (context) {
   }
 
   // read some configuration
-  const { tests } = config.ignite
+  const { tests } = config.generate
 
   // make a name that's FriendlyLikeThis and not-like-this
   const name = pascalCase(parameters.first)
   const props = { name }
 
   const component = {
-    template: 'component.njk',
+    template: 'component.ejs',
     target: `App/Components/${name}.js`
   }
   const style = {
-    template: 'component-style.njk',
+    template: 'component-style.ejs',
     target: `App/Components/Styles/${name}Style.js`
   }
   const test = {
-    template: 'component.njk',
+    template: 'component.ejs',
     target: `Test/Components/${name}Test.js`
   }
   const jobs = [component, style, tests === 'ava' && test]

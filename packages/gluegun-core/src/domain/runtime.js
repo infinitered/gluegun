@@ -1,3 +1,4 @@
+const parseCommandLine = require('../cli/parse-command-line')
 const autobind = require('autobind-decorator')
 const {
   clone,
@@ -50,30 +51,40 @@ const extractSubArguments = (args, commandName) =>
 /**
 * Runs a command.
 *
-* @param  {string}     namespace The namespace to run.
-* @param  {string}     full      The complete list of arguments to target the right command.
-* @param  {{}}         options   Additional options to pass to the command
-* @return {RunContext}           The RunContext object indicating what happened.
+* @param  {{}} options Additional options use to execute a command.
+*                      If nothing is passed, it will read from the command line.
+* @return {RunContext} The RunContext object indicating what happened.
 */
-async function run (namespace, full = '', options = {}) {
+async function run (options) {
   // prepare the run context
   const context = new RunContext()
 
   // attach the runtime
   context.runtime = this
 
-  // setup the context parameters that we know
-  context.parameters = {
-    namespace,
-    options,
-    full
+  // prepare the context parameters
+  if (isNilOrEmpty(options)) {
+    // grab the params from the command line
+    const { first, rest, options } = parseCommandLine(process.argv)
+    context.parameters.pluginName = first
+    context.parameters.rawCommand = rest
+    context.parameters.options = options
+  } else {
+    // grab the options that were passed in
+    context.parameters.pluginName = options.pluginName
+    context.parameters.rawCommand = options.rawCommand
+    context.parameters.options = options.options
   }
 
+  // bring them back out for convenience
+  const { pluginName, rawCommand } = context.parameters
+
   // try finding the command in the default plugin first
-  const defaultPlugin = this.findCommand(this.defaultPlugin, full) && this.defaultPlugin
+  const defaultPlugin = this.findCommand(this.defaultPlugin, rawCommand) && this.defaultPlugin
 
   // find the plugin
-  const plugin = defaultPlugin || this.findPlugin(namespace)
+  const plugin = defaultPlugin || this.findPlugin(pluginName)
+
   if (!plugin) {
     return context
   }
@@ -81,15 +92,15 @@ async function run (namespace, full = '', options = {}) {
 
   // setup the config
   context.config = clone(this.defaults)
-  context.config[plugin.namespace] = merge(plugin.defaults, this.defaults[plugin.namespace] || {})
+  context.config[plugin.name] = merge(plugin.defaults, this.defaults[plugin.pluginName] || {})
 
   // find the command
-  const command = this.findCommand(plugin, full)
+  const command = this.findCommand(plugin, rawCommand)
 
   if (command) {
     context.command = command
     // setup the rest of the parameters
-    const subArgs = extractSubArguments(full, trim(command.name))
+    const subArgs = extractSubArguments(rawCommand, trim(command.name))
     context.parameters.array = subArgs
     context.parameters.first = subArgs[0]
     context.parameters.second = subArgs[1]
@@ -109,7 +120,7 @@ async function run (namespace, full = '', options = {}) {
       try {
         context.result = await command.run(context)
       } catch (e) {
-        console.log(e.message)
+        console.dir(e)
         context.error = e
       }
     }
@@ -173,11 +184,14 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory) {
+    const { extensionNameToken, commandNameToken, commandDescriptionToken } = this
+
     const plugin = loadPluginFromDirectory(directory, {
-      extensionNameToken: this.extensionNameToken,
-      commandNameToken: this.commandNameToken,
-      commandDescriptionToken: this.commandDescriptionToken
+      extensionNameToken,
+      commandNameToken,
+      commandDescriptionToken
     })
+
     this.plugins = append(plugin, this.plugins)
     return plugin
   }
@@ -227,28 +241,28 @@ class Runtime {
   }
 
   /**
-   * Find the plugin for this namespace.
+   * Find the plugin for this name.
    *
-   * @param {string} namespace The namespace to search through.
-   * @returns {*}              A Plugin otherwise null.
+   * @param {string} name The name to search through.
+   * @returns {*}         A Plugin otherwise null.
    */
-  findPlugin (namespace) {
-    return findByProp('namespace', namespace || '', this.plugins)
+  findPlugin (name) {
+    return findByProp('name', name || '', this.plugins)
   }
 
   /**
-   * Find the command for this namespace & command.
+   * Find the command for this pluginName & command.
    *
-   * @param {Plugin} plugin        The plugin in which the command lives.
-   * @param {string} fullArguments The command arguments to parse.
-   * @returns {*}                  A Command otherwise null.
+   * @param {Plugin} plugin      The plugin in which the command lives.
+   * @param {string} rawCommand  The command arguments to parse.
+   * @returns {*}                A Command otherwise null.
    */
-  findCommand (plugin, fullArguments) {
-    if (isNil(plugin) || isBlank(fullArguments)) return null
+  findCommand (plugin, rawCommand) {
+    if (isNil(plugin) || isBlank(rawCommand)) return null
     if (isNilOrEmpty(plugin.commands)) return null
 
     return find(
-      (command) => startsWith(command.name, fullArguments)
+      (command) => startsWith(command.name, rawCommand)
       , plugin.commands
       )
   }

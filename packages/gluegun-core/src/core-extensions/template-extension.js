@@ -37,8 +37,8 @@ function attach (plugin, command, context) {
     )
 
     // preference given to sporks
-    const sporkTemplateContent = jetpack.read(`${jetpack.cwd()}/${context.runtime.brand}/templates/${plugin.namespace}/${template}`)
-    const templateContent = sporkTemplateContent || jetpack.read(`${plugin.directory}/templates/${template}`)
+    // const sporkTemplateContent = jetpack.read(`${jetpack.cwd()}/${context.runtime.brand}/templates/${plugin.name}/${template}`)
+    const templateContent = jetpack.read(`${plugin.directory}/templates/${template}`)
     // render the template
     const content = ejs.render(templateContent, data)
 

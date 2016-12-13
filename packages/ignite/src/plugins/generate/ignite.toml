@@ -1,5 +1,4 @@
-namespace = 'ignite'
-description = 'React Native awesomeness.'
+description = '🔥 file generation.'
 
 [defaults]
 tests = 'ava'

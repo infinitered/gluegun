@@ -142,8 +142,7 @@ For simpler CLIs, you might find this is a much easier way to build. You might n
 ```js
 await runtime.run({
   pluginName: 'quote',
-  commandName: 'random',
-  arguments: '"*johnny"',
+  rawArguments: 'random "*johnny"',
   options: {
     funny: true,
     genre: 'Horror',

@@ -1,4 +1,4 @@
-namespace = 'args'
+name = 'args'
 
 [[commands]]
 description = 'Greets someone.'

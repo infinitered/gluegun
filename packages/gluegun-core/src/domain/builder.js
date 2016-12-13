@@ -21,7 +21,13 @@ class Builder {
   createRuntime () {
     const runtime = new Runtime(this.brand)
 
-    // the plugins
+    // set the rest of the properties
+    runtime.events = this.events
+    runtime.commandNameToken = this.commandNameToken
+    runtime.commandDescriptionToken = this.commandDescriptionToken
+    runtime.extensionNameToken = this.extensionNameToken
+
+    // the plugins get loaded last
     this.loads.forEach(entry => {
       switch (entry.type) {
         case 'loadDefault': runtime.loadDefault(entry.value); break
@@ -29,12 +35,6 @@ class Builder {
         case 'loadAll': runtime.loadAll(entry.value); break
       }
     })
-
-    // set the rest of the properties
-    runtime.events = this.events
-    runtime.commandNameToken = this.commandNameToken || runtime.commandNameToken
-    runtime.commandDescriptionToken = this.commandDescriptionToken || runtime.commandDescriptionToken
-    runtime.extensionNameToken = this.extensionNameToken || runtime.extensionNameToken
 
     return runtime
   }

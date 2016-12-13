@@ -76,12 +76,12 @@ module.exports = function (plugin, command, context) {
 
 # Configuration File `gluegun.toml`
 
-## namespace
+## name
 
-The namespace is a prefix to your commands.
+The name is a prefix to your commands.
 
 ```toml
-namespace = 'something'
+name = 'something'
 ```
 
 Since many plugins can be installed, we namespace them. If you're creating plugins
@@ -92,13 +92,13 @@ probably asking for trouble.
 If you're just making plugins for your project, then please, feel free to call it
 whatever you'd like.
 
-A namespace:
+A name:
 
 * can contain **numbers & letters**
 * should be **lowercase**
 * spaces-should-have-**dashes**-if-you-need-them
 
-If `namespace` does not exist, the default will be the name of the directory. 
+If `name` does not exist, the default will be the name of the directory. 
 
 ## defaults
 
@@ -115,7 +115,7 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 
 module                                                  | purpose
 --------------------------------------------------------|-------------------------
-[inquirer.js](https://github.com/SBoudrias/Inquirer.js) | prompts & user input
+[enquirer](https://github.com/enquirer/enquirer)        | prompts & user input
 [fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders
 [ejs](https://github.com/mde/ejs)                       | templates
 [apisauce](https://github.com/skellock/apisauce)        | http requests

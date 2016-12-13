@@ -1,5 +1,3 @@
-// ----------------------------------------------------------------------------
-// @cliCommand      generate listview
 // @cliDescription  Generates a screen with a ListView + walkthrough.
 // ----------------------------------------------------------------------------
 const { isNilOrEmpty } = require('ramdasauce')
@@ -41,14 +39,14 @@ module.exports = async function (context) {
 
   // generate the React component
   await generate({
-    template: `${componentTemplate}.njk`,
+    template: `${componentTemplate}.ejs`,
     target: `App/Containers/${name}.js`,
     props
   })
 
   // generate the style
   await generate({
-    template: `${styleTemplate}.njk`,
+    template: `${styleTemplate}.ejs`,
     target: `App/Containers/Styles/${name}Style.js`,
     props
   })

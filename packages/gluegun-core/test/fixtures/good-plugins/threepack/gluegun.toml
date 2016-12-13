@@ -1,4 +1,4 @@
-namespace = '3pack'
+name = '3pack'
 
 [defaults]
 numbers = 3
