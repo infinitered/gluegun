@@ -1,4 +1,4 @@
-// @contextExtension   hello
+// @gluegunExtensionName hello
 
 /**
  * An extension that returns very little.

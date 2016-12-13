@@ -11,8 +11,10 @@ const Extension = require('../domain/extension')
  *
  * @param {string} file         The full path to the file to load.
  */
-function loadFromFile (file) {
+function loadFromFile (file, options = {}) {
   const extension = new Extension()
+
+  const extensionNameToken = options.extensionNameToken || 'gluegun ExtensionName'
 
   // sanity check the input
   if (isBlank(file)) {
@@ -36,10 +38,10 @@ function loadFromFile (file) {
   // let's load
   try {
     // try reading in tokens embedded in the file
-    const tokens = findTokens(jetpack.read(file) || '')
+    const tokens = findTokens(jetpack.read(file) || '', [extensionNameToken])
 
     // let's override if we've found these tokens
-    extension.name = tokens.extension || extension.name
+    extension.name = tokens[extensionNameToken] || extension.name
 
     // require in the module -- best chance to bomb is here
     const extensionModule = loadModule(file)

@@ -13,24 +13,24 @@ test('handles wierd input', t => {
 })
 
 test('handles blank strings', t => {
-  t.deepEqual(findTokens(''), {})
+  t.deepEqual(findTokens('', []), {})
 })
 
 test('tokens start after whitespace', t => {
-  t.deepEqual(findTokens('// hello@hi'), {})
+  t.deepEqual(findTokens('// hello@hi', []), {})
 })
 
 test('finds @cliCommand', t => {
-  t.deepEqual(findTokens('// @cliCommand steve'), {'cliCommand': 'steve'})
-  t.deepEqual(findTokens('/**\n@cliCommand steve '), {'cliCommand': 'steve'})
+  t.deepEqual(findTokens('// @cliCommand steve', ['cliCommand']), {'cliCommand': 'steve'})
+  t.deepEqual(findTokens('/**\n@cliCommand steve ', ['cliCommand']), {'cliCommand': 'steve'})
 })
 
 test('finds @cliDescription', t => {
-  t.deepEqual(findTokens('// @cliDescription steve'), {'cliDescription': 'steve'})
-  t.deepEqual(findTokens('/**\n@cliDescription steve '), {'cliDescription': 'steve'})
+  t.deepEqual(findTokens('// @cliDescription steve', ['cliDescription']), {'cliDescription': 'steve'})
+  t.deepEqual(findTokens('/**\n@cliDescription steve ', ['cliDescription']), {'cliDescription': 'steve'})
 })
 
 test('finds @extension', t => {
-  t.deepEqual(findTokens('// @extension steve'), {'extension': 'steve'})
-  t.deepEqual(findTokens('/**\n@extension steve '), {'extension': 'steve'})
+  t.deepEqual(findTokens('// @extension steve', ['extension']), {'extension': 'steve'})
+  t.deepEqual(findTokens('/**\n@extension steve ', ['extension']), {'extension': 'steve'})
 })

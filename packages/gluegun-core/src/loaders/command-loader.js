@@ -32,8 +32,11 @@ const findTokens = require('./find-tokens')
  * @param  {string} file The full path to the file to load.
  * @return {Command}     The command in any condition
  */
-function loadFromFile (file) {
+function loadFromFile (file, options = {}) {
   const command = new Command()
+
+  const commandNameToken = options.commandNameToken || 'gluegunCommandName'
+  const commandDescriptionToken = options.commandDescriptionToken || 'gluegunCommandDescription'
 
   // sanity check the input
   if (isBlank(file)) {
@@ -58,11 +61,11 @@ function loadFromFile (file) {
   // let's load
   try {
     // try reading in tokens embedded in the file
-    const tokens = findTokens(jetpack.read(file) || '')
+    const tokens = findTokens(jetpack.read(file) || '', [commandNameToken, commandDescriptionToken])
 
     // let's override if we've found these tokens
-    command.name = tokens.cliCommand || command.name
-    command.description = tokens.cliDescription || command.description
+    command.name = tokens[commandNameToken] || command.name
+    command.description = tokens[commandDescriptionToken] || command.description
 
     // require in the module -- best chance to bomb is here
     const commandModule = loadModule(file)

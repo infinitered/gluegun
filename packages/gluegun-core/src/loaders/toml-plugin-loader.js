@@ -4,7 +4,7 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { concat, map, contains, __ } = require('ramda')
+const { map, contains, __ } = require('ramda')
 const toml = require('toml')
 
 /**
@@ -24,10 +24,16 @@ const isRestrictedNamespace = contains(__, [''])
 function loadFromDirectory (directory, options = {}) {
   const plugin = new Plugin()
 
-  const brand = options.brand || 'gluegun'
-  const commandFilePattern = options.commandFilePattern || '*.js'
-  const extensionFilePattern = options.extensionFilePattern || '*.js'
-  const namespace = options.namespace
+  const {
+    brand = 'gluegun',
+    commandFilePattern = '*.js',
+    extensionFilePattern = '*.js',
+    commandNameToken,
+    commandDescriptionToken,
+    extensionNameToken,
+    namespace
+  } = options
+
   if (!isBlank(namespace)) {
     plugin.namespace = namespace
   }
@@ -58,7 +64,10 @@ function loadFromDirectory (directory, options = {}) {
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
     plugin.commands = map(
-      file => loadCommandFromFile(`${directory}/commands/${file}`),
+      file => loadCommandFromFile(
+        `${directory}/commands/${file}`,
+        { commandNameToken, commandDescriptionToken }
+      ),
       jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: false })
       )
   } else {
@@ -68,7 +77,7 @@ function loadFromDirectory (directory, options = {}) {
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('extensions') === 'dir') {
     plugin.extensions = map(
-      file => loadExtensionFromFile(`${directory}/extensions/${file}`),
+      file => loadExtensionFromFile(`${directory}/extensions/${file}`, { extensionNameToken }),
       jetpackPlugin.cwd('extensions').find({ matching: extensionFilePattern, recursive: false })
       )
   } else {
@@ -90,21 +99,6 @@ function loadFromDirectory (directory, options = {}) {
     plugin.description = config.description
 
     // restrict name
-
-    // also load commands located in the commands brand
-    const commandsFromConfig = map(
-      config => {
-        const { name, file, description } = config
-        const command = loadCommandFromFile(`${directory}/${file}`)
-        command.name = name
-        command.description = description
-        return command
-      },
-      config.commands || []
-      )
-
-    // add our commands to the list
-    plugin.commands = concat(commandsFromConfig, plugin.commands)
   } catch (e) {
     // no worries, configs are optional
   }

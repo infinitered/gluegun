@@ -14,12 +14,9 @@ require('app-module-path').addPath(`${__dirname}/../node_modules`)
 // ----------------------------------------------------------------------------
 
 // import a bunch of things we want to make available
-const Runtime = require('./domain/runtime')
+const build = require('./domain/builder')
 
 // export our API
 module.exports = {
-  create: (brand) => {
-    const runtime = new Runtime(brand)
-    return runtime
-  }
+  build
 }

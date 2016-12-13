@@ -133,6 +133,8 @@ class Runtime {
     this.extensions = []
     this.defaults = {}
     this.defaultPlugin = null
+    this.events = {}
+
     this.addCoreExtensions()
   }
 
@@ -171,7 +173,11 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory) {
-    const plugin = loadPluginFromDirectory(directory)
+    const plugin = loadPluginFromDirectory(directory, {
+      extensionNameToken: this.extensionNameToken,
+      commandNameToken: this.commandNameToken,
+      commandDescriptionToken: this.commandDescriptionToken
+    })
     this.plugins = append(plugin, this.plugins)
     return plugin
   }
