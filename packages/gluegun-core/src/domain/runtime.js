@@ -184,12 +184,13 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory) {
-    const { extensionNameToken, commandNameToken, commandDescriptionToken } = this
+    const { brand, extensionNameToken, commandNameToken, commandDescriptionToken } = this
 
     const plugin = loadPluginFromDirectory(directory, {
       extensionNameToken,
       commandNameToken,
-      commandDescriptionToken
+      commandDescriptionToken,
+      brand
     })
 
     this.plugins = append(plugin, this.plugins)
