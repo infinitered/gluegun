@@ -1,5 +1,5 @@
 // check the node version
-const { nodeVersion, isNewEnough, hasAsyncAwait } = require('gluegun/sanity')
+const { nodeVersion, isNewEnough, hasAsyncAwait } = require('gluegun/sniff')
 
 // check the node version
 if (!isNewEnough) {
