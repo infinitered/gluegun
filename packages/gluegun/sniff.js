@@ -10,7 +10,7 @@ env.hasAsyncAwait = false
 
 // check for the harmony-enabled features
 try {
-  require('./async-await-check')
+  require('./src/utils/async-await-check')
   env.hasAsyncAwait = true
 } catch (e) {
 }

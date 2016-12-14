@@ -1,11 +1,11 @@
-# Sanity Check
+# Sniff
 
 The `gluegun` requires a Node 7.x environment with the `--harmony` switch set to provide `async` and `await` support.
 
-You can safely check these requirements by using the `sanity` module.
+You can safely check these requirements by using the `sniff` module.
 
 ```js
-const { ok } = require('gluegun/sanity')
+const { ok } = require('gluegun/sniff')
 
 if (ok) {
   // we are clear for lift-off
@@ -14,7 +14,7 @@ if (ok) {
 
 The `ok` property will be `true` if everything is good to go.
 
-Sanity also has a few more properties you can use for better errors.
+`sniff` also has a few more properties you can use for better errors.
 
 property      | type   | value
 --------------|--------|-------------------

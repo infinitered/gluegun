@@ -17,7 +17,7 @@
   },
   "files": [
     "src",
-    "sanity.js",
+    "sniff.js",
     "LICENSE",
     "readme.md"
   ],

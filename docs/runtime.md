@@ -2,7 +2,7 @@
 
 With the Gluegun API, you're able to load & execute commands.
 
-Check out the [sanity](./sanity.md) module for detecting if your environment is able to run.
+Check out the [sniff](./sniff.md) module for detecting if your environment is able to run.
 
 
 # Spoiler
