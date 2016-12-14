@@ -15,7 +15,8 @@ const {
   append,
   forEach,
   isNil,
-  map
+  map,
+  is
 } = require('ramda')
 const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
@@ -63,65 +64,81 @@ async function run (options) {
   context.runtime = this
 
   // prepare the context parameters
-  if (isNilOrEmpty(options)) {
+  const optionsIsArray = is(Array, options)
+
+  // set initial context parameters, these will change further along
+  // once we understand better what the user is looking for.
+  if (isNilOrEmpty(options) || optionsIsArray) {
     // grab the params from the command line
-    const { first, rest, options } = parseCommandLine(process.argv)
+    const { first, rest, parsedOptions } = parseCommandLine(options || process.argv)
     context.parameters.pluginName = first
     context.parameters.rawCommand = rest
-    context.parameters.options = options
+    context.parameters.options = parsedOptions
   } else {
     // grab the options that were passed in
-    context.parameters.pluginName = options.pluginName
-    context.parameters.rawCommand = options.rawCommand
     context.parameters.options = options.options
+
+    // did the user fill out the rawCommand but not the plug name?
+    if (isBlank(options.pluginName) && !isBlank(options.rawCommand)) {
+      // let's upgrade
+      const upgrade = parseCommandLine(['', '', options.rawCommand])
+      context.parameters.pluginName = upgrade.first
+      context.parameters.rawCommand = upgrade.rest
+    } else {
+      context.parameters.pluginName = options.pluginName
+      context.parameters.rawCommand = options.rawCommand
+    }
   }
 
-  // bring them back out for convenience
-  const { pluginName, rawCommand } = context.parameters
-
-  // try finding the command in the default plugin first
-  const defaultPlugin = this.findCommand(this.defaultPlugin, rawCommand) && this.defaultPlugin
-
-  // find the plugin
-  const plugin = defaultPlugin || this.findPlugin(pluginName)
-
-  if (!plugin) {
-    return context
+  // first check for a command inside the default
+  const defaultPluginCommand = this.findCommand(this.defaultPlugin, context.parameters.pluginName)
+  if (defaultPluginCommand) {
+    // we found a command in the default plugin
+    context.plugin = this.defaultPlugin
+    context.command = defaultPluginCommand
+    context.parameters.pluginName = context.plugin.name
+    context.parameters.rawCommand = `${context.plugin.name} ${context.parameters.rawCommand}`
+  } else {
+    // there wasn't a default command
+    context.plugin = this.findPlugin(context.parameters.pluginName)
+    context.command = this.findCommand(context.plugin, context.parameters.rawCommand)
   }
-  context.plugin = plugin
+
+  // jet if we have no plugin
+  if (isNil(context.plugin)) return context
 
   // setup the config
   context.config = clone(this.defaults)
-  context.config[plugin.name] = merge(plugin.defaults, this.defaults[plugin.name] || {})
+  context.config[context.plugin.name] = merge(
+    context.plugin.defaults,
+    this.defaults[context.plugin.name] || {}
+  )
 
-  // find the command
-  const command = this.findCommand(plugin, rawCommand)
+  // jet if we have no command
+  if (isNil(context.command)) return context
 
-  if (command) {
-    context.command = command
-    // setup the rest of the parameters
-    const subArgs = extractSubArguments(rawCommand, trim(command.name))
-    context.parameters.array = subArgs
-    context.parameters.first = subArgs[0]
-    context.parameters.second = subArgs[1]
-    context.parameters.third = subArgs[2]
-    context.parameters.string = join(COMMAND_DELIMITER, subArgs)
+  // setup the rest of the parameters
+  const subArgs = extractSubArguments(context.parameters.rawCommand, trim(context.command.name))
+  context.parameters.array = subArgs
+  context.parameters.first = subArgs[0]
+  context.parameters.second = subArgs[1]
+  context.parameters.third = subArgs[2]
+  context.parameters.string = join(COMMAND_DELIMITER, subArgs)
 
-    // kick it off
-    if (command.run) {
-      // attach extensions
-      forEach(
-        extension => {
-          context[extension.name] = extension.setup(plugin, command, context)
-        },
-        this.extensions
-      )
+  // kick it off
+  if (context.command.run) {
+    // attach extensions
+    forEach(
+      extension => {
+        context[extension.name] = extension.setup(context.plugin, context.command, context)
+      },
+      this.extensions
+    )
 
-      try {
-        context.result = await command.run(context)
-      } catch (e) {
-        context.error = e
-      }
+    try {
+      context.result = await context.command.run(context)
+    } catch (e) {
+      context.error = e
     }
   }
 
