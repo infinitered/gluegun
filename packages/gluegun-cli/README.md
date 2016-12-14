@@ -1,3 +1,3 @@
 # gluegun-cli
 
-https://github.com/skellock/gluegun
+https://github.com/infinitered/gluegun

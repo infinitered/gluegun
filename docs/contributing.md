@@ -40,7 +40,7 @@ npm i -g lerna@2.0.0-beta.31
 Next, clone the repo.
 
 ```sh
-git clone git@github.com/skellock/gluegun
+git clone git@github.com/infinitered/gluegun
 ```
 
 And switch to the directory and install all the dependencies.
@@ -81,7 +81,7 @@ Please ensure lint linting & testing passes. That'd be pretty cool. Please write
 ## Submitting a PR
 
 Jump on github on your fork. Switch to the branch with your new changes, and 
-open a PR against `master` of `skellock/gluegun`.
+open a PR against `master` of `infinitered/gluegun`.
 
 Screenshots of what the feature is 💯. Animated gifs (licecap or w/e) are 💯 + 🦄.
 
@@ -98,7 +98,7 @@ You want your fork's `master` to be the same as `gluegun/master`.
 
 ```sh
 # just once, run this to track our repo as `upstream`
-git remote add upstream https://github.com/skellock/gluegun.git
+git remote add upstream https://github.com/infinitered/gluegun.git
 
 # then when you need to update
 git checkout master
