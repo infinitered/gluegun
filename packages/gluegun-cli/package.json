@@ -1,8 +1,7 @@
 {
-  "name": "gluegun",
+  "name": "gluegun-cli",
   "version": "0.2.0",
-  "description": "Tack stuff on to your code base.",
-  "main": "src/index.js",
+  "description": "Time to get your glue on.",
   "bin": {
     "gluegun": "bin/gluegun"
   },
