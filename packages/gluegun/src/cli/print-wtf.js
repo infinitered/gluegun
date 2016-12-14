@@ -83,8 +83,9 @@ module.exports = function (runtime) {
 
     // print some information about the plugin
     const pluginWriter = hasProblem(plugin) ? print.colors.error : print.colors.success
-    const problemDescription = plugin.errorState !== 'none' &&
-      print.colors.error(`-- ${humanizePluginError(plugin.errorState)}`)
+    const problemDescription = plugin.errorState !== 'none'
+      ? print.colors.error(`-- ${humanizePluginError(plugin.errorState)}`)
+      : ''
     print.fancy(print.colors.muted('plugin ') + pluginWriter(`${plugin.name} ${problemDescription}`))
     print.info('  ' + pluginRelativeDir)
     print.newline()
@@ -93,8 +94,9 @@ module.exports = function (runtime) {
     forEach(extension => {
       // print the name (with optional error message)
       const colorWriter = hasLoadStateError(extension) ? print.colors.error : print.colors.success
-      const commandErrorDescription = extension.errorState !== 'none' &&
-        print.colors.error(`-- ${humanizeCommandError(extension.errorState)}`)
+      const commandErrorDescription = extension.errorState !== 'none'
+        ? print.colors.error(`-- ${humanizeCommandError(extension.errorState)}`)
+        : ''
       print.fancy(print.colors.muted('extension ') + colorWriter(`${extension.name} ${commandErrorDescription}`))
 
       // the directory
@@ -113,8 +115,9 @@ module.exports = function (runtime) {
     forEach(command => {
       // print the name (with optional error message)
       const colorWriter = hasLoadStateError(command) ? print.colors.error : print.colors.success
-      const commandErrorDescription = command.errorState !== 'none' &&
-        print.colors.error(`-- ${humanizeCommandError(command.errorState)}`)
+      const commandErrorDescription = command.errorState !== 'none'
+        ? print.colors.error(`-- ${humanizeCommandError(command.errorState)}`)
+        : ''
       print.fancy(print.colors.muted('command ') + colorWriter(`${command.name} ${commandErrorDescription}`))
 
       // the description if we have one

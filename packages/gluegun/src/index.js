@@ -18,11 +18,13 @@ const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
 const printCommands = require('./cli/print-commands')
+const printWtf = require('./cli/print-wtf')
 
 // export our API
 module.exports = {
   build,
   print,
   strings,
-  printCommands
+  printCommands,
+  printWtf
 }
