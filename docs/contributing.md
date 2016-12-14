@@ -9,7 +9,7 @@ Bug fixes, features, docs, marketing, and issue support are all contributions.
 
 If you're reading this, you might be interested in pitching in from a code point of view.
 
-`gluegun` is a Node JS program. So we'll need NodeJS 7.2.  On macOS, the easiest way is:
+`gluegun` is a Node JS program. So we'll need NodeJS 7.2. On macOS, the easiest way is:
 
 ```sh
 brew install nodejs
@@ -28,7 +28,7 @@ We'll also want the `yarn` package manager because it's fast.
 npm i -g yarn
 ```
 
-And let's grab lerna.  Lerna is a monorepo management tool.  We're using this because in
+And let's grab lerna. Lerna is a monorepo management tool. We're using this because in
 the future we'll have a few packages, not just the one `gluegun` as it is now.
 
 ```sh
@@ -52,31 +52,8 @@ cd packages/gluegun
 yarn
 ```
 
-We'll be mostly living in the `/packages/gluegun` directory.  Documentation lives in
+We'll be mostly living in the `/packages/gluegun` directory. Documentation lives in
 `/docs`. 
-
-
-## Running
-
-For now, I'd recommend setting it up like this for testing:
-
-```sh
-alias gluegun='node --harmony /full/path/to/this/repo/packages/gluegun/src/index.js'
-```
-
-Then you should be able to type:
-
-```sh
-gluegun
-```
-
-For branded mode:
-
-```sh
-alias brand='node --harmony /full/path/to/this/repo/packages/gluegun/src/index.js --gluegun-brand brand'
-```
-
-Where `brand` is the brand you're creating. 
 
 
 ## Running Test And Linting
@@ -99,21 +76,21 @@ git commit -m "Adds fun"
 git push -u origin --HEAD
 ```
 
-Please ensure lint linting & testing passes.  That'd be pretty cool.
+Please ensure lint linting & testing passes. That'd be pretty cool. Please write tests for your new stuff. I'll be your BFF if you do.
 
 ## Submitting a PR
 
-Jump on github on your fork.  Switch to the branch with your new changes, and 
+Jump on github on your fork. Switch to the branch with your new changes, and 
 open a PR against `master` of `skellock/gluegun`.
 
-Screenshots of what the feature is 💯.  Animated gifs (licecap or w/e) are 💯 + 🦄.
+Screenshots of what the feature is 💯. Animated gifs (licecap or w/e) are 💯 + 🦄.
 
 Then submit the PR.
 
 * It's 👌 to submit an issue before breaking changes or shenanigans to get a sense if it's cool
 * It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to lemme know it's a conversation
 * It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR.
-* If Github is complaining about conflicts, rebase.  Rebase downstream,  Merge upstream.
+* If Github is complaining about conflicts, rebase. Rebase downstream,  Merge upstream.
 
 ## Keeping up to date
 

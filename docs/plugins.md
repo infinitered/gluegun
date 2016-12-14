@@ -1,5 +1,7 @@
 # Plugins
 
+SUPER DUPER WARNING --- I'll need a few days to clean up and redo these docs.
+
 Functionality is added to the `Runtime` with plugins.  Plugins can be yours or the end users.
 
 A plugin is directory.
@@ -39,21 +41,21 @@ At the top of these `*.js` files you have the ability to customize some meta dat
 For example, you might have a command called `commands/say.js` that looks like this:
 
 ```js
-// @cliCommand     say
-// @cliDescription This command will say the word you tell it to.
+// @gluegunCommandName        say
+// @gluegunCommandDescription This command will say the word you tell it to.
 module.exports = async function (context) {
   const { print, parameters } = context  
   print.info(`hello ${parameters.first}`)
 }
 ```
 
-This `@cliCommand` and the `@cliDescription` will be detected and will populate the information that
+This `@gluegunCommandName   ` and the `@gluegunCommandDescription` will be detected and will populate the information that
 the user sees when they ask for help or a list of commands.
 
-Extensions are similar except they use the `@contextExtension` 
+Extensions are similar except they use the `@gluegunExtensionName` 
 
 ```js
-// @contextExtension   appstore
+// @gluegunExtensionName appstore
 module.exports = function (plugin, command, context) {
 
   async function getAppDetails (productId) {
@@ -74,7 +76,7 @@ module.exports = function (plugin, command, context) {
 ```
 
 
-# Configuration File `gluegun.toml`
+# Configuration File
 
 ## name
 
@@ -124,7 +126,9 @@ module                                                  | purpose
 [ascii-table](https://github.com/sorensen/ascii-table)  | tables in your terminal
 [ramda](https://github.com/ramda/ramda)                 | functional utilities
 [ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities
-
+[minimist](https://github.com/substack/minimist)        | command line parsing
+[clipboardy](https://github.com/sindresorhus/clipboardy)| copy & paste
+[toml](https://github.com/BinaryMuse/toml-node)         | TOML files
 ## Including Modules
 
 > TODO: verify that this can be done.
