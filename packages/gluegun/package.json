@@ -1,5 +1,5 @@
 {
-  "name": "gluegun-core",
+  "name": "gluegun",
   "version": "0.2.0",
   "description": "Build yourself a pluggable CLI.",
   "main": "src/index.js",
@@ -13,7 +13,7 @@
   "author": {
     "name": "Steve Kellock",
     "email": "steve@kellock.ca",
-    "url": "https://github.com/skellock/gluegun/tree/master/packages/gluegun-core"
+    "url": "https://github.com/skellock/gluegun/tree/master/packages/gluegun"
   },
   "files": [
     "src",

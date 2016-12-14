@@ -1,4 +1,4 @@
-const { build } = require('gluegun-core')
+const { build } = require('gluegun')
 
 /**
  * Create the cli and kick it off

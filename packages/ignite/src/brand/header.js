@@ -1,4 +1,4 @@
-const { print } = require('gluegun-core')
+const { print } = require('gluegun')
 
 module.exports = function () {
   const {
