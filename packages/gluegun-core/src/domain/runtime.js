@@ -92,7 +92,7 @@ async function run (options) {
 
   // setup the config
   context.config = clone(this.defaults)
-  context.config[plugin.name] = merge(plugin.defaults, this.defaults[plugin.pluginName] || {})
+  context.config[plugin.name] = merge(plugin.defaults, this.defaults[plugin.name] || {})
 
   // find the command
   const command = this.findCommand(plugin, rawCommand)
