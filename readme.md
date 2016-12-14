@@ -1,151 +1,110 @@
 # gluegun
 
-The `gluegun` **CLI** offers a low-friction way to add code generation & other automation to your projects.
+`gluegun` is a toolkit for building CLIs.
 
-The `gluegun` **library** is a toolkit for building your own `gluegun`-like CLIs.
+We assembled an **all-star cast** of *outstanding* & focused libraries, added a plugin layer, then wrapped it up in an ease-to-use and ease-to-bust-out-of API.
 
-It uses Node.js 7 with `--harmony` for `async`/`await` syntax.
+⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
+⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
+⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), and [ascii-table](https://github.com/sorensen/ascii-table) for the command line<br />
+⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
+⭐️ both [lodash](https://github.com/lodash/lodash) AND [ramda](https://github.com/ramda/ramda) + [ramdasauce](https://github.com/skellock/ramdasauce) for quality of life<br />
+⭐️ [toml](https://github.com/BinaryMuse/toml-node) for human-friendly config files </br>
+⭐️ [clipboardy](https://github.com/sindresorhus/clipboardy) brings the copy and the *paste*<br />
+</br>
+It uses [Node.js 7](https://nodejs.org) with `--harmony` for `async`/`await` syntax.
 
-> Under heavy construction! We're just getting started. If you have any questions, feel free to file an issue!
+# Ya, But Why?
 
+Libraries like this shouldn't be the star. This is just glue.  What you're building is important thing. So `gluegun` aims to plug into YOUR code, not vice versa.
 
-## Why?
+If you want to make **your** CLI...
 
-`gluegun` wiggles it's butt into that spot between DIY scripts & full-featured monsters like Yeoman.
+* get built quickly
+* have plugin support
+* but skip the boring parts of developing it
 
-Once installed (`npm install -g gluegun`) you've got everything you need to start making plugins. 
+... welcome!
 
-Plugins are easy as dropping a JavaScript file in one of several directories (depending on what you need).  No `node_modules` unless you need them.
-
-## Quick Start - Install
-
-```sh
-# install globally
-npm install -g gluegun
-
-# now you can run it
-gluegun
-```
-
-## Quick Start - Create A Plugin
-
-Make a directory for personal plugins:
-```sh
-mkdir -p ~/.gluegun/plugins/helloworld
-cd ~/.gluegun/plugins/helloworld
-```
-Then, make a config file:
-```sh
-touch gluegun.toml
-echo "description = 'My first plugin'" >> gluegun.toml
-```
-
-Finally, make a command:
-```sh
-mkdir commands
-touch commands/yay.js
-echo "module.exports = async function (context) {" >> commands/yay.js
-echo "  context.print.success('sweet!')" >> commands/yay.js
-echo "}" >> commands/yay.js
-```
-
-# run that command
-```sh
-gluegun helloworld yay
-```
+> Captain F. Disclosure Says...
+>
+> Under construction! We're just still wrapping up things here. If you have any questions, feel free to file an issue! [Contributing?](./docs/contributing.md)
 
 
-## Do I need it?
+# Do I need it?
 
-Depends on how many checkboxes you fill. I need to:
+`gluegun` wiggles it's butt into that spot between DIY scripts & full-featured monsters like [Yeoman](http://yeoman.io).
 
-* [ ] generate files from templates
-* [ ] move files and directories around
-* [ ] execute other scripts
-* [ ] interact with API servers
-* [ ] have my own users write plugins
-* [ ] install 3rd-party plugins from github 
-* [ ] support command line arguments and options
-* [ ] have user interactions like auto-complete prompts
-* [ ] print pretty colors and tables
+Here's the highlights:
 
-The more checks in that list, the more compelling to check it out.
+🎛 generate files from templates</br>
+💾 move files and directories around</br>
+🔮 generate files from templates</br>
+⚒ execute other scripts</br>
+🎅 interact with API servers</br>
+🔌 have my own users write plugins</br>
+🌯 support command line arguments and options</br>
+🛎 have user interactions like auto-complete prompts</br>
+💃 print pretty colors and tables</br>
 
+We picked these features because they're gloriously generic.  Most CLIs could use more than a few in this list. And if it's this easy. Why not, right?
 
-### BYOB: Bring Your Own Branding
+# Code.
 
-Libraries like this shouldn't be the star. This is just glue. What you're making is the real MVP. So `gluegun` is completely brandable.
+Let's start with what you or your end user will be writing.
 
-If your needs are fairly common, it can be something simple like adding this to your `package.json`. 
-
-```json
-{
-  "name": "wheel",
-  "version": "2.0",
-  "bin": {
-    "wheel": "./node_modules/.bin/gluegun --gluegun-brand wheel"
-  },
-  "dependencies": {
-    "gluegun": "x.y.z"
-  }
-}
-```
-
-Or you can create your roll your own entry point and `require` only the gluegun runtime features you need.
+**Plugins**.
 
 ```js
-// bring in gluegun
-const { Runtime } = require('gluegun')
+module.exports = async function (context) {
+  // grab a fist-full of features...
+  const { system, print, filesystem, strings } = context
+  const { trim, kebabCase } = strings
+  const { info, warning, success, checkmark, colors } = print
 
-// make an async function for your CLI
-async function movieQuotes () {
-  // create a runtime environment so we can type:
-  //
-  // $ movie
-  const runtime = new Runtime('movie')
+  // ...and be the CLI you wish to see in the world
+  const awesome = trim(system.run('whoami'))
+  const moreAwesome = kebabCase(`${awesome} and a keyboard`)
+  const contents = `🚨 Warning! ${moreAwesome} coming thru! 🚨`
 
-  // load a plugin so we can type:
-  //
-  // $ movie quotes
-  runtime.loadPlugin(`${__dirname}/quotes`)
+  filesystem.write('~/realtalk.txt', { contents })
 
-  // if inside the `${__dirname}/quotes/commands/` directory
-  // we had a few files:
-  //
-  //   update.js
-  //   random.js
-  // 
-  // we can type:
-  // 
-  // $ movie quotes update
-  // $ movie quotes random
-  // $ movie quotes random --title "Kingpin" --json
-
-  // kick off the run... without any parameters, this will
-  // parse everything it needs from the command line.
-  await runtime.run()
-
-  // or call with parameters if you've got your own way of handling things...
-  //
-  await runtime.run({
-    pluginName: 'quotes',
-    arguments: 'random',
-    options: { title: 'Kingpin', json: true }
-  })
+  print.info(`${checkmark} Citius`)
+  print.warning(`${checkmark} Altius`)
+  print.success(`${checkmark} Fortius`)
 }
 ```
+See the [context api docs](./docs/context-api.md) for more details on what you can do.
 
-### People Using Gluegun [SOON]
+And what about the CLI you make? Depending on the features you want, more or less:
 
-Who's gluing apps together with gluegun?  You can see this tool in action with 
-the following victims... technologies.
+```js
+// ready
+const { build } = 'gluegun'
+
+// aim
+const runtime = build()
+  .brand('movie')
+  .configFile('./movie.toml')
+  .loadDefault(`${__dirname}/core-plugins`)
+  .load('~/Desktop/movie/quote')
+  .load('~/Desktop/movie/credits')
+  .loadAll('~/Downloads/VariousMoviePlugins')
+  .createRuntime()
+
+// fire!
+runtime.run()
+```
+
+See the [runtime docs](./docs/runtime.md) for more details on building your own CLI.
+
+# The Glue Crew
+
+Who's gluing CLIs together with gluegun?
+
+These are underway:
 
 * [Reactotron](https://github.com/reactotron/reactotron) - App for React App Inspection
 * [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
 * ...next?
 
-### Documentation
-
-* [Context API](./docs/context-api.md)
-* [Runtime API](./docs/runtime-api.md)
-* [Contributing](./docs/contributing.md)
