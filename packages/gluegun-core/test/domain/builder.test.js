@@ -2,8 +2,12 @@ const test = require('ava')
 const build = require('../../src/domain/builder')
 
 test('the gauntlet', t => {
+  const brand = 'test'
   const builder = build()
-    .brand('test')
+    .brand(brand)
+
+    // read from a configuration file
+    .configFile(`./${brand}.toml`)
 
     // plugins
     .loadDefault(`${__dirname}/../fixtures/good-plugins/threepack`)

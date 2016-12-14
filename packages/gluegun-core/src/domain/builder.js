@@ -1,5 +1,10 @@
 const autobind = require('autobind-decorator')
 const Runtime = require('./runtime')
+const { pipe, tryCatch, always, propOr } = require('ramda')
+const { isBlank } = require('../utils/string-utils')
+const { isFile } = require('../utils/filesystem-utils')
+const jetpack = require('fs-jetpack')
+const toml = require('toml')
 
 /**
  * Provides a cleaner way to build a runtime.
@@ -21,6 +26,18 @@ class Builder {
   createRuntime () {
     const runtime = new Runtime(this.brand)
 
+    // should we try to load the config?
+    const attemptConfigLoad = !isBlank(this.configFile) && isFile(this.configFile)
+
+    // load the config if we got it
+    if (attemptConfigLoad) {
+      runtime.defaults = pipe(
+        jetpack.read,
+        tryCatch(toml.parse, always({})),
+        propOr({}, 'defaults')
+        )(this.configFile)
+    }
+
     // set the rest of the properties
     runtime.events = this.events
     runtime.commandNameToken = this.commandNameToken
@@ -37,6 +54,17 @@ class Builder {
     })
 
     return runtime
+  }
+
+  /**
+   * Sets the config file.
+   *
+   * @param {string} configFile A path to a TOML file to load configs.
+   */
+  configFile (configFile) {
+    this.configFile = configFile
+
+    return this
   }
 
   /**

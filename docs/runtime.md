@@ -4,6 +4,32 @@ With the Gluegun API, you're able to load & execute commands.
 
 Check out the [sanity](./sanity.md) module for detecting if your environment is able to run.
 
+
+# Spoiler
+
+Here's what we're about to cover.
+
+```js
+const { build } = 'gluegun-core'
+
+await build()
+  .brand('movie')
+  .configFile('./movie.toml')
+  .loadDefault(`${__dirname}/core-plugins`)
+  .load('~/Desktop/movie/quote')
+  .load('~/Desktop/movie/credits')
+  .loadAll('~/Downloads/VariousMoviePlugins')
+  .token('commandName', 'cliCommand')
+  .token('commandDescription', 'cliDescription')
+  .token('extensionName', 'contextExtension')
+  .on('start', () => {
+    console.log('Welcome to movie CLI!')
+  })
+  .createRuntime()
+  .run()
+```
+
+
 # Gluegun.build
 
 Grab the `build` function from `gluegun-core`.
@@ -33,6 +59,7 @@ We'll be chaining the `build()` function from here.
 
 The brand is most likely to share the same name of the CLI.
 
+
 # Plugins
 
 Functionality is added to the `Gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
@@ -49,6 +76,7 @@ You can also load all immediate sub-directories located within it a directory.
 ```js
   .loadAll('~/Downloads/VariousMoviePlugins')
 ```
+
 
 # Finishing Configuration
 
@@ -101,6 +129,7 @@ So you see, it takes at least 2 extra arguments to run a command. That's because
 
 Which sucks, if it weren't for:
 
+
 # The Default Plugin
 
 One of your plugins can be a special snowflake.
@@ -135,6 +164,7 @@ Commands from the default plugin will now be evaluated first. If there is a matc
 
 For simpler CLIs, you might find this is a much easier way to build. You might not need the flexibility of multiple plugins and can get away with 1 plugin which is installed as the default.
 
+
 # Advanced Running
 
 `Gluegun` can also be `run()` with options.
@@ -142,7 +172,7 @@ For simpler CLIs, you might find this is a much easier way to build. You might n
 ```js
 await runtime.run({
   pluginName: 'quote',
-  rawArguments: 'random "*johnny"',
+  rawCommand: 'random "*johnny"',
   options: {
     funny: true,
     genre: 'Horror',
@@ -159,6 +189,7 @@ There's a few situations that make this useful.
 4. Maybe this is your program and you don't like strangers telling you how to code.
 
 Bottom line, is you get to pick. It's yours. `gluegun-core` is just glue.
+
 
 # Tokens
 
@@ -179,26 +210,24 @@ You can configure this setting
 The token you choose will still be prefixed by a `@` when it searches in the file.  It also needs to remain located within a JavaScript comment.
 
 
-# Summary
+# Configuration
 
-Here's the full API in action.
+Each plugin can have its own configuration file where it places defaults.  These defaults can then be overridden by reading defaults from a configuration file.
+
+You can specify your config file to read from the current directory like this:
 
 ```js
-const { build } = 'gluegun-core'
+  .configFile('./movie.toml')
+```
 
-await build()
-  .brand('movie')
-  .loadDefault(`${__dirname}/core-plugins`)
-  .load('~/Desktop/movie/quote')
-  .load('~/Desktop/movie/credits')
-  .loadAll('~/Downloads/VariousMoviePlugins')
-  .token('commandName', 'cliCommand')
-  .token('commandDescription', 'cliDescription')
-  .token('extensionName', 'contextExtension')
-  .on('start', () => {
-    console.log('Welcome to movie CLI!')
-  })
-  .createRuntime()
-  .run()
+A configuration file is a [TOML](./what-is-toml.md) file.
 
+It will read the plugin name from the `name` key and the defaults will be read from the `[defaults]` section.  Each section underneath `default` can be used to override the sections of the plugin.  Since that was horribly explained, here's an example.
+
+```toml
+[defaults.movie]
+cache = '~/.movies/cache'
+
+[defaults.another]
+count = 100
 ```

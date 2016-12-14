@@ -1,11 +1,4 @@
 name = 'args'
 
-[[commands]]
-description = 'Greets someone.'
-
-[[commands]]
-description = 'Picks a color from config.'
-
 [defaults]
 color = 'blue'
-
