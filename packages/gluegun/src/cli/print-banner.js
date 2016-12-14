@@ -22,7 +22,7 @@ function printBanner () {
   print.fancy(colors.random(BANNER[7]))
   print.newline()
   print.newline()
-  print.fancy(colors.yellow('  https://github.com/skellock/gluegun'))
+  print.fancy(colors.yellow('  https://github.com/infinitered/gluegun'))
   print.fancy(colors.white(`  ${pkg.version}`))
   print.newline()
   print.divider()
