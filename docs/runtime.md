@@ -10,7 +10,7 @@ Check out the [sanity](./sanity.md) module for detecting if your environment is 
 Here's what we're about to cover.
 
 ```js
-const { build } = 'gluegun-core'
+const { build } = 'gluegun'
 
 await build()
   .brand('movie')
@@ -32,10 +32,10 @@ await build()
 
 # Gluegun.build
 
-Grab the `build` function from `gluegun-core`.
+Grab the `build` function from `gluegun`.
 
 ```js
-const { build } = require('gluegun-core')
+const { build } = require('gluegun')
 ```
 
 Now let's build a `gluegun` runtime environment by configuring various features.
@@ -103,7 +103,7 @@ And now we're ready to run:
   runtime.run()
 ```
 
-With no parameters, `gluegun-core` will parse the command line arguments looking for the commmand to run.
+With no parameters, `gluegun` will parse the command line arguments looking for the commmand to run.
 
 ```sh
 # list the plugins
@@ -188,7 +188,7 @@ There's a few situations that make this useful.
 3. Maybe you want to run several command in a row.
 4. Maybe this is your program and you don't like strangers telling you how to code.
 
-Bottom line, is you get to pick. It's yours. `gluegun-core` is just glue.
+Bottom line, is you get to pick. It's yours. `gluegun` is just glue.
 
 
 # Tokens

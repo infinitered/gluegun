@@ -1,4 +1,4 @@
-const { build, printCommands } = require('gluegun-core')
+const { build, printCommands } = require('gluegun')
 const header = require('../brand/header')
 const { isNil } = require('ramda')
 
