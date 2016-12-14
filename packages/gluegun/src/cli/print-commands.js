@@ -24,76 +24,81 @@ const { isBlank } = require('../utils/string-utils')
 const hasLoadStateError = propEq('loadState', 'error')
 
 /**
- * Prints the list of commands.
+ * Gets the list of plugins.
  *
- * @param {RunContext} context     The context that was used
+ * @param {RunContext} context
+ * @return {[string, string]}
  */
-function printCommands (context) {
-  const isInvalidName =
-    isNil(context.plugin) && !isBlank(context.parameters.pluginName)
-  const isInvalidCommand =
-    isNil(context.command) && !isBlank(context.parameters.pluginName) && !isBlank(context.parameters.rawCommand)
-
-  // was there user error involved?
-  if (isInvalidName) {
-    print.info(`${context.runtime.brand} '${context.parameters.pluginName}' is not a command.`)
-  } else if (isInvalidCommand) {
-    print.info(`${context.runtime.brand} ${context.parameters.pluginName} '${context.parameters.rawCommand}' is not a command.`)
-  }
-
-  // the columns to display when we don't have a name
-  const dataForName = pipe(
+function getListOfPlugins (context) {
+  return pipe(
     dotPath('runtime.plugins'),
     reject(hasLoadStateError),
-    // don't list the context.defaultPlugin itself when we're running in plugin mode
-    reject(plugin => context.defaultPlugin && context.defaultPlugin.name === plugin.name),
+    reject(plugin => context.runtime.defaultPlugin && context.runtime.defaultPlugin.name === plugin.name),
     sortBy(prop('name')),
     map(plugin => [
       plugin.name,
       replace('$BRAND', context.runtime.brand, plugin.description || '-')
-    ]),
-    data => {
-      if (context.defaultPlugin) {
-        return pipe(
-          reject(hasLoadStateError),
-          map(command => [
-            command.name,
-            replace('$BRAND', context.runtime.brand, command.description || '-')
-          ]),
-          concat(data)
-        )(context.defaultPlugin.commands)
-      } else {
-        return data
-      }
-    },
-    sortBy(head)
-    )
+    ])
+  )(context)
+}
 
-  // the columns to display when we don't have a command
-  const dataForCommand = pipe(
-    dotPath('plugin.commands'),
+/**
+ * Gets the list of commands for the given plugin.
+ *
+ * @param {RunContext} context  The context
+ * @param {Plugin} plugin       The plugins holding the commands
+ * @return {[string, string]}
+ */
+function getListOfCommands (context, plugin) {
+  return pipe(
+    prop('commands'),
     reject(hasLoadStateError),
     map(command => [
       command.name,
       replace('$BRAND', context.runtime.brand, command.description || '-')
     ])
-    )
+  )(plugin)
+}
 
-  // decide what set of data to show
-  const data = cond([
-    // should we show the list of names?
-    [propSatisfies(isNil, 'plugin'), dataForName],
+/**
+ * Prints the list of commands.
+ *
+ * @param {RunContext} context     The context that was used
+ */
+function printCommands (context) {
+  // jet if we've got both a plugin & a command
+  if (context.plugin && context.command) return
 
-    // should we show the list of commands in a plugin?
-    [propSatisfies(isNil, 'command'), dataForCommand],
+  const noPlugin = isNil(context.plugin)
+  const noCommand = isNil(context.command)
+  const searchedforPlugin = !isBlank(context.parameters.pluginName)
+  const searchedforCommand = !isBlank(context.parameters.rawCommand)
 
-    // should never get here
-    [T, always([])]
-  ])(context)
+  // was there user error involved?
+  let errorMessage = null
+  if (searchedforPlugin && noPlugin) {
+    errorMessage = `${context.runtime.brand} '${context.parameters.pluginName}' is not a command.`
+  } else if (searchedforCommand && noCommand) {
+    errorMessage = `${context.runtime.brand} ${context.parameters.pluginName} '${context.parameters.rawCommand}' is not a command.`
+  }
 
-  print.newline()
+  let data = []
+  if (noPlugin) {
+    data = getListOfPlugins(context)
+    if (context.runtime.defaultPlugin) {
+      const defaultCommands = getListOfCommands(context, context.runtime.defaultPlugin)
+      data = data.concat(defaultCommands)
+    }
+  } else if (noCommand) {
+    data = getListOfCommands(context, context.plugin)
+  }
 
-  print.table(data)
+  print.newline()   // a spacer
+  print.table(data) // the data
+  if (errorMessage) {
+    print.newline()
+    print.error(errorMessage)
+  }
 }
 
 module.exports = printCommands
