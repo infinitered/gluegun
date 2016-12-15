@@ -3,8 +3,10 @@ const {
   isFile,
   isNotFile,
   isDirectory,
-  isNotDirectory
+  isNotDirectory,
+  subdirectories
 } = require('../../src/utils/filesystem-utils')
+const { contains } = require('ramda')
 
 test('isFile', t => {
   t.true(isFile(__filename))
@@ -26,3 +28,20 @@ test('isNotDirectory', t => {
   t.true(isNotDirectory(__filename))
 })
 
+test('subdirectories', t => {
+  const dirs = subdirectories(`${__dirname}/..`)
+  t.is(7, dirs.length)
+  t.true(contains(`${__dirname}/../utils`, dirs))
+})
+
+test('relative subdirectories', t => {
+  const dirs = subdirectories(`${__dirname}/..`, true)
+  t.is(7, dirs.length)
+  t.true(contains(`utils`, dirs))
+})
+
+test('filtered subdirectories', t => {
+  const dirs = subdirectories(`${__dirname}/..`, true, 'ut*')
+  t.is(1, dirs.length)
+  t.true(contains(`utils`, dirs))
+})

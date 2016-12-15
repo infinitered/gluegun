@@ -229,12 +229,13 @@ class Runtime {
    * Loads a bunch of plugins from the immediate sub-directories of a directory.
    *
    * @param {string} directory The directory to grab from.
+   * @param {string} matching  A jetpack matching pattern to filter the list.
    * @return {Plugin[]}        A bunch of plugins
    */
-  loadAll (directory) {
+  loadAll (directory, matching = '*') {
     if (isBlank(directory) || !isDirectory(directory)) return []
     return pipe(
-      subdirectories,
+      dir => subdirectories(dir, false, matching),
       map(this.load)
     )(directory)
   }

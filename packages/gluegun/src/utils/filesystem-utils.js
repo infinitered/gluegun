@@ -39,14 +39,15 @@ const isNotDirectory = complement(isDirectory)
  *
  * @param  {string} path       Path to a directory to check.
  * @param  {bool}   isRelative Return back the relative directory?
+ * @param  {string} matching   A jetpack matching filter
  * @return {string[]}          A list of directories
  */
-const subdirectories = (base, isRelative) => {
+const subdirectories = (base, isRelative, matching = '*') => {
   if (isBlank(base) || !isDirectory(base)) return []
   const dirs = jetpack
     .cwd(base)
     .find({
-      matching: '*',
+      matching,
       directories: true,
       recursive: false,
       files: false

@@ -49,7 +49,7 @@ class Builder {
       switch (entry.type) {
         case 'loadDefault': runtime.loadDefault(entry.value); break
         case 'load': runtime.load(entry.value); break
-        case 'loadAll': runtime.loadAll(entry.value); break
+        case 'loadAll': runtime.loadAll(entry.value, entry.matching); break
       }
     })
 
@@ -104,10 +104,11 @@ class Builder {
    * Add a plugin group to the list.
    *
    * @value {string} The directory with sub-directories.
+   * @matching {string} An optional jetpack glob matching to match.
    * @return {Builder} self.
    */
-  loadAll (value) {
-    this.loads.push({ type: 'loadAll', value })
+  loadAll (value, matching) {
+    this.loads.push({ type: 'loadAll', value, matching })
     return this
   }
 
