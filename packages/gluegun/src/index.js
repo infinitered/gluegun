@@ -11,6 +11,7 @@
 // I may be going to hell for this, but I'm taking you bastards with me.
 // ----------------------------------------------------------------------------
 require('app-module-path').addPath(`${__dirname}/../node_modules`)
+require('app-module-path').addPath(process.cwd())
 // ----------------------------------------------------------------------------
 
 // import a bunch of things we want to make available
