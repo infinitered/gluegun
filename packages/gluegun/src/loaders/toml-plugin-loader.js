@@ -89,12 +89,13 @@ function loadFromDirectory (directory, options = {}) {
     const tomlFile = `${directory}/${brand}.toml`
 
     // read it
-    const config = toml.parse(jetpack.read(tomlFile))
+    const config = toml.parse(jetpack.read(tomlFile) || '') || {}
 
     // set the name if we have one (unless we were told what it was)
     if (isBlank(name)) {
       plugin.name = config.name || plugin.name
     }
+    plugin[brand] = config[brand]
     plugin.defaults = config.defaults || {}
     plugin.description = config.description
 
