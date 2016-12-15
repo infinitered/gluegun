@@ -130,7 +130,8 @@ async function run (options) {
     // attach extensions
     forEach(
       extension => {
-        context[extension.name] = extension.setup(context.plugin, context.command, context)
+        const extend = extension.setup(context.plugin, context.command, context)
+        context[extension.name] = extend
       },
       this.extensions
     )
@@ -210,6 +211,10 @@ class Runtime {
     })
 
     this.plugins = append(plugin, this.plugins)
+    forEach(
+      extension => this.addExtension(extension.name, extension.setup),
+      plugin.extensions
+     )
     return plugin
   }
 
