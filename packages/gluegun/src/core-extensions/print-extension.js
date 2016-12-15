@@ -53,6 +53,8 @@ function attach (plugin, command, context) {
     colors,
     checkmark,
     xmark,
+    table: print.table,
+    newline: print.newline,
     color: colors
   }
 }
