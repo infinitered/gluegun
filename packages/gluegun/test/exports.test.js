@@ -12,5 +12,6 @@ test('create', t => {
   t.is(typeof exported.printCommands, 'function')
   t.is(typeof exported.printWtf, 'function')
   t.is(typeof exported.print.info, 'function')
+  t.is(typeof exported.subdirectories, 'function')
   t.is(exported.strings.lowerCase('HI'), 'hi')
 })

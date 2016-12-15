@@ -19,6 +19,7 @@ await build()
   .load('~/Desktop/movie/quote')
   .load('~/Desktop/movie/credits')
   .loadAll('~/Downloads/VariousMoviePlugins')
+  .loadAll('./node_modules', 'movies-*')
   .token('commandName', 'cliCommand')
   .token('commandDescription', 'cliDescription')
   .token('extensionName', 'contextExtension')
@@ -52,7 +53,7 @@ We'll be chaining the `build()` function from here.
 # Brand
 
 **Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
- 
+
 ```js
   .brand('movie')
 ```
@@ -75,6 +76,12 @@ You can also load all immediate sub-directories located within it a directory.
 
 ```js
   .loadAll('~/Downloads/VariousMoviePlugins')
+```
+
+Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
+
+```js
+  .loadAll('node_modules', 'movies-*')
 ```
 
 
@@ -122,7 +129,7 @@ $ movie quote random --funny
 $ movie credits actors Kingpin
 
 # run a command with arguments & options
-$ movie credits producers "Planes, Trains, & Automobiles" --sort age 
+$ movie credits producers "Planes, Trains, & Automobiles" --sort age
 ```
 
 So you see, it takes at least 2 extra arguments to run a command. That's because you can have multiple plugins and we need to qualify your commands with a namespace.
@@ -156,7 +163,7 @@ So, from our previous section, had we promoted the credits plugin to default, we
 $ movie actors Kingpin
 
 # run a command with arguments & options
-$ movie producers "Planes, Trains, & Automobiles" --sort age 
+$ movie producers "Planes, Trains, & Automobiles" --sort age
 ```
 
 Commands from the default plugin will now be evaluated first. If there is a match, they will be chosen over any other plugins.
@@ -183,7 +190,7 @@ await runtime.run({
 
 There's a few situations that make this useful.
 
-1. Maybe you like to use `meow` or `commander` to parse the command line. 
+1. Maybe you like to use `meow` or `commander` to parse the command line.
 2. Maybe your interface isn't a CLI.
 3. Maybe you want to run several command in a row.
 4. Maybe this is your program and you don't like strangers telling you how to code.

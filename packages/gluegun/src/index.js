@@ -19,6 +19,7 @@ const strings = require('./utils/string-utils')
 const print = require('./utils/print')
 const printCommands = require('./cli/print-commands')
 const printWtf = require('./cli/print-wtf')
+const { subdirectories } = require('./utils/filesystem-utils')
 
 // export our API
 module.exports = {
@@ -26,5 +27,6 @@ module.exports = {
   print,
   strings,
   printCommands,
-  printWtf
+  printWtf,
+  subdirectories
 }
