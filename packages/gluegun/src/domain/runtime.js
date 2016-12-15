@@ -108,10 +108,10 @@ async function run (options) {
   if (isNil(context.plugin)) return context
 
   // setup the config
-  context.config = clone(this.defaults)
+  context.config = clone(this.config)
   context.config[context.plugin.name] = merge(
     context.plugin.defaults,
-    this.defaults[context.plugin.name] || {}
+    this.defaults && this.defaults[context.plugin.name] || {}
   )
 
   // jet if we have no command
@@ -162,6 +162,7 @@ class Runtime {
     this.defaults = {}
     this.defaultPlugin = null
     this.events = {}
+    this.config = {}
 
     this.addCoreExtensions()
   }

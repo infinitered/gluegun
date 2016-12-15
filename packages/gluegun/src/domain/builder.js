@@ -1,6 +1,6 @@
 const autobind = require('autobind-decorator')
 const Runtime = require('./runtime')
-const { pipe, tryCatch, always, propOr } = require('ramda')
+const { dissoc, pipe, tryCatch, always } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
 const { isFile } = require('../utils/filesystem-utils')
 const jetpack = require('fs-jetpack')
@@ -31,11 +31,17 @@ class Builder {
 
     // load the config if we got it
     if (attemptConfigLoad) {
-      runtime.defaults = pipe(
+      // load the config
+      const config = pipe(
         jetpack.read,
-        tryCatch(toml.parse, always({})),
-        propOr({}, 'defaults')
+        tryCatch(toml.parse, always({}))
         )(this.configFile)
+
+      // extract the defaults
+      runtime.defaults = config.defaults
+
+      // set config to be the file minutes defaults
+      runtime.config = dissoc('defaults', config)
     }
 
     // set the rest of the properties
