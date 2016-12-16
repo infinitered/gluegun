@@ -5,15 +5,9 @@ const {
   map,
   sortBy,
   prop,
-  T,
   propEq,
-  propSatisfies,
   reject,
-  cond,
-  always,
-  replace,
-  concat,
-  head
+  replace
 } = require('ramda')
 const { dotPath } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
