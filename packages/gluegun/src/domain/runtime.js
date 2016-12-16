@@ -73,10 +73,10 @@ async function run (options) {
     const { first, rest, parsedOptions } = parseCommandLine(options || process.argv)
     context.parameters.pluginName = first
     context.parameters.rawCommand = rest
-    context.parameters.options = parsedOptions
+    context.parameters.options = parsedOptions || {}
   } else {
     // grab the options that were passed in
-    context.parameters.options = options.options
+    context.parameters.options = options.options || {}
 
     // did the user fill out the rawCommand but not the plug name?
     if (isBlank(options.pluginName) && !isBlank(options.rawCommand)) {
