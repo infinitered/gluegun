@@ -4,8 +4,9 @@
   "description": "Tack stuff on to your code base.",
   "main": "index.js",
   "scripts": {
-    "lint": "lerna exec yarn run lint --scope gluegun*",
-    "test": "lerna exec yarn run test --scope gluegun*"
+    "lint": "lerna exec yarn run lint",
+    "test": "lerna exec yarn run test",
+    "publish": "lerna publish"
   },
   "author": "",
   "license": "MIT",
