@@ -70,7 +70,7 @@ async function run (options) {
   // once we understand better what the user is looking for.
   if (isNilOrEmpty(options) || optionsIsArray) {
     // grab the params from the command line
-    const { first, rest, parsedOptions } = parseCommandLine(options || process.argv)
+    const { first, rest, options: parsedOptions } = parseCommandLine(options || process.argv)
     context.parameters.pluginName = first
     context.parameters.rawCommand = rest
     context.parameters.options = parsedOptions || {}
