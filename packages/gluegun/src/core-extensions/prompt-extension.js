@@ -16,6 +16,25 @@ function attach () {
   enquirer.register('password', require('prompt-password'))
   enquirer.register('question', require('prompt-question'))
   enquirer.register('autocomplete', require('prompt-autocompletion'))
+
+  /**
+   * A yes/no question.
+   *
+   * @param {string} message The message to display to the user.
+   * @returns {bool}         The true/false answer.
+   */
+  const confirm = async (message) => {
+    const answers = await enquirer.ask({
+      name: 'yesno',
+      type: 'confirm',
+      message
+    })
+    return answers.yesno
+  }
+
+  // attach our helpers
+  enquirer.confirm = confirm
+
   return enquirer
 }
 
