@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "lerna exec yarn run lint",
-    "test": "lerna exec yarn run test",
-    "publish": "lerna publish"
+    "test": "lerna exec yarn run test"
   },
   "author": "",
   "license": "MIT",
