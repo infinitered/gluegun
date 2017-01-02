@@ -12,7 +12,7 @@ test('the gauntlet', t => {
     // plugins
     .loadDefault(`${__dirname}/../fixtures/good-plugins/threepack`)
     .load(`${__dirname}/../fixtures/good-plugins/simplest`)
-    .loadAll(`${__dirname}/../fixtures/good-plugins`)
+    .loadAll(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
 
     // events
     .on('start', () => {})

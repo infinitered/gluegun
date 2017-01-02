@@ -4,7 +4,7 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { map, contains, __ } = require('ramda')
+const { assoc, map, contains, __ } = require('ramda')
 const toml = require('toml')
 
 /**
@@ -28,11 +28,14 @@ function loadFromDirectory (directory, options = {}) {
     brand = 'gluegun',
     commandFilePattern = '*.js',
     extensionFilePattern = '*.js',
+    hidden = false,
     commandNameToken,
     commandDescriptionToken,
     extensionNameToken,
     name
   } = options
+
+  plugin.hidden = Boolean(options.hidden)
 
   if (!isBlank(name)) {
     plugin.name = name
@@ -114,6 +117,9 @@ function loadFromDirectory (directory, options = {}) {
   // we are good!
   plugin.loadState = 'ok'
   plugin.errorState = 'none'
+
+  // set the hidden bit
+  plugin.commands = map(assoc('hidden', hidden), plugin.commands)
 
   return plugin
 }

@@ -31,6 +31,7 @@ class Command {
     this.loadState = 'none'
     this.errorState = 'none'
     this.exception = null
+    this.hidden = false
   }
 
 }
