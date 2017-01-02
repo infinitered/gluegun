@@ -18,7 +18,7 @@ name            | provides the...                                     | 3rd part
 **config**      | configuration options from the app or plugin        | 
 **print**       | tools to print output to the command line           | colors
 **template**    | code generation from templates                      | ejs
-**prompt**      | tools to acquire extra command line user input      | inquirer
+**prompt**      | tools to acquire extra command line user input      | enquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
 **system**      | ability to execute & copy to the clipboard          | 
 **http**        | ability to talk to the web                          | apisauce
@@ -225,7 +225,7 @@ option           | type    | purpose                              | notes
 
 **async**
 
-This is the lovely and talented [inquirer.js](https://github.com/SBoudrias/Inquirer.js).  Here's some examples:
+This is the lovely and talented [enquirer](https://github.com/enquirer/enquirer).  Here's some examples:
 
 ```js
 // a thought-provoking question
