@@ -1,5 +1,6 @@
 const test = require('ava')
 const Runtime = require('../../src/domain/runtime')
+const { startsWith } = require('ramdasauce')
 
 const createRuntime = () => {
   const r = new Runtime()
@@ -29,6 +30,27 @@ red
 green
 blue
 *****
+`)
+})
+
+test('detects missing templates', async t => {
+  const context = await createRuntime().run({
+    pluginName: 'generate',
+    rawCommand: 'missing'
+  })
+
+  t.truthy(context.error)
+  t.true(startsWith('template not found ', context.error.message))
+})
+
+test('supports directories', async t => {
+  const context = await createRuntime().run({
+    pluginName: 'generate',
+    rawCommand: 'special location'
+  })
+
+  t.falsy(context.error && context.error.message)
+  t.is(context.result, `location
 `)
 })
 

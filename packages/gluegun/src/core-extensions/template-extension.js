@@ -2,6 +2,7 @@ const ejs = require('ejs')
 const jetpack = require('fs-jetpack')
 const { replace, forEach, keys } = require('ramda')
 const stringUtils = require('../utils/string-utils')
+const { isFile } = require('../utils/filesystem-utils')
 
 /**
  * Builds the code generation feature.
@@ -36,9 +37,21 @@ function attach (plugin, command, context) {
       keys(stringUtils)
     )
 
-    // preference given to sporks
-    // const sporkTemplateContent = jetpack.read(`${jetpack.cwd()}/${context.runtime.brand}/templates/${plugin.name}/${template}`)
-    const templateContent = jetpack.read(`${plugin.directory}/templates/${template}`)
+    // pick a base directory for templates
+    const directory = opts.directory
+      ? opts.directory
+      : `${plugin.directory}/templates/`
+
+    const pathToTemplate = `${directory}/${template}`
+
+    // bomb if the template doesn't exist
+    if (!isFile(pathToTemplate)) {
+      throw new Error(`template not found ${pathToTemplate}`)
+    }
+
+    // read the template
+    const templateContent = jetpack.read(pathToTemplate)
+
     // render the template
     const content = ejs.render(templateContent, data)
 
