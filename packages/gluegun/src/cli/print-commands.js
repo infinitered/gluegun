@@ -18,6 +18,11 @@ const { isBlank } = require('../utils/string-utils')
 const hasLoadStateError = propEq('loadState', 'error')
 
 /**
+ * Is this a hidden command?
+ */
+const isHidden = propEq('hidden', true)
+
+/**
  * Gets the list of plugins.
  *
  * @param {RunContext} context
@@ -27,6 +32,7 @@ function getListOfPlugins (context) {
   return pipe(
     dotPath('runtime.plugins'),
     reject(hasLoadStateError),
+    reject(isHidden),
     reject(plugin => context.runtime.defaultPlugin && context.runtime.defaultPlugin.name === plugin.name),
     sortBy(prop('name')),
     map(plugin => [
@@ -47,6 +53,7 @@ function getListOfCommands (context, plugin) {
   return pipe(
     prop('commands'),
     reject(hasLoadStateError),
+    reject(isHidden),
     map(command => [
       command.name,
       replace('$BRAND', context.runtime.brand, command.description || '-')

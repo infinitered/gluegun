@@ -31,6 +31,7 @@ class Plugin {
     this.defaults = {}
     this.directory = null
     this.errorMessage = null
+    this.hidden = false
     /**
      * A list of commands.
      */

@@ -15,6 +15,7 @@ const {
   append,
   forEach,
   isNil,
+  dissoc,
   map,
   is
 } = require('ramda')
@@ -199,16 +200,18 @@ class Runtime {
    * Loads a plugin from a directory.
    *
    * @param  {string} directory The directory to load from.
+   * @param  {Object} options   Additional loading options.
    * @return {Plugin}           A plugin.
    */
-  load (directory) {
+  load (directory, options = {}) {
     const { brand, extensionNameToken, commandNameToken, commandDescriptionToken } = this
 
     const plugin = loadPluginFromDirectory(directory, {
       extensionNameToken,
       commandNameToken,
       commandDescriptionToken,
-      brand
+      brand,
+      hidden: options['hidden']
     })
 
     this.plugins = append(plugin, this.plugins)
@@ -223,10 +226,11 @@ class Runtime {
    * Loads a plugin from a directory and sets it as the default.
    *
    * @param  {string} directory The directory to load from.
+   * @param  {Object} options   Additional loading options.
    * @return {Plugin}           A plugin.
    */
-  loadDefault (directory) {
-    const plugin = this.load(directory)
+  loadDefault (directory, options = {}) {
+    const plugin = this.load(directory, options)
     this.defaultPlugin = plugin
     return plugin
   }
@@ -235,14 +239,14 @@ class Runtime {
    * Loads a bunch of plugins from the immediate sub-directories of a directory.
    *
    * @param {string} directory The directory to grab from.
-   * @param {string} matching  A jetpack matching pattern to filter the list.
+   * @param {Object} options   Addition loading options.
    * @return {Plugin[]}        A bunch of plugins
    */
-  loadAll (directory, matching = '*') {
+  loadAll (directory, options = {}) {
     if (isBlank(directory) || !isDirectory(directory)) return []
     return pipe(
-      dir => subdirectories(dir, false, matching),
-      map(this.load)
+      dir => subdirectories(dir, false, options['matching']),
+      map(dir => this.load(dir, dissoc('matching', options)))
     )(directory)
   }
 

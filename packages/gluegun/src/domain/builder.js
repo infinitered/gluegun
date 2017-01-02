@@ -53,9 +53,9 @@ class Builder {
     // the plugins get loaded last
     this.loads.forEach(entry => {
       switch (entry.type) {
-        case 'loadDefault': runtime.loadDefault(entry.value); break
-        case 'load': runtime.load(entry.value); break
-        case 'loadAll': runtime.loadAll(entry.value, entry.matching); break
+        case 'loadDefault': runtime.loadDefault(entry.value, entry.options); break
+        case 'load': runtime.load(entry.value, entry.options); break
+        case 'loadAll': runtime.loadAll(entry.value, entry.options); break
       }
     })
 
@@ -87,34 +87,36 @@ class Builder {
   /**
    * Add a plugin to the list.
    *
-   * @value {string} The plugin directory.
-   * @return {Builder} self.
+   * @param  {string}  value   The plugin directory.
+   * @param  {Object}  options Additional loading options.
+   * @return {Builder}         self.
    */
-  load (value) {
-    this.loads.push({ type: 'load', value })
+  load (value, options = {}) {
+    this.loads.push({ type: 'load', value, options })
     return this
   }
 
   /**
    * Add a default plugin to the list.
    *
-   * @value {string} The default plugin directory.
-   * @return {Builder} self.
+   * @param  {string}  value   The default plugin directory.
+   * @param  {Object}  options Additional loading options.
+   * @return {Builder}         self.
    */
-  loadDefault (value) {
-    this.loads.push({ type: 'loadDefault', value })
+  loadDefault (value, options = {}) {
+    this.loads.push({ type: 'loadDefault', value, options })
     return this
   }
 
   /**
    * Add a plugin group to the list.
    *
-   * @value {string} The directory with sub-directories.
-   * @matching {string} An optional jetpack glob matching to match.
-   * @return {Builder} self.
+   * @param  {string}  value   The directory with sub-directories.
+   * @param  {Object}  options Additional loading options.
+   * @return {Builder}         self.
    */
-  loadAll (value, matching) {
-    this.loads.push({ type: 'loadAll', value, matching })
+  loadAll (value, options = {}) {
+    this.loads.push({ type: 'loadAll', value, options })
     return this
   }
 

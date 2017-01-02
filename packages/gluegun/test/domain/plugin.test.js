@@ -8,6 +8,7 @@ test('default state', t => {
   t.is(plugin.errorState, 'none')
   t.falsy(plugin.directory)
   t.falsy(plugin.name)
+  t.is(plugin.hidden, false)
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.extensions, [])
   t.deepEqual(plugin.defaults, {})

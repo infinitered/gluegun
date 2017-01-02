@@ -19,7 +19,7 @@ await build()
   .load('~/Desktop/movie/quote')
   .load('~/Desktop/movie/credits')
   .loadAll('~/Downloads/VariousMoviePlugins')
-  .loadAll('./node_modules', 'movies-*')
+  .loadAll('./node_modules', { matching: 'movies-*', hidden: true })
   .token('commandName', 'cliCommand')
   .token('commandDescription', 'cliDescription')
   .token('extensionName', 'contextExtension')
@@ -81,8 +81,16 @@ You can also load all immediate sub-directories located within it a directory.
 Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
 
 ```js
-  .loadAll('node_modules', 'movies-*')
+  .loadAll('node_modules', { matching: 'movies-*' })
 ```
+
+If you would like to keep plugins hidden and not available at the command line:
+
+```js
+  .loadAll('node_modules', { matching: 'movies-*', hidden: true })
+```
+
+When plugins are hidden they can still be run directly from the runtime.
 
 
 # Finishing Configuration

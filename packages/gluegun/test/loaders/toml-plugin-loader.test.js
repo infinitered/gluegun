@@ -62,6 +62,9 @@ test('loads commands', async t => {
   t.is(two.file, `${dir}/commands/two.js`)
   t.is(typeof two.run, 'function')
   t.is(await two.run(), 'two')
+  t.false(plugin.commands[0].hidden)
+  t.false(plugin.commands[1].hidden)
+  t.false(plugin.commands[2].hidden)
 })
 
 test('load commands with front matter', async t => {
@@ -106,3 +109,14 @@ test('blank names fallback to directory name', t => {
   t.is(plugin.loadState, 'ok')
   t.is(plugin.errorState, 'none')
 })
+
+test('supports hidden plugins & commands', t => {
+  const dir = `${__dirname}/../fixtures/good-plugins/threepack`
+  const plugin = load(dir, { hidden: true })
+
+  t.true(plugin.hidden)
+  t.true(plugin.commands[0].hidden)
+  t.true(plugin.commands[1].hidden)
+  t.true(plugin.commands[2].hidden)
+})
+
