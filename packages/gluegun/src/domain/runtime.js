@@ -204,11 +204,13 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory, options = {}) {
-    const { brand, extensionNameToken, commandNameToken, commandDescriptionToken } = this
+    const { brand, extensionNameToken, commandNameToken, commandDescriptionToken, commandHiddenToken, commandAliasToken } = this
 
     const plugin = loadPluginFromDirectory(directory, {
       extensionNameToken,
       commandNameToken,
+      commandHiddenToken,
+      commandAliasToken,
       commandDescriptionToken,
       brand,
       hidden: options['hidden']

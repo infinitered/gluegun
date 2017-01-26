@@ -30,6 +30,8 @@ function loadFromDirectory (directory, options = {}) {
     extensionFilePattern = '*.js',
     hidden = false,
     commandNameToken,
+    commandHiddenToken,
+    commandAliasToken,
     commandDescriptionToken,
     extensionNameToken,
     name
@@ -69,7 +71,7 @@ function loadFromDirectory (directory, options = {}) {
     plugin.commands = map(
       file => loadCommandFromFile(
         `${directory}/commands/${file}`,
-        { commandNameToken, commandDescriptionToken }
+        { commandNameToken, commandDescriptionToken, commandHiddenToken, commandAliasToken }
       ),
       jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: false })
       )
@@ -119,7 +121,9 @@ function loadFromDirectory (directory, options = {}) {
   plugin.errorState = 'none'
 
   // set the hidden bit
-  plugin.commands = map(assoc('hidden', hidden), plugin.commands)
+  if (hidden) {
+    plugin.commands = map(assoc('hidden', true), plugin.commands)
+  }
 
   return plugin
 }

@@ -37,6 +37,8 @@ function loadFromFile (file, options = {}) {
 
   const commandNameToken = options.commandNameToken || 'gluegunCommandName'
   const commandDescriptionToken = options.commandDescriptionToken || 'gluegunCommandDescription'
+  const commandHiddenToken = options.commandHiddenToken || 'gluegunCommandHidden'
+  const commandAliasToken = options.commandAliasToken || 'gluegunCommandAlias'
 
   // sanity check the input
   if (isBlank(file)) {
@@ -61,11 +63,13 @@ function loadFromFile (file, options = {}) {
   // let's load
   try {
     // try reading in tokens embedded in the file
-    const tokens = findTokens(jetpack.read(file) || '', [commandNameToken, commandDescriptionToken])
+    const tokens = findTokens(jetpack.read(file) || '', [commandNameToken, commandDescriptionToken, commandHiddenToken, commandAliasToken])
 
     // let's override if we've found these tokens
     command.name = tokens[commandNameToken] || command.name
     command.description = tokens[commandDescriptionToken] || command.description
+    command.alias = tokens[commandAliasToken] || command.alias
+    command.hidden = (tokens[commandHiddenToken] || command.hidden) === 'true'
 
     // require in the module -- best chance to bomb is here
     const commandModule = loadModule(file)

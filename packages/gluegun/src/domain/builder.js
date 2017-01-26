@@ -48,6 +48,8 @@ class Builder {
     runtime.events = this.events
     runtime.commandNameToken = this.commandNameToken
     runtime.commandDescriptionToken = this.commandDescriptionToken
+    runtime.commandHiddenToken = this.commandHiddenToken
+    runtime.commandAliasToken = this.commandAliasToken
     runtime.extensionNameToken = this.extensionNameToken
 
     // the plugins get loaded last
@@ -147,6 +149,12 @@ class Builder {
         break
       case 'commandDescription':
         this.commandDescriptionToken = value
+        break
+      case 'commandHidden':
+        this.commandHiddenToken = value
+        break
+      case 'commandAlias':
+        this.commandAliasToken = value
         break
       case 'extensionName':
         this.extensionNameToken = value

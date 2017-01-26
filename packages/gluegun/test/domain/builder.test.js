@@ -30,6 +30,8 @@ test('the gauntlet', t => {
     // plugin tokens
     .token('commandName', '@cliCommand')
     .token('commandDescription', '@cliDescription')
+    .token('commandHidden', '@cliHidden')
+    .token('commandAlias', '@cliAlias')
     .token('extensionName', '@extensionName')
 
   // the the builder
