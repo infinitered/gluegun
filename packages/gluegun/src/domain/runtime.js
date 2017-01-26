@@ -292,7 +292,7 @@ class Runtime {
     if (isNilOrEmpty(plugin.commands)) return null
 
     return find(
-      (command) => startsWith(command.name, rawCommand)
+      (command) => startsWith(command.name, rawCommand) || rawCommand === command.alias
       , plugin.commands
       )
   }

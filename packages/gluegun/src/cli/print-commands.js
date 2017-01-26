@@ -54,10 +54,13 @@ function getListOfCommands (context, plugin) {
     prop('commands'),
     reject(hasLoadStateError),
     reject(isHidden),
-    map(command => [
-      command.name,
-      replace('$BRAND', context.runtime.brand, command.description || '-')
-    ])
+    map(command => {
+      const alias = command.alias ? `(${command.alias})` : ''
+      return [
+        `${command.name} ${alias}`,
+        replace('$BRAND', context.runtime.brand, command.description || '-')
+      ]
+    })
   )(plugin)
 }
 
