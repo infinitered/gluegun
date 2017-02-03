@@ -31,6 +31,7 @@
     "colors": "^1.1.2",
     "ejs": "^2.5.5",
     "enquirer": "^0.4.1",
+    "execa": "^0.6.0",
     "fs-jetpack": "^0.10.3",
     "lodash": "^4.17.2",
     "minimist": "^1.2.0",
