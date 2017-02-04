@@ -27,3 +27,8 @@ test('reads and writes the clipboard', t => {
   const clip = system.readFromClipboard()
   t.is(clip, 'hello!')
 })
+
+test('knows about which', t => {
+  const npm = system.which('npm')
+  t.truthy(npm)
+})
