@@ -129,6 +129,7 @@ module                                                  | purpose
 [minimist](https://github.com/substack/minimist)        | command line parsing
 [clipboardy](https://github.com/sindresorhus/clipboardy)| copy & paste
 [toml](https://github.com/BinaryMuse/toml-node)         | TOML files
+[shelljs](https://github.com/shelljs/shelljs)           | shell utilities
 ## Including Modules
 
 > TODO: verify that this can be done.

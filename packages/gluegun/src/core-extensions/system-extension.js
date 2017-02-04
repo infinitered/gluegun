@@ -1,7 +1,8 @@
 const { exec: nodeExec, spawn: nodeSpawn } = require('child_process')
 const clipboardy = require('clipboardy')
-const { split, head, tail } = require('ramda')
+const { split, head, tail, dissoc, trim, identity } = require('ramda')
 const execa = require('execa')
+const Shell = require('shelljs')
 
 /**
  * Extensions to launch processes, open files, and talk to the clipboard.
@@ -16,14 +17,17 @@ module.exports = function (plugin, command, context) {
    * @param {options} options Additional child_process options for node.
    * @returns {Promise}
    */
-  async function run (commandLine, options) {
+  async function run (commandLine, options = {}) {
+    const trimmer = options && options.trim ? trim : identity
+    const nodeOptions = dissoc('trim', options)
+
     return new Promise((resolve, reject) => {
-      nodeExec(commandLine, options, (error, stdout, stderr) => {
+      nodeExec(commandLine, nodeOptions, (error, stdout, stderr) => {
         if (error) {
           error.stderr = stderr
           reject(error)
         }
-        resolve(stdout)
+        resolve(trimmer(stdout || ''))
       })
     })
   }
@@ -84,5 +88,15 @@ module.exports = function (plugin, command, context) {
     clipboardy.writeSync(text)
   }
 
-  return { exec, run, spawn, readFromClipboard, writeToClipboard }
+  /**
+   * Finds the location of the path.
+   *
+   * @param {string} command The name of program you're looking for.
+   * @return {string} The full path or null.
+   */
+  function which (command) {
+    return Shell.which(command)
+  }
+
+  return { exec, run, spawn, readFromClipboard, writeToClipboard, which }
 }

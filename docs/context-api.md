@@ -20,7 +20,7 @@ name            | provides the...                                     | 3rd part
 **template**    | code generation from templates                      | ejs
 **prompt**      | tools to acquire extra command line user input      | enquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
-**system**      | ability to execute & copy to the clipboard          | 
+**system**      | ability to execute & copy to the clipboard          | shelljs, execa
 **http**        | ability to talk to the web                          | apisauce
 **strings**     | some string helpers like case conversion, etc.      | lodash & ramda
 
@@ -370,7 +370,10 @@ Runs a shell command and returns the output as a string.
 
 The first parameter `commandLine` is the shell command to run.  It can have pipes! The
 second parameter is `options`, object. This is a promise wrapped around node.js `child-process.exec`
-[api call](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback).  
+[api call](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback). 
+
+You can also pass `trim: true` inside the options parameter to have the output automatically trim all
+starting and trailing spaces.
 
 Should the process fail, an `error` will be thrown with properties such as:
 
@@ -382,6 +385,17 @@ stderr   | string | any information the process wrote to `stderr`
 killed   | bool   | if the process was killed or not
 signal   | number | the signal number used to off the process (if killed)
 
+```js
+const nodeVersion = context.system.run('node -v', { trim: true })
+```
+
+### context.system.which
+
+Retursn the full path to a command on your system if located on your path.
+
+```js
+const whereIsIt = context.system.which('npm')
+```
 
 ### context.system.open
 :(
