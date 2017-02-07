@@ -1,4 +1,5 @@
 # gluegun
+[![Slackin](https://infiniteredcommunity.herokuapp.com/badge.svg)](https://infiniteredcommunity.herokuapp.com/)
 
 `gluegun` is a toolkit for building CLIs.
 
