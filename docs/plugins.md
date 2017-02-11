@@ -130,6 +130,7 @@ module                                                  | purpose
 [clipboardy](https://github.com/sindresorhus/clipboardy)| copy & paste
 [toml](https://github.com/BinaryMuse/toml-node)         | TOML files
 [shelljs](https://github.com/shelljs/shelljs)           | shell utilities
+[ora](https://github.com/sindresorhus/ora)              | spinner
 ## Including Modules
 
 > TODO: verify that this can be done.
