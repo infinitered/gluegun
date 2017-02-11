@@ -1,4 +1,5 @@
 const print = require('../utils/print')
+const ora = require('ora')
 
 /**
  * Extensions to print to the console.
@@ -43,6 +44,16 @@ function attach (plugin, command, context) {
     print.success(message)
   }
 
+  /**
+   * Creates a spinner and starts it up.
+   *
+   * @param {string|Object} config The text for the spinner or an ora configuration object.
+   * @returns The spinner.
+   */
+  function spin (config) {
+    return ora(config).start()
+  }
+
   // return back the feature set
   return {
     info,
@@ -53,6 +64,8 @@ function attach (plugin, command, context) {
     colors,
     checkmark,
     xmark,
+    spin,
+
     table: print.table,
     newline: print.newline,
     color: colors

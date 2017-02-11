@@ -16,7 +16,7 @@ name            | provides the...                                     | 3rd part
 ----------------|-----------------------------------------------------|--------
 **parameters**  | command line arguments and options                  | minimist
 **config**      | configuration options from the app or plugin        | 
-**print**       | tools to print output to the command line           | colors
+**print**       | tools to print output to the command line           | colors, ora
 **template**    | code generation from templates                      | ejs
 **prompt**      | tools to acquire extra command line user input      | enquirer
 **filesystem**  | ability to copy, move & delete files & directories  | fs-jetpack
@@ -181,6 +181,52 @@ Each take a `string` parameter and return a `string`.
 One gotcha here is that the length of the string is longer than you think
 because of the embedded color codes that disappear when you print them. 🔥
 
+### context.print.spin
+Creates a spinner for long running tasks on the command line.  It's [ora](https://github.com/sindresorhus/ora)!
+
+Here's an example of how to work with it:
+
+```js
+// a spinner starts with the text you provide
+const spinner = context.print.spin('Time for fun!')
+await context.system.run('sleep 5')
+```
+
+🚨 Important 🚨 - Make sure you don't print anything else while a spinner is going.  You need to stop it first.
+
+There's a few ways to stop it.
+
+```js
+// stop it & clear the text
+spinner.stop()
+
+// stop it, leave a checkmark, and optional new text
+spinner.succeed('woot!')
+
+// stop it, leave an X, and optional new text
+spinner.fail('womp womp.')
+
+// stop it, leave a custom label, and optional new text
+spinner.stopAndPersist({ symbol: '🚨', text: 'osnap!' })
+```
+
+Once stopped, you can start it again later.
+
+```js
+spinner.start()
+```
+
+You can change the color of the spinner by setting:
+
+```js
+spinner.color = 'cyan'
+```
+
+The text can also be set with the normal printing colors.
+
+```js
+spinner.text = context.print.colors.green('i like trees')
+```
 
 # context.template
 Features for generating files based on a template.
