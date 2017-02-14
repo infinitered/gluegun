@@ -40,7 +40,7 @@
     "prompt-checkbox": "^0.4.2",
     "prompt-confirm": "^0.2.1",
     "prompt-expand": "^0.1.0",
-    "prompt-list": "^0.1.1",
+    "prompt-list": "^0.1.2",
     "prompt-password": "^0.1.1",
     "prompt-question": "^0.4.0",
     "prompt-radio": "^0.3.1",
