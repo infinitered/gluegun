@@ -101,7 +101,7 @@ At this point, we've been configuring our environment.  When we're ready, we cal
   .createRuntime()
 ```
 
-This command makes applies the configuration that you were just chaining, and turns it into a `Runtime` which supports calling `run()`.
+This command applies the configuration that you were just chaining, and turns it into a `Runtime` which supports calling `run()`.
 
 ```js
   const runtime = build()
