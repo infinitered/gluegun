@@ -1,4 +1,16 @@
-const { pipe, split, map, match, trim, head, tail, last, fromPairs, concat, join } = require('ramda')
+const {
+  pipe,
+  split,
+  map,
+  match,
+  trim,
+  head,
+  tail,
+  last,
+  fromPairs,
+  concat,
+  join
+} = require('ramda')
 const { isNotString } = require('../utils/string-utils')
 const throwWhen = require('../utils/throw-when')
 
@@ -18,13 +30,8 @@ module.exports = function findTokens (source, tokensToFind = []) {
   const tokens = join('|', map(concat('@'), tokensToFind))
   const rxCommands = new RegExp('\\s(' + tokens + ')\\s+(.*)', 'g')
 
-  return pipe(
-    match(rxCommands),
-    map(trim),
-    map(x => [
-      pipe(match(rxKey), head, tail)(x), // key
-      pipe(split(rxValue), last, trim)(x)   // value
-    ]),
-    fromPairs
-  )(source)
+  return pipe(match(rxCommands), map(trim), map(x => [
+    pipe(match(rxKey), head, tail)(x), // key
+    pipe(split(rxValue), last, trim)(x) // value
+  ]), fromPairs)(source)
 }

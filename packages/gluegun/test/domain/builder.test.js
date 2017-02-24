@@ -5,15 +5,12 @@ test('the gauntlet', t => {
   const brand = 'test'
   const builder = build()
     .brand(brand)
-
     // read from a configuration file
     .configFile(`./${brand}.toml`)
-
     // plugins
     .loadDefault(`${__dirname}/../fixtures/good-plugins/threepack`)
     .load(`${__dirname}/../fixtures/good-plugins/simplest`)
     .loadAll(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
-
     // events
     .on('start', () => {})
     .on('pluginLoad', context => {})
@@ -26,7 +23,6 @@ test('the gauntlet', t => {
     .on('commandError', context => {})
     .on('runError', context => {})
     .on('finish', context => {})
-
     // plugin tokens
     .token('commandName', '@cliCommand')
     .token('commandDescription', '@cliDescription')

@@ -6,7 +6,7 @@ test('it throws', t => {
   t.throws(() => throwWhen('lulz', T, 1))
 })
 
-test('it doesn\'t throws', t => {
+test("it doesn't throws", t => {
   throwWhen('lulz', F, 1)
   t.pass()
 })

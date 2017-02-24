@@ -12,8 +12,8 @@ const toml = require('toml')
 function getPluginsFromConfig (path) {
   try {
     return pipe(
-      jetpack.read,         // read the file
-      toml.parse,           // parse it
+      jetpack.read, // read the file
+      toml.parse, // parse it
       propOr([], 'plugins') // grab the plugins or []
     )(path)
   } catch (e) {
@@ -22,4 +22,3 @@ function getPluginsFromConfig (path) {
 }
 
 module.exports = getPluginsFromConfig
-

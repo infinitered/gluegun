@@ -53,4 +53,3 @@ test('has front matter', t => {
   t.is(extension.errorState, 'none')
   t.is(extension.name, 'hello')
 })
-

@@ -14,7 +14,8 @@ const Extension = require('../domain/extension')
 function loadFromFile (file, options = {}) {
   const extension = new Extension()
 
-  const extensionNameToken = options.extensionNameToken || 'gluegunExtensionName'
+  const extensionNameToken = options.extensionNameToken ||
+    'gluegunExtensionName'
 
   // sanity check the input
   if (isBlank(file)) {

@@ -25,12 +25,15 @@ test('supports props', async t => {
   })
 
   t.falsy(context.error && context.error.message)
-  t.is(context.result, `greetingsAndSalutations world
+  t.is(
+    context.result,
+    `greetingsAndSalutations world
 red
 green
 blue
 *****
-`)
+`
+  )
 })
 
 test('detects missing templates', async t => {
@@ -50,7 +53,9 @@ test('supports directories', async t => {
   })
 
   t.falsy(context.error && context.error.message)
-  t.is(context.result, `location
-`)
+  t.is(
+    context.result,
+    `location
+`
+  )
 })
-

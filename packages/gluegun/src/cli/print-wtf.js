@@ -68,72 +68,109 @@ module.exports = function (runtime) {
   const cwdslash = jetpack.cwd() + '/'
 
   // grab the printable errors
-  const printable = pipe(
-    filter(hasProblem),
-    sortBy(prop('name'))
-  )(runtime.plugins)
+  const printable = pipe(filter(hasProblem), sortBy(prop('name')))(
+    runtime.plugins
+  )
 
   // and print!
-  forEach(plugin => {
-    // find the relative directory
-    const pluginRelativeDir = replace(cwdslash, '', plugin.directory)
+  forEach(
+    plugin => {
+      // find the relative directory
+      const pluginRelativeDir = replace(cwdslash, '', plugin.directory)
 
-    // start with a divider to see between plugins
-    print.divider()
+      // start with a divider to see between plugins
+      print.divider()
 
-    // print some information about the plugin
-    const pluginWriter = hasProblem(plugin) ? print.colors.error : print.colors.success
-    const problemDescription = plugin.errorState !== 'none'
-      ? print.colors.error(`-- ${humanizePluginError(plugin.errorState)}`)
-      : ''
-    print.fancy(print.colors.muted('plugin ') + pluginWriter(`${plugin.name} ${problemDescription}`))
-    print.info('  ' + pluginRelativeDir)
-    print.newline()
-
-    // print the extensions
-    forEach(extension => {
-      // print the name (with optional error message)
-      const colorWriter = hasLoadStateError(extension) ? print.colors.error : print.colors.success
-      const commandErrorDescription = extension.errorState !== 'none'
-        ? print.colors.error(`-- ${humanizeCommandError(extension.errorState)}`)
+      // print some information about the plugin
+      const pluginWriter = hasProblem(plugin)
+        ? print.colors.error
+        : print.colors.success
+      const problemDescription = plugin.errorState !== 'none'
+        ? print.colors.error(`-- ${humanizePluginError(plugin.errorState)}`)
         : ''
-      print.fancy(print.colors.muted('extension ') + colorWriter(`${extension.name} ${commandErrorDescription}`))
-
-      // the directory
-      print.info('  ' + pluginRelativeDir + '/' + replace(plugin.directory + '/', '', extension.file))
-
-      // print the exception if we have one
-      if (extension.exception) {
-        print.newline()
-        console.dir(extension.exception)
-      }
-
+      print.fancy(
+        print.colors.muted('plugin ') +
+          pluginWriter(`${plugin.name} ${problemDescription}`)
+      )
+      print.info('  ' + pluginRelativeDir)
       print.newline()
-    }, filter(hasLoadStateError, plugin.extensions))
 
-    // print the commands
-    forEach(command => {
-      // print the name (with optional error message)
-      const colorWriter = hasLoadStateError(command) ? print.colors.error : print.colors.success
-      const commandErrorDescription = command.errorState !== 'none'
-        ? print.colors.error(`-- ${humanizeCommandError(command.errorState)}`)
-        : ''
-      print.fancy(print.colors.muted('command ') + colorWriter(`${command.name} ${commandErrorDescription}`))
+      // print the extensions
+      forEach(
+        extension => {
+          // print the name (with optional error message)
+          const colorWriter = hasLoadStateError(extension)
+            ? print.colors.error
+            : print.colors.success
+          const commandErrorDescription = extension.errorState !== 'none'
+            ? print.colors.error(
+                `-- ${humanizeCommandError(extension.errorState)}`
+              )
+            : ''
+          print.fancy(
+            print.colors.muted('extension ') +
+              colorWriter(`${extension.name} ${commandErrorDescription}`)
+          )
 
-      // the description if we have one
-      if (command.description) {
-        print.info(`  ${print.colors.muted(command.description)}`)
-      }
-      // the directory
-      print.info('  ' + pluginRelativeDir + '/' + replace(plugin.directory + '/', '', command.file))
+          // the directory
+          print.info(
+            '  ' +
+              pluginRelativeDir +
+              '/' +
+              replace(plugin.directory + '/', '', extension.file)
+          )
 
-      // the exception if any
-      if (command.exception) {
-        print.newline()
-        console.dir(command.exception)
-      }
+          // print the exception if we have one
+          if (extension.exception) {
+            print.newline()
+            console.dir(extension.exception)
+          }
 
-      print.newline()
-    }, filter(hasLoadStateError, plugin.commands))
-  }, printable)
+          print.newline()
+        },
+        filter(hasLoadStateError, plugin.extensions)
+      )
+
+      // print the commands
+      forEach(
+        command => {
+          // print the name (with optional error message)
+          const colorWriter = hasLoadStateError(command)
+            ? print.colors.error
+            : print.colors.success
+          const commandErrorDescription = command.errorState !== 'none'
+            ? print.colors.error(
+                `-- ${humanizeCommandError(command.errorState)}`
+              )
+            : ''
+          print.fancy(
+            print.colors.muted('command ') +
+              colorWriter(`${command.name} ${commandErrorDescription}`)
+          )
+
+          // the description if we have one
+          if (command.description) {
+            print.info(`  ${print.colors.muted(command.description)}`)
+          }
+          // the directory
+          print.info(
+            '  ' +
+              pluginRelativeDir +
+              '/' +
+              replace(plugin.directory + '/', '', command.file)
+          )
+
+          // the exception if any
+          if (command.exception) {
+            print.newline()
+            console.dir(command.exception)
+          }
+
+          print.newline()
+        },
+        filter(hasLoadStateError, plugin.commands)
+      )
+    },
+    printable
+  )
 }

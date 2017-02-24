@@ -69,12 +69,17 @@ function loadFromDirectory (directory, options = {}) {
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
     plugin.commands = map(
-      file => loadCommandFromFile(
-        `${directory}/commands/${file}`,
-        { commandNameToken, commandDescriptionToken, commandHiddenToken, commandAliasToken }
-      ),
-      jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: false })
-      )
+      file =>
+        loadCommandFromFile(`${directory}/commands/${file}`, {
+          commandNameToken,
+          commandDescriptionToken,
+          commandHiddenToken,
+          commandAliasToken
+        }),
+      jetpackPlugin
+        .cwd('commands')
+        .find({ matching: commandFilePattern, recursive: false })
+    )
   } else {
     plugin.commands = []
   }
@@ -82,9 +87,14 @@ function loadFromDirectory (directory, options = {}) {
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('extensions') === 'dir') {
     plugin.extensions = map(
-      file => loadExtensionFromFile(`${directory}/extensions/${file}`, { extensionNameToken }),
-      jetpackPlugin.cwd('extensions').find({ matching: extensionFilePattern, recursive: false })
-      )
+      file =>
+        loadExtensionFromFile(`${directory}/extensions/${file}`, {
+          extensionNameToken
+        }),
+      jetpackPlugin
+        .cwd('extensions')
+        .find({ matching: extensionFilePattern, recursive: false })
+    )
   } else {
     plugin.extensions = []
   }
@@ -109,7 +119,7 @@ function loadFromDirectory (directory, options = {}) {
     // no worries, configs are optional
   }
 
-    // check for restricted names
+  // check for restricted names
   if (isRestrictedName(plugin.name)) {
     plugin.loadState = 'error'
     plugin.errorState = 'badname'
