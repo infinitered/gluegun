@@ -60,9 +60,5 @@
   "ava": {},
   "standard": {
     "parser": "babel-eslint"
-  },
-  "devEngines": {
-    "node": ">=7.x",
-    "npm": ">=4.x"
   }
 }
