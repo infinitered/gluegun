@@ -11,5 +11,5 @@ module.exports = function (dir) {
   const localPlugins = subdirectories(`${dir}/plugins`)
   const remotePlugins = subdirectories(`${dir}/plugins-remote`)
 
-  return [ ...localPlugins, ...remotePlugins ]
+  return [...localPlugins, ...remotePlugins]
 }

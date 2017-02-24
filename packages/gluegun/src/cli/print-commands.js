@@ -33,7 +33,11 @@ function getListOfPlugins (context) {
     dotPath('runtime.plugins'),
     reject(hasLoadStateError),
     reject(isHidden),
-    reject(plugin => context.runtime.defaultPlugin && context.runtime.defaultPlugin.name === plugin.name),
+    reject(
+      plugin =>
+        context.runtime.defaultPlugin &&
+        context.runtime.defaultPlugin.name === plugin.name
+    ),
     sortBy(prop('name')),
     map(plugin => [
       plugin.name,
@@ -90,14 +94,17 @@ function printCommands (context) {
   if (noPlugin) {
     data = getListOfPlugins(context)
     if (context.runtime.defaultPlugin) {
-      const defaultCommands = getListOfCommands(context, context.runtime.defaultPlugin)
+      const defaultCommands = getListOfCommands(
+        context,
+        context.runtime.defaultPlugin
+      )
       data = data.concat(defaultCommands)
     }
   } else if (noCommand) {
     data = getListOfCommands(context, context.plugin)
   }
 
-  print.newline()   // a spacer
+  print.newline() // a spacer
   print.table(data) // the data
   if (errorMessage) {
     print.newline()

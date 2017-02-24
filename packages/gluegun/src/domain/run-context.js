@@ -1,5 +1,4 @@
 class RunContext {
-
   constructor () {
     /**
      * The result of the run command.
@@ -21,7 +20,6 @@ class RunContext {
      */
     this.parameters = {}
   }
-
 }
 
 module.exports = RunContext

@@ -23,7 +23,7 @@ function attach () {
    * @param {string} message The message to display to the user.
    * @returns {bool}         The true/false answer.
    */
-  const confirm = async (message) => {
+  const confirm = async message => {
     const answers = await enquirer.ask({
       name: 'yesno',
       type: 'confirm',

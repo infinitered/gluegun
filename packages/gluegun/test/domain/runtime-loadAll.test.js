@@ -16,7 +16,10 @@ test('matches sub-directories', t => {
 
 test('hides commands', t => {
   const r = new Runtime()
-  r.loadAll(`${__dirname}/../fixtures/good-plugins`, { matching: 'threepack', hidden: true })
+  r.loadAll(`${__dirname}/../fixtures/good-plugins`, {
+    matching: 'threepack',
+    hidden: true
+  })
   t.is(r.plugins.length, 1)
   t.true(r.plugins[0].commands[2].hidden)
 })
@@ -29,4 +32,3 @@ test('loadAll ignores bad directories', t => {
   r.loadAll('')
   t.is(r.plugins.length, 0)
 })
-

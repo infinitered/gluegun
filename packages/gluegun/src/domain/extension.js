@@ -2,7 +2,6 @@
  * An extension will add functionality to the context that each command will receive.
  */
 class Extension {
-
   constructor () {
     this.name = null
     this.description = null
@@ -12,7 +11,6 @@ class Extension {
     this.errorState = 'none'
     this.exception = null
   }
-
 }
 
 module.exports = Extension

@@ -119,4 +119,3 @@ test('supports hidden plugins & commands', t => {
   t.true(plugin.commands[1].hidden)
   t.true(plugin.commands[2].hidden)
 })
-

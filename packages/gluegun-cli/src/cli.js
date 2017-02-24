@@ -5,9 +5,7 @@ const { build } = require('gluegun')
  */
 async function run (argv) {
   // create a runtime
-  const runtime = build()
-    .brand('gluegun')
-    .createRuntime()
+  const runtime = build().brand('gluegun').createRuntime()
 
   // and run it
   const context = await runtime.run()

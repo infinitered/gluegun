@@ -11,7 +11,9 @@ const { curry, when } = require('ramda')
 function throwWhen (message, predicate, value) {
   when(
     predicate,
-    () => { throw new Error(message) },
+    () => {
+      throw new Error(message)
+    },
     value
   )
 }

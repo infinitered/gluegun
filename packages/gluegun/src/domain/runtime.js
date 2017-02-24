@@ -28,7 +28,9 @@ const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 // core extensions
 const addTemplateExtension = require('../core-extensions/template-extension')
 const addPrintExtension = require('../core-extensions/print-extension')
-const addFilesystemExtension = require('../core-extensions/filesystem-extension')
+const addFilesystemExtension = require(
+  '../core-extensions/filesystem-extension'
+)
 const addSystemExtension = require('../core-extensions/system-extension')
 const addPromptExtension = require('../core-extensions/prompt-extension')
 const addHttpExtension = require('../core-extensions/http-extension')
@@ -71,7 +73,9 @@ async function run (options) {
   // once we understand better what the user is looking for.
   if (isNilOrEmpty(options) || optionsIsArray) {
     // grab the params from the command line
-    const { first, rest, options: parsedOptions } = parseCommandLine(options || process.argv)
+    const { first, rest, options: parsedOptions } = parseCommandLine(
+      options || process.argv
+    )
     context.parameters.pluginName = first
     context.parameters.rawCommand = rest
     context.parameters.options = parsedOptions || {}
@@ -92,7 +96,10 @@ async function run (options) {
   }
 
   // first check for a command inside the default
-  const defaultPluginCommand = this.findCommand(this.defaultPlugin, context.parameters.pluginName)
+  const defaultPluginCommand = this.findCommand(
+    this.defaultPlugin,
+    context.parameters.pluginName
+  )
   if (defaultPluginCommand) {
     // we found a command in the default plugin
     context.plugin = this.defaultPlugin
@@ -102,7 +109,10 @@ async function run (options) {
   } else {
     // there wasn't a default command
     context.plugin = this.findPlugin(context.parameters.pluginName)
-    context.command = this.findCommand(context.plugin, context.parameters.rawCommand)
+    context.command = this.findCommand(
+      context.plugin,
+      context.parameters.rawCommand
+    )
   }
 
   // jet if we have no plugin
@@ -119,7 +129,10 @@ async function run (options) {
   if (isNil(context.command)) return context
 
   // setup the rest of the parameters
-  const subArgs = extractSubArguments(context.parameters.rawCommand, trim(context.command.name))
+  const subArgs = extractSubArguments(
+    context.parameters.rawCommand,
+    trim(context.command.name)
+  )
   context.parameters.array = subArgs
   context.parameters.first = subArgs[0]
   context.parameters.second = subArgs[1]
@@ -131,7 +144,11 @@ async function run (options) {
     // attach extensions
     forEach(
       extension => {
-        const extend = extension.setup(context.plugin, context.command, context)
+        const extend = extension.setup(
+          context.plugin,
+          context.command,
+          context
+        )
         context[extension.name] = extend
       },
       this.extensions
@@ -151,7 +168,6 @@ async function run (options) {
  * Loads plugins an action through the gauntlet.
  */
 class Runtime {
-
   /**
    * Create and initialize an empty Runtime.
    */
@@ -204,7 +220,14 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory, options = {}) {
-    const { brand, extensionNameToken, commandNameToken, commandDescriptionToken, commandHiddenToken, commandAliasToken } = this
+    const {
+      brand,
+      extensionNameToken,
+      commandNameToken,
+      commandDescriptionToken,
+      commandHiddenToken,
+      commandAliasToken
+    } = this
 
     const plugin = loadPluginFromDirectory(directory, {
       extensionNameToken,
@@ -220,7 +243,7 @@ class Runtime {
     forEach(
       extension => this.addExtension(extension.name, extension.setup),
       plugin.extensions
-     )
+    )
     return plugin
   }
 
@@ -292,11 +315,11 @@ class Runtime {
     if (isNilOrEmpty(plugin.commands)) return null
 
     return find(
-      (command) => startsWith(command.name, rawCommand) || rawCommand === command.alias
-      , plugin.commands
-      )
+      command =>
+        startsWith(command.name, rawCommand) || rawCommand === command.alias,
+      plugin.commands
+    )
   }
-
 }
 
 module.exports = autobind(Runtime)

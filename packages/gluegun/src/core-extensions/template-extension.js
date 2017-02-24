@@ -33,7 +33,9 @@ function attach (plugin, command, context) {
 
     // add our string utils to the filters available.
     forEach(
-      x => { data[x] = stringUtils[x] },
+      x => {
+        data[x] = stringUtils[x]
+      },
       keys(stringUtils)
     )
 

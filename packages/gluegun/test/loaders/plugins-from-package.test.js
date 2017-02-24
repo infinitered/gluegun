@@ -20,4 +20,3 @@ test('valid plugins', t => {
   const keys = getPluginsFromConfig(file)
   t.deepEqual(keys, ['inapp', 'node_modules/another-pack'])
 })
-

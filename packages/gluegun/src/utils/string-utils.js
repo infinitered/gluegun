@@ -7,7 +7,7 @@ const _ = require('lodash')
  * @param  {any}     value The value to check
  * @return {boolean}       True if it is not a string, otherwise false
  */
-const isNotString = (value) => {
+const isNotString = value => {
   return !is(String, value)
 }
 
@@ -17,12 +17,8 @@ const isNotString = (value) => {
  * @param   {any}     value The value to check.
  * @returns {boolean}       True if it was, otherwise false.
  */
-const isBlank = (value) => {
-  const check = pipe(
-    when(isNotString, always('')),
-    trim,
-    isEmpty
-  )
+const isBlank = value => {
+  const check = pipe(when(isNotString, always('')), trim, isEmpty)
 
   return check(value)
 }
@@ -179,7 +175,9 @@ function trim (value) {
  * @param {string} value The string to trim.
  * @returns {string}
  */
-function trimStart (value) { return _.trimStart(value) }
+function trimStart (value) {
+  return _.trimStart(value)
+}
 
 /**
  * Removes whitespace from the back.
@@ -187,7 +185,9 @@ function trimStart (value) { return _.trimStart(value) }
  * @param {string} value The string to trim.
  * @returns {string}
  */
-function trimEnd (value) { return _.trimEnd(value) }
+function trimEnd (value) {
+  return _.trimEnd(value)
+}
 
 /**
  * Repeats a character a number of times.

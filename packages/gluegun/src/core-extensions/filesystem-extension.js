@@ -8,8 +8,8 @@ const path = require('path')
  * @return {Function} A function to attach to the context.
  */
 function attach () {
-  const extension = jetpack      // jetpack
-  extension.eol = os.EOL         // end of line marker
+  const extension = jetpack // jetpack
+  extension.eol = os.EOL // end of line marker
   extension.separator = path.sep // path separator
 
   return extension

@@ -22,7 +22,6 @@
  * Extends the environment with new commands.
  */
 class Plugin {
-
   constructor () {
     this.name = null
     this.loadState = 'none'
@@ -39,7 +38,6 @@ class Plugin {
     this.extensions = []
     this.exception = null
   }
-
 }
 
 module.exports = Plugin

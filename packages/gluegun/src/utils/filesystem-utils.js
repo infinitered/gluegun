@@ -44,14 +44,12 @@ const isNotDirectory = complement(isDirectory)
  */
 const subdirectories = (base, isRelative, matching = '*') => {
   if (isBlank(base) || !isDirectory(base)) return []
-  const dirs = jetpack
-    .cwd(base)
-    .find({
-      matching,
-      directories: true,
-      recursive: false,
-      files: false
-    })
+  const dirs = jetpack.cwd(base).find({
+    matching,
+    directories: true,
+    recursive: false,
+    files: false
+  })
   if (isRelative) {
     return dirs
   } else {
