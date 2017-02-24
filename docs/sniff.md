@@ -1,6 +1,6 @@
 # Sniff
 
-The `gluegun` requires a Node 7.x environment with the `--harmony` switch set to provide `async` and `await` support.
+The `gluegun` requires a Node 7.6.0 environment which provides `async` and `await` support natively.
 
 You can safely check these requirements by using the `sniff` module.
 
@@ -19,8 +19,9 @@ The `ok` property will be `true` if everything is good to go.
 property      | type   | value
 --------------|--------|-------------------
 ok            | bool   | `true` if everything is good to go
-isNewEnough   | bool   | `true` if we have Node.js 7+
+isNewEnough   | bool   | `true` if we have Node.js >= 7.6.0
 hasAsyncAwait | bool   | `true` if we have `--harmony` enabled
-nodeVersion   | string | the node version such as `'7.2.1'`
+nodeVersion   | string | the node version such as `'7.6.0'`
+nodeMinimum   | string | the node minimum that sniff is looking for
 
-These two properties will both be set to `true` if we're running in Node 7.x and we have access to the `async` and `await` keywords. 
+These two properties will both be set to `true` if we're running in Node 7.6.0.
