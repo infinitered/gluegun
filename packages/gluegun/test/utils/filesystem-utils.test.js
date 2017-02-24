@@ -30,7 +30,6 @@ test('isNotDirectory', t => {
 
 test('subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`)
-  console.log(dirs)
   t.is(6, dirs.length)
   t.true(contains(`${__dirname}/../utils`, dirs))
 })
