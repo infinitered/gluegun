@@ -1,11 +1,7 @@
-# The Gluegun API
-
-With the Gluegun API, you're able to load & execute commands.
+With the gluegun API, you're able to load & execute commands.
 
 Check out the [sniff](./sniff.md) module for detecting if your environment is able to run.
 
-
-# Spoiler
 
 Here's what we're about to cover.
 
@@ -31,7 +27,7 @@ await build()
 ```
 
 
-# Gluegun.build
+## build
 
 Grab the `build` function from `gluegun`.
 
@@ -50,7 +46,7 @@ But out of the box, it does very little.  And by very little I mean nothing.  So
 We'll be chaining the `build()` function from here.
 
 
-# Brand
+## brand
 
 **Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
 
@@ -61,39 +57,8 @@ We'll be chaining the `build()` function from here.
 The brand is most likely to share the same name of the CLI.
 
 
-# Plugins
 
-Functionality is added to the `Gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
-
-You can load a plugin from a directory:
-
-```js
-  .load('~/Desktop/movie/quote')
-  .load('~/Desktop/movie/credits')
-```
-
-You can also load all immediate sub-directories located within it a directory.
-
-```js
-  .loadAll('~/Downloads/VariousMoviePlugins')
-```
-
-Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
-
-```js
-  .loadAll('node_modules', { matching: 'movies-*' })
-```
-
-If you would like to keep plugins hidden and not available at the command line:
-
-```js
-  .loadAll('node_modules', { matching: 'movies-*', hidden: true })
-```
-
-When plugins are hidden they can still be run directly from the runtime.
-
-
-# Finishing Configuration
+## createRuntime
 
 At this point, we've been configuring our environment.  When we're ready, we call:
 
@@ -145,7 +110,42 @@ So you see, it takes at least 2 extra arguments to run a command. That's because
 Which sucks, if it weren't for:
 
 
-# The Default Plugin
+
+## load
+
+Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
+
+You can load a plugin from a directory:
+
+```js
+  .load('~/Desktop/movie/quote')
+  .load('~/Desktop/movie/credits')
+```
+
+## loadAll
+
+You can also load all immediate sub-directories located within it a directory.
+
+```js
+  .loadAll('~/Downloads/VariousMoviePlugins')
+```
+
+Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
+
+```js
+  .loadAll('node_modules', { matching: 'movies-*' })
+```
+
+If you would like to keep plugins hidden and not available at the command line:
+
+```js
+  .loadAll('node_modules', { matching: 'movies-*', hidden: true })
+```
+
+When plugins are hidden they can still be run directly from the runtime.
+
+
+## loadDefault
 
 One of your plugins can be a special snowflake.
 
@@ -179,10 +179,9 @@ Commands from the default plugin will now be evaluated first. If there is a matc
 
 For simpler CLIs, you might find this is a much easier way to build. You might not need the flexibility of multiple plugins and can get away with 1 plugin which is installed as the default.
 
+## run
 
-# Advanced Running
-
-`Gluegun` can also be `run()` with options.
+`gluegun` can also be `run()` with options.
 
 ```js
 await runtime.run({
@@ -206,7 +205,7 @@ There's a few situations that make this useful.
 Bottom line, is you get to pick. It's yours. `gluegun` is just glue.
 
 
-# Tokens
+## token
 
 Command and extension can have some meta data embedded in a JavaScript comment. This is how you're able to set the:
 
@@ -225,7 +224,7 @@ You can configure this setting
 The token you choose will still be prefixed by a `@` when it searches in the file.  It also needs to remain located within a JavaScript comment.
 
 
-# Configuration
+## configFile
 
 Each plugin can have its own configuration file where it places defaults.  These defaults can then be overridden by reading defaults from a configuration file.
 
