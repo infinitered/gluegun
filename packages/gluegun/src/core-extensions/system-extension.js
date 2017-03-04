@@ -92,11 +92,23 @@ module.exports = function (plugin, command, context) {
    * Finds the location of the path.
    *
    * @param {string} command The name of program you're looking for.
-   * @return {string} The full path or null.
+   * @returns {string} The full path or null.
    */
   function which (command) {
     return Shell.which(command)
   }
 
-  return { exec, run, spawn, readFromClipboard, writeToClipboard, which }
+  /**
+   * Checks if path exists
+   *
+   * @param {string} path The path you're looking for (directory or file)
+   * @returns {string} Returns `null` if not found, or `directory` | `file`
+   */
+  function exists (path) {
+    if (Shell.test('-d', path)) { return 'directory' }
+    if (Shell.test('-f', path)) { return 'file' }
+    return null
+  }
+
+  return { exec, run, spawn, readFromClipboard, writeToClipboard, which, exists }
 }
