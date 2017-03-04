@@ -1,9 +1,9 @@
 # gluegun
-[![Slackin](https://infiniteredcommunity.herokuapp.com/badge.svg)](https://infiniteredcommunity.herokuapp.com/)
+[![Chat about GlueGun in the IR Community](https://infiniteredcommunity.herokuapp.com/badge.svg)](https://community.infinite.red/)
 
 `gluegun` is a toolkit for building CLIs.
 
-We assembled an **all-star cast** of *outstanding* & focused libraries, added a plugin layer, then wrapped it up in an ease-to-use and ease-to-bust-out-of API.
+We assembled an **all-star cast** of *outstanding* & focused libraries, added a plugin layer, then wrapped it up in an easy-to-use and easy-to-bust-out-of API.
 
 ⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
@@ -98,7 +98,7 @@ const runtime = build()
 runtime.run()
 ```
 
-See the [runtime docs](./docs/runtime.md) for more details on building your own CLI.
+See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 
 # The Glue Crew
 
@@ -106,7 +106,10 @@ Who's gluing CLIs together with gluegun?
 
 These are underway:
 
-* [Reactotron](https://github.com/reactotron/reactotron) - App for React App Inspection
+* [Reactotron](https://github.com/infinitered/reactotron) - App for React App Inspection
 * [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
 * ...next?
 
+# Lastly...
+
+Gluegun is yet another open source project by [Infinite Red](https://infinite.red). We love our open source community -- thanks for being a part of it!
