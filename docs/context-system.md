@@ -27,10 +27,19 @@ const nodeVersion = context.system.run('node -v', { trim: true })
 
 ### context.system.which
 
-Retursn the full path to a command on your system if located on your path.
+Returns the full path to a command on your system if located on your path.
 
 ```js
 const whereIsIt = context.system.which('npm')
+```
+
+### context.system.exists
+
+Returns 'file' or 'directory' if exists, or null if not
+
+```js
+const itExists = context.system.exists('./myfile.wat')
+console.log(itExists) // => 'file'
 ```
 
 ### context.system.open

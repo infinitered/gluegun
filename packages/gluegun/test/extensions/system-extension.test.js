@@ -32,3 +32,12 @@ test('knows about which', t => {
   const npm = system.which('npm')
   t.truthy(npm)
 })
+
+test('can check if a file/directory exists', t => {
+  const folderExist = system.exists(process.cwd())
+  t.is(folderExist, 'directory')
+  const fileExist = system.exists(process.cwd() + '/package.json')
+  t.is(fileExist, 'file')
+  const nothingExist = system.exists('./lolno.exe')
+  t.falsy(nothingExist)
+})
