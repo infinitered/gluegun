@@ -32,3 +32,22 @@ test('knows about which', t => {
   const npm = system.which('npm')
   t.truthy(npm)
 })
+
+test('can spawn and capture results', async t => {
+  const good = await system.spawn('echo hello')
+  t.is(good.status, 0)
+  t.is(good.stdout.toString(), 'hello\n')
+})
+
+test('spawn deals with missing programs', async t => {
+  const crap = await system.spawn('dfsjkajfkldasjklfajsd')
+  t.truthy(crap.error)
+  t.falsy(crap.output)
+  t.is(crap.status, null)
+})
+
+test('spawn deals exit codes', async t => {
+  const crap = await system.spawn('npm')
+  t.falsy(crap.error)
+  t.is(crap.status, 1)
+})

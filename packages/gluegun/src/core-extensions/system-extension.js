@@ -1,8 +1,9 @@
-const { exec: nodeExec, spawn: nodeSpawn } = require('child_process')
+const { exec: nodeExec } = require('child_process')
 const clipboardy = require('clipboardy')
 const { split, head, tail, dissoc, trim, identity } = require('ramda')
 const execa = require('execa')
 const Shell = require('shelljs')
+const crossSpawn = require('cross-spawn')
 
 /**
  * Extensions to launch processes, open files, and talk to the clipboard.
@@ -49,7 +50,7 @@ module.exports = function (plugin, command, context) {
   }
 
   /**
-   * Uses Node JS's spawn to run a process.
+   * Uses cross-spawn to run a process.
    *
    * @param {any} commandLine The command line to execute.
    * @param {options} options Additional child_process options for node.
@@ -58,15 +59,8 @@ module.exports = function (plugin, command, context) {
   async function spawn (commandLine, options) {
     return new Promise((resolve, reject) => {
       const args = split(' ', commandLine)
-      const spawned = nodeSpawn(head(args), tail(args), options)
-      spawned.on('close', function (code) {
-        if (code === 0) {
-          resolve(code)
-        } else {
-          reject(code)
-        }
-      })
-      spawned.on('error', () => reject())
+      const spawned = crossSpawn.sync(head(args), tail(args), options)
+      resolve(spawned)
     })
   }
 
