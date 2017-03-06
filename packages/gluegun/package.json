@@ -29,6 +29,7 @@
     "autobind-decorator": "^1.3.4",
     "clipboardy": "^0.1.2",
     "colors": "^1.1.2",
+    "cross-spawn": "^5.1.0",
     "ejs": "^2.5.5",
     "enquirer": "^0.4.1",
     "execa": "^0.6.0",
