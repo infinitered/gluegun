@@ -10,7 +10,7 @@ const { isDirectory } = require('../utils/filesystem-utils')
  */
 module.exports = function (brand) {
   // load plugins from the $HOME/.<brand>/plugins
-  const isWindows = process.platform === 'win32'
+  const isWindows = process.platform === /^win/.test(process.platform)
   const homeDir = process.env[isWindows ? 'USERPROFILE' : 'HOME']
   const homePluginsDir = `${homeDir}/.${brand}/plugins`
 
