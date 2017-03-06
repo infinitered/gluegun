@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>gluegun - Tack stuff on to your code base.</title>
+  <meta name="description" content="Tack stuff on to your code base.">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+</body>
+<script>
+  window.$docsify = {
+    loadSidebar: true,
+    subMaxLevel: 2,
+    repo: 'infinitered/gluegun',
+    name: 'gluegun',
+    coverpage: true,
+    search: 'auto',
+    search: [
+      '/',
+      'context-api',
+      'context-config',
+      'context-filesystem',
+      'context-http',
+      'context-parameters',
+      'context-print',
+      'context-prompt',
+      'context-strings',
+      'context-system',
+      'context-template',
+      'runtime'
+    ]
+  }
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/emoji.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-bash.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-jsx.js"></script>
+</html>
