@@ -18,7 +18,7 @@ test('captures stderr', async t => {
   try {
     await system.run(`omgdontrunlol ${__filename}`)
   } catch (e) {
-    t.is(e.stderr, `/bin/sh: omgdontrunlol: command not found\n`)
+    t.true(/command not found/.test(e.stderr))
   }
 })
 
