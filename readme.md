@@ -86,7 +86,7 @@ And what about the CLI you make? Depending on the features you want, more or les
 
 ```js
 // ready
-const { build } = 'gluegun'
+const { build } = require('gluegun')
 
 // aim
 const runtime = build()
