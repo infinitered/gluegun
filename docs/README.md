@@ -9,13 +9,15 @@ We assembled an **all-star cast** of *outstanding* libraries, added a plugin lay
 
 ⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
-⭐️ [shelljs](https://github.com/shelljs/shelljs) for a few cross-platform system utils<br />
 ⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [ascii-table](https://github.com/sorensen/ascii-table) for the command line<br />
 ⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
 ⭐️ both [lodash](https://github.com/lodash/lodash) AND [ramda](https://github.com/ramda/ramda) + [ramdasauce](https://github.com/skellock/ramdasauce) for quality of life<br />
 ⭐️ [toml](https://github.com/BinaryMuse/toml-node) for human-friendly config files </br>
 ⭐️ [clipboardy](https://github.com/sindresorhus/clipboardy) brings the copy and the *paste*<br />
-</br>
+⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
+⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
+⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
+
 It uses [Node.js 7](https://nodejs.org) with `--harmony` for `async`/`await` syntax.
 
 ## Why not just use ... ?
