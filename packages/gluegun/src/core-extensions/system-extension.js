@@ -2,7 +2,7 @@ const { exec: nodeExec } = require('child_process')
 const clipboardy = require('clipboardy')
 const { split, head, tail, dissoc, trim, identity } = require('ramda')
 const execa = require('execa')
-const Shell = require('shelljs')
+const nodeWhich = require('which')
 const crossSpawn = require('cross-spawn')
 
 /**
@@ -89,7 +89,7 @@ module.exports = function (plugin, command, context) {
    * @return {string} The full path or null.
    */
   function which (command) {
-    return Shell.which(command)
+    return nodeWhich.sync(command)
   }
 
   return { exec, run, spawn, readFromClipboard, writeToClipboard, which }

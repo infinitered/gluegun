@@ -50,8 +50,8 @@
     "ramda": "^0.23.0",
     "ramdasauce": "^1.2.0",
     "semver": "^5.3.0",
-    "shelljs": "^0.7.6",
-    "toml": "^2.3.1"
+    "toml": "^2.3.1",
+    "which": "^1.2.12"
   },
   "devDependencies": {
     "ava": "^0.18.1",
