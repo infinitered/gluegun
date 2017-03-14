@@ -113,7 +113,7 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 ```
 
 
-## 3rd Party Modules Available
+## 3rd Party Modules
 
 module                                                  | purpose
 --------------------------------------------------------|-------------------------
@@ -129,7 +129,9 @@ module                                                  | purpose
 [minimist](https://github.com/substack/minimist)        | command line parsing
 [clipboardy](https://github.com/sindresorhus/clipboardy)| copy & paste
 [toml](https://github.com/BinaryMuse/toml-node)         | TOML files
-[shelljs](https://github.com/shelljs/shelljs)           | shell utilities
+[cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) | running sub-commands
+[execa](https://github.com/sindresorhus/execa) | running sub-commands
+[node-which](https://github.com/npm/node-which) | executable finder
 [ora](https://github.com/sindresorhus/ora)              | spinner
 ## Including Modules
 
