@@ -30,7 +30,7 @@ test('handles blank files', t => {
 
 test('handles files with just a number', t => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/number.js`)
-  t.is(typeof m, 'object')
+  t.is(typeof m, 'number')
   t.deepEqual(keys(m), [])
 })
 

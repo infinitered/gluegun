@@ -122,7 +122,7 @@ async function run (options) {
   context.config = clone(this.config)
   context.config[context.plugin.name] = merge(
     context.plugin.defaults,
-    this.defaults && this.defaults[context.plugin.name] || {}
+    (this.defaults && this.defaults[context.plugin.name]) || {}
   )
 
   // jet if we have no command
