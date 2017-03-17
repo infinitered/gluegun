@@ -44,4 +44,3 @@ test('connects to a server', async t => {
   const response = await api.get('/')
   t.is(response.data, 'hi')
 })
-
