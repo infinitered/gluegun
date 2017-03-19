@@ -59,8 +59,27 @@ module.exports = function (plugin, command, context) {
   async function spawn (commandLine, options) {
     return new Promise((resolve, reject) => {
       const args = split(' ', commandLine)
-      const spawned = crossSpawn.sync(head(args), tail(args), options)
-      resolve(spawned)
+      const spawned = crossSpawn(head(args), tail(args), options)
+      let result = {
+        stdout: null,
+        status: null,
+        error: null
+      };
+      spawned.stdout.on('data', (data) => {
+        if (result.stdout == null) {
+          result.stdout = data;
+        } else {
+          result.stdout += data;
+        }
+      });
+      spawned.on('close', (code) => {
+        result.status = code;
+        resolve(result);
+      });
+      spawned.on('error', (err) => {
+        result.error = err;
+        resolve(result);
+      });
     })
   }
 
