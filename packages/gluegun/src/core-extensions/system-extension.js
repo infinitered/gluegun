@@ -64,22 +64,22 @@ module.exports = function (plugin, command, context) {
         stdout: null,
         status: null,
         error: null
-      };
-      spawned.stdout.on('data', (data) => {
+      }
+      spawned.stdout.on('data', data => {
         if (result.stdout == null) {
-          result.stdout = data;
+          result.stdout = data
         } else {
-          result.stdout += data;
+          result.stdout += data
         }
-      });
-      spawned.on('close', (code) => {
-        result.status = code;
-        resolve(result);
-      });
-      spawned.on('error', (err) => {
-        result.error = err;
-        resolve(result);
-      });
+      })
+      spawned.on('close', code => {
+        result.status = code
+        resolve(result)
+      })
+      spawned.on('error', err => {
+        result.error = err
+        resolve(result)
+      })
     })
   }
 
