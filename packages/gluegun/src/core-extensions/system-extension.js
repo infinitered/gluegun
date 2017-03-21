@@ -1,6 +1,6 @@
 const { exec: nodeExec } = require('child_process')
 const clipboardy = require('clipboardy')
-const { split, head, tail, dissoc, trim, identity } = require('ramda')
+const { isNil, split, head, tail, dissoc, trim, identity } = require('ramda')
 const execa = require('execa')
 const nodeWhich = require('which')
 const crossSpawn = require('cross-spawn')
@@ -65,13 +65,15 @@ module.exports = function (plugin, command, context) {
         status: null,
         error: null
       }
-      spawned.stdout.on('data', data => {
-        if (result.stdout == null) {
-          result.stdout = data
-        } else {
-          result.stdout += data
-        }
-      })
+      if (spawned.stdout) {
+        spawned.stdout.on('data', data => {
+          if (isNil(result.stdout)) {
+            result.stdout = data
+          } else {
+            result.stdout += data
+          }
+        })
+      }
       spawned.on('close', code => {
         result.status = code
         resolve(result)
