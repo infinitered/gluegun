@@ -1,7 +1,7 @@
 const jetpack = require('fs-jetpack')
 const Plugin = require('../domain/plugin')
-const loadCommandFromFile = require('./command-loader')
-const loadExtensionFromFile = require('./extension-loader')
+const loadCommandFromFile = require('./loader')
+//  const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
 const { assoc, map, contains, __ } = require('ramda')
@@ -88,7 +88,7 @@ function loadFromDirectory (directory, options = {}) {
   if (jetpackPlugin.exists('extensions') === 'dir') {
     plugin.extensions = map(
       file =>
-        loadExtensionFromFile(`${directory}/extensions/${file}`, {
+        loadCommandFromFile(`${directory}/extensions/${file}`, {
           extensionNameToken
         }),
       jetpackPlugin

@@ -91,8 +91,8 @@ test('loads extensions with front matter', async t => {
   t.is(plugin.extensions.length, 1)
   const ext = plugin.extensions[0]
   t.is(ext.name, 'hello')
-  t.is(typeof ext.setup, 'function')
-  const live = ext.setup()
+  t.is(typeof ext.run, 'function')
+  const live = ext.run()
   t.truthy(live)
   t.is(live.very, 'little')
 })
