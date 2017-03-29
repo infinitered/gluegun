@@ -116,6 +116,10 @@ These are underway:
 * [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
 * ...next?
 
+## Premium Support
+
+[gluegun](https://github.com/infinitered/gluegun), as open source projects, is free to use and always will be. [Infinite Red](https://infinite.red/) offers premium gluegun support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
+
 # Lastly...
 
 Gluegun is yet another open source project by [Infinite Red](https://infinite.red). We love our open source community -- thanks for being a part of it!
