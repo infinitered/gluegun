@@ -6,10 +6,9 @@
     "gluegun": "bin/gluegun"
   },
   "scripts": {
-    "test": "node --harmony node_modules/.bin/ava",
-    "watch": "node --harmony node_modules/.bin/ava --watch",
+    "test": "ava",
+    "watch": "ava --watch",
     "coverage": "nyc ava",
-    "start": "node --harmony src/index.js",
     "lint": "standard"
   },
   "author": {
@@ -27,17 +26,17 @@
     "gluegun": "^0.17.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.19.0",
     "babel-eslint": "^7.1.1",
     "nyc": "^10.0.0",
-    "standard": "^8.6.0"
+    "standard": "^10.0.0"
   },
   "ava": {},
   "standard": {
     "parser": "babel-eslint"
   },
   "devEngines": {
-    "node": ">=7.x",
+    "node": ">=7.6.x",
     "npm": ">=4.x"
   }
 }
