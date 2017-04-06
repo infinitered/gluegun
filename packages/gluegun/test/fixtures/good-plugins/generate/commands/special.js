@@ -5,7 +5,7 @@ async function command (context) {
   const props = { thing: context.parameters.first }
   const directory = `${__dirname}/../custom-directory`
 
-  return await context.template.generate({ template, target, props, directory })
+  return context.template.generate({ template, target, props, directory })
 }
 
 module.exports = command
