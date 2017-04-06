@@ -4,16 +4,8 @@ const loadCommandFromFile = require('./loader')
 //  const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { assoc, map, contains, __ } = require('ramda')
+const { assoc, map } = require('ramda')
 const toml = require('toml')
-
-/**
- * Is this name permitted?
- *
- * @param  {string} name The name to check
- * @return {bool}             `true` if this is restricted, otherwise `false`
- */
-const isRestrictedName = contains(__, [''])
 
 /**
  * Loads a plugin from a directory.
@@ -104,7 +96,7 @@ function loadFromDirectory (directory, options = {}) {
     const tomlFile = `${directory}/${brand}.toml`
 
     // read it
-    const config = toml.parse(jetpack.read(tomlFile) || '') || {}
+    const config = toml.parse(jetpack.read(tomlFile) || '')
 
     // set the name if we have one (unless we were told what it was)
     if (isBlank(name)) {
@@ -117,13 +109,6 @@ function loadFromDirectory (directory, options = {}) {
     // restrict name
   } catch (e) {
     // no worries, configs are optional
-  }
-
-  // check for restricted names
-  if (isRestrictedName(plugin.name)) {
-    plugin.loadState = 'error'
-    plugin.errorState = 'badname'
-    return plugin
   }
 
   // we are good!

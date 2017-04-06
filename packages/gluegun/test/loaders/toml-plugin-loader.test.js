@@ -103,6 +103,11 @@ test('names default to the filename', async t => {
   t.is(plugin.extensions[0].name, 'detectExtension')
 })
 
+test('plugin names can be overridden', async t => {
+  const plugin = load(`${__dirname}/../fixtures/good-plugins/auto-detect`, { name: 'override' })
+  t.is(plugin.name, 'override')
+})
+
 test('blank names fallback to directory name', t => {
   const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-name`)
   t.is(plugin.name, 'blank-name')

@@ -1,5 +1,6 @@
 const test = require('ava')
 const {
+  identity,
   isBlank,
   isNotString,
   camelCase,
@@ -119,4 +120,8 @@ test('trimEnd', t => {
 
 test('repeat', t => {
   t.is(repeat('a', 4), 'aaaa')
+})
+
+test('identity', t => {
+  t.is(identity('x'), 'x')
 })

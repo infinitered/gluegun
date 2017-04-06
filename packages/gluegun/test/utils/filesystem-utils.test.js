@@ -34,6 +34,12 @@ test('subdirectories', t => {
   t.true(contains(`${__dirname}/../utils`, dirs))
 })
 
+test('blank subdirectories', t => {
+  t.deepEqual(subdirectories(), [])
+  t.deepEqual(subdirectories(''), [])
+  t.deepEqual(subdirectories(__filename), [])
+})
+
 test('relative subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`, true)
   t.is(6, dirs.length)
