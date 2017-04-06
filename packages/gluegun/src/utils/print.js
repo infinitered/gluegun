@@ -2,11 +2,6 @@ const colors = require('colors')
 const AsciiTable = require('ascii-table')
 
 /**
- * The target output.  Terminal for now.
- */
-const log = console.log
-
-/**
  * Sets the color scheme.
  */
 colors.setTheme({
@@ -23,14 +18,14 @@ colors.setTheme({
  * Print a blank line.
  */
 function newline () {
-  log('')
+  console.log('')
 }
 
 /**
  * Prints a divider line
  */
 function divider () {
-  log(
+  console.log(
     colors.line(
       '---------------------------------------------------------------'
     )
@@ -47,7 +42,7 @@ function table (data, options) {
   const t = new AsciiTable()
   t.addRowMatrix(data)
   t.removeBorder()
-  log(t.toString())
+  console.log(t.toString())
 }
 
 /**
@@ -59,7 +54,7 @@ function table (data, options) {
  * @param {string} message The message to write.
  */
 function fancy (message) {
-  log(message)
+  console.log(message)
 }
 
 /**
@@ -70,7 +65,7 @@ function fancy (message) {
  * @param {string} message The message to show.
  */
 function info (message) {
-  log(colors.info(message))
+  console.log(colors.info(message))
 }
 
 /**
@@ -81,7 +76,7 @@ function info (message) {
  * @param {string} message The message to show.
  */
 function error (message) {
-  log(colors.error(message))
+  console.log(colors.error(message))
 }
 
 /**
@@ -92,7 +87,7 @@ function error (message) {
  * @param {string} message The message to show.
  */
 function warning (message) {
-  log(colors.warning(message))
+  console.log(colors.warning(message))
 }
 
 /**
@@ -106,9 +101,9 @@ function debug (message, title = 'DEBUG') {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
-  log(colors.rainbow(topLine))
-  log(message)
-  log(colors.rainbow(botLine))
+  console.log(colors.rainbow(topLine))
+  console.log(message)
+  console.log(colors.rainbow(botLine))
 }
 
 /**
@@ -119,7 +114,7 @@ function debug (message, title = 'DEBUG') {
  * @param {string} message The message to show.
  */
 function success (message) {
-  log(colors.success(message))
+  console.log(colors.success(message))
 }
 
 module.exports = {

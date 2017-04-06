@@ -6,7 +6,7 @@
   "scripts": {
     "test": "ava",
     "watch": "ava --watch",
-    "coverage": "nyc ava",
+    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
     "start": "node src/index.js",
     "lint": "standard"
@@ -72,6 +72,7 @@
     "babel-eslint": "^7.2.1",
     "coveralls": "^2.13.0",
     "nyc": "^10.2.0",
+    "sinon": "^2.1.0",
     "standard": "^10.0.0"
   },
   "ava": {},
