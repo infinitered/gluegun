@@ -1,5 +1,5 @@
 const test = require('ava')
-const load = require('../../src/loaders/extension-loader')
+const load = require('../../src/loaders/loader')
 
 test('loading from a missing file', t => {
   const extension = load('foo.js')
@@ -39,7 +39,7 @@ test('fat arrows', t => {
   const file = `${__dirname}/../fixtures/good-modules/module-exports-fat-arrow-fn.js`
   const extension = load(file)
   t.falsy(extension.exception)
-  t.is(typeof extension.setup, 'function')
+  t.is(typeof extension.run, 'function')
   t.is(extension.loadState, 'ok')
   t.is(extension.errorState, 'none')
 })
@@ -48,7 +48,7 @@ test('has front matter', t => {
   const file = `${__dirname}/../fixtures/good-plugins/front-matter/extensions/hello.js`
   const extension = load(file)
   t.falsy(extension.exception)
-  t.is(typeof extension.setup, 'function')
+  t.is(typeof extension.run, 'function')
   t.is(extension.loadState, 'ok')
   t.is(extension.errorState, 'none')
   t.is(extension.name, 'hello')
