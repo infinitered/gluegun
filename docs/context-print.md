@@ -28,7 +28,7 @@ What does that mean?  Well, if your next line of code isn't `process.exit(0)`, t
 it was probably a warning.
 
 ```js
-context.print.warning('Out of disk space.  lol.')
+context.print.error('Out of disk space.  lol.')
 ```
 
 ## debug
