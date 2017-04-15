@@ -26,8 +26,8 @@ function attach (plugin, command, context) {
 
     // add some goodies to the environment so templates can read them
     const data = {
-      config: context.config,
-      parameters: context.parameters,
+      config: context && context.config,
+      parameters: context && context.parameters,
       props: props
     }
 
@@ -42,7 +42,7 @@ function attach (plugin, command, context) {
     // pick a base directory for templates
     const directory = opts.directory
       ? opts.directory
-      : `${plugin.directory}/templates`
+      : `${plugin && plugin.directory}/templates`
 
     const pathToTemplate = `${directory}/${template}`
 

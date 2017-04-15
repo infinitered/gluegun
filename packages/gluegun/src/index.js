@@ -22,6 +22,13 @@ const printCommands = require('./cli/print-commands')
 const printWtf = require('./cli/print-wtf')
 const { subdirectories } = require('./utils/filesystem-utils')
 
+// bring in a few extensions to make available for stand-alone purposes
+const filesystem = require('./core-extensions/filesystem-extension')()
+const system = require('./core-extensions/system-extension')()
+const prompt = require('./core-extensions/prompt-extension')()
+const http = require('./core-extensions/http-extension')()
+const template = require('./core-extensions/template-extension')()
+
 // export our API
 module.exports = {
   build,
@@ -29,5 +36,10 @@ module.exports = {
   strings,
   printCommands,
   printWtf,
-  subdirectories
+  subdirectories,
+  filesystem,
+  system,
+  prompt,
+  http,
+  template
 }
