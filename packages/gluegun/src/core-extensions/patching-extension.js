@@ -3,7 +3,7 @@ const jetpack = require('fs-jetpack')
 const { isFile } = require('../utils/filesystem-utils')
 
 /**
- * Builds the code generation feature.
+ * Builds the patching feature.
  *
  * @return {Function}           A function to attach to the context.
  */
@@ -21,16 +21,11 @@ function attach (plugin, command, context) {
       throw new Error(`file not found ${filename}`)
     }
 
-    // check type of file
-    const isJSON = filename.endsWith('.json')
+    // check type of file (JSON or not)
+    const fileType = filename.endsWith('.json') ? 'jsonWithDates' : 'utf8'
 
     // read the file
-    let contents
-    if (isJSON) {
-      contents = await jetpack.readAsync(filename, 'jsonWithDates')
-    } else {
-      contents = await jetpack.readAsync(filename, 'utf8')
-    }
+    const contents = await jetpack.readAsync(filename, fileType)
 
     // let the caller mutate the contents in memory
     const mutatedContents = callback(contents)
