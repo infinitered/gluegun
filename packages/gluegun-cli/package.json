@@ -1,6 +1,6 @@
 {
   "name": "gluegun-cli",
-  "version": "0.18.0",
+  "version": "0.18.1",
   "description": "Time to get your glue on.",
   "bin": {
     "gluegun": "bin/gluegun"
@@ -23,7 +23,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "^0.18.0"
+    "gluegun": "^0.18.1"
   },
   "devDependencies": {
     "ava": "^0.19.0",
