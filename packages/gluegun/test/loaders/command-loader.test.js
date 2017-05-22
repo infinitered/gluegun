@@ -1,5 +1,5 @@
 const test = require('ava')
-const loadCommandFromFile = require('../../src/loaders/loader')
+const loadCommandFromFile = require('../../src/loaders/command-loader')
 
 test('loading from a missing file', t => {
   const command = loadCommandFromFile('foo.js')

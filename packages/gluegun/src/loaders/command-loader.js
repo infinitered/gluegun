@@ -29,8 +29,8 @@ const findTokens = require('./find-tokens')
 /**
  * Loads the command from the given file.
  *
- * @param  {string} file The full path to the file to load.
- * @return {Command}     The command in any condition
+ * @param  {string} file      The full path to the file to load.
+ * @return {Command}          The command in any condition
  */
 function loadFromFile (file, options = {}) {
   const command = new Command()
