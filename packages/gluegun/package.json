@@ -73,7 +73,8 @@
     "coveralls": "2.13.1",
     "nyc": "10.3.2",
     "sinon": "2.3.0",
-    "standard": "10.0.2"
+    "standard": "10.0.2",
+    "temp-write": "^3.3.0"
   },
   "ava": {},
   "standard": {
