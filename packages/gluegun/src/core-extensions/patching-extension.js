@@ -99,7 +99,6 @@ function attach (plugin, command, context) {
 
     if (replaceString) {
       if (!data.includes(replaceString)) {
-        console.warn(`${replaceString} not found`)
         return false
       }
       // Replace matching string with new string or nothing if nothing provided
@@ -113,7 +112,6 @@ function attach (plugin, command, context) {
     // Insert before/after a particular string
     const findString = opts.before || opts.after
     if (!data.includes(findString)) {
-      console.warn(`${findString} not found`)
       return false
     }
 
