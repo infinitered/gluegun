@@ -1,11 +1,10 @@
 const jetpack = require('fs-jetpack')
-// const { replace, forEach, keys } = require('ramda')
 const { isFile } = require('../utils/filesystem-utils')
 
 /**
  * Builds the patching feature.
  *
- * @return {Function}           A function to attach to the context.
+ * @return {Function} A function to attach to the context.
  */
 function attach (plugin, command, context) {
   /**
@@ -45,8 +44,8 @@ function attach (plugin, command, context) {
    * @param {string} filename       File to be prepended to
    * @param {string} prependedData  String to prepend
    */
-  async function prepend(filename, prependedData) {
-    return update(filename, (data) => prependedData + data)
+  async function prepend (filename, prependedData) {
+    return update(filename, data => prependedData + data)
   }
 
   /**
@@ -55,8 +54,8 @@ function attach (plugin, command, context) {
    * @param {string} filename       File to be appended to
    * @param {string} appendedData  String to append
    */
-  async function append(filename, appendedData) {
-    return update(filename, (data) => data + appendedData)
+  async function append (filename, appendedData) {
+    return update(filename, data => data + appendedData)
   }
 
   /**
@@ -66,8 +65,8 @@ function attach (plugin, command, context) {
    * @param {string} replace        String to replace
    * @param {string} newContent     String to write
    */
-  async function replace(filename, replace, newContent) {
-    return update(filename, (data) => data.replace(replace, newContent))
+  async function replace (filename, replace, newContent) {
+    return update(filename, data => data.replace(replace, newContent))
   }
 
   /**
@@ -87,11 +86,11 @@ function attach (plugin, command, context) {
    *   await context.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
    *
    */
-  async function patch(filename, opts={}) {
-    return update(filename, (data) => patchString(data, opts))
+  async function patch (filename, opts = {}) {
+    return update(filename, data => patchString(data, opts))
   }
 
-  function patchString(data, opts) {
+  function patchString (data, opts) {
     // Already includes string, and not forcing it
     if (data.includes(opts.insert) && !opts.force) return false
 
@@ -110,7 +109,7 @@ function attach (plugin, command, context) {
     }
   }
 
-  function insertNextToString(data, opts) {
+  function insertNextToString (data, opts) {
     // Insert before/after a particular string
     const findString = opts.before || opts.after
     if (!data.includes(findString)) {
@@ -118,7 +117,9 @@ function attach (plugin, command, context) {
       return false
     }
 
-    const newContents = opts.after ? `${findString}${opts.insert || ''}` : `${opts.insert || ''}${findString}`
+    const newContents = opts.after
+      ? `${findString}${opts.insert || ''}`
+      : `${opts.insert || ''}${findString}`
     return data.replace(findString, newContents)
   }
 
