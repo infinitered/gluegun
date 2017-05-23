@@ -21,7 +21,7 @@ function attach (plugin, command, context) {
     }
 
     // check type of file (JSON or not)
-    const fileType = filename.endsWith('.json') ? 'jsonWithDates' : 'utf8'
+    const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
 
     // read the file
     const contents = await jetpack.readAsync(filename, fileType)
