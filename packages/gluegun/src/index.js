@@ -28,6 +28,7 @@ const system = require('./core-extensions/system-extension')()
 const prompt = require('./core-extensions/prompt-extension')()
 const http = require('./core-extensions/http-extension')()
 const template = require('./core-extensions/template-extension')()
+const patching = require('./core-extensions/patching-extension')()
 
 // export our API
 module.exports = {
@@ -41,5 +42,6 @@ module.exports = {
   system,
   prompt,
   http,
-  template
+  template,
+  patching
 }

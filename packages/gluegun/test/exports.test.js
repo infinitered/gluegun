@@ -37,6 +37,7 @@ test('prompt', t => {
   t.truthy(typeof exported.prompt.confirm, 'function')
 })
 
+
 test('http', t => {
   t.truthy(exported.http)
   t.truthy(typeof exported.http.create, 'function')
@@ -52,4 +53,13 @@ test('generate', async t => {
     directory: process.cwd()
   })
   t.is(actual, 'simple file\n')
+})
+
+test('patching', t => {
+  t.truthy(exported.patching)
+  t.truthy(typeof exported.patching.update, 'function')
+  t.truthy(typeof exported.patching.append, 'function')
+  t.truthy(typeof exported.patching.prepend, 'function')
+  t.truthy(typeof exported.patching.replace, 'function')
+  t.truthy(typeof exported.patching.patch, 'function')
 })
