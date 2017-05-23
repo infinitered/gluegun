@@ -10,13 +10,12 @@ If the file doesn't end in `.json`, you'll receive a string. Return an updated s
 
 ```javascript
 await context.patching.update('config.json', (config) => {
-  config['key'] = 'new value'
+  config.key = 'new value'
   return config
 })
 
 await context.patching.update('config.txt', (data) => {
-  data.replace('Jamon', 'Boss')
-  return data
+  return data.replace('Jamon', 'Boss')
 })
 ```
 
