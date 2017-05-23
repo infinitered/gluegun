@@ -4,5 +4,3 @@ npm-debug.log*
 npm-debug.log
 .vscode
 yarn.lock
-config-test.json
-words-test.txt
