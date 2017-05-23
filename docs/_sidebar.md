@@ -11,4 +11,4 @@
   - [strings](/context-strings)
   - [system](/context-system)
   - [template](/context-template)
-
+  - [patching](/context-patching)
