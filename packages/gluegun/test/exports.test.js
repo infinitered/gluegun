@@ -37,7 +37,6 @@ test('prompt', t => {
   t.truthy(typeof exported.prompt.confirm, 'function')
 })
 
-
 test('http', t => {
   t.truthy(exported.http)
   t.truthy(typeof exported.http.create, 'function')
