@@ -35,6 +35,7 @@ const addSystemExtension = require('../core-extensions/system-extension')
 const addPromptExtension = require('../core-extensions/prompt-extension')
 const addHttpExtension = require('../core-extensions/http-extension')
 const addStringsExtension = require('../core-extensions/strings-extension')
+const addPatchingExtension = require('../core-extensions/patching-extension')
 
 const COMMAND_DELIMITER = ' '
 
@@ -197,6 +198,7 @@ class Runtime {
     this.addExtension('system', addSystemExtension)
     this.addExtension('http', addHttpExtension)
     this.addExtension('prompt', addPromptExtension)
+    this.addExtension('patching', addPatchingExtension)
   }
 
   /**
