@@ -7,16 +7,16 @@ Check out this example of creating a new Reactotron plugin.
 glue reactotron plugin MyAwesomePlugin full --comments --lint standard
 ```
 
-name           | type   | purpose                           | from the example above
----------------|--------|-----------------------------------|------------------------------------
-**pluginName** | string | the pluginName used                | `'reactotron'`
-**command**    | string | the command used                  | `'plugin'`
-**string**     | string | the command arguments as a string | `'MyAwesomePlugin full'`
-**array**      | array  | the command arguments as an array | `['MyAwesomePlugin', 'full']`
-**first**      | string | the 1st argument                  | `'MyAwesomePlugin'`
-**second**     | string | the 2nd argument                  | `'full'`
-**third**      | string | the 3rd argument                  | `undefined`
-**options**    | object | command line options              | `{comments: true, lint: 'standard'}`
+| name           | type   | purpose                           | from the example above               |
+| -------------- | ------ | --------------------------------- | ------------------------------------ |
+| **pluginName** | string | the pluginName used               | `'reactotron'`                       |
+| **command**    | string | the command used                  | `'plugin'`                           |
+| **string**     | string | the command arguments as a string | `'MyAwesomePlugin full'`             |
+| **array**      | array  | the command arguments as an array | `['MyAwesomePlugin', 'full']`        |
+| **first**      | string | the 1st argument                  | `'MyAwesomePlugin'`                  |
+| **second**     | string | the 2nd argument                  | `'full'`                             |
+| **third**      | string | the 3rd argument                  | `undefined`                          |
+| **options**    | object | command line options              | `{comments: true, lint: 'standard'}` |
 
 ## options
 Options are the command line flags. Always exists however it may be empty.

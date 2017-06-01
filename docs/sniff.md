@@ -16,12 +16,12 @@ The `ok` property will be `true` if everything is good to go.
 
 `sniff` also has a few more properties you can use for better errors.
 
-property      | type   | value
---------------|--------|-------------------
-ok            | bool   | `true` if everything is good to go
-isNewEnough   | bool   | `true` if we have Node.js >= 7.6.0
-hasAsyncAwait | bool   | `true` if we have `--harmony` enabled
-nodeVersion   | string | the node version such as `'7.6.0'`
-nodeMinimum   | string | the node minimum that sniff is looking for
+| property      | type   | value                                      |
+| ------------- | ------ | ------------------------------------------ |
+| ok            | bool   | `true` if everything is good to go         |
+| isNewEnough   | bool   | `true` if we have Node.js >= 7.6.0         |
+| hasAsyncAwait | bool   | `true` if we have `--harmony` enabled      |
+| nodeVersion   | string | the node version such as `'7.6.0'`         |
+| nodeMinimum   | string | the node minimum that sniff is looking for |
 
 These two properties will both be set to `true` if we're running in Node 7.6.0.

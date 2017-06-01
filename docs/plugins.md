@@ -115,24 +115,26 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 
 ## 3rd Party Modules
 
-module                                                  | purpose
---------------------------------------------------------|-------------------------
-[enquirer](https://github.com/enquirer/enquirer)        | prompts & user input
-[fs-jetpack](https://github.com/szwacz/fs-jetpack)      | files & folders
-[ejs](https://github.com/mde/ejs)                       | templates
-[apisauce](https://github.com/skellock/apisauce)        | http requests
-[lodash](https://github.com/lodash/lodash)              | utilities
-[colors](https://github.com/Marak/colors.js)            | colors in your terminal
-[ascii-table](https://github.com/sorensen/ascii-table)  | tables in your terminal
-[ramda](https://github.com/ramda/ramda)                 | functional utilities
-[ramdasauce](https://github.com/skellock/ramdasauce)    | functional utilities
-[minimist](https://github.com/substack/minimist)        | command line parsing
-[clipboardy](https://github.com/sindresorhus/clipboardy)| copy & paste
-[toml](https://github.com/BinaryMuse/toml-node)         | TOML files
-[cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) | running sub-commands
-[execa](https://github.com/sindresorhus/execa) | running sub-commands
-[node-which](https://github.com/npm/node-which) | executable finder
-[ora](https://github.com/sindresorhus/ora)              | spinner
+| module                                                          | purpose                 |
+| --------------------------------------------------------------- | ----------------------- |
+| [enquirer](https://github.com/enquirer/enquirer)                | prompts & user input    |
+| [fs-jetpack](https://github.com/szwacz/fs-jetpack)              | files & folders         |
+| [ejs](https://github.com/mde/ejs)                               | templates               |
+| [apisauce](https://github.com/skellock/apisauce)                | http requests           |
+| [lodash](https://github.com/lodash/lodash)                      | utilities               |
+| [colors](https://github.com/Marak/colors.js)                    | colors in your terminal |
+| [ascii-table](https://github.com/sorensen/ascii-table)          | tables in your terminal |
+| [ramda](https://github.com/ramda/ramda)                         | functional utilities    |
+| [ramdasauce](https://github.com/skellock/ramdasauce)            | functional utilities    |
+| [minimist](https://github.com/substack/minimist)                | command line parsing    |
+| [clipboardy](https://github.com/sindresorhus/clipboardy)        | copy & paste            |
+| [toml](https://github.com/BinaryMuse/toml-node)                 | TOML files              |
+| [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) | running sub-commands    |
+| [execa](https://github.com/sindresorhus/execa)                  | running sub-commands    |
+| [node-which](https://github.com/npm/node-which)                 | executable finder       |
+| [ora](https://github.com/sindresorhus/ora)                      | spinner                 |
+
+
 ## Including Modules
 
 > TODO: verify that this can be done.

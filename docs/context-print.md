@@ -49,13 +49,13 @@ however we define a theme to make things a bit consistent.
 
 Some available functions include:
 
-function           | use when you want...
------------------- | ------------------------------------------------------
-`colors.success()` | the user to smile
-`colors.error()`   | to say something has failed
-`colors.warn()`    | to point out that something might be off
-`colors.info()`    | to say something informational
-`colors.muted()`   | you need to say something secondary
+| function           | use when you want...                     |
+| ------------------ | ---------------------------------------- |
+| `colors.success()` | the user to smile                        |
+| `colors.error()`   | to say something has failed              |
+| `colors.warn()`    | to point out that something might be off |
+| `colors.info()`    | to say something informational           |
+| `colors.muted()`   | you need to say something secondary      |
 
 Each take a `string` parameter and return a `string`. 
 
