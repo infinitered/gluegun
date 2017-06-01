@@ -107,6 +107,3 @@ git rebase upstream/master
 
 # and here's where you'd create your branch
 ```
-
-
-
