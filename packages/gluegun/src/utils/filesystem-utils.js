@@ -40,15 +40,17 @@ const isNotDirectory = complement(isDirectory)
  * @param  {string} path       Path to a directory to check.
  * @param  {bool}   isRelative Return back the relative directory?
  * @param  {string} matching   A jetpack matching filter
+ * @param  {boolean} symlinks  If true, will include any symlinks along the way.
  * @return {string[]}          A list of directories
  */
-const subdirectories = (base, isRelative, matching = '*') => {
+const subdirectories = (base, isRelative, matching = '*', symlinks = false) => {
   if (isBlank(base) || !isDirectory(base)) return []
   const dirs = jetpack.cwd(base).find({
     matching,
     directories: true,
     recursive: false,
-    files: false
+    files: false,
+    symlinks
   })
   if (isRelative) {
     return dirs
