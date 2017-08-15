@@ -272,7 +272,7 @@ class Runtime {
   loadAll (directory, options = {}) {
     if (isBlank(directory) || !isDirectory(directory)) return []
     return pipe(
-      dir => subdirectories(dir, false, options['matching']),
+      dir => subdirectories(dir, false, options['matching'], true),
       map(dir => this.load(dir, dissoc('matching', options)))
     )(directory)
   }
