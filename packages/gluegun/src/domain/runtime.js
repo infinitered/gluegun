@@ -238,7 +238,9 @@ class Runtime {
       commandAliasToken,
       commandDescriptionToken,
       brand,
-      hidden: options['hidden']
+      hidden: options['hidden'],
+      commandFilePattern: options['commandFilePattern'],
+      extensionFilePattern: options['extensionFilePattern']
     })
 
     this.plugins = append(plugin, this.plugins)
