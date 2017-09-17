@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "0.20.1",
+  "version": "0.21.0",
   "description": "Build yourself a pluggable CLI.",
   "main": "src/index.js",
   "scripts": {
