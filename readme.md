@@ -10,6 +10,7 @@
 We assembled an **all-star cast** of *outstanding* & focused libraries, added a plugin layer, then wrapped it up in an easy-to-use and easy-to-bust-out-of API.
 
 ⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
+⭐️ [semver](https://github.com/npm/node-semver) for version investigations<br />
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
 ⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [ascii-table](https://github.com/sorensen/ascii-table) for the command line<br />
 ⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
