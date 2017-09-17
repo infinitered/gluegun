@@ -24,6 +24,7 @@ const { subdirectories } = require('./utils/filesystem-utils')
 
 // bring in a few extensions to make available for stand-alone purposes
 const filesystem = require('./core-extensions/filesystem-extension')()
+const semver = require('./core-extensions/semver-extension')()
 const system = require('./core-extensions/system-extension')()
 const prompt = require('./core-extensions/prompt-extension')()
 const http = require('./core-extensions/http-extension')()
@@ -39,6 +40,7 @@ module.exports = {
   printWtf,
   subdirectories,
   filesystem,
+  semver,
   system,
   prompt,
   http,
