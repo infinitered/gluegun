@@ -119,7 +119,7 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 | --------------------------------------------------------------- | ----------------------- |
 | [enquirer](https://github.com/enquirer/enquirer)                | prompts & user input    |
 | [fs-jetpack](https://github.com/szwacz/fs-jetpack)              | files & folders         |
-| [semver](https://github.com/npm/node-semver)                    | semantic versioning      |
+| [semver](https://github.com/npm/node-semver)                    | semantic versioning     |
 | [ejs](https://github.com/mde/ejs)                               | templates               |
 | [apisauce](https://github.com/skellock/apisauce)                | http requests           |
 | [lodash](https://github.com/lodash/lodash)                      | utilities               |
