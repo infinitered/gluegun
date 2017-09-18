@@ -20,8 +20,10 @@
     "src",
     "sniff.js",
     "LICENSE",
-    "readme.md"
+    "readme.md",
+    "gluegun.d.ts"
   ],
+  "types": "gluegun.d.ts",
   "license": "MIT",
   "dependencies": {
     "apisauce": "0.12.0",
