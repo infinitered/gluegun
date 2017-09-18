@@ -31,6 +31,7 @@ const addPrintExtension = require('../core-extensions/print-extension')
 const addFilesystemExtension = require(
   '../core-extensions/filesystem-extension'
 )
+const addSemverExtension = require('../core-extensions/semver-extension')
 const addSystemExtension = require('../core-extensions/system-extension')
 const addPromptExtension = require('../core-extensions/prompt-extension')
 const addHttpExtension = require('../core-extensions/http-extension')
@@ -195,6 +196,7 @@ class Runtime {
     this.addExtension('print', addPrintExtension)
     this.addExtension('template', addTemplateExtension)
     this.addExtension('filesystem', addFilesystemExtension)
+    this.addExtension('semver', addSemverExtension)
     this.addExtension('system', addSystemExtension)
     this.addExtension('http', addHttpExtension)
     this.addExtension('prompt', addPromptExtension)

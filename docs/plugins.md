@@ -18,7 +18,7 @@ And 1 optional file:
 
 Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
 
-Since multiple plugins can be loaded, they must have unique names.  The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself. 
+Since multiple plugins can be loaded, they must have unique names.  The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself.
 
 ## commands
 
@@ -44,7 +44,7 @@ For example, you might have a command called `commands/say.js` that looks like t
 // @gluegunCommandName        say
 // @gluegunCommandDescription This command will say the word you tell it to.
 module.exports = async function (context) {
-  const { print, parameters } = context  
+  const { print, parameters } = context
   print.info(`hello ${parameters.first}`)
 }
 ```
@@ -52,7 +52,7 @@ module.exports = async function (context) {
 This `@gluegunCommandName   ` and the `@gluegunCommandDescription` will be detected and will populate the information that
 the user sees when they ask for help or a list of commands.
 
-Extensions are similar except they use the `@gluegunExtensionName` 
+Extensions are similar except they use the `@gluegunExtensionName`
 
 ```js
 // @gluegunExtensionName appstore
@@ -72,7 +72,7 @@ module.exports = function (plugin, command, context) {
   return {
     getAppDetails
   }
-}  
+}
 ```
 
 
@@ -100,7 +100,7 @@ A name:
 * should be **lowercase**
 * spaces-should-have-**dashes**-if-you-need-them
 
-If `name` does not exist, the default will be the name of the directory. 
+If `name` does not exist, the default will be the name of the directory.
 
 ## defaults
 
@@ -119,6 +119,7 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 | --------------------------------------------------------------- | ----------------------- |
 | [enquirer](https://github.com/enquirer/enquirer)                | prompts & user input    |
 | [fs-jetpack](https://github.com/szwacz/fs-jetpack)              | files & folders         |
+| [semver](https://github.com/npm/node-semver)                    | semantic versioning     |
 | [ejs](https://github.com/mde/ejs)                               | templates               |
 | [apisauce](https://github.com/skellock/apisauce)                | http requests           |
 | [lodash](https://github.com/lodash/lodash)                      | utilities               |
