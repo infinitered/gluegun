@@ -7,7 +7,9 @@ const minimist = require('minimist')
  */
 function normalizeParams (plugin, command, argv = []) {
   // chop it up minimist!
-  const { _: array, ...options } = minimist(argv.slice(2))
+  const options = minimist(argv.slice(2))
+  const array = options._
+  delete options._
 
   // the plugin name or command is sometimes the first/second word -- delete them
   if (array[0] == plugin) { array.shift() }
