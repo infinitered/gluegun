@@ -149,11 +149,10 @@ async function run (options) {
     process.argv
   )
 
-  context.params = {
-    ...normalizedParams,
+  context.params = Object.assign(normalizedParams, {
     plugin: context.plugin.name,
     command: context.command.name,
-  }
+  })
 
   // kick it off
   if (context.command.run) {
