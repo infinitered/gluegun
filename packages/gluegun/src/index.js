@@ -10,6 +10,20 @@
 //
 // I may be going to hell for this, but I'm taking you bastards with me.
 // ----------------------------------------------------------------------------
+
+// first, do a sniff test to ensure our dependencies are met
+const sniff = require('../sniff')
+
+// check the node version
+if (!sniff.isNewEnough) {
+  console.log(
+    'Node.js 7.6+ is required to run. You have ' +
+      sniff.nodeVersion +
+      '. Womp, womp.'
+  )
+  process.exit(1)
+}
+
 require('app-module-path').addPath(`${__dirname}/../node_modules`)
 require('app-module-path').addPath(process.cwd())
 // ----------------------------------------------------------------------------
