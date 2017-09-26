@@ -1,9 +1,2 @@
 #!/usr/bin/env node
-
-const sourceDir = `${__dirname}/../src`
-
-// load the entry point or die trying
-require(`${sourceDir}/check.js`)
-
-// congrats!  we're sane enough to load.
-require(`${sourceDir}/cli.js`)(process.argv)
+require(`${__dirname}/../src/cli.js`)(process.argv);
