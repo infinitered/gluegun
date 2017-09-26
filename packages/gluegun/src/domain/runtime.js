@@ -100,7 +100,7 @@ async function run (options) {
   // first check for a command inside the default
   const defaultPluginCommand = this.findCommand(
     this.defaultPlugin,
-    context.parameters.pluginName
+    context.parameters.pluginName || this.defaultCommand
   )
   if (defaultPluginCommand) {
     // we found a command in the default plugin

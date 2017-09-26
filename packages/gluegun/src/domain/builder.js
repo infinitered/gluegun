@@ -50,6 +50,7 @@ class Builder {
     runtime.commandHiddenToken = this.commandHiddenToken
     runtime.commandAliasToken = this.commandAliasToken
     runtime.extensionNameToken = this.extensionNameToken
+    runtime.defaultCommand = this.defaultCommand
 
     // the plugins get loaded last
     this.loads.forEach(entry => {
@@ -88,6 +89,17 @@ class Builder {
    */
   brand (value) {
     this.brand = value
+    return this
+  }
+
+  /**
+   * Set the default command.
+   *
+   * @value {string} The default command.
+   * @return {Builder} self.
+   */
+  defaultCommand (value) {
+    this.defaultCommand = value
     return this
   }
 

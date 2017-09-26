@@ -5,10 +5,23 @@ const { build } = require('gluegun')
  */
 async function run (argv) {
   // create a runtime
-  const runtime = build().brand('gluegun').createRuntime()
+  const runtime =
+    build()
+    .brand('gluegun')
+    .loadDefault(`${__dirname}`)
+    .defaultCommand('help')
+    .token('commandName', 'cliName')
+    .token('commandDescription', 'cliDescription')
+    .token('commandAlias', 'cliAlias')
+    .createRuntime()
 
   // and run it
-  const context = await runtime.run()
+  let context
+  try {
+    context = await runtime.run(argv)
+  } catch (e) {
+    console.log(e)
+  }
 
   // send it back
   return context
