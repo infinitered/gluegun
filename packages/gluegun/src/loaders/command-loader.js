@@ -94,6 +94,8 @@ function loadFromFile (file, options = {}) {
       command.errorState = 'badfunction'
     }
   } catch (e) {
+    console.error(e)
+
     command.exception = e
     command.loadState = 'error'
     command.errorState = 'badfile'
