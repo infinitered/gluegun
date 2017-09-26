@@ -918,9 +918,16 @@ export interface GluegunBuilder {
    * Ideally named after the command line, the brand will be used
    * when searching for configuration files.
    *
-   * @param name The name should be a lowercase and contains only numbers, letters, and dashes.
+   * @param name The name should be all lowercase and contains only numbers, letters, and dashes.
    */
   brand(name: string): GluegunBuilder
+
+  /**
+   * Default command to be run if no command is specified
+   *
+   * @param name The name of the command.
+   */
+  defaultCommand(name: string): GluegunBuilder
 
   /**
    * The name of the file to use for configuration options.

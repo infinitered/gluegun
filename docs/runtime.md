@@ -180,6 +180,23 @@ Commands from the default plugin will now be evaluated first. If there is a matc
 
 For simpler CLIs, you might find this is a much easier way to build. You might not need the flexibility of multiple plugins and can get away with 1 plugin which is installed as the default.
 
+## defaultCommand
+
+You often want a default command if the CLI is invoked with no command specified. Use `defaultCommand('mycommand')` to do so:
+
+```js
+  .defaultCommand('list')
+```
+
+This lets you run it like this:
+
+```sh
+# run a default command -- in this case, `list`
+$ movie
+1. Planes, Trains, & Automobiles
+2. Johnny English
+``` 
+
 ## run
 
 `gluegun` can also be `run()` with options.
