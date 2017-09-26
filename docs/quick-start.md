@@ -17,6 +17,7 @@ const runtime = build()
   .loadDefault(`${__dirname}/core-plugins`)
   .load('~/Desktop/movie/quote')
   .loadAll('~/Downloads/VariousMoviePlugins')
+  .defaultCommand('help')
   .createRuntime()
 
 // fire!
