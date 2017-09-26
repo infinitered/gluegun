@@ -241,6 +241,7 @@ class Runtime {
       commandDescriptionToken,
       brand,
       hidden: options['hidden'],
+      name: options['name'],
       commandFilePattern: options['commandFilePattern'],
       extensionFilePattern: options['extensionFilePattern']
     })
