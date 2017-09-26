@@ -19,7 +19,7 @@ const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
 const printCommands = require('./cli/print-commands')
-const printWtf = require('./cli/print-wtf')
+const printWtf = () => print.warning('printWtf() has been deprecated')
 const { subdirectories } = require('./utils/filesystem-utils')
 
 // bring in a few extensions to make available for stand-alone purposes

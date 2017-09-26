@@ -19,49 +19,35 @@ function loadFromFile (file, options = {}) {
 
   // sanity check the input
   if (isBlank(file)) {
-    extension.loadState = 'error'
-    extension.errorState = 'input'
-    return extension
+    throw new Error(`Error: couldn't load extension (file is blank): ${file}`)
   }
 
   extension.file = file
 
   // not a file?
   if (isNotFile(file)) {
-    extension.loadState = 'error'
-    extension.errorState = 'missing'
-    return extension
+    throw new Error(`Error: couldn't load command (not a file): ${file}`)
   }
 
   // default is the name of the file without the extension
   extension.name = head(split('.', jetpack.inspect(file).name))
 
-  // let's load
-  try {
-    // try reading in tokens embedded in the file
-    const tokens = findTokens(jetpack.read(file) || '', [extensionNameToken])
+  // try reading in tokens embedded in the file
+  const tokens = findTokens(jetpack.read(file) || '', [extensionNameToken])
 
-    // let's override if we've found these tokens
-    extension.name = tokens[extensionNameToken] || extension.name
+  // let's override if we've found these tokens
+  extension.name = tokens[extensionNameToken] || extension.name
 
-    // require in the module -- best chance to bomb is here
-    const extensionModule = loadModule(file)
+  // require in the module -- best chance to bomb is here
+  const extensionModule = loadModule(file)
 
-    // should we try the default export?
-    const valid = extensionModule && typeof extensionModule === 'function'
+  // should we try the default export?
+  const valid = extensionModule && typeof extensionModule === 'function'
 
-    if (valid) {
-      extension.loadState = 'ok'
-      extension.errorState = 'none'
-      extension.setup = extensionModule
-    } else {
-      extension.loadState = 'error'
-      extension.errorState = 'badfunction'
-    }
-  } catch (e) {
-    extension.exception = e
-    extension.loadState = 'error'
-    extension.errorState = 'badfile'
+  if (valid) {
+    extension.setup = extensionModule
+  } else {
+    throw new Error(`Error: couldn't load ${extension.name}. Expected a function, got ${commandModule}.`)
   }
 
   return extension

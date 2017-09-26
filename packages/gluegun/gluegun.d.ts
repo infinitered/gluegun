@@ -13,12 +13,6 @@ export interface GluegunCommand {
    * @param context The run context.
    */
   run(context: GluegunRunContext): Promise<any | void>
-  /** The load status of the plugin. */
-  loadState: 'none' | 'ok' | 'error'
-  /** What went wrong when loading the plugin. */
-  errorState: 'none' | 'input' | 'missing' | 'badfile' | 'badfunction'
-  /** The Error that was trigger (if any). */
-  exception?: Error
   /** Is this command hidden from the command line? */
   hidden?: boolean
 }
@@ -26,26 +20,18 @@ export interface GluegunCommand {
 export interface GluegunPlugin {
   /** The name of the plugin. */
   name?: string
-  /** The status of loading the plugin. */
-  loadState: 'none' | 'ok' | 'error'
-  /** The error code of loading the plugin. */
-  errorState: 'none' | 'input' | 'missingdir'
   /** A description used in the cli. */
   description?: string
   /** Default configuration values. */
   defaults?: any
   /** The directory this plugin lives in. */
   directory?: string
-  /** If there was an error, this is the error message. */
-  errorMessage?: string
   /** Should we hide this command from the cli? */
   hidden?: boolean
   /** The commands in this plugin. */
   commands: GluegunCommand[]
   /** The extensions in this plugin. */
   extensions: GluegunExtension[]
-  /** The Error if there was a problem.  */
-  exception?: Error
 }
 
 export interface GluegunExtension {
@@ -57,12 +43,6 @@ export interface GluegunExtension {
   file?: string
   /** The register function used when setting up. */
   setup?: GluegunExtensionAttacher
-  /** The load status of the extension. */
-  loadState: 'none' | 'ok' | 'error'
-  /** The error state */
-  errorState: 'none' | 'input' | 'missingdir'
-  /** The Error if there was a problem.  */
-  exception?: Error
 }
 
 /**

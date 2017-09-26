@@ -7,9 +7,6 @@ class Extension {
     this.description = null
     this.file = null
     this.setup = null
-    this.loadState = 'none'
-    this.errorState = 'none'
-    this.exception = null
   }
 }
 

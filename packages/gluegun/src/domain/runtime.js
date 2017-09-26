@@ -156,19 +156,7 @@ async function run (options) {
       this.extensions
     )
 
-    try {
-      context.result = await context.command.run(context)
-    } catch (e) {
-      const { options } = context.parameters
-      if (options.silent || options.quiet) {
-        // shhh...
-      } else if (options.debug || options.verbose) {
-        console.error(e);
-      } else {
-        context.print.error(`There was an error in ${context.plugin.name} ${context.command.name}. Run with --debug to see the error.`)
-      }
-      context.error = e
-    }
+    context.result = await context.command.run(context)
   }
 
   return context

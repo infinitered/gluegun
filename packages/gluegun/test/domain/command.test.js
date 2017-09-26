@@ -9,6 +9,4 @@ test('default state', t => {
   t.falsy(command.description)
   t.falsy(command.run)
   t.is(command.hidden, false)
-  t.is(command.loadState, 'none')
-  t.is(command.errorState, 'none')
 })

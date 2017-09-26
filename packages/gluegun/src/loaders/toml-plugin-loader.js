@@ -2,7 +2,7 @@ const jetpack = require('fs-jetpack')
 const Plugin = require('../domain/plugin')
 const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
-const { isNotDirectory } = require('../utils/filesystem-utils')
+const { isNotDirectory, isFile } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
 const { assoc, map } = require('ramda')
 const toml = require('toml')
@@ -37,16 +37,12 @@ function loadFromDirectory (directory, options = {}) {
 
   // sanity check the input
   if (isBlank(directory)) {
-    plugin.loadState = 'error'
-    plugin.errorState = 'input'
-    return plugin
+    throw new Error(`Error: couldn't find toml file in ${directory}`)
   }
 
   // directory check
   if (isNotDirectory(directory)) {
-    plugin.loadState = 'error'
-    plugin.errorState = 'missingdir'
-    return plugin
+    throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
   }
 
   plugin.directory = directory
@@ -91,10 +87,9 @@ function loadFromDirectory (directory, options = {}) {
     plugin.extensions = []
   }
   // if we have a config toml
-  try {
-    // attempt to load the toml file
-    const tomlFile = `${directory}/${brand}.toml`
-
+  // attempt to load the toml file
+  const tomlFile = `${directory}/${brand}.toml`
+  if (isFile(tomlFile)) {
     // read it
     const config = toml.parse(jetpack.read(tomlFile) || '')
 
@@ -105,15 +100,7 @@ function loadFromDirectory (directory, options = {}) {
     plugin[brand] = config[brand]
     plugin.defaults = config.defaults || {}
     plugin.description = config.description
-
-    // restrict name
-  } catch (e) {
-    // no worries, configs are optional
   }
-
-  // we are good!
-  plugin.loadState = 'ok'
-  plugin.errorState = 'none'
 
   // set the hidden bit
   if (hidden) {

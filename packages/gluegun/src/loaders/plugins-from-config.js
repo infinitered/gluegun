@@ -10,15 +10,11 @@ const toml = require('toml')
  * @return {string[]}     A list of plugin keys.
  */
 function getPluginsFromConfig (path) {
-  try {
-    return pipe(
-      jetpack.read, // read the file
-      toml.parse, // parse it
-      propOr([], 'plugins') // grab the plugins or []
-    )(path)
-  } catch (e) {
-    return []
-  }
+  return pipe(
+    jetpack.read, // read the file
+    toml.parse, // parse it
+    propOr([], 'plugins') // grab the plugins or []
+  )(path)
 }
 
 module.exports = getPluginsFromConfig

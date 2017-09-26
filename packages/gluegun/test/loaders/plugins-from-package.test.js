@@ -1,18 +1,17 @@
 const test = require('ava')
 const getPluginsFromConfig = require('../../src/loaders/plugins-from-config')
 
-test('wierd input', t => {
-  t.deepEqual(getPluginsFromConfig(), [])
-  t.deepEqual(getPluginsFromConfig(), [])
+test('weird input', t => {
+  t.throws(() => getPluginsFromConfig())
 })
 
 test('missing toml', t => {
-  t.deepEqual(getPluginsFromConfig(''), [])
+  t.throws(() => getPluginsFromConfig(''))
 })
 
 test('not a json file', t => {
-  t.deepEqual(getPluginsFromConfig(__dirname), [])
-  t.deepEqual(getPluginsFromConfig(__filename), [])
+  t.throws(() => getPluginsFromConfig(__dirname))
+  t.throws(() => getPluginsFromConfig(__filename))
 })
 
 test('valid plugins', t => {
