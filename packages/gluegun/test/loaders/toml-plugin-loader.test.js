@@ -2,31 +2,19 @@ const test = require('ava')
 const load = require('../../src/loaders/toml-plugin-loader')
 const { find, propEq } = require('ramda')
 
-test('deals with wierd input', t => {
-  const plugin = load()
-  t.falsy(plugin.run)
-  t.is(plugin.loadState, 'error')
-  t.is(plugin.errorState, 'input')
-})
-
-test('directory not found', t => {
-  const plugin = load(`${__dirname}/gonebabygone`)
-  t.is(plugin.loadState, 'error')
-  t.is(plugin.errorState, 'missingdir')
+test('deals with weird input', t => {
+  t.throws(() => load())
+  t.throws(() => load(`${__dirname}/gonebabygone`))
 })
 
 test('missing config files is fine', t => {
   const plugin = load(`${__dirname}/../fixtures/good-plugins/empty`)
-  t.is(plugin.loadState, 'ok')
-  t.is(plugin.errorState, 'none')
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.extensions, [])
 })
 
 test('default name', t => {
   const plugin = load(`${__dirname}/../fixtures/good-plugins/missing-name`)
-  t.is(plugin.loadState, 'ok')
-  t.is(plugin.errorState, 'none')
   t.is(plugin.name, 'missing-name')
 })
 
@@ -34,11 +22,8 @@ test('sane defaults', t => {
   const dir = `${__dirname}/../fixtures/good-plugins/simplest`
   const plugin = load(dir)
 
-  t.is(plugin.loadState, 'ok')
-  t.is(plugin.errorState, 'none')
   t.is(plugin.name, 'simplest')
   t.is(plugin.directory, dir)
-  t.falsy(plugin.errorMessage)
   t.deepEqual(plugin.extensions, [])
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.defaults, {})
@@ -48,12 +33,8 @@ test('loads commands', async t => {
   const dir = `${__dirname}/../fixtures/good-plugins/threepack`
   const plugin = load(dir)
 
-  t.falsy(plugin.exception && plugin.exception.message)
-  t.is(plugin.errorState, 'none')
-  t.is(plugin.loadState, 'ok')
   t.is(plugin.name, '3pack')
   t.is(plugin.directory, dir)
-  t.falsy(plugin.errorMessage)
   t.is(plugin.commands.length, 3)
   t.deepEqual(plugin.defaults, { numbers: 3 })
 
@@ -71,8 +52,6 @@ test('load commands with front matter', async t => {
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = load(dir)
 
-  t.is(plugin.loadState, 'ok')
-  t.is(plugin.errorState, 'none')
   t.is(plugin.commands.length, 1)
 
   // test the command
@@ -111,8 +90,6 @@ test('plugin names can be overridden', async t => {
 test('blank names fallback to directory name', t => {
   const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-name`)
   t.is(plugin.name, 'blank-name')
-  t.is(plugin.loadState, 'ok')
-  t.is(plugin.errorState, 'none')
 })
 
 test('supports hidden plugins & commands', t => {

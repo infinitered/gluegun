@@ -24,7 +24,6 @@ test('supports props', async t => {
     options: { stars: 5 }
   })
 
-  t.falsy(context.error && context.error.message)
   t.is(
     context.result,
     `greetingsAndSalutations world
@@ -37,13 +36,14 @@ blue
 })
 
 test('detects missing templates', async t => {
-  const context = await createRuntime().run({
-    pluginName: 'generate',
-    rawCommand: 'missing'
-  })
-
-  t.truthy(context.error)
-  t.true(startsWith('template not found ', context.error.message))
+  try {
+    const context = await createRuntime().run({
+      pluginName: 'generate',
+      rawCommand: 'missing'
+    })
+  } catch (e) {
+    t.true(startsWith('template not found', e.message))
+  }
 })
 
 test('supports directories', async t => {
@@ -52,7 +52,6 @@ test('supports directories', async t => {
     rawCommand: 'special location'
   })
 
-  t.falsy(context.error && context.error.message)
   t.is(
     context.result,
     `location

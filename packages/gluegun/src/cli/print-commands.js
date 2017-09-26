@@ -13,11 +13,6 @@ const { dotPath } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 
 /**
- * Does this have a loadState error?
- */
-const hasLoadStateError = propEq('loadState', 'error')
-
-/**
  * Is this a hidden command?
  */
 const isHidden = propEq('hidden', true)
@@ -31,7 +26,6 @@ const isHidden = propEq('hidden', true)
 function getListOfPlugins (context) {
   return pipe(
     dotPath('runtime.plugins'),
-    reject(hasLoadStateError),
     reject(isHidden),
     reject(
       plugin =>
@@ -56,7 +50,6 @@ function getListOfPlugins (context) {
 function getListOfCommands (context, plugin) {
   return pipe(
     prop('commands'),
-    reject(hasLoadStateError),
     reject(isHidden),
     map(command => {
       const alias = command.alias ? `(${command.alias})` : ''

@@ -12,7 +12,6 @@ test('create', t => {
 
 test('print', t => {
   t.is(typeof exported.printCommands, 'function')
-  t.is(typeof exported.printWtf, 'function')
   t.is(typeof exported.print.info, 'function')
 })
 

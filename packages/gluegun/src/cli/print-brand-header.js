@@ -11,12 +11,11 @@ module.exports = function printBrandHeader (runtime, plugin) {
   const headerTextFile = `${brandPluginDir}/header.txt`
   const headerJsFile = `${brandPluginDir}/header.js`
 
-  // try loading the javascript header
-  try {
+  // load the javascript header if it exists
+  if (isFile(headerJsFile)) {
     const header = loadModule(headerJsFile)
     header(plugin, print)
     return
-  } catch (e) {
   }
 
   // otherwise try printing the text file header

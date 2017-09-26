@@ -1,5 +1,5 @@
 async function thrower (context) {
-  throw new Error()
+  throw new Error('thrown an error!')
 }
 
 module.exports = thrower

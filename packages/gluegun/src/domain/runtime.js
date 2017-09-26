@@ -156,11 +156,7 @@ async function run (options) {
       this.extensions
     )
 
-    try {
-      context.result = await context.command.run(context)
-    } catch (e) {
-      context.error = e
-    }
+    context.result = await context.command.run(context)
   }
 
   return context

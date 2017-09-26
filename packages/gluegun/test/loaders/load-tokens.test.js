@@ -1,7 +1,7 @@
 import test from 'ava'
 import findTokens from '../../src/loaders/find-tokens'
 
-test('handles wierd input', t => {
+test('handles weird input', t => {
   t.throws(() => findTokens())
   t.throws(() => findTokens(1))
   t.throws(() => findTokens([]))

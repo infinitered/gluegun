@@ -15,8 +15,8 @@ test('hides commands', t => {
   t.true(r.plugins[0].commands[2].hidden)
 })
 
-test('allows plugins with broken dirs', t => {
+test('doesn\'t allow plugins with broken dirs', async t => {
   const r = new Runtime()
-  r.load(__filename)
-  t.is(r.plugins.length, 1)
+  const error = await t.throws(() => r.load(__filename), Error)
+  t.is(error.message, `Error: couldn\'t load plugin (not a directory): ${__filename}`)
 })
