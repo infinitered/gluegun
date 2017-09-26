@@ -1,4 +1,5 @@
 const parseCommandLine = require('../cli/parse-command-line')
+const normalizeParams = require('../cli/normalize-params')
 const autobind = require('autobind-decorator')
 const {
   clone,
@@ -140,6 +141,19 @@ async function run (options) {
   context.parameters.second = subArgs[1]
   context.parameters.third = subArgs[2]
   context.parameters.string = join(COMMAND_DELIMITER, subArgs)
+
+  // normalized params (experimental)
+  const normalizedParams = normalizeParams(
+    context.plugin.name,
+    context.command.name,
+    process.argv
+  )
+
+  context.params = {
+    ...normalizedParams,
+    plugin: context.plugin.name,
+    command: context.command.name,
+  }
 
   // kick it off
   if (context.command.run) {
