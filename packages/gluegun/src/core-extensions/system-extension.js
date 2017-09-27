@@ -1,12 +1,11 @@
 const { exec: nodeExec } = require('child_process')
-const clipboardy = require('clipboardy')
 const { isNil, split, head, tail, dissoc, trim, identity } = require('ramda')
 const execa = require('execa')
 const nodeWhich = require('which')
 const crossSpawn = require('cross-spawn')
 
 /**
- * Extensions to launch processes, open files, and talk to the clipboard.
+ * Extensions to launch processes and open files.
  *
  * @return {Function} A function to attach to the context.
  */
@@ -86,24 +85,6 @@ module.exports = function (plugin, command, context) {
   }
 
   /**
-   * Returns text that is on the clipboard.
-   *
-   * @return {string}
-   */
-  function readFromClipboard () {
-    return clipboardy.readSync()
-  }
-
-  /**
-   * Writes text to the clipboard.
-   *
-   * @param {string} text The text to send
-   */
-  function writeToClipboard (text) {
-    clipboardy.writeSync(text)
-  }
-
-  /**
    * Finds the location of the path.
    *
    * @param {string} command The name of program you're looking for.
@@ -113,5 +94,5 @@ module.exports = function (plugin, command, context) {
     return nodeWhich.sync(command)
   }
 
-  return { exec, run, spawn, readFromClipboard, writeToClipboard, which }
+  return { exec, run, spawn, which }
 }
