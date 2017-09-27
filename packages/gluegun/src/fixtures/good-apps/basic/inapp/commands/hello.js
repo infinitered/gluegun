@@ -1,6 +1,9 @@
 // @cliCommand say
 // @cliDescription Says hello.
 
-module.exports = async function (context) {
-  return 'hello'
+module.exports = {
+  name: 'hello',
+  run: async function (context) {
+    return 'hello'
+  }
 }

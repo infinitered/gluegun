@@ -7,4 +7,4 @@ async function missing (context) {
   return result
 }
 
-module.exports = missing
+module.exports = { name: 'missing', run: missing }

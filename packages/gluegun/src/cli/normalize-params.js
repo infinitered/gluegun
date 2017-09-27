@@ -7,9 +7,10 @@ const minimist = require('minimist')
  */
 function normalizeParams (plugin, command, argv = []) {
   // chop it up minimist!
-  const options = minimist(argv.slice(2))
+  const options = minimist(argv)
   const array = options._
   delete options._
+  const raw = array.join(' ')
 
   // the plugin name or command is sometimes the first/second word -- delete them
   if (array[0] == plugin) { array.shift() }
@@ -19,11 +20,11 @@ function normalizeParams (plugin, command, argv = []) {
   const second = array[1]
   const third = array[2]
 
-  // the rawCommand is the rest of the words
-  const raw = array.join(' ')
+  // the string is the rest of the words
+  const string = array.join(' ')
 
   // :shipit:
-  return { argv, first, second, third, raw, array, options }
+  return { plugin, command, first, second, third, raw, string, array, options, argv }
 }
 
 module.exports = normalizeParams

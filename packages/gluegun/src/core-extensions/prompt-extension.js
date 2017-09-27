@@ -3,9 +3,9 @@ const Enquirer = require('enquirer')
 /**
  * Provides user input prompts via enquirer.js.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach () {
+function attach (context) {
   const enquirer = new Enquirer()
   enquirer.register('list', require('prompt-list'))
   enquirer.register('rawlist', require('prompt-rawlist'))
@@ -35,7 +35,7 @@ function attach () {
   // attach our helpers
   enquirer.confirm = confirm
 
-  return enquirer
+  context.prompt = enquirer
 }
 
 module.exports = attach

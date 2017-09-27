@@ -2,6 +2,10 @@ const test = require('ava')
 const createExtension = require('./http-extension')
 const http = require('http')
 
+const context = {}
+createExtension(context)
+const ext = context.http
+
 /**
  * Sends a HTTP response.
  *
@@ -26,13 +30,11 @@ const send200 = (res, body) => {
 }
 
 test('has the proper interface', t => {
-  const ext = createExtension()
   t.truthy(ext)
   t.is(typeof ext.create, 'function')
 })
 
 test('connects to a server', async t => {
-  const ext = createExtension()
   const server = http.createServer((req, res) => {
     send200(res, 'hi')
   })

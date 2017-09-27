@@ -1,11 +1,11 @@
-// @cliDescription  Provides help for Gluegun.
-// @cliAlias h
-// ----------------------------------------------------------------------------
+module.exports = {
+  name: 'help',
+  alias: [ 'h' ],
+  description: 'Displays this help',
+  hidden: false,
+  run: async (context) => {
+    const { print } = context
 
-async function command(context) {
-  const { print, printCommands } = context
-
-  print.info('Gluegun CLI')
+    // console.log(context)
+  }
 }
-
-module.exports = command

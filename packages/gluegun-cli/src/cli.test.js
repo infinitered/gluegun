@@ -7,13 +7,13 @@ test('can start the cli', async t => {
 })
 
 test('cli shows new', async t => {
-  const c = await cli([null, null, 'new', 'Foo'])
+  const c = await cli(['/bin/node', '/bin/gluegun', 'new', 'Foo'])
   t.is(c.command.name, 'new')
 })
 
-test('cli shows help by default', async t => {
-  const c = await cli([null, null])
-  t.is(c.command.name, 'help')
+test('cli shows default', async t => {
+  const c = await cli(['/bin/node', '/bin/gluegun'])
+  t.is(c.command.name, 'gluegun')
 });
 
 

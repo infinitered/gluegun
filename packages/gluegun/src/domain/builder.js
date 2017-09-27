@@ -13,7 +13,7 @@ const toml = require('toml')
  */
 class Builder {
   constructor () {
-    this.loads = [] // the plugins
+    this.loadPlugins = [] // the plugins
     this.events = {} // the events
   }
 
@@ -22,7 +22,7 @@ class Builder {
    *
    * @return {Runtime} The runtime we're building
    */
-  createRuntime () {
+  create () {
     const runtime = new Runtime(this.brand)
 
     // should we try to load the config?
@@ -45,17 +45,11 @@ class Builder {
 
     // set the rest of the properties
     runtime.events = this.events
-    runtime.commandNameToken = this.commandNameToken
-    runtime.commandDescriptionToken = this.commandDescriptionToken
-    runtime.commandHiddenToken = this.commandHiddenToken
-    runtime.commandAliasToken = this.commandAliasToken
-    runtime.extensionNameToken = this.extensionNameToken
-    runtime.defaultCommand = this.defaultCommand
 
     // the plugins get loaded last
-    this.loads.forEach(entry => {
+    this.loadPlugins.forEach(entry => {
       switch (entry.type) {
-        case 'loadDefault':
+        case 'default':
           runtime.loadDefault(entry.value, entry.options)
           break
         case 'load':
@@ -93,13 +87,15 @@ class Builder {
   }
 
   /**
-   * Set the default command.
+   * Specifies where the default commands and extensions live.
    *
-   * @value {string} The default command.
-   * @return {Builder} self.
+   * @param  {string}  value   The default plugin directory.
+   * @param  {Object}  options Additional loading options.
+   * @return {Builder}         self.
    */
-  defaultCommand (value) {
-    this.defaultCommand = value
+  src (value, options = {}) {
+    options.name = options.name || this.brand
+    this.loadPlugins.push({ type: 'default', value, options })
     return this
   }
 
@@ -110,20 +106,8 @@ class Builder {
    * @param  {Object}  options Additional loading options.
    * @return {Builder}         self.
    */
-  load (value, options = {}) {
-    this.loads.push({ type: 'load', value, options })
-    return this
-  }
-
-  /**
-   * Add a default plugin to the list.
-   *
-   * @param  {string}  value   The default plugin directory.
-   * @param  {Object}  options Additional loading options.
-   * @return {Builder}         self.
-   */
-  loadDefault (value, options = {}) {
-    this.loads.push({ type: 'loadDefault', value, options })
+  plugin (value, options = {}) {
+    this.loadPlugins.push({ type: 'load', value, options })
     return this
   }
 
@@ -134,8 +118,8 @@ class Builder {
    * @param  {Object}  options Additional loading options.
    * @return {Builder}         self.
    */
-  loadAll (value, options = {}) {
-    this.loads.push({ type: 'loadAll', value, options })
+  plugins (value, options = {}) {
+    this.loadPlugins.push({ type: 'loadAll', value, options })
     return this
   }
 
@@ -149,39 +133,6 @@ class Builder {
   on (event, callback) {
     this.events[event] = this.events[event] || []
     this.events[event].push(callback)
-    return this
-  }
-
-  /**
-   * Sets one of the tokens used when parsing commands & extensions.
-   *
-   * @param  {string} type  The token type: commandName, commandDescription, extensionName.
-   * @param  {string} value The new token name without the '@'
-   * @return {Builder}      self.
-   */
-  token (type, value) {
-    switch (type) {
-      case 'commandName':
-        this.commandNameToken = value
-        break
-      case 'commandDescription':
-        this.commandDescriptionToken = value
-        break
-      case 'commandHidden':
-        this.commandHiddenToken = value
-        break
-      case 'commandAlias':
-        this.commandAliasToken = value
-        break
-      case 'extensionName':
-        this.extensionNameToken = value
-        break
-      default:
-        throw new Error(
-          'Unrecognized token type.  Must be commandName, commandDescription, or extensionName'
-        )
-    }
-
     return this
   }
 }

@@ -1,18 +1,20 @@
 const jetpack = require('fs-jetpack')
 const os = require('os')
 const path = require('path')
+const { subdirectories } = require('../utils/filesystem-utils')
 
 /**
  * Extensions to filesystem.  Brought to you by fs-jetpack.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach () {
+function attach (context) {
   const extension = jetpack // jetpack
   extension.eol = os.EOL // end of line marker
   extension.separator = path.sep // path separator
+  extension.subdirectories = subdirectories
 
-  return extension
+  context.filesystem = extension
 }
 
 module.exports = attach

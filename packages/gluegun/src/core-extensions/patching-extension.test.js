@@ -5,7 +5,9 @@ const create = require('./patching-extension')
 
 // const { startsWith } = require('ramdasauce')
 
-const patching = create()
+const context = {}
+create(context)
+const patching = context.patching
 
 const CONFIG_STRING = `{
   "test": "what???",

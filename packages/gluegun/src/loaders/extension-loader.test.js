@@ -20,13 +20,7 @@ test('open a wierd js file', async t => {
 test('default but none exported', async t => {
   const file = `${__dirname}/../fixtures/good-modules/module-exports-object.js`
   const error = await t.throws(() => load(file, 'extension'), Error)
-  t.is(error.message, `commandModule is not defined`)
-})
-
-test('fat arrows', async t => {
-  const file = `${__dirname}/../fixtures/good-modules/module-exports-fat-arrow-fn.js`
-  const extension = load(file, 'extension')
-  t.is(typeof extension.setup, 'function')
+  t.is(error.message, `Error: couldn't load module-exports-object. Expected a function, got [object Object].`)
 })
 
 test('has front matter', async t => {

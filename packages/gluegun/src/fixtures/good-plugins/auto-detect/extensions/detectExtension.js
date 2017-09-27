@@ -1,8 +1,5 @@
-/**
- * Should auto-detect the name.
- */
-module.exports = function (plugin, command, context) {
-  return {
+module.exports = function (context) {
+  context.detectExtension = {
     auto: 'detect'
   }
 }

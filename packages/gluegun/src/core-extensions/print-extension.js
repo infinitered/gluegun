@@ -4,12 +4,9 @@ const ora = require('ora')
 /**
  * Extensions to print to the console.
  *
- * @param  {Plugin}     plugin  The plugin that triggered.
- * @param  {Command}    command The current command that is running.
  * @param  {RunContext} context The running context.
- * @return {Function}           A function to attach to the context.
  */
-function attach (plugin, command, context) {
+function attach (context) {
   const { colors, debug } = print
   const checkmark = colors.success('✔︎')
   const xmark = colors.error('ⅹ')
@@ -54,8 +51,8 @@ function attach (plugin, command, context) {
     return ora(config).start()
   }
 
-  // return back the feature set
-  return {
+  // attach the feature set
+  context.print = {
     info,
     warning,
     error,

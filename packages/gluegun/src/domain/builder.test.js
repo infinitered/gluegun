@@ -8,9 +8,9 @@ test('the gauntlet', t => {
     // read from a configuration file
     .configFile(`./${brand}.toml`)
     // plugins
-    .loadDefault(`${__dirname}/../fixtures/good-plugins/threepack`)
-    .load(`${__dirname}/../fixtures/good-plugins/simplest`)
-    .loadAll(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
+    .src(`${__dirname}/../fixtures/good-plugins/threepack`)
+    .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
+    .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
     // events
     .on('start', () => {})
     .on('pluginLoad', context => {})
@@ -23,16 +23,10 @@ test('the gauntlet', t => {
     .on('commandError', context => {})
     .on('runError', context => {})
     .on('finish', context => {})
-    // plugin tokens
-    .token('commandName', '@cliCommand')
-    .token('commandDescription', '@cliDescription')
-    .token('commandHidden', '@cliHidden')
-    .token('commandAlias', '@cliAlias')
-    .token('extensionName', '@extensionName')
 
   // the the builder
   t.is(builder.brand, 'test')
 
-  const runtime = builder.createRuntime()
+  const runtime = builder.create()
   t.truthy(runtime)
 })

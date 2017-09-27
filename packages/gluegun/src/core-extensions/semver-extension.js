@@ -3,12 +3,13 @@ const semver = require('semver')
 /**
  * Extensions to access semver and helpers
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach () {
+function attach (context) {
   const extension = semver // semver
   // Add bells and whistles here
-  return extension
+
+  context.semver = extension
 }
 
 module.exports = attach

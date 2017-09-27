@@ -33,31 +33,22 @@ const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
 const printCommands = require('./cli/print-commands')
-const printWtf = () => print.warning('printWtf() has been deprecated')
-const { subdirectories } = require('./utils/filesystem-utils')
+
+const context = {
+  build,
+  strings,
+  print,
+  printCommands
+}
 
 // bring in a few extensions to make available for stand-alone purposes
-const filesystem = require('./core-extensions/filesystem-extension')()
-const semver = require('./core-extensions/semver-extension')()
-const system = require('./core-extensions/system-extension')()
-const prompt = require('./core-extensions/prompt-extension')()
-const http = require('./core-extensions/http-extension')()
-const template = require('./core-extensions/template-extension')()
-const patching = require('./core-extensions/patching-extension')()
+require('./core-extensions/filesystem-extension')(context)
+require('./core-extensions/semver-extension')(context)
+require('./core-extensions/system-extension')(context)
+require('./core-extensions/prompt-extension')(context)
+require('./core-extensions/http-extension')(context)
+require('./core-extensions/template-extension')(context)
+require('./core-extensions/patching-extension')(context)
 
 // export our API
-module.exports = {
-  build,
-  print,
-  strings,
-  printCommands,
-  printWtf,
-  subdirectories,
-  filesystem,
-  semver,
-  system,
-  prompt,
-  http,
-  template,
-  patching
-}
+module.exports = context

@@ -42,84 +42,49 @@ const addPatchingExtension = require('../core-extensions/patching-extension')
 const COMMAND_DELIMITER = ' '
 
 /**
- * Strips the command out of the args returns an array of the rest.
- *
- * @param {string} args        The full arguments including command.
- * @param {string} commandName The name of the command to strip.
- */
-const extractSubArguments = (args, commandName) =>
-  pipe(
-    replace(commandName, ''),
-    trim,
-    split(COMMAND_DELIMITER),
-    when(equals(['']), always([]))
-  )(args)
-
-/**
 * Runs a command.
 *
+* @param  {string} rawCommand Command string.
 * @param  {{}} options Additional options use to execute a command.
-*                      If nothing is passed, it will read from the command line.
 * @return {RunContext} The RunContext object indicating what happened.
 */
-async function run (options) {
+async function run (rawCommand, options) {
   // prepare the run context
   const context = new RunContext()
 
   // attach the runtime
   context.runtime = this
 
-  // prepare the context parameters
-  const optionsIsArray = is(Array, options)
+  // use the command line args if not passed in
+  let commandArray = rawCommand || process.argv
+  if (is(String, commandArray)) { commandArray = commandArray.split(COMMAND_DELIMITER) }
 
-  // set initial context parameters, these will change further along
-  // once we understand better what the user is looking for.
-  if (isNilOrEmpty(options) || optionsIsArray) {
-    // grab the params from the command line
-    const { first, rest, options: parsedOptions } = parseCommandLine(
-      options || process.argv
-    )
-    context.parameters.pluginName = first
-    context.parameters.rawCommand = rest
-    context.parameters.options = parsedOptions || {}
-  } else {
-    // grab the options that were passed in
-    context.parameters.options = options.options || {}
+  // remove the first 2 args if it comes from process.argv
+  if (commandArray[0] && commandArray[0].endsWith('/bin/node')) { commandArray = commandArray.slice(2) }
 
-    // did the user fill out the rawCommand but not the plug name?
-    if (isBlank(options.pluginName) && !isBlank(options.rawCommand)) {
-      // let's upgrade
-      const upgrade = parseCommandLine(['', '', options.rawCommand])
-      context.parameters.pluginName = upgrade.first
-      context.parameters.rawCommand = upgrade.rest
-    } else {
-      context.parameters.pluginName = options.pluginName
-      context.parameters.rawCommand = options.rawCommand
-    }
-  }
-
-  // first check for a command inside the default
-  const defaultPluginCommand = this.findCommand(
-    this.defaultPlugin,
-    context.parameters.pluginName || this.defaultCommand
-  )
-  if (defaultPluginCommand) {
-    // we found a command in the default plugin
+  // find the pluginName and commandName from the cli args
+  let commandName = commandArray[0]
+  if (!commandName) {
+    // if no first arg, we want to go for the default, which is named the same as the plugin
+    context.pluginName = this.brand
+    context.commandName = this.brand
     context.plugin = this.defaultPlugin
-    context.command = defaultPluginCommand
-    context.parameters.pluginName = context.plugin.name
-    context.parameters.rawCommand = `${context.plugin.name} ${context.parameters.rawCommand}`
+  } else if (this.pluginNames.includes(commandName)) {
+    // this is the name of a plugin, so let's set that, and try with the second argument
+    context.pluginName = commandName
+    // set to the second argument, or back to the plugin name (for default command)
+    context.commandName = commandArray[1] || commandName
   } else {
-    // there wasn't a default command
-    context.plugin = this.findPlugin(context.parameters.pluginName)
-    context.command = this.findCommand(
-      context.plugin,
-      context.parameters.rawCommand
-    )
+    // it's one of our default commands...probably
+    context.pluginName = this.brand
+    context.commandName = commandName
   }
 
-  // jet if we have no plugin
-  if (isNil(context.plugin)) return context
+  context.plugin = context.plugin || this.findPlugin(context.pluginName)
+  context.command = this.findCommand(context.plugin, context.commandName)
+
+  // jet if we have no plugin or command
+  if (isNil(context.plugin) || isNil(context.command)) return context
 
   // setup the config
   context.config = clone(this.config)
@@ -128,47 +93,20 @@ async function run (options) {
     (this.defaults && this.defaults[context.plugin.name]) || {}
   )
 
-  // jet if we have no command
-  if (isNil(context.command)) return context
-
-  // setup the rest of the parameters
-  const subArgs = extractSubArguments(
-    context.parameters.rawCommand,
-    trim(context.command.name)
-  )
-  context.parameters.array = subArgs
-  context.parameters.first = subArgs[0]
-  context.parameters.second = subArgs[1]
-  context.parameters.third = subArgs[2]
-  context.parameters.string = join(COMMAND_DELIMITER, subArgs)
-
-  // normalized params (experimental)
-  const normalizedParams = normalizeParams(
+  // normalized parameters
+  context.parameters = normalizeParams(
     context.plugin.name,
     context.command.name,
-    process.argv
+    commandArray
   )
-
-  context.params = Object.assign(normalizedParams, {
-    plugin: context.plugin.name,
-    command: context.command.name,
-  })
+  context.parameters.options = merge(context.parameters.options, options || {})
 
   // kick it off
   if (context.command.run) {
-    // attach extensions
-    forEach(
-      extension => {
-        const extend = extension.setup(
-          context.plugin,
-          context.command,
-          context
-        )
-        context[extension.name] = extend
-      },
-      this.extensions
-    )
+    // allow extensions to attach themselves to the context
+    forEach(extension => extension.setup(context), this.extensions)
 
+    // run the command
     context.result = await context.command.run(context)
   }
 
@@ -186,6 +124,7 @@ class Runtime {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []
+    this.pluginNames = []
     this.extensions = []
     this.defaults = {}
     this.defaultPlugin = null
@@ -213,9 +152,10 @@ class Runtime {
   }
 
   /**
-   * Adds an extension so it is available when commands run. They live
-   * as the given name on the context object passed to commands. The
-   * 2nd parameter is a function that, when called, creates that object.
+   * Adds an extension so it is available when commands run. They usually live
+   * as the given name on the context object passed to commands, but are able
+   * to manipulate the context object however they want. The second
+   * parameter is a function that allows the extension to attach itself.
    *
    * @param {string} name   The context property name.
    * @param {object} setup  The setup function.
@@ -233,21 +173,9 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory, options = {}) {
-    const {
-      brand,
-      extensionNameToken,
-      commandNameToken,
-      commandDescriptionToken,
-      commandHiddenToken,
-      commandAliasToken
-    } = this
+    const { brand } = this
 
     const plugin = loadPluginFromDirectory(directory, {
-      extensionNameToken,
-      commandNameToken,
-      commandHiddenToken,
-      commandAliasToken,
-      commandDescriptionToken,
       brand,
       hidden: options['hidden'],
       name: options['name'],
@@ -256,6 +184,7 @@ class Runtime {
     })
 
     this.plugins = append(plugin, this.plugins)
+    this.pluginNames = append(plugin.name, this.pluginNames)
     forEach(
       extension => this.addExtension(extension.name, extension.setup),
       plugin.extensions
@@ -323,16 +252,19 @@ class Runtime {
    * Find the command for this pluginName & command.
    *
    * @param {Plugin} plugin      The plugin in which the command lives.
-   * @param {string} rawCommand  The command arguments to parse.
+   * @param {string} commandName     The command to find.
    * @returns {*}                A Command otherwise null.
    */
-  findCommand (plugin, rawCommand) {
-    if (isNil(plugin) || isBlank(rawCommand)) return null
+  findCommand (plugin, commandName) {
+    if (isNil(plugin) || isBlank(commandName)) return null
     if (isNilOrEmpty(plugin.commands)) return null
 
     return find(
-      command =>
-        startsWith(command.name, rawCommand) || rawCommand === command.alias,
+      command => {
+        const aliases = is(Array, command.alias) ? command.alias : [ command.alias ]
+        aliases.push(command.name)
+        return aliases.includes(commandName)
+      },
       plugin.commands
     )
   }

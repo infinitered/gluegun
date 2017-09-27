@@ -173,14 +173,10 @@ When plugins are hidden they can still be run directly from the cli.
 `gluegun` can also be `run()` with options.
 
 ```js
-await cli.run({
-  pluginName: 'quote',
-  rawCommand: 'random "*johnny"',
-  options: {
-    funny: true,
-    genre: 'Horror',
-    weapon: 'axe'
-  }
+await cli.run('quote random "*johnny"', {
+  funny: true,
+  genre: 'Horror',
+  weapon: 'axe'
 })
 ```
 

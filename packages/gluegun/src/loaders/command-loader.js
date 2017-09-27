@@ -4,7 +4,6 @@ const loadModule = require('./module-loader')
 const jetpack = require('fs-jetpack')
 const { head, split } = require('ramda')
 const Command = require('../domain/command')
-const findTokens = require('./find-tokens')
 
 /**
  * Loads the command from the given file.
@@ -14,13 +13,6 @@ const findTokens = require('./find-tokens')
  */
 function loadFromFile (file, options = {}) {
   const command = new Command()
-
-  const commandNameToken = options.commandNameToken || 'gluegunCommandName'
-  const commandDescriptionToken = options.commandDescriptionToken ||
-    'gluegunCommandDescription'
-  const commandHiddenToken = options.commandHiddenToken ||
-    'gluegunCommandHidden'
-  const commandAliasToken = options.commandAliasToken || 'gluegunCommandAlias'
 
   // sanity check the input
   if (isBlank(file)) {
@@ -38,32 +30,19 @@ function loadFromFile (file, options = {}) {
   // default name is the name without the file extension
   command.name = head(split('.', jetpack.inspect(file).name))
 
-  // let's load
-  // try reading in tokens embedded in the file
-  const tokens = findTokens(jetpack.read(file) || '', [
-    commandNameToken,
-    commandDescriptionToken,
-    commandHiddenToken,
-    commandAliasToken
-  ])
-
-  // let's override if we've found these tokens
-  command.name = tokens[commandNameToken] || command.name
-  command.description = tokens[commandDescriptionToken] ||
-    command.description
-  command.alias = tokens[commandAliasToken] || command.alias
-  command.hidden = (tokens[commandHiddenToken] || command.hidden) === 'true'
-
   // require in the module -- best chance to bomb is here
   const commandModule = loadModule(file)
 
   // are we expecting this?
-  const valid = commandModule && typeof commandModule === 'function'
+  const valid = commandModule && typeof commandModule === 'object' && typeof commandModule.run === 'function'
 
   if (valid) {
-    command.run = commandModule
+    command.name = commandModule.name
+    command.description = commandModule.description
+    command.hidden = commandModule.hidden
+    command.run = commandModule.run
   } else {
-    throw new Error(`Error: Couldn't run ${command.name}. Expected a function, got ${commandModule}.`)
+    throw new Error(`Error: Couldn't load command ${command.name} -- needs a "run" property with a function.`)
   }
 
   return command

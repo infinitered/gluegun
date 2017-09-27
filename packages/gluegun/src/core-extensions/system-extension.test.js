@@ -1,7 +1,9 @@
 const test = require('ava')
 const create = require('./system-extension')
 
-const system = create()
+const context = {}
+create(context)
+const system = context.system
 
 test('survives the factory function', t => {
   t.truthy(system)

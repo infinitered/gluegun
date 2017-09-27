@@ -5,4 +5,4 @@ async function jimmy (context) {
   return 123
 }
 
-module.exports = jimmy
+module.exports = { name: 'full', run: jimmy }

@@ -18,6 +18,14 @@ This value is the end of line byte sequence.
 context.filesystem.eol // '\n' on posix but '\r\n' on windows 
 ```
 
+## subdirectories
+
+Finds the immediate subdirectories in a given directory.
+
+```js
+context.filesystem.subdirectories(`~/Desktop`) // []
+```
+
 ## append
 
 [Appends](https://github.com/szwacz/fs-jetpack#appendpath-data-options) data to the end of a file.

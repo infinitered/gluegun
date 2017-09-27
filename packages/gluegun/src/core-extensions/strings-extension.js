@@ -3,10 +3,10 @@ const stringUtils = require('../utils/string-utils')
 /**
  * Attaches some string helpers for convenience.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach (plugin, command, context) {
-  return stringUtils
+function attach (context) {
+  context.strings = stringUtils
 }
 
 module.exports = attach

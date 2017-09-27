@@ -4,9 +4,9 @@ const { isFile } = require('../utils/filesystem-utils')
 /**
  * Builds the patching feature.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach (plugin, command, context) {
+function attach (context) {
   /**
    * Updates a text file or json config file. Async.
    *
@@ -121,7 +121,7 @@ function attach (plugin, command, context) {
     return data.replace(findString, newContents)
   }
 
-  return { update, append, prepend, replace, patch }
+  context.patching = { update, append, prepend, replace, patch }
 }
 
 module.exports = attach
