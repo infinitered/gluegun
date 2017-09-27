@@ -36,18 +36,3 @@ const whereIsIt = context.system.which('npm')
 ### context.system.open
 :(
 
-### context.system.readFromClipboard
-
-Grabs the text currently on the clipboard and returns it as a string.
-
-```js
-const password = context.system.readFromClipboard() // ya, don't be a bad person
-```
-
-### context.system.writeToClipboard
-
-Copies the given text to the clipboard.
-
-```js
-context.system.writeToClipboard('8675309')
-```

@@ -597,14 +597,6 @@ export interface GluegunSystem {
    */
   spawn(command: string, options?: any): Promise<any>
   /**
-   * Reads a string from the clipboard. DEPRECATED.
-   */
-  readFromClipboard(): string | void
-  /**
-   * Writes a string to the clipboard. DEPRECATED.
-   */
-  writeToClipboard(text: string): void
-  /**
    * Uses node-which to find out where the command lines.
    */
   which(command: string): string | void

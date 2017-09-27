@@ -128,7 +128,6 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 | [ramda](https://github.com/ramda/ramda)                         | functional utilities    |
 | [ramdasauce](https://github.com/skellock/ramdasauce)            | functional utilities    |
 | [minimist](https://github.com/substack/minimist)                | command line parsing    |
-| [clipboardy](https://github.com/sindresorhus/clipboardy)        | copy & paste            |
 | [toml](https://github.com/BinaryMuse/toml-node)                 | TOML files              |
 | [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) | running sub-commands    |
 | [execa](https://github.com/sindresorhus/execa)                  | running sub-commands    |
