@@ -10,9 +10,8 @@ const { build } = 'gluegun'
 
 await build()
   .brand('movie')
-  .extensions(`${__dirname}/extensions`)
-  .commands(`${__dirname}/commands`)
-  .plugins('(PWD)/node_modules', { pattern: 'movie-' })
+  .src('${__dirname})
+  .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
   .create()
   .run()
