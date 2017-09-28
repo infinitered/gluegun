@@ -1,6 +1,7 @@
-// by default, run 'help'
+const helpCommand = require('./help')
 
-const command = require('./help')
-command.name = 'gluegun'
-
-module.exports = command
+module.exports = {
+  name: 'gluegun',
+  description: 'Run the gluegun CLI',
+  run: () => { console.log('gluegun'); return 'default command' }
+}

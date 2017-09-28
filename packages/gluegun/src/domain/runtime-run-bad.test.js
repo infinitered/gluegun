@@ -3,7 +3,7 @@ const Runtime = require('./runtime')
 
 test('cannot find a command', async t => {
   const r = new Runtime()
-  const context = await r.run({ pluginName: 'bloo', rawCommand: 'blah' })
+  const context = await r.run('bloo blah')
   t.falsy(context.result)
 })
 
