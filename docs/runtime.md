@@ -10,20 +10,10 @@ const { build } = 'gluegun'
 
 await build()
   .brand('movie')
-  .configFile('./movie.toml')
-  .loadDefault(`${__dirname}/core-plugins`)
-  .load('~/Desktop/movie/quote')
-  .load('~/Desktop/movie/credits')
-  .loadAll('~/Downloads/VariousMoviePlugins')
-  .loadAll('./node_modules', { matching: 'movies-*', hidden: true })
-  .defaultCommand('help')
-  .token('commandName', 'cliCommand')
-  .token('commandDescription', 'cliDescription')
-  .token('extensionName', 'contextExtension')
-  .on('start', () => {
-    console.log('Welcome to movie CLI!')
-  })
-  .createRuntime()
+  .src('${__dirname})
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .create()
   .run()
 ```
 
@@ -36,10 +26,10 @@ Grab the `build` function from `gluegun`.
 const { build } = require('gluegun')
 ```
 
-Now let's build a `gluegun` runtime environment by configuring various features.
+Now let's build a `gluegun` cli environment by configuring various features.
 
 ```js
-const runtime = build()
+const cli = build()
 ```
 
 But out of the box, it does very little.  And by very little I mean nothing.  So let's configure this.
@@ -58,30 +48,52 @@ We'll be chaining the `build()` function from here.
 The brand is most likely to share the same name of the CLI.
 
 
+## src
 
-## createRuntime
+This sets where the default commands and extensions are located, in
+`commands` and `extensions` folders, respectively.
+
+```js
+  .src('~/Desktop/movie/credits')
+```
+
+When you run a command, it'll first load these extensions and then check this
+set of commands for the right command.
+
+```sh
+# run a command with arguments
+$ movie actors Kingpin
+
+# run a command with arguments & options
+$ movie producers "Planes, Trains, & Automobiles" --sort age
+```
+
+For most CLIs, you might find this is all you need.
+
+
+## create
 
 At this point, we've been configuring our environment.  When we're ready, we call:
 
 ```js
-  .createRuntime()
+  .create()
 ```
 
-This command applies the configuration that you were just chaining, and turns it into a `Runtime` which supports calling `run()`.
+This command applies the configuration that you were just chaining, and turns it into a `runtime cli` which supports calling `run()`.
 
 ```js
-  const runtime = build()
+  const cli = build()
     .brand('movie')
-    .load('~/Desktop/movie/quote')
-    .load('~/Desktop/movie/credits')
-    .loadAll('~/Downloads/VariousMoviePlugins')
-    .createRuntime()
+    .src(`${__dirname}`)
+    .plugin('~/Desktop/movie/credits')
+    .plugins('~/Downloads/VariousMoviePlugins')
+    .create()
 ```
 
 And now we're ready to run:
 
 ```js
-  runtime.run()
+  cli.run()
 ```
 
 With no parameters, `gluegun` will parse the command line arguments looking for the commmand to run.
@@ -106,110 +118,64 @@ $ movie credits actors Kingpin
 $ movie credits producers "Planes, Trains, & Automobiles" --sort age
 ```
 
-So you see, it takes at least 2 extra arguments to run a command. That's because you can have multiple plugins and we need to qualify your commands with a namespace.
 
-Which sucks, if it weren't for:
-
-
-
-## load
+## plugin
 
 Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
+
+Briefly, a plugin is a folder that contains a structure something like this:
+
+```
+credits
+  commands
+    actors.js
+    producers.js
+  extensions
+    retrieve-imdb.js
+  templates
+    actor-view.js.ejs
+  gluegun.toml
+```
 
 You can load a plugin from a directory:
 
 ```js
-  .load('~/Desktop/movie/quote')
-  .load('~/Desktop/movie/credits')
+  .plugin('~/Desktop/movie/quote')
+  .plugin('~/Desktop/movie/credits')
 ```
 
-## loadAll
+## plugins
 
-You can also load all immediate sub-directories located within it a directory.
+You can also load multiple plugins within a directory.
 
 ```js
-  .loadAll('~/Downloads/VariousMoviePlugins')
+  .plugins('~/Downloads/VariousMoviePlugins')
 ```
 
 Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
 
 ```js
-  .loadAll('node_modules', { matching: 'movies-*' })
+  .plugins('node_modules', { matching: 'movies-*' })
 ```
 
 If you would like to keep plugins hidden and not available at the command line:
 
 ```js
-  .loadAll('node_modules', { matching: 'movies-*', hidden: true })
+  .plugins('node_modules', { matching: 'movies-*', hidden: true })
 ```
 
-When plugins are hidden they can still be run directly from the runtime.
+When plugins are hidden they can still be run directly from the cli.
 
-
-## loadDefault
-
-One of your plugins can be a special snowflake.
-
-```js
-  .loadDefault('~/Desktop/movie/credits')
-```
-
-Normally the command line order goes:
-
-1. `program`
-2. `plugin`
-3. `command`
-
-With the default plugin, however, we drop the `plugin` and it becomes:
-
-1. `program`
-2. `command`
-
-So, from our previous section, had we promoted the credits plugin to default, we could access it's actions like this:
-
-```sh
-# run a command with arguments
-$ movie actors Kingpin
-
-# run a command with arguments & options
-$ movie producers "Planes, Trains, & Automobiles" --sort age
-```
-
-Commands from the default plugin will now be evaluated first. If there is a match, they will be chosen over any other plugins.
-
-
-For simpler CLIs, you might find this is a much easier way to build. You might not need the flexibility of multiple plugins and can get away with 1 plugin which is installed as the default.
-
-## defaultCommand
-
-You often want a default command if the CLI is invoked with no command specified. Use `defaultCommand('mycommand')` to do so:
-
-```js
-  .defaultCommand('list')
-```
-
-This lets you run it like this:
-
-```sh
-# run a default command -- in this case, `list`
-$ movie
-1. Planes, Trains, & Automobiles
-2. Johnny English
-``` 
 
 ## run
 
 `gluegun` can also be `run()` with options.
 
 ```js
-await runtime.run({
-  pluginName: 'quote',
-  rawCommand: 'random "*johnny"',
-  options: {
-    funny: true,
-    genre: 'Horror',
-    weapon: 'axe'
-  }
+await cli.run('quote random "*johnny"', {
+  funny: true,
+  genre: 'Horror',
+  weapon: 'axe'
 })
 ```
 
@@ -221,26 +187,6 @@ There's a few situations that make this useful.
 4. Maybe this is your program and you don't like strangers telling you how to code.
 
 Bottom line, is you get to pick. It's yours. `gluegun` is just glue.
-
-
-## token
-
-Command and extension can have some meta data embedded in a JavaScript comment. This is how you're able to set the:
-
-* command name
-* command description
-* extension name
-
-You can configure this setting
-
-```js
-  .token('commandName', 'omgCommand')
-  .token('commandDescription', 'lolDescription')
-  .token('extensionName', 'sweet!!!')
-```
-
-The token you choose will still be prefixed by a `@` when it searches in the file.  It also needs to remain located within a JavaScript comment.
-
 
 ## configFile
 

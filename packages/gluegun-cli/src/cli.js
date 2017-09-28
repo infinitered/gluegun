@@ -4,26 +4,19 @@ const { build } = require('gluegun')
  * Create the cli and kick it off
  */
 async function run (argv) {
-  // create a runtime
-  const runtime =
+  // create a CLI runtime
+  const cli =
     build()
     .brand('gluegun')
-    .loadDefault(`${__dirname}`)
-    .defaultCommand('help')
-    .token('commandName', 'cliName')
-    .token('commandDescription', 'cliDescription')
-    .token('commandAlias', 'cliAlias')
-    .createRuntime()
+    .src(`${__dirname}`)
+    // .plugin('~/Desktop/some-gluegun-plugin')
+    .plugins('./node_modules', { matching: 'gluegun-*', hidden: true })
+    .create()
 
   // and run it
-  let context
-  try {
-    context = await runtime.run(argv)
-  } catch (e) {
-    console.log(e)
-  }
+  const context = await cli.run(argv)
 
-  // send it back
+  // send it back (for testing, mostly)
   return context
 }
 

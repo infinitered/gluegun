@@ -7,9 +7,9 @@ const crossSpawn = require('cross-spawn')
 /**
  * Extensions to launch processes and open files.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-module.exports = function (plugin, command, context) {
+module.exports = function (context) {
   /**
    * Executes a commandline program asynchronously.
    *
@@ -94,5 +94,5 @@ module.exports = function (plugin, command, context) {
     return nodeWhich.sync(command)
   }
 
-  return { exec, run, spawn, which }
+  context.system = { exec, run, spawn, which }
 }

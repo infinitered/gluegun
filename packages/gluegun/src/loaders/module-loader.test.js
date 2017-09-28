@@ -64,8 +64,8 @@ test('module.exports fat arrow function', t => {
   const m = loadModule(
     `${__dirname}/../fixtures/good-modules/module-exports-fat-arrow-fn.js`
   )
-  t.is(typeof m, 'function')
-  t.is(m(), 'hi')
+  t.is(typeof m.run, 'function')
+  t.is(m.run(), 'hi')
 })
 
 test('async function', async t => {

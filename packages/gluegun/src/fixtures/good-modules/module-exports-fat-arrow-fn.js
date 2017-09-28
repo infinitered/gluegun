@@ -1,1 +1,1 @@
-module.exports = () => 'hi'
+module.exports = { run: () => 'hi' }

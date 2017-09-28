@@ -2,4 +2,4 @@ async function one () {
   return 1
 }
 
-module.exports = one
+module.exports = { name: 'one', run: one }

@@ -3,10 +3,10 @@ const { create } = require('apisauce')
 /**
  * An extension to talk to ye olde internet.
  *
- * @return {Function} A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach () {
-  return { create }
+function attach (context) {
+  context.http = { create }
 }
 
 module.exports = attach

@@ -43,9 +43,9 @@ test('loads commands', async t => {
   t.is(two.file, `${dir}/commands/two.js`)
   t.is(typeof two.run, 'function')
   t.is(await two.run(), 'two')
-  t.false(plugin.commands[0].hidden)
-  t.false(plugin.commands[1].hidden)
-  t.false(plugin.commands[2].hidden)
+  t.falsy(plugin.commands[0].hidden)
+  t.falsy(plugin.commands[1].hidden)
+  t.falsy(plugin.commands[2].hidden)
 })
 
 test('load commands with front matter', async t => {
@@ -63,6 +63,8 @@ test('load commands with front matter', async t => {
 })
 
 test('loads extensions with front matter', async t => {
+  const context = {}
+
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = load(dir)
 
@@ -71,9 +73,9 @@ test('loads extensions with front matter', async t => {
   const ext = plugin.extensions[0]
   t.is(ext.name, 'hello')
   t.is(typeof ext.setup, 'function')
-  const live = ext.setup()
-  t.truthy(live)
-  t.is(live.very, 'little')
+  ext.setup(context)
+  t.truthy(context.hello)
+  t.is(context.hello.very, 'little')
 })
 
 test('names default to the filename', async t => {

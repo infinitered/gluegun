@@ -67,9 +67,6 @@ function getListOfCommands (context, plugin) {
  * @param {RunContext} context     The context that was used
  */
 function printCommands (context) {
-  // jet if we've got both a plugin & a command
-  if (context.plugin && context.command) return
-
   const noPlugin = isNil(context.plugin)
   const noCommand = isNil(context.command)
   const searchedforPlugin = !isBlank(context.parameters.pluginName)

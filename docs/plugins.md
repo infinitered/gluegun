@@ -1,12 +1,8 @@
 # Plugins
 
-SUPER DUPER WARNING --- I'll need a few days to clean up and redo these docs.
+Functionality is added to the `CLI runtime` with plugins. Plugins can be yours or the end users.
 
-Functionality is added to the `Runtime` with plugins.  Plugins can be yours or the end users.
-
-A plugin is directory.
-
-It contains 3 optional sub-directories:
+A plugin is directory that contains 3 optional sub-directories:
 
 * `commands`
 * `templates`
@@ -22,59 +18,71 @@ Since multiple plugins can be loaded, they must have unique names.  The names ar
 
 ## commands
 
-TODO: What are commands?
+Commands are run from the command line (CLI).
+
+```
+movies actor
+```
+
+Here, the `actor` command is run. It is a JS file (`commands/actor.js`) that exports a structure that looks something like this:
+
+```js
+module.exports = {
+  name: 'actor',
+  alias: [ 'a' ],
+  description: 'Displays the name of an actor',
+  hidden: false,
+  run: async (context) => {
+    const { print } = context
+
+    print.info(`Tom Hanks`)
+  }
+}
+```
+
+The `name` and `description` properties are used in `printCommands` calls to print out some help in a table.
+
+`alias` allows you to invoke these commands using an alias.
+
+`hidden` says whether to show the command in help screens or not.
+
+The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `context` object which contains the [core extensions](./context-api.md) and any additional extensions you've loaded.
 
 ## templates
 
-TODO: What are templates?
+Templates are [ejs](http://www.embeddedjs.com/) files that get translated by a command into a source code file or similar.
+
+TODO: Add more info, including examples.
 
 ## extensions
 
-TODO: What are extensions?
-
-
-`commands` and `extensions` contain plain NodeJS JavaScript files.  Files located in these
-directories will be automatically loaded and made available.
-
-At the top of these `*.js` files you have the ability to customize some meta data.
-
-For example, you might have a command called `commands/say.js` that looks like this:
+Extensions are additional functionality that you can monkeypatch onto the `context` object. They look something like this:
 
 ```js
-// @gluegunCommandName        say
-// @gluegunCommandDescription This command will say the word you tell it to.
-module.exports = async function (context) {
-  const { print, parameters } = context
-  print.info(`hello ${parameters.first}`)
+// extensions/sayhello.js
+function attach (context) {
+  const { print } = context
+
+  context.sayhello = () => { print.info('Hello from an extension!') }
 }
+
+module.exports = attach
 ```
 
-This `@gluegunCommandName   ` and the `@gluegunCommandDescription` will be detected and will populate the information that
-the user sees when they ask for help or a list of commands.
-
-Extensions are similar except they use the `@gluegunExtensionName`
+When you have this extension, you can access it in any command file, like this:
 
 ```js
-// @gluegunExtensionName appstore
-module.exports = function (plugin, command, context) {
+// ...
+  run: async (context) => {
+    const { sayhello } = context
 
-  async function getAppDetails (productId) {
-    const api = context.http.api('https://appstore.apple.com/path/to/service')
-    const { ok, data } = await api.get('/product', { productId })
-    if (ok) {
-      context.print.warning('iFailed')
-      return null
-    } else {
-      return data
-    }
-  }
+    sayhello()
 
-  return {
-    getAppDetails
+    // or
+
+    context.sayhello()
   }
-}
 ```
-
 
 # Configuration File
 
@@ -134,7 +142,3 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 | [node-which](https://github.com/npm/node-which)                 | executable finder       |
 | [ora](https://github.com/sindresorhus/ora)                      | spinner                 |
 
-
-## Including Modules
-
-> TODO: verify that this can be done.

@@ -3,8 +3,8 @@
 /**
  * An extension that returns very little.
  */
-module.exports = function (plugin, command, context) {
-  return {
+module.exports = function (context) {
+  context.hello = {
     very: 'little'
   }
 }

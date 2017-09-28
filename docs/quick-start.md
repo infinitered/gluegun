@@ -14,11 +14,10 @@ const { build } = 'gluegun'
 const runtime = build()
   .brand('movie')
   .configFile('./movie.toml')
-  .loadDefault(`${__dirname}/core-plugins`)
-  .load('~/Desktop/movie/quote')
-  .loadAll('~/Downloads/VariousMoviePlugins')
-  .defaultCommand('help')
-  .createRuntime()
+  .src(`${__dirname}`)
+  .plugin('~/Desktop/movie/quote')
+  .plugins('~/Downloads/VariousMoviePlugins')
+  .create()
 
 // fire!
 runtime.run()

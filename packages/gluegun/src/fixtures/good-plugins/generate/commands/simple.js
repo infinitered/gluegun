@@ -7,4 +7,4 @@ async function simple (context) {
   return result
 }
 
-module.exports = simple
+module.exports = { name: 'simple', run: simple }

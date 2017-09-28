@@ -17,10 +17,10 @@ test('open a weird js file', async t => {
   t.is(error.message, `hello is not defined`);
 })
 
-test('default but none exported', async t => {
+test('default but no run property exported', async t => {
   const file = `${__dirname}/../fixtures/good-modules/module-exports-object.js`
   const error = await t.throws(() => loadCommandFromFile(file), Error)
-  t.is(error.message, `Error: Couldn\'t run module-exports-object. Expected a function, got [object Object].`)
+  t.is(error.message, `Error: Couldn't load command module-exports-object -- needs a "run" property with a function.`)
 })
 
 test('fat arrows', async t => {

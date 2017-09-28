@@ -21,11 +21,6 @@ function loadFromDirectory (directory, options = {}) {
     commandFilePattern = '*.js',
     extensionFilePattern = '*.js',
     hidden = false,
-    commandNameToken,
-    commandHiddenToken,
-    commandAliasToken,
-    commandDescriptionToken,
-    extensionNameToken,
     name
   } = options
 
@@ -57,13 +52,7 @@ function loadFromDirectory (directory, options = {}) {
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
     plugin.commands = map(
-      file =>
-        loadCommandFromFile(`${directory}/commands/${file}`, {
-          commandNameToken,
-          commandDescriptionToken,
-          commandHiddenToken,
-          commandAliasToken
-        }),
+      file => loadCommandFromFile(`${directory}/commands/${file}`),
       jetpackPlugin
         .cwd('commands')
         .find({ matching: commandFilePattern, recursive: false })
@@ -72,13 +61,10 @@ function loadFromDirectory (directory, options = {}) {
     plugin.commands = []
   }
 
-  // load the commands found in the commands sub-directory
+  // load the extensions found in the extensions sub-directory
   if (jetpackPlugin.exists('extensions') === 'dir') {
     plugin.extensions = map(
-      file =>
-        loadExtensionFromFile(`${directory}/extensions/${file}`, {
-          extensionNameToken
-        }),
+      file => loadExtensionFromFile(`${directory}/extensions/${file}`),
       jetpackPlugin
         .cwd('extensions')
         .find({ matching: extensionFilePattern, recursive: false })

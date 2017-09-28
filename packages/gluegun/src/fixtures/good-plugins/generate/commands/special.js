@@ -8,4 +8,4 @@ async function command (context) {
   return context.template.generate({ template, target, props, directory })
 }
 
-module.exports = command
+module.exports = { name: 'special', run: command }

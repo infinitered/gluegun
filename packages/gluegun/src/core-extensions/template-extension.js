@@ -7,9 +7,11 @@ const { isFile } = require('../utils/filesystem-utils')
 /**
  * Builds the code generation feature.
  *
- * @return {Function}           A function to attach to the context.
+ * @param  {RunContext} context The running context.
  */
-function attach (plugin, command, context) {
+function attach (context) {
+  const { plugin, command } = context
+
   /**
    * Generates a file from a template.
    *
@@ -70,7 +72,7 @@ function attach (plugin, command, context) {
     return content
   }
 
-  return { generate }
+  context.template = { generate }
 }
 
 module.exports = attach

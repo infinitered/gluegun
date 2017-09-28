@@ -5,9 +5,8 @@ test('create', t => {
   t.truthy(exported)
   t.is(typeof exported.build, 'function')
   const { build } = exported
-  const runtime = build().brand('test').createRuntime()
+  const runtime = build().brand('test').create()
   t.is(runtime.brand, 'test')
-  t.is(typeof exported.subdirectories, 'function')
 })
 
 test('print', t => {

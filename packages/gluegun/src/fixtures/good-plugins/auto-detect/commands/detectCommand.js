@@ -1,1 +1,1 @@
-module.exports = async function (context) { }
+module.exports = { name: 'detectCommand', run: async function (context) { } }

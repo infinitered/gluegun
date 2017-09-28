@@ -179,6 +179,11 @@ export interface GluegunFilesystemExtensionExtra {
    * The filesystem separator character.
    */
   separator: string
+
+  /**
+   * Find immediate subdirectories under a directory.
+   */
+  subdirectories: (path: string) => string[]
 }
 
 export interface GluegunFileSystemInspectOptions {
@@ -818,21 +823,6 @@ export interface GluegunRuntime {
    * @param rawCommand The raw command string (or alias).
    */
   findCommand(pluginName: string, rawCommand?: string): GluegunCommand | void
-
-  /** The token which identifies the command name. */
-  commandNameToken: string
-
-  /** The token which identifies the command description. */
-  commandDescriptionToken: string
-
-  /** The token which identifies whether the command is hidden or not. */
-  commandHiddenToken: string
-
-  /** The token which represents a shorter alias for the command. */
-  commandAliasToken: string
-
-  /** The token which identifies the extension name. */
-  extensionNameToken: string
 }
 
 export interface GluegunLoadOptions {
@@ -870,18 +860,6 @@ export interface GluegunMultiLoadOptions {
   matching?: string
 }
 
-export type GluegunTokenType =
-  /** The token used for naming the command (default: `gluegunCommandName`). */
-  | 'commandName'
-  /** The token used when showed a description in the CLI (default: `gluegunCommandDescription`). */
-  | 'commandDescription'
-  /** The token for indicating whether a command is hidden (default: `gluegunCommandHidden`). */
-  | 'commandHidden'
-  /** The token used for naming the command alias (default: `gluegunCommandAlias`). */
-  | 'commandAlias'
-  /** The token used for naming an extension (default: `gluegunExtensionName`). */
-  | 'extensionName'
-
 /**
  * A builder in a fluent-api style which creates a Runtime.
  */
@@ -895,18 +873,19 @@ export interface GluegunBuilder {
   brand(name: string): GluegunBuilder
 
   /**
-   * Default command to be run if no command is specified
-   *
-   * @param name The name of the command.
-   */
-  defaultCommand(name: string): GluegunBuilder
-
-  /**
    * The name of the file to use for configuration options.
    *
    * @param filename A path to a TOML file to load configs.
    */
   configFile(filename: string): GluegunBuilder
+
+  /**
+   * Specifies where the default commands and extensions live.
+   *
+   * @param path The path to the source directory.
+   * @param options Additional plugin loading options.
+   */
+  src(path: string, options?: GluegunLoadOptions): GluegunBuilder
 
   /**
    * Register a plugin.
@@ -917,45 +896,25 @@ export interface GluegunBuilder {
    * @param path The path to the plugin's directory.
    * @param options Additional plugin loading options.
    */
-  load(path: string, options?: GluegunLoadOptions): GluegunBuilder
-
-  /**
-   * Register the default plugin.  This commands of this plugin
-   * are usuable without specifying the plugin name.
-   *
-   * @param path The path to the plugin's directory.
-   * @param options Additional plugin loading options.
-   */
-  loadDefault(path: string, options?: GluegunLoadOptions): GluegunBuilder
+  plugin(path: string, options?: GluegunLoadOptions): GluegunBuilder
 
   /**
    * Register several plugins located under the parentPath.
    *
    * A common case is using `node_modules` as a parentPath.
    */
-  loadAll(
+  plugins(
     parentPath: string,
     options?: GluegunLoadOptions & GluegunMultiLoadOptions,
   ): GluegunBuilder
 
   /**
-   * Change the text used when finding tokens in your source commands and extensions. When changing
-   * the new token, leave off the `@` character.  This will be automatically added.
-   *
-   * For example:  `.token('commandName', 'movieCommand')`
-   *
-   * @param tokenType The type of the token.
-   * @param newTokenToUse The new name to assign to this token.
-   */
-  token(tokenType: GluegunTokenType, newTokenToUse: string): GluegunBuilder
-
-  /**
-   * Creates a runtime.
+   * Creates a runtime. Formerly known as `createRuntime`.
    *
    * Call this function when you are finished configuring the builder
    * with the other functions.
    */
-  createRuntime(): GluegunRuntime
+  create(): GluegunRuntime
 }
 
 /**
