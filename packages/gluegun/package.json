@@ -62,7 +62,7 @@
     "prompt-question": "3.0.2",
     "prompt-radio": "0.3.1",
     "prompt-rawlist": "1.0.0",
-    "ramda": "0.23.0",
+    "ramda": "0.24.1",
     "ramdasauce": "1.2.0",
     "semver": "5.3.0",
     "toml": "^2.3.2",

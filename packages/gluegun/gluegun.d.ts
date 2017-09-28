@@ -7,6 +7,8 @@ export interface GluegunCommand {
   alias?: string
   /** The path to the file name for this command. */
   file?: string
+  /** The command path, an array that describes how to get to this command */
+  commandPath?: string[]
   /**
    * Runs the command.
    *

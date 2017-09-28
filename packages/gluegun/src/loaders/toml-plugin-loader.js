@@ -4,7 +4,7 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory, isFile } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { assoc, map } = require('ramda')
+const { assoc, map, filter, complement, endsWith } = require('ramda')
 const toml = require('toml')
 
 /**
@@ -51,11 +51,14 @@ function loadFromDirectory (directory, options = {}) {
 
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
+    const commands = jetpackPlugin
+      .cwd('commands')
+      .find({ matching: commandFilePattern, recursive: true })
+      .filter(complement(endsWith('.test.js')))
+
     plugin.commands = map(
       file => loadCommandFromFile(`${directory}/commands/${file}`),
-      jetpackPlugin
-        .cwd('commands')
-        .find({ matching: commandFilePattern, recursive: false })
+      commands
     )
   } else {
     plugin.commands = []
@@ -63,11 +66,14 @@ function loadFromDirectory (directory, options = {}) {
 
   // load the extensions found in the extensions sub-directory
   if (jetpackPlugin.exists('extensions') === 'dir') {
+    const extensions = jetpackPlugin
+      .cwd('extensions')
+      .find({ matching: extensionFilePattern, recursive: false })
+      .filter(complement(endsWith('.test.js')))
+
     plugin.extensions = map(
       file => loadExtensionFromFile(`${directory}/extensions/${file}`),
-      jetpackPlugin
-        .cwd('extensions')
-        .find({ matching: extensionFilePattern, recursive: false })
+      extensions
     )
   } else {
     plugin.extensions = []

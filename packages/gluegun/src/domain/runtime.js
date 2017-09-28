@@ -18,7 +18,9 @@ const {
   isNil,
   dissoc,
   map,
-  is
+  is,
+  reduce,
+  sort
 } = require('ramda')
 const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
@@ -29,9 +31,7 @@ const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
 // core extensions
 const addTemplateExtension = require('../core-extensions/template-extension')
 const addPrintExtension = require('../core-extensions/print-extension')
-const addFilesystemExtension = require(
-  '../core-extensions/filesystem-extension'
-)
+const addFilesystemExtension = require('../core-extensions/filesystem-extension')
 const addSemverExtension = require('../core-extensions/semver-extension')
 const addSystemExtension = require('../core-extensions/system-extension')
 const addPromptExtension = require('../core-extensions/prompt-extension')
@@ -60,7 +60,7 @@ async function run (rawCommand, options) {
   if (is(String, commandArray)) { commandArray = commandArray.split(COMMAND_DELIMITER) }
 
   // remove the first 2 args if it comes from process.argv
-  if (commandArray[0] && commandArray[0].endsWith('/bin/node')) { commandArray = commandArray.slice(2) }
+  if (equals(commandArray, process.argv)) { commandArray = commandArray.slice(2) }
 
   // find the pluginName and commandName from the cli args
   let commandName = commandArray[0]
@@ -74,6 +74,8 @@ async function run (rawCommand, options) {
     context.pluginName = commandName
     // set to the second argument, or back to the plugin name (for default command)
     context.commandName = commandArray[1] || commandName
+    // remove the plugin name from the commandArray
+    commandArray = commandArray.slice(1)
   } else {
     // it's one of our default commands...probably
     context.pluginName = this.brand
@@ -81,7 +83,7 @@ async function run (rawCommand, options) {
   }
 
   context.plugin = context.plugin || this.findPlugin(context.pluginName)
-  context.command = this.findCommand(context.plugin, context.commandName)
+  context.command = this.findCommand(context.plugin, commandArray)
 
   // jet if we have no plugin or command
   if (isNil(context.plugin) || isNil(context.command)) return context
@@ -249,22 +251,45 @@ class Runtime {
   }
 
   /**
-   * Find the command for this pluginName & command.
+   * Find the command for this pluginName & commandPath.
    *
-   * @param {Plugin} plugin      The plugin in which the command lives.
-   * @param {string} commandName     The command to find.
-   * @returns {*}                A Command otherwise null.
+   * @param {Plugin} plugin           The plugin in which the command lives.
+   * @param {string[]} commandPath    The command to find.
+   * @returns {*}                     A Command otherwise null.
    */
-  findCommand (plugin, commandName) {
-    if (isNil(plugin) || isBlank(commandName)) return null
-    if (isNilOrEmpty(plugin.commands)) return null
+  findCommand (plugin, commandPath) {
+    if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return null
+    if (!commandPath) { commandPath = [] }
 
+    // traverse through the command path, retrieving aliases along the way
+    const finalCommandPath = reduce((prevPath, currName) => {
+      // find a command that fits the previous path + currentName, which can be an alias
+      const cmd = find(
+        command => {
+          return equals(command.commandPath.slice(0, -1), prevPath)
+            && (command.name === currName || command.alias.includes(currName))
+        },
+        // sorted shortest path to longest
+        sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands)
+      )
+      if (cmd) {
+        return cmd.commandPath
+      } else {
+        return prevPath
+      }
+    }, [])(commandPath)
+
+    if (finalCommandPath.length === 0) {
+      const defaultCommand = find(
+        command => equals(command.commandPath, [ plugin.name ]),
+        plugin.commands
+      )
+      return defaultCommand
+    }
+
+    // looking at the final command path, retrieve the command that matches
     return find(
-      command => {
-        const aliases = is(Array, command.alias) ? command.alias : [ command.alias ]
-        aliases.push(command.name)
-        return aliases.includes(commandName)
-      },
+      command => equals(command.commandPath, finalCommandPath),
       plugin.commands
     )
   }

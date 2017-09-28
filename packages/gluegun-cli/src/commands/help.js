@@ -3,9 +3,5 @@ module.exports = {
   alias: [ 'h' ],
   description: 'Displays this help',
   hidden: false,
-  run: async (context) => {
-    const { print } = context
-
-    // console.log(context)
-  }
+  run: (context) => { console.log('help'); return 'helped' }
 }

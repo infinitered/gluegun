@@ -5,13 +5,13 @@ test('loads all sub-directories', t => {
   const r = new Runtime()
   r.loadAll(`${__dirname}/../fixtures/good-plugins`)
 
-  t.is(r.plugins.length, 11)
+  t.is(12, r.plugins.length)
 })
 
 test('matches sub-directories', t => {
   const r = new Runtime()
   r.loadAll(`${__dirname}/../fixtures/good-plugins`, { matching: 'blank-*' })
-  t.is(r.plugins.length, 1)
+  t.is(1, r.plugins.length)
 })
 
 test('hides commands', t => {
@@ -30,5 +30,5 @@ test('loadAll ignores bad directories', t => {
   r.loadAll(null)
   r.loadAll(undefined)
   r.loadAll('')
-  t.is(r.plugins.length, 0)
+  t.is(0, r.plugins.length)
 })

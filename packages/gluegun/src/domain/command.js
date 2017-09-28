@@ -8,6 +8,7 @@ class Command {
     this.file = null
     this.run = null
     this.hidden = false
+    this.commandPath = null
   }
 }
 
