@@ -20,7 +20,8 @@ const {
   map,
   is,
   reduce,
-  sort
+  sort,
+  pluck
 } = require('ramda')
 const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
@@ -126,7 +127,6 @@ class Runtime {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []
-    this.pluginNames = []
     this.extensions = []
     this.defaults = {}
     this.defaultPlugin = null
@@ -134,6 +134,10 @@ class Runtime {
     this.config = {}
 
     this.addCoreExtensions()
+  }
+
+  get pluginNames () {
+    return pluck('name', this.plugins)
   }
 
   /**
@@ -186,7 +190,6 @@ class Runtime {
     })
 
     this.plugins = append(plugin, this.plugins)
-    this.pluginNames = append(plugin.name, this.pluginNames)
     forEach(
       extension => this.addExtension(extension.name, extension.setup),
       plugin.extensions
