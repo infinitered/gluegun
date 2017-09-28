@@ -123,7 +123,7 @@ $ movie credits producers "Planes, Trains, & Automobiles" --sort age
 
 Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
 
-Briefly, a plugin is a folder that contains a structure something like this:
+A plugin is a folder that contains a structure something like this:
 
 ```
 credits

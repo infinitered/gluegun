@@ -892,7 +892,7 @@ export interface GluegunBuilder {
   /**
    * Register a plugin.
    *
-   * Plugins are directories.  Usually they a sub-directory for the commands
+   * Plugins are directories.  Usually they have a sub-directory for the commands
    * called `commands`, and sometimes one for extensions called `extensions`.
    *
    * @param path The path to the plugin's directory.
@@ -911,7 +911,7 @@ export interface GluegunBuilder {
   ): GluegunBuilder
 
   /**
-   * Creates a runtime. Formerly known as `createRuntime`.
+   * Creates a runtime.
    *
    * Call this function when you are finished configuring the builder
    * with the other functions.
