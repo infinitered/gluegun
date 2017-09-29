@@ -7,6 +7,7 @@ const stringUtils = require('../utils/string-utils')
  */
 function attach (context) {
   context.strings = stringUtils
+  return context
 }
 
 module.exports = attach

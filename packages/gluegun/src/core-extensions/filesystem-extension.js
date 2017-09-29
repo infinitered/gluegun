@@ -15,6 +15,7 @@ function attach (context) {
   extension.subdirectories = subdirectories
 
   context.filesystem = extension
+  return context
 }
 
 module.exports = attach

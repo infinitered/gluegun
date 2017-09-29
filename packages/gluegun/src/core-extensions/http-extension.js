@@ -7,6 +7,7 @@ const { create } = require('apisauce')
  */
 function attach (context) {
   context.http = { create }
+  return context
 }
 
 module.exports = attach

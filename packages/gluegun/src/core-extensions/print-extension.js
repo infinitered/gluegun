@@ -67,6 +67,7 @@ function attach (context) {
     newline: print.newline,
     color: colors
   }
+  return context
 }
 
 module.exports = attach

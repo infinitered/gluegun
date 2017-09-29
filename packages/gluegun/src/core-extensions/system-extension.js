@@ -95,4 +95,5 @@ module.exports = function (context) {
   }
 
   context.system = { exec, run, spawn, which }
+  return context
 }
