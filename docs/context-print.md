@@ -108,3 +108,19 @@ The text can also be set with the normal printing colors.
 ```js
 spinner.text = context.print.colors.green('i like trees')
 ```
+
+## printCommands
+
+Prints out a table of available commands in a given context.
+
+```js
+const { printCommands } = context.print
+printCommands(context)
+```
+
+You can pass in a "command path" to refine what commands you'd like to see:
+
+```js
+const { printCommands } = context.print
+printCommands(context, ['generate', 'model'])
+```

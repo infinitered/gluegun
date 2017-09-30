@@ -9,6 +9,16 @@ class Command {
     this.run = null
     this.hidden = false
     this.commandPath = null
+    this.alias = null
+  }
+
+  get aliases () {
+    if (this.alias === null) { return [] }
+    return Array.isArray(this.alias) ? this.alias : [ this.alias ]
+  }
+
+  hasAlias () {
+    return this.alias !== null && this.alias.length > 0
   }
 }
 

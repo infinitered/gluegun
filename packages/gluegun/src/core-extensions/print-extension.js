@@ -1,4 +1,5 @@
 const print = require('../utils/print')
+const printCommands = require('../cli/print-commands')
 const ora = require('ora')
 
 /**
@@ -62,6 +63,7 @@ function attach (context) {
     checkmark,
     xmark,
     spin,
+    printCommands,
 
     table: print.table,
     newline: print.newline,

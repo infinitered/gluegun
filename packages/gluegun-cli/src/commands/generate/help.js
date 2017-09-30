@@ -1,4 +1,11 @@
 module.exports = {
   name: 'help',
-  run: () => { console.log('generate help'); return 'generate helped' }
+  run: (context) => {
+    const { info, printCommands } = context.print
+
+    info('GlueGun CLI')
+    printCommands(context, ['generate'])
+
+    return 'generate helped'
+  }
 }
