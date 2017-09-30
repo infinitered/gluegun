@@ -45,7 +45,7 @@ function loadFromFile (file, options = {}) {
   const valid = commandModule && typeof commandModule === 'object' && typeof commandModule.run === 'function'
 
   if (valid) {
-    command.name = commandModule.name
+    command.name = commandModule.name || last(command.commandPath)
     command.description = commandModule.description
     command.hidden = !!commandModule.hidden
     command.alias = reject(isNil, is(Array, commandModule.alias) ? commandModule.alias : [ commandModule.alias ])
