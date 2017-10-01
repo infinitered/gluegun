@@ -8,16 +8,16 @@
 We assembled an **all-star cast** of *outstanding* libraries, added a plugin layer, then wrapped it up in an ease-to-use and ease-to-bust-out-of API.
 
 ⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
+⭐️ [semver](https://github.com/npm/node-semver) for version investigations<br />
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
 ⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [ascii-table](https://github.com/sorensen/ascii-table) for the command line<br />
 ⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
-⭐️ both [lodash](https://github.com/lodash/lodash) AND [ramda](https://github.com/ramda/ramda) + [ramdasauce](https://github.com/skellock/ramdasauce) for quality of life<br />
 ⭐️ [toml](https://github.com/BinaryMuse/toml-node) for human-friendly config files </br>
 ⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
 ⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 
-It uses [Node.js 7](https://nodejs.org) with `--harmony` for `async`/`await` syntax.
+Node [Node.js 7.6+](https://nodejs.org) is required.
 
 ## Why not just use ... ?
 
@@ -31,7 +31,10 @@ If you want to make **your** CLI...
 
 ... welcome!
 
-!> **Captain F. Disclosure Says**... We're just still wrapping up things here. If you have any questions, feel free to file an issue! [Contributing?](./docs/contributing.md)
+> Captain F. Disclosure Says...
+>
+> 1.0 is now shipping!  2.0 is close behind it and that is what you're seeing in `master`. If you're up for contributions, make sure you're using this branch.  :tada:
+
 
 ## Do I need it?
 
@@ -76,12 +79,18 @@ module.exports = async function (context) {
 ```
 See the [context api docs](/context-api.md) for more details on what you can do.
 
-See the [runtime docs](/runtime.md) for more details on building your own CLI.
+See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 
-# Who is using this?
+
+## Who is using this?
 
 Who's gluing CLIs together with gluegun?
 
-* [Ignite](https://github.com/infinitered/ignite) - React Native boilerplate
+* [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
+* [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
+* AppMachine - closed source for now (still building) - tool for helping code generate apps
 
 
+## Premium Support
+
+[gluegun](https://github.com/infinitered/gluegun), as open source projects, is free to use and always will be. [Infinite Red](https://infinite.red/) offers premium gluegun support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
