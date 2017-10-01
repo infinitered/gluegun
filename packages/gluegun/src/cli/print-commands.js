@@ -7,7 +7,9 @@ const {
   prop,
   propEq,
   reject,
-  replace
+  replace,
+  unnest,
+  equals
 } = require('ramda')
 const { dotPath } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
@@ -20,86 +22,68 @@ const isHidden = propEq('hidden', true)
 /**
  * Gets the list of plugins.
  *
- * @param {RunContext} context
+ * @param {RunContext} context     The context
+ * @param {Plugin[]} plugins       The plugins holding the commands
+ * @param {string[]} commandRoot   Optional, only show commands with this root
  * @return {[string, string]}
  */
-function getListOfPlugins (context) {
+function getListOfPluginCommands (context, plugins, commandRoot) {
   return pipe(
-    dotPath('runtime.plugins'),
     reject(isHidden),
-    reject(
-      plugin =>
-        context.runtime.defaultPlugin &&
-        context.runtime.defaultPlugin.name === plugin.name
-    ),
     sortBy(prop('name')),
-    map(plugin => [
-      plugin.name,
-      replace('$BRAND', context.runtime.brand, plugin.description || '-')
-    ])
-  )(context)
+    map((p) => getListOfCommands(context, p, commandRoot)),
+    unnest
+  )(plugins)
 }
 
 /**
  * Gets the list of commands for the given plugin.
  *
- * @param {RunContext} context  The context
- * @param {Plugin} plugin       The plugins holding the commands
+ * @param {RunContext} context     The context
+ * @param {Plugin} plugin          The plugins holding the commands
+ * @param {string[]} commandRoot   Optional, only show commands with this root
  * @return {[string, string]}
  */
-function getListOfCommands (context, plugin) {
+function getListOfCommands (context, plugin, commandRoot) {
   return pipe(
-    prop('commands'),
     reject(isHidden),
+    reject(command => {
+      if (!commandRoot) { return false }
+      return !equals(
+        command.commandPath.slice(0, commandRoot.length),
+        commandRoot
+      )
+    }),
     map(command => {
-      const alias = command.alias ? `(${command.alias})` : ''
+      const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''
       return [
-        `${command.name} ${alias}`,
+        `${command.commandPath.join(' ')} ${alias}`,
         replace('$BRAND', context.runtime.brand, command.description || '-')
       ]
     })
-  )(plugin)
+  )(plugin.commands)
 }
 
 /**
  * Prints the list of commands.
  *
  * @param {RunContext} context     The context that was used
+ * @param {string[]} commandRoot   Optional, only show commands with this root
  */
-function printCommands (context) {
-  const noPlugin = isNil(context.plugin)
-  const noCommand = isNil(context.command)
-  const searchedforPlugin = !isBlank(context.parameters.pluginName)
-  const searchedforCommand = !isBlank(context.parameters.rawCommand)
-
-  // was there user error involved?
-  let errorMessage = null
-  if (searchedforPlugin && noPlugin) {
-    errorMessage = `${context.runtime.brand} '${context.parameters.pluginName}' is not a command.`
-  } else if (searchedforCommand && noCommand) {
-    errorMessage = `${context.runtime.brand} ${context.parameters.pluginName} '${context.parameters.rawCommand}' is not a command.`
+function printCommands (context, commandRoot) {
+  let printPlugins = []
+  if (context.plugin === context.defaultPlugin) {
+    // print for all plugins
+    printPlugins = context.plugins
+  } else {
+    // print for one plugin
+    printPlugins = [ context.plugin ]
   }
 
-  let data = []
-  if (noPlugin) {
-    data = getListOfPlugins(context)
-    if (context.runtime.defaultPlugin) {
-      const defaultCommands = getListOfCommands(
-        context,
-        context.runtime.defaultPlugin
-      )
-      data = data.concat(defaultCommands)
-    }
-  } else if (noCommand) {
-    data = getListOfCommands(context, context.plugin)
-  }
+  const data = getListOfPluginCommands(context, printPlugins, commandRoot)
 
   print.newline() // a spacer
   print.table(data) // the data
-  if (errorMessage) {
-    print.newline()
-    print.error(errorMessage)
-  }
 }
 
 module.exports = printCommands
