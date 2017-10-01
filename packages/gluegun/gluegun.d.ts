@@ -590,6 +590,11 @@ export interface GluegunPrintUtils {
   colors: any
 }
 
+/**
+ * Returns the number of milliseconds from when the timer started.
+ */
+export type GluegunTimer = () => number
+
 export interface GluegunSystem {
   /**
    * Executes a command via execa.
@@ -607,6 +612,12 @@ export interface GluegunSystem {
    * Uses node-which to find out where the command lines.
    */
   which(command: string): string | void
+  /**
+   * Returns a timer function that starts from this moment. Calling 
+   * this function will return the number of milliseconds from when
+   * it was started.
+   */
+  startTimer(): GluegunTimer
 }
 
 export interface GluegunSemver {
