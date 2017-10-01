@@ -36,6 +36,7 @@ function attach (context) {
   enquirer.confirm = confirm
 
   context.prompt = enquirer
+  return context
 }
 
 module.exports = attach

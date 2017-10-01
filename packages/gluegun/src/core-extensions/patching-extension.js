@@ -122,6 +122,7 @@ function attach (context) {
   }
 
   context.patching = { update, append, prepend, replace, patch }
+  return context
 }
 
 module.exports = attach

@@ -73,6 +73,7 @@ function attach (context) {
   }
 
   context.template = { generate }
+  return context
 }
 
 module.exports = attach

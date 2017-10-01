@@ -107,10 +107,24 @@ async function run (rawCommand, options) {
   // kick it off
   if (context.command.run) {
     // allow extensions to attach themselves to the context
-    forEach(extension => extension.setup(context), this.extensions)
+    const finalContext = reduce((oldContext, extension) => {
+      const newContext = extension.setup(oldContext)
+
+      if (newContext) {
+        // if they return a new context, check it to make sure it's valid
+        if (is(RunContext, newContext)) {
+          return newContext
+        } else {
+          throw new Error(`Error: expected extension to return a RunContext, received ${newContext}`)
+        }
+      } else {
+        // if they don't return anything, use the old context (they probably mutated it)
+        return oldContext
+      }
+    }, context, this.extensions)
 
     // run the command
-    context.result = await context.command.run(context)
+    context.result = await context.command.run(finalContext)
   }
 
   return context

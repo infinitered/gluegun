@@ -10,6 +10,7 @@ function attach (context) {
   // Add bells and whistles here
 
   context.semver = extension
+  return context
 }
 
 module.exports = attach
