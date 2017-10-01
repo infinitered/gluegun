@@ -52,12 +52,10 @@ test('spawn deals exit codes', async t => {
 
 test.serial('start timer returns the number of milliseconds', async t => {
   const WAIT = 10
-  const NODE_JS_EVENT_LOOP_LAG = 4 // nodejs doesn't guarantee accurate millisecond timing in their event loop
 
   const elapsed = system.startTimer() // start a timer
   await delay(WAIT) // simulate a delay
   const duration = elapsed() // how long was that?
 
-  // are we within the parameters of "acceptable"?
-  t.true(duration >= WAIT && duration <= WAIT + NODE_JS_EVENT_LOOP_LAG)
+  t.true(duration >= WAIT)
 })
