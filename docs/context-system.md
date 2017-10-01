@@ -27,7 +27,7 @@ const nodeVersion = context.system.run('node -v', { trim: true })
 
 ### context.system.which
 
-Retursn the full path to a command on your system if located on your path.
+Returns the full path to a command on your system if located on your path.
 
 ```js
 const whereIsIt = context.system.which('npm')
@@ -36,3 +36,17 @@ const whereIsIt = context.system.which('npm')
 ### context.system.open
 :(
 
+### context.system.startTimer
+
+Starts a timer for... well... timing stuff.  `startTimer()` returns a function.  When this is called, the number of milliseconds will be returned.
+
+```js
+const timer = context.system.startTimer()
+
+// time passes...
+console.log(`that just took ${timer()} ms.`)
+```
+
+Caveat: Due to the event loop scheduler in Node.JS, they don't guarantee millisecond accuracy when invoking async functions.  For that reason, expect a up to a 4ms overage.
+
+Note that this lag doesn't apply to synchronous code.
