@@ -6,8 +6,9 @@
   "description": "Tack stuff on to your code base.",
   "scripts": {
     "lint": "lerna run lint",
-    "test": "lerna run test",
-    "bootstrap": "lerna bootstrap",
+    "test": "lerna exec yarn test -- -s",
+    "clean": "lerna clean --yes",
+    "bootstrap": "lerna bootstrap --yes",
     "publish": "lerna publish"
   },
   "author": "hello@infinite.red",
