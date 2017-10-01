@@ -14,17 +14,20 @@ We assembled an **all-star cast** of *outstanding* & focused libraries, added a 
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
 ⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [ascii-table](https://github.com/sorensen/ascii-table) for the command line<br />
 ⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
-⭐️ both [lodash](https://github.com/lodash/lodash) AND [ramda](https://github.com/ramda/ramda) + [ramdasauce](https://github.com/skellock/ramdasauce) for quality of life<br />
 ⭐️ [toml](https://github.com/BinaryMuse/toml-node) for human-friendly config files </br>
 ⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
 ⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 
-It uses [Node.js 7](https://nodejs.org) with `--harmony` for `async`/`await` syntax.
+Node [Node.js 7.6+](https://nodejs.org) is required.
+
+> Captain F. Disclosure Says...
+>
+> 1.0 is now shipping!  2.0 is close behind it and that is what you're seeing in `master`. If you're up for contributions, make sure you're using this branch. :tada:
 
 # Ya, But Why?
 
-Libraries like this shouldn't be the star. This is just glue.  What you're building is important thing. So `gluegun` aims to plug into YOUR code, not vice versa.
+Libraries like this shouldn't be the star. This is just glue. What you're building is important thing. So `gluegun` aims to plug into YOUR code, not vice versa.
 
 If you want to make **your** CLI...
 
@@ -33,11 +36,6 @@ If you want to make **your** CLI...
 * but skip the boring parts of developing it
 
 ... welcome!
-
-> Captain F. Disclosure Says...
->
-> Under construction! We're just still wrapping up things here. If you have any questions, feel free to file an issue! [Contributing?](./docs/contributing.md)
-
 
 # Do I need it?
 
@@ -57,11 +55,11 @@ Here's the highlights:
 
 We picked these features because they're gloriously generic.  Most CLIs could use more than a few in this list. And if it's this easy. Why not, right?
 
-# Code.
+# Code
 
 Let's start with what you or your end user will be writing.
 
-**Plugins**.
+**Plugins**
 
 ```js
 module.exports = async function (context) {
@@ -97,7 +95,7 @@ const runtime = build()
   .src(`${__dirname}/core-plugins`)
   .plugin('~/Desktop/movie/quote')
   .plugin('~/Desktop/movie/credits')
-  .plugins('~/Downloads/VariousMoviePlugins')
+  .plugins('node_modules', { matching: 'movie-*' })
   .create()
 
 // fire!
@@ -106,20 +104,12 @@ runtime.run()
 
 See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 
-# The Glue Crew
+# Who Is Using This?
 
-Who's gluing CLIs together with gluegun?
-
-These are underway:
-
-* [Reactotron](https://github.com/infinitered/reactotron) - App for React App Inspection
 * [Ignite](https://github.com/infinitered/ignite) - React Native Headstarter
-* ...next?
+* [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
+* AppMachine - closed source for now (still building) - tool for helping code generate apps
 
 ## Premium Support
 
 [gluegun](https://github.com/infinitered/gluegun), as open source projects, is free to use and always will be. [Infinite Red](https://infinite.red/) offers premium gluegun support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
-
-# Lastly...
-
-Gluegun is yet another open source project by [Infinite Red](https://infinite.red). We love our open source community -- thanks for being a part of it!
