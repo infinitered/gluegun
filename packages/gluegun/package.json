@@ -1,8 +1,9 @@
 {
   "name": "gluegun",
-  "version": "0.22.0",
+  "version": "1.0.0",
   "description": "Build yourself a pluggable CLI.",
   "main": "src/index.js",
+  "repository": "infinitered/gluegun",
   "scripts": {
     "test": "ava",
     "watch": "ava --watch",
