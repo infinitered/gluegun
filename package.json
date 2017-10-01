@@ -1,19 +1,18 @@
 {
   "name": "gluegun-monorepo",
+  "private": true,
   "version": "0.0.1",
+  "repository": "infinitered/gluegun",
   "description": "Tack stuff on to your code base.",
-  "main": "index.js",
   "scripts": {
     "lint": "lerna run lint",
     "test": "lerna run test",
-    "bootstrap": "lerna run bootstrap",
+    "bootstrap": "lerna bootstrap",
     "publish": "lerna publish"
   },
-  "author": "",
+  "author": "hello@infinite.red",
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "2.13.1",
-    "lerna": "2.0.0-rc.4"
-  },
-  "dependencies": {}
+    "lerna": "2.2.0"
+  }
 }
