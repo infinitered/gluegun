@@ -28,6 +28,7 @@ const { isBlank } = require('../utils/string-utils')
 const { subdirectories, isDirectory } = require('../utils/filesystem-utils')
 const RunContext = require('./run-context')
 const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
+const { resolve } = require('path')
 
 // core extensions
 const addTemplateExtension = require('../core-extensions/template-extension')
@@ -180,8 +181,7 @@ class Runtime {
    */
   load (directory, options = {}) {
     const { brand } = this
-
-    const plugin = loadPluginFromDirectory(directory, {
+    const plugin = loadPluginFromDirectory(resolve(directory), {
       brand,
       hidden: options['hidden'],
       name: options['name'],
