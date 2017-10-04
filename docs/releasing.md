@@ -20,18 +20,14 @@
 
 This will be automated a little nicer later. I'll also update these instructions next time I release.  This time I used `yarn`.  Next time I'll try `npm`.  `yarn` is still messed up when publishing. :sad:
 
-1. ensure you have something to release: `yarn lerna outdated`, you should see both `gluegun` and `gluegun-cli`.
-1. make a new branch: `git branch alpha2`
-1. bump versions: `yarn lerna publish --skip-npm --npm-tag next`
+1. ensure you have something to release: `./node_modules/.bin/lerna updated`, you should see both `gluegun` and `gluegun-cli`.
+1. make a new branch: `git branch build-alpha-2` (or whatever)
+1. bump versions: `./node_modules/.bin/lerna publish --npm-tag next`
 1. at the prompt, select `custom` and enter `2.0.0-alpha.2` (or whatever number we're on).
-1. release the lib manually (lulz): `cd packages/gluegun && npm publish --tag next && cd ../..`
-1. release cli too: `cd packages/gluegun-cli && npm publish --tag next && cd ../..`
-1. push code up to github: `git push -u origin HEAD`
-1. push new tag up to github: `git push --tags`
+1. select Y and press enter.
+1. you win.
+1. jump on github and PR your `build-alpha-2` branch back to master (`lerna` pushed it for you)
 
-Those last 5 steps are lame and we can streamline.  I'll do this with `2.0.0-alpha.2` and cut down the steps.
-
-We can & should use `yarn lerna publish --npm-tag next`, but `yarn` is causing grief.
 
 #### Verify
 
@@ -44,7 +40,7 @@ shows:
 ```
 yarn info v1.1.0
 { latest: '1.0.0',
- next: '2.0.0-alpha.1' }
+ next: '2.0.0-alpha.2' }
 ✨  Done in 0.71s.
 ```
 
