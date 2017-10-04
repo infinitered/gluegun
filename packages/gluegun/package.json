@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Build yourself a pluggable CLI.",
   "main": "src/index.js",
   "repository": "infinitered/gluegun",
