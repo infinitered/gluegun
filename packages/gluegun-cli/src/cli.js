@@ -14,7 +14,7 @@ async function run (argv) {
     .create()
 
   // and run it
-  const context = await cli.run(argv)
+  const context = await cli.run()
 
   // send it back (for testing, mostly)
   return context
