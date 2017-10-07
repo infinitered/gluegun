@@ -57,5 +57,6 @@ test.serial('start timer returns the number of milliseconds', async t => {
   await delay(WAIT) // simulate a delay
   const duration = elapsed() // how long was that?
 
-  t.true(duration >= WAIT)
+  // due to rounding this can be before the timeout.
+  t.true(duration >= WAIT - 1)
 })
