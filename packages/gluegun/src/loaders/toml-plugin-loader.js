@@ -4,7 +4,7 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory, isFile } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { assoc, map, filter, complement, endsWith } = require('ramda')
+const { assoc, map, complement, endsWith } = require('ramda')
 const toml = require('toml')
 
 /**
@@ -37,7 +37,9 @@ function loadFromDirectory (directory, options = {}) {
 
   // directory check
   if (isNotDirectory(directory)) {
-    throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
+    throw new Error(
+      `Error: couldn't load plugin (not a directory): ${directory}`
+    )
   }
 
   plugin.directory = directory

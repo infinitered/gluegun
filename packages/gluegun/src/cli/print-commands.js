@@ -1,7 +1,6 @@
 const print = require('../utils/print')
 const {
   pipe,
-  isNil,
   map,
   sortBy,
   prop,
@@ -11,8 +10,6 @@ const {
   unnest,
   equals
 } = require('ramda')
-const { dotPath } = require('ramdasauce')
-const { isBlank } = require('../utils/string-utils')
 
 /**
  * Is this a hidden command?
@@ -31,7 +28,7 @@ function getListOfPluginCommands (context, plugins, commandRoot) {
   return pipe(
     reject(isHidden),
     sortBy(prop('name')),
-    map((p) => getListOfCommands(context, p, commandRoot)),
+    map(p => getListOfCommands(context, p, commandRoot)),
     unnest
   )(plugins)
 }
@@ -48,7 +45,9 @@ function getListOfCommands (context, plugin, commandRoot) {
   return pipe(
     reject(isHidden),
     reject(command => {
-      if (!commandRoot) { return false }
+      if (!commandRoot) {
+        return false
+      }
       return !equals(
         command.commandPath.slice(0, commandRoot.length),
         commandRoot
@@ -77,7 +76,7 @@ function printCommands (context, commandRoot) {
     printPlugins = context.plugins
   } else {
     // print for one plugin
-    printPlugins = [ context.plugin ]
+    printPlugins = [context.plugin]
   }
 
   const data = getListOfPluginCommands(context, printPlugins, commandRoot)

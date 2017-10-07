@@ -14,6 +14,4 @@ test('cli shows new', async t => {
 test('cli shows default', async t => {
   const c = await cli(['/bin/node', '/bin/gluegun'])
   t.is(c.command.name, 'gluegun')
-});
-
-
+})

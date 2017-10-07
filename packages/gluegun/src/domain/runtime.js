@@ -1,17 +1,10 @@
-const parseCommandLine = require('../cli/parse-command-line')
 const normalizeParams = require('../cli/normalize-params')
 const autobind = require('autobind-decorator')
 const {
   clone,
   merge,
-  when,
   equals,
-  always,
-  join,
-  split,
-  trim,
   pipe,
-  replace,
   find,
   append,
   forEach,
@@ -23,7 +16,7 @@ const {
   sort,
   pluck
 } = require('ramda')
-const { findByProp, startsWith, isNilOrEmpty } = require('ramdasauce')
+const { findByProp, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const { subdirectories, isDirectory } = require('../utils/filesystem-utils')
 const RunContext = require('./run-context')
@@ -59,10 +52,14 @@ async function run (rawCommand, options) {
 
   // use the command line args if not passed in
   let commandArray = rawCommand || process.argv
-  if (is(String, commandArray)) { commandArray = commandArray.split(COMMAND_DELIMITER) }
+  if (is(String, commandArray)) {
+    commandArray = commandArray.split(COMMAND_DELIMITER)
+  }
 
   // remove the first 2 args if it comes from process.argv
-  if (equals(commandArray, process.argv)) { commandArray = commandArray.slice(2) }
+  if (equals(commandArray, process.argv)) {
+    commandArray = commandArray.slice(2)
+  }
 
   // find the pluginName and commandName from the cli args
   let commandName = commandArray[0]
@@ -262,18 +259,25 @@ class Runtime {
    */
   findCommand (plugin, commandPath) {
     if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return null
-    if (!commandPath) { commandPath = [] }
+    if (!commandPath) {
+      commandPath = []
+    }
 
     // traverse through the command path, retrieving aliases along the way
     const finalCommandPath = reduce((prevPath, currName) => {
       // find a command that fits the previous path + currentName, which can be an alias
       const cmd = find(
         command => {
-          return equals(command.commandPath.slice(0, -1), prevPath)
-            && (command.name === currName || command.alias.includes(currName))
+          return (
+            equals(command.commandPath.slice(0, -1), prevPath) &&
+            (command.name === currName || command.alias.includes(currName))
+          )
         },
         // sorted shortest path to longest
-        sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands)
+        sort(
+          (a, b) => a.commandPath.length - b.commandPath.length,
+          plugin.commands
+        )
       )
       if (cmd) {
         return cmd.commandPath
@@ -284,7 +288,7 @@ class Runtime {
 
     if (finalCommandPath.length === 0) {
       const defaultCommand = find(
-        command => equals(command.commandPath, [ plugin.name ]),
+        command => equals(command.commandPath, [plugin.name]),
         plugin.commands
       )
       return defaultCommand

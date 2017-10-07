@@ -13,8 +13,12 @@ function normalizeParams (plugin, command, argv = []) {
   const raw = array.join(' ')
 
   // the plugin name or command is sometimes the first/second word -- delete them
-  if (array[0] == plugin) { array.shift() }
-  if (array[0] == command) { array.shift() }
+  if (array[0] === plugin) {
+    array.shift()
+  }
+  if (array[0] === command) {
+    array.shift()
+  }
 
   const first = array[0]
   const second = array[1]
@@ -24,8 +28,18 @@ function normalizeParams (plugin, command, argv = []) {
   const string = array.join(' ')
 
   // :shipit:
-  return { plugin, command, first, second, third, raw, string, array, options, argv }
+  return {
+    plugin,
+    command,
+    first,
+    second,
+    third,
+    raw,
+    string,
+    array,
+    options,
+    argv
+  }
 }
 
 module.exports = normalizeParams
-
