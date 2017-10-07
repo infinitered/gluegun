@@ -1,7 +1,10 @@
-const helpCommand = require('./help')
+require('./help')
 
 module.exports = {
   name: 'gluegun',
   description: 'Run the gluegun CLI',
-  run: () => { console.log('gluegun'); return 'default command' }
+  run: () => {
+    console.log('gluegun')
+    return 'default command'
+  }
 }

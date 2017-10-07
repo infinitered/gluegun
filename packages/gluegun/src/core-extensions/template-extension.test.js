@@ -30,7 +30,7 @@ blue
 
 test('detects missing templates', async t => {
   try {
-    const context = await createRuntime().run('generate missing')
+    await createRuntime().run('generate missing')
   } catch (e) {
     t.true(startsWith('template not found', e.message))
   }

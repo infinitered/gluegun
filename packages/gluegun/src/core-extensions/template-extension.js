@@ -10,7 +10,7 @@ const { isFile } = require('../utils/filesystem-utils')
  * @param  {RunContext} context The running context.
  */
 function attach (context) {
-  const { plugin, command } = context
+  const { plugin } = context
 
   /**
    * Generates a file from a template.
@@ -34,12 +34,9 @@ function attach (context) {
     }
 
     // add our string utils to the filters available.
-    forEach(
-      x => {
-        data[x] = stringUtils[x]
-      },
-      keys(stringUtils)
-    )
+    forEach(x => {
+      data[x] = stringUtils[x]
+    }, keys(stringUtils))
 
     // pick a base directory for templates
     const directory = opts.directory

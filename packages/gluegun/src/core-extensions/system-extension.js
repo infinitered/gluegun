@@ -96,10 +96,10 @@ module.exports = function (context) {
 
   /**
    * Starts a timer used for measuring durations.
-   * 
+   *
    * @return {function} A function that when called will return the elapsed duration in milliseconds.
    */
-  function startTimer() {
+  function startTimer () {
     const started = process.uptime()
     return () => Math.floor((process.uptime() - started) * 1000) // uptime gives us seconds
   }
