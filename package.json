@@ -14,6 +14,6 @@
   "author": "hello@infinite.red",
   "license": "MIT",
   "devDependencies": {
-    "lerna": "2.2.0"
+    "lerna": "2.4.0"
   }
 }

@@ -1,4 +1,3 @@
-const autobind = require('autobind-decorator')
 const Runtime = require('./runtime')
 const { dissoc, pipe, tryCatch, always } = require('ramda')
 const { isBlank } = require('../utils/string-utils')
@@ -15,6 +14,13 @@ class Builder {
   constructor () {
     this.loadPlugins = [] // the plugins
     this.events = {} // the events
+    this.create = this.create.bind(this)
+    this.configFile = this.configFile.bind(this)
+    this.brand = this.brand.bind(this)
+    this.src = this.src.bind(this)
+    this.plugin = this.plugin.bind(this)
+    this.plugins = this.plugins.bind(this)
+    this.on = this.on.bind(this)
   }
 
   /**
@@ -26,8 +32,8 @@ class Builder {
     const runtime = new Runtime(this.brand)
 
     // should we try to load the config?
-    const attemptConfigLoad = !isBlank(this.configFile) &&
-      isFile(this.configFile)
+    const attemptConfigLoad =
+      !isBlank(this.configFile) && isFile(this.configFile)
 
     // load the config if we got it
     if (attemptConfigLoad) {
@@ -141,5 +147,5 @@ class Builder {
  * Export it as a factory function.
  */
 module.exports = function build () {
-  return new (autobind(Builder))()
+  return new Builder()
 }
