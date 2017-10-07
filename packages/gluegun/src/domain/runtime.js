@@ -1,5 +1,4 @@
 const normalizeParams = require('../cli/normalize-params')
-const autobind = require('autobind-decorator')
 const {
   clone,
   merge,
@@ -302,4 +301,4 @@ class Runtime {
   }
 }
 
-module.exports = autobind(Runtime)
+module.exports = Runtime
