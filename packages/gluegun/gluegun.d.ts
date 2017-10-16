@@ -571,6 +571,10 @@ export interface GluegunPrintExtensionExtra {
    * An `ora` spinner.
    */
   spin(options: any): any
+  /**
+  * Print help info for CLI commands
+  */
+  printCommands(context: GluegunRunContext): void
 }
 
 export interface GluegunPrintUtils {
