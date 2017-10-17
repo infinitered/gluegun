@@ -2,6 +2,7 @@
  * A script that helps generate some content for the strings documentation.
  */
 
+/*Commit Four*/
 const strings = require('../packages/gluegun/src/utils/string-utils')
 
 const functions = [
