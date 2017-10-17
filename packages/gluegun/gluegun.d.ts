@@ -631,6 +631,7 @@ export interface GluegunSemver {
   satisfies(version: string, inVersion: string): boolean
   gt(version: string, isGreaterThanVersion: string): boolean
   lt(version: string, isLessThanVersion: string): boolean
+  validRange(range: string): boolean | null
 }
 
 export interface GluegunHttp {
