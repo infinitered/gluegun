@@ -592,6 +592,7 @@ export interface GluegunPrintUtils {
    * Colors as seen from colors.js.
    */
   colors: any
+  color: any
 }
 
 /**
