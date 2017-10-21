@@ -81,7 +81,8 @@ async function run (rawCommand, options) {
   }
 
   context.plugin = context.plugin || this.findPlugin(context.pluginName)
-  context.command = this.findCommand(context.plugin, commandArray)
+  const { command, args } = this.findCommand(context.plugin, commandArray)
+  context.command = command
 
   // jet if we have no plugin or command
   if (isNil(context.plugin) || isNil(context.command)) return context
@@ -96,7 +97,8 @@ async function run (rawCommand, options) {
   // normalized parameters
   context.parameters = normalizeParams(
     context.plugin.name,
-    context.command,
+    context.command.name,
+    args,
     commandArray
   )
   context.parameters.options = merge(context.parameters.options, options || {})
@@ -254,10 +256,10 @@ class Runtime {
    *
    * @param {Plugin} plugin           The plugin in which the command lives.
    * @param {string[]} commandPath    The command to find.
-   * @returns {*}                     A Command otherwise null.
+   * @returns {{}}                    An object containing a Command & rest of arguments, otherwise null.
    */
   findCommand (plugin, commandPath) {
-    if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return null
+    if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return { command: null, args: [] }
     if (!commandPath) {
       commandPath = []
     }
@@ -302,10 +304,7 @@ class Runtime {
       )
     }
 
-    // attach the rest of the command line arguments to the command
-    targetCommand.args = rest
-
-    return targetCommand
+    return { command: targetCommand, args: rest }
   }
 }
 
