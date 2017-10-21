@@ -4,14 +4,15 @@ const minimist = require('minimist')
  * Parses the command-line arguments into a normalized object.
  *
  * @param {string} plugin     Plugin name
- * @param {Command} command   The command being run
+ * @param {string} command    The command being run
+ * @param {[]} args           List of rest of command arguments _after_ the command
  * @param {[]} argv           List of command arguments
  * @return {{}}               An object with normalized parameters
  */
-function normalizeParams (plugin, command, argv = []) {
+function normalizeParams (plugin, command, restArgs, argv = []) {
   // chop it up minimist!
   const options = minimist(argv)
-  const array = command.args
+  const array = restArgs
   delete options._
   const raw = array.join(' ')
 
@@ -25,7 +26,7 @@ function normalizeParams (plugin, command, argv = []) {
   // :shipit:
   return {
     plugin,
-    command: command.name,
+    command,
     first,
     second,
     third,
