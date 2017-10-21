@@ -7,4 +7,4 @@ async function hello (context) {
   }
 }
 
-module.exports = { name: 'hello', run: hello }
+module.exports = { name: 'hello', alias: 'h', run: hello }

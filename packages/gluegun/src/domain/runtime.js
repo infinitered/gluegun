@@ -96,7 +96,7 @@ async function run (rawCommand, options) {
   // normalized parameters
   context.parameters = normalizeParams(
     context.plugin.name,
-    context.command.name,
+    context.command,
     commandArray
   )
   context.parameters.options = merge(context.parameters.options, options || {})
@@ -262,6 +262,9 @@ class Runtime {
       commandPath = []
     }
 
+    // track the rest of the commandPath as we traverse
+    const rest = commandPath.slice() // dup
+
     // traverse through the command path, retrieving aliases along the way
     const finalCommandPath = reduce((prevPath, currName) => {
       // find a command that fits the previous path + currentName, which can be an alias
@@ -269,7 +272,7 @@ class Runtime {
         command => {
           return (
             equals(command.commandPath.slice(0, -1), prevPath) &&
-            (command.name === currName || command.alias.includes(currName))
+            [command.name].concat(command.aliases).includes(currName)
           )
         },
         // sorted shortest path to longest
@@ -279,25 +282,30 @@ class Runtime {
         )
       )
       if (cmd) {
+        rest.shift() // remove the current item
         return cmd.commandPath
       } else {
         return prevPath
       }
     }, [])(commandPath)
 
+    let targetCommand
     if (finalCommandPath.length === 0) {
-      const defaultCommand = find(
+      targetCommand = find(
         command => equals(command.commandPath, [plugin.name]),
         plugin.commands
       )
-      return defaultCommand
+    } else {
+      targetCommand = find(
+        command => equals(command.commandPath, finalCommandPath),
+        plugin.commands
+      )
     }
 
-    // looking at the final command path, retrieve the command that matches
-    return find(
-      command => equals(command.commandPath, finalCommandPath),
-      plugin.commands
-    )
+    // attach the rest of the command line arguments to the command
+    targetCommand.args = rest
+
+    return targetCommand
   }
 }
 
