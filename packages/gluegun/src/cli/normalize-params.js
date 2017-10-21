@@ -3,22 +3,17 @@ const minimist = require('minimist')
 /**
  * Parses the command-line arguments into a normalized object.
  *
- * @return {{}} An object with our awesome keys.
+ * @param {string} plugin     Plugin name
+ * @param {Command} command   The command being run
+ * @param {[]} argv           List of command arguments
+ * @return {{}}               An object with normalized parameters
  */
 function normalizeParams (plugin, command, argv = []) {
   // chop it up minimist!
   const options = minimist(argv)
-  const array = options._
+  const array = command.args
   delete options._
   const raw = array.join(' ')
-
-  // the plugin name or command is sometimes the first/second word -- delete them
-  if (array[0] === plugin) {
-    array.shift()
-  }
-  if (array[0] === command) {
-    array.shift()
-  }
 
   const first = array[0]
   const second = array[1]
@@ -30,7 +25,7 @@ function normalizeParams (plugin, command, argv = []) {
   // :shipit:
   return {
     plugin,
-    command,
+    command: command.name,
     first,
     second,
     third,
