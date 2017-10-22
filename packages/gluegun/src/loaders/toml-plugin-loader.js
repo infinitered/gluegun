@@ -18,8 +18,8 @@ function loadFromDirectory (directory, options = {}) {
 
   const {
     brand = 'gluegun',
-    commandFilePattern = [`*.js`, `!*.test.js`],
-    extensionFilePattern = [`*.js`, `!*.test.js`],
+    commandFilePattern = [`*.{js,ts}`, `!*.test.{js,ts}`],
+    extensionFilePattern = [`*.{js,ts}`, `!*.test.{js,ts}`],
     hidden = false,
     name
   } = options

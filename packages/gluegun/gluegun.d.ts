@@ -618,7 +618,7 @@ export interface GluegunSystem {
    */
   which(command: string): string | void
   /**
-   * Returns a timer function that starts from this moment. Calling 
+   * Returns a timer function that starts from this moment. Calling
    * this function will return the number of milliseconds from when
    * it was started.
    */
@@ -852,20 +852,16 @@ export interface GluegunLoadOptions {
   hidden?: boolean
 
   /**
-   * The file pattern to use when auto-detecting commands. The default is [`*.js`, `!*.test.js`].
-   * The second matcher excludes test files with that pattern.
-   *
-   * If you are using `ts-node`, you can switch this to [`*.ts`, `!*.test.ts`] to pick up your
-   * TypeScript-based commands.
+   * The file pattern to use when auto-detecting commands. The default is [`*.{js,ts}`, `!*.test.{js,ts}`].
+   * The second matcher excludes test files with that pattern. The `ts` extension is only needed for loading
+   * in a TypeScript environment such as `ts-node`.
    */
   commandFilePattern?: string[]
 
   /**
    * The file pattern is used when auto-detecting gluegun extensions.  The default
-   * is [`*.js`, `!*.test.js`].
-   *
-   * If you are using `ts-node`, you can switch this to [`*.ts`, `!*.test.ts`] to pick up your
-   * TypeScript-based extensions.
+   * is [`*.{js,ts}`, `!*.test.{js,ts}`]. The `ts` extension is only needed for loading
+   * in a TypeScript environment such as `ts-node`.
    */
   extensionFilePattern?: string[]
 }
