@@ -1,0 +1,38 @@
+{
+  "name": "<%= props.name %>",
+  "version": "0.0.1",
+  "description": "<%= props.name %> CLI",
+  "bin": {
+    "<%= props.name %>": "bin/<%= props.name %>"
+  },
+  "scripts": {
+    "test": "ava",
+    "watch": "ava --watch",
+    "coverage": "nyc ava",
+    "lint": "standard"
+  },
+  "files": [
+    "LICENSE",
+    "readme.md",
+    "docs",
+    "src"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "gluegun": "next"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0",
+    "babel-eslint": "^8.0.1",
+    "nyc": "^11.2.1",
+    "standard": "^10.0.0"
+  },
+  "ava": {},
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "devEngines": {
+    "node": ">=7.6.x",
+    "npm": ">=4.x"
+  }
+}
