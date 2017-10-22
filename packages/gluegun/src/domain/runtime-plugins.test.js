@@ -5,7 +5,7 @@ test('loads all sub-directories', t => {
   const r = new Runtime()
   r.loadAll(`${__dirname}/../fixtures/good-plugins`)
 
-  t.is(12, r.plugins.length)
+  t.is(13, r.plugins.length)
 })
 
 test('matches sub-directories', t => {

@@ -852,21 +852,22 @@ export interface GluegunLoadOptions {
   hidden?: boolean
 
   /**
-   * The file pattern to use when auto-detecting commands. The default is `*.js`.
+   * The file pattern to use when auto-detecting commands. The default is [`*.js`, `!*.test.js`].
+   * The second matcher excludes test files with that pattern.
    *
-   * If you are using `ts-node`, you can switch this to `*.ts` to pick up your
+   * If you are using `ts-node`, you can switch this to [`*.ts`, `!*.test.ts`] to pick up your
    * TypeScript-based commands.
    */
-  commandFilePattern?: string
+  commandFilePattern?: string[]
 
   /**
    * The file pattern is used when auto-detecting gluegun extensions.  The default
-   * is `*.js`.
+   * is [`*.js`, `!*.test.js`].
    *
-   * If you are using `ts-node`, you can switch this to `*.ts` to pick up your
+   * If you are using `ts-node`, you can switch this to [`*.ts`, `!*.test.ts`] to pick up your
    * TypeScript-based extensions.
    */
-  extensionFilePattern?: string
+  extensionFilePattern?: string[]
 }
 
 export interface GluegunMultiLoadOptions {

@@ -103,3 +103,13 @@ test('supports hidden plugins & commands', t => {
   t.true(plugin.commands[1].hidden)
   t.true(plugin.commands[2].hidden)
 })
+
+test('ignores test files', t => {
+  const dir = `${__dirname}/../fixtures/good-plugins/excluded`
+  const plugin = load(dir)
+
+  t.is(plugin.commands.length, 2)
+  t.is(plugin.commands[0].name, 'bar')
+  t.is(plugin.commands[1].name, 'foo')
+  t.is(plugin.extensions.length, 1)
+})

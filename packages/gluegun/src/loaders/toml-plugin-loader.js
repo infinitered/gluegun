@@ -4,7 +4,7 @@ const loadCommandFromFile = require('./command-loader')
 const loadExtensionFromFile = require('./extension-loader')
 const { isNotDirectory, isFile } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
-const { assoc, map, complement, endsWith } = require('ramda')
+const { assoc, map } = require('ramda')
 const toml = require('toml')
 
 /**
@@ -18,8 +18,8 @@ function loadFromDirectory (directory, options = {}) {
 
   const {
     brand = 'gluegun',
-    commandFilePattern = '*.js',
-    extensionFilePattern = '*.js',
+    commandFilePattern = [`*.js`, `!*.test.js`],
+    extensionFilePattern = [`*.js`, `!*.test.js`],
     hidden = false,
     name
   } = options
@@ -56,7 +56,6 @@ function loadFromDirectory (directory, options = {}) {
     const commands = jetpackPlugin
       .cwd('commands')
       .find({ matching: commandFilePattern, recursive: true })
-      .filter(complement(endsWith('.test.js')))
 
     plugin.commands = map(
       file => loadCommandFromFile(`${directory}/commands/${file}`),
@@ -71,7 +70,6 @@ function loadFromDirectory (directory, options = {}) {
     const extensions = jetpackPlugin
       .cwd('extensions')
       .find({ matching: extensionFilePattern, recursive: false })
-      .filter(complement(endsWith('.test.js')))
 
     plugin.extensions = map(
       file => loadExtensionFromFile(`${directory}/extensions/${file}`),
