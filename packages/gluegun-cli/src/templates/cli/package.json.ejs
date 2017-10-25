@@ -2,6 +2,7 @@
   "name": "<%= props.name %>",
   "version": "0.0.1",
   "description": "<%= props.name %> CLI",
+  "private": true,
   "bin": {
     "<%= props.name %>": "bin/<%= props.name %>"
   },
@@ -16,23 +17,31 @@
     "readme.md",
     "docs",
     "src"
+    <% if (props.typescript) { %>,
+    "tsconfig.json"
+    <% } %>
   ],
   "license": "MIT",
   "dependencies": {
-    "gluegun": "next"
+    "gluegun": "infinitered/gluegun"
+    <% if (props.typescript) { %>,
+    "typescript": "2.5.3",
+    "ts-node": "3.3.0"
+    <% } %>
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "babel-eslint": "^8.0.1",
+    <% if (props.typescript) { %>
+    "@types/node": "^8.0.47",
+    <% } else { %>
     "nyc": "^11.2.1",
-    "standard": "^10.0.0"
-  },
-  "ava": {},
+    "standard": "^10.0.0",
+    <% } %>
+    "babel-eslint": "^8.0.1"
+  }
+  <% if (!props.typescript) { %>,
   "standard": {
     "parser": "babel-eslint"
-  },
-  "devEngines": {
-    "node": ">=7.6.x",
-    "npm": ">=4.x"
   }
+  <% } %>
 }

@@ -40,4 +40,6 @@ This is then accessible in your plugin's commands as `context.bar`.
 
 # Loading a plugin
 
-_TODO: describe how to load a plugin here_
+To load a particular plugin (which has to start with `<%= props.name %>-*`),
+install it to your project using `npm install --save-dev <%= props.name %>-PLUGINNAME`,
+and <%= props.name %> will pick it up automatically.

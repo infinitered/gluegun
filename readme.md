@@ -49,6 +49,8 @@ $ movies help
 You should see your new CLI help. Open the folder in your favorite editor and
 start building your CLI!
 
+_Tip: If you want your CLI to use TypeScript, pass in `--typescript`_
+
 # Code
 
 Let's start with what a `gluegun` CLI looks like.

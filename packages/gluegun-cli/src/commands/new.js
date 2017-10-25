@@ -9,7 +9,10 @@ module.exports = {
     const { generate } = template
     const { kebabCase } = strings
 
-    const props = { name: parameters.first }
+    const props = {
+      name: parameters.first,
+      typescript: parameters.options.typescript
+    }
 
     // TODO: check validity of props.name
     if (!props.name || props.name.length === 0) {
@@ -50,16 +53,19 @@ module.exports = {
       '.gitignore.ejs',
     ]
 
-    if (parameters.options.typescript) {
+    if (props.typescript) {
       files.push('tsconfig.json.ejs')
     }
 
     active = files.reduce((prev, file) => {
-      gen = generate({
-        template: `cli/${file}`,
-        target: `${props.name}/${file.replace('.ejs', '')}`,
-        props: props
-      })
+      const template = `cli/${file}`
+
+      const target = `${props.name}/` +
+        ((props.typescript && file.includes('.js.ejs'))
+        ? file.replace('.js.ejs', '.ts')
+        : file.replace('.ejs', ''))
+
+      gen = generate({ template, target, props })
       return prev.concat([ gen ])
     }, active)
 
