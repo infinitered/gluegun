@@ -13,7 +13,8 @@
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
     "start": "node src/index.js",
-    "lint": "standard"
+    "lint": "standard",
+    "shipit": "np"
   },
   "author": {
     "name": "Infinite Red, Inc.",
@@ -77,6 +78,7 @@
     "ava": "^0.22.0",
     "babel-eslint": "^8.0.1",
     "coveralls": "^3.0.0",
+    "np": "^2.16.0",
     "nyc": "^11.2.1",
     "sinon": "^4.0.1",
     "standard": "^10.0.2",
