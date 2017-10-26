@@ -1,6 +1,6 @@
 {
   "name": "gluegun-cli",
-  "version": "2.0.0-alpha.4",
+  "version": "2.0.0-alpha.5",
   "description": "Time to get your glue on.",
   "bin": {
     "gluegun": "bin/gluegun"
