@@ -1,19 +1,93 @@
 {
-  "name": "gluegun-monorepo",
-  "private": true,
-  "version": "0.0.1",
+  "name": "gluegun",
+  "version": "2.0.0-alpha.7",
+  "description": "Build yourself a pluggable CLI.",
+  "main": "src/index.js",
   "repository": "infinitered/gluegun",
-  "description": "Tack stuff on to your code base.",
-  "scripts": {
-    "lint": "lerna run lint",
-    "test": "lerna exec yarn test -- -s",
-    "clean": "lerna clean --yes",
-    "bootstrap": "lerna bootstrap --yes",
-    "publish": "lerna publish"
+  "bin": {
+    "gluegun": "bin/gluegun"
   },
-  "author": "hello@infinite.red",
+  "scripts": {
+    "test": "ava",
+    "watch": "ava --watch",
+    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
+    "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
+    "start": "node src/index.js",
+    "lint": "standard"
+  },
+  "author": {
+    "name": "Infinite Red, Inc.",
+    "email": "npm@infinite.red",
+    "url": "https://github.com/infinitered/gluegun"
+  },
+  "files": [
+    "docs",
+    "bin"
+    "src",
+    "sniff.js",
+    "LICENSE",
+    "readme.md",
+    "gluegun.d.ts"
+  ],
+  "types": "gluegun.d.ts",
   "license": "MIT",
+  "dependencies": {
+    "apisauce": "^0.14.1",
+    "app-module-path": "^2.2.0",
+    "ascii-table": "^0.0.9",
+    "colors": "^1.1.2",
+    "cross-spawn": "^5.1.0",
+    "ejs": "^2.5.7",
+    "enquirer": "^1.0.2",
+    "execa": "^0.8.0",
+    "fs-jetpack": "^1.2.0",
+    "lodash.camelcase": "^4.3.0",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.lowercase": "^4.3.0",
+    "lodash.lowerfirst": "^4.3.1",
+    "lodash.pad": "^4.5.1",
+    "lodash.padend": "^4.6.1",
+    "lodash.padstart": "^4.6.1",
+    "lodash.repeat": "^4.1.0",
+    "lodash.snakecase": "^4.1.1",
+    "lodash.startcase": "^4.4.0",
+    "lodash.trim": "^4.5.1",
+    "lodash.trimend": "^4.5.1",
+    "lodash.trimstart": "^4.5.1",
+    "lodash.uppercase": "^4.3.0",
+    "lodash.upperfirst": "^4.3.1",
+    "minimist": "^1.2.0",
+    "ora": "^1.2.0",
+    "prompt-autocompletion": "^0.1.1",
+    "prompt-checkbox": "^2.2.0",
+    "prompt-confirm": "^1.2.0",
+    "prompt-expand": "^1.0.0",
+    "prompt-list": "^2.2.0",
+    "prompt-password": "^1.2.0",
+    "prompt-question": "^5.0.2",
+    "prompt-radio": "^1.2.1",
+    "prompt-rawlist": "^2.0.1",
+    "ramda": "^0.24.1",
+    "ramdasauce": "^2.1.0",
+    "semver": "^5.3.0",
+    "toml": "^2.3.2",
+    "which": "^1.2.14"
+  },
   "devDependencies": {
-    "lerna": "2.4.0"
+    "ava": "^0.22.0",
+    "babel-eslint": "^8.0.1",
+    "coveralls": "^3.0.0",
+    "nyc": "^11.2.1",
+    "sinon": "^4.0.1",
+    "standard": "^10.0.2",
+    "temp-write": "^3.3.0"
+  },
+  "ava": {},
+  "standard": {
+    "parser": "babel-eslint"
+  },
+  "devEngines": {
+    "node": ">=7.6.x",
+    "npm": ">=4.x"
   }
 }

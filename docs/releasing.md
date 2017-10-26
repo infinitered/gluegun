@@ -1,5 +1,7 @@
 # Releasing Gluegun
 
+# TODO: update for integrated CLI
+
 #### Once per machine
 
 1. you have a `npm` token. Type `npm whoami`. It should say your name.
