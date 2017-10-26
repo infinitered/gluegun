@@ -96,9 +96,6 @@ module.exports = async function (context) {
 
 See the [context api docs](./docs/context-api.md) for more details on what you can do.
 
-And what about the CLI you make? Depending on the features you want, more or less:
-
-
 See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 
 # Who Is Using This?
