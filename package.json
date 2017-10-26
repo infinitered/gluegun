@@ -14,7 +14,7 @@
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
     "start": "node src/index.js",
     "lint": "standard",
-    "shipit": "np"
+    "shipit": "np --yolo"
   },
   "author": {
     "name": "Infinite Red, Inc.",
