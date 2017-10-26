@@ -4,7 +4,7 @@ module.exports = {
   description: 'Creates a new gluegun cli',
   hidden: false,
   run: async (context) => {
-    const { parameters, template, filesystem, print, strings } = context
+    const { parameters, template, filesystem, print, strings, system } = context
     const { resolve } = filesystem
     const { generate } = template
     const { kebabCase } = strings
@@ -48,6 +48,7 @@ module.exports = {
       'src/templates/model.js.ejs.ejs',
       'src/cli.js.ejs',
       'LICENSE.ejs',
+      '.prettierrc.ejs',
       'package.json.ejs',
       'readme.md.ejs',
       '.gitignore.ejs',
@@ -75,11 +76,13 @@ module.exports = {
     // make bin executable
     filesystem.chmodSync(`${props.name}/bin/${props.name}`, 0755)
 
+    await system.spawn(`cd ${props.name} && npm i && npm run format`, { shell: true, stdio: 'inherit', stderr: 'inherit' })
+    print.info(`cd ${props.name} && npm i && npm format`)
+
     print.info(`Generated ${props.name} CLI.`)
     print.info(``)
     print.info(`Next:`)
     print.info(`  $ cd ${props.name}`)
-    print.info(`  $ npm install`)
     print.info(`  $ npm link`)
     print.info(`  $ ${props.name} help`)
     print.info(``)
