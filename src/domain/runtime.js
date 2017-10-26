@@ -1,4 +1,4 @@
-const normalizeParams = require('../cli/normalize-params')
+const normalizeParams = require('../utils/cli/normalize-params')
 const {
   clone,
   merge,

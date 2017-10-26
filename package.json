@@ -22,7 +22,7 @@
   },
   "files": [
     "docs",
-    "bin"
+    "bin",
     "src",
     "sniff.js",
     "LICENSE",
