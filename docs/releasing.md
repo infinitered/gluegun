@@ -1,7 +1,5 @@
 # Releasing Gluegun
 
-# TODO: update for integrated CLI
-
 #### Once per machine
 
 1. you have a `npm` token. Type `npm whoami`. It should say your name.
@@ -25,8 +23,8 @@ _This will be automated a little nicer later._
 1. be on the master branch: `git checkout master`
 1. ensure your working tree is clean and you've pulled: `git pull && git status`
 1. shipit: `yarn run shipit`
+1. push the np version changes up: `git push`
 1. you win.
-1. jump on github and PR your `build-alpha-2` branch back to master (`lerna` pushed it for you)
 
 
 #### Verify
