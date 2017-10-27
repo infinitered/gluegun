@@ -1,4 +1,4 @@
-const { build } = require('gluegun')
+const { build } = require('../index.js')
 
 /**
  * Create the cli and kick it off

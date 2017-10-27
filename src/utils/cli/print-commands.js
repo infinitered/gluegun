@@ -1,4 +1,4 @@
-const print = require('../utils/print')
+const print = require('../print')
 const {
   pipe,
   map,

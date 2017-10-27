@@ -1,5 +1,5 @@
 const test = require('ava')
-const cli = require('../src/cli')
+const cli = require('./cli')
 
 test('can start the cli', async t => {
   const c = await cli()

@@ -13,20 +13,18 @@
 1. you have all latest updates: `git pull`
 1. you have no changes to push and no staged changes.
 1. nuke your dependencies: `yarn clean`
-1. install fresh dependencies: `yarn bootstrap`
+1. install fresh dependencies: `yarn`
 1. tests pass: `yarn test`
 
 #### Pushing an alpha
 
-This will be automated a little nicer later. I'll also update these instructions next time I release.  This time I used `yarn`.  Next time I'll try `npm`.  `yarn` is still messed up when publishing. :sad:
+_This will be automated a little nicer later._
 
-1. ensure you have something to release: `yarn lerna updated`, you should see both `gluegun` and `gluegun-cli`.
-1. make a new branch: `git branch build-alpha-5` (or whatever)
-1. bump versions: `./node_modules/.bin/lerna publish --npm-tag next`
-1. at the prompt, select `custom` and enter `2.0.0-alpha.5` (or whatever number we're on).
-1. select Y and press enter.
+1. be on the master branch: `git checkout master`
+1. ensure your working tree is clean and you've pulled: `git pull && git status`
+1. shipit: `yarn run shipit`
+1. push the np version changes up: `git push`
 1. you win.
-1. jump on github and PR your `build-alpha-2` branch back to master (`lerna` pushed it for you)
 
 
 #### Verify
@@ -50,4 +48,8 @@ In your project:
 
 `yarn add gluegun@next`
 
-Everytime run you update, it'll grab the latest published version.
+Every time run you update, it'll grab the latest published version.
+
+For the CLI:
+
+`yarn global add gluegun@next`

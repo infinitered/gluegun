@@ -32,7 +32,7 @@ require('app-module-path').addPath(process.cwd())
 const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
-const printCommands = require('./cli/print-commands')
+const printCommands = require('./utils/cli/print-commands')
 
 const context = {
   build,
