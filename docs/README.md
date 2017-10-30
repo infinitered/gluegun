@@ -44,7 +44,6 @@ Here's the highlights
 
 🎛 &nbsp; generate files from templates
 <br />💾 &nbsp; move files and directories around
-<br />🔮 &nbsp; generate files from templates
 <br />⚒ &nbsp; execute other scripts
 <br />🎅 &nbsp; interact with API servers
 <br />🔌 &nbsp; have my own users write plugins
