@@ -54,6 +54,7 @@ test('generate', async t => {
 
 test('patching', t => {
   t.truthy(exported.patching)
+  t.truthy(typeof exported.patching.exists, 'function')
   t.truthy(typeof exported.patching.update, 'function')
   t.truthy(typeof exported.patching.append, 'function')
   t.truthy(typeof exported.patching.prepend, 'function')

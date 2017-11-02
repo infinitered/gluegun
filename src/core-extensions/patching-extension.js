@@ -7,6 +7,25 @@ const { isFile } = require('../utils/filesystem-utils')
  * @param  {RunContext} context The running context.
  */
 function attach (context) {
+
+  /**
+   * Identifies if something exists in a file
+   *
+   * @param  {string}  filename     The path to the file we'll be scanning.
+   * @param  {string}  findPattern  The case sensitive string or RegExp that identifies existence.
+   * @return {boolean}              Boolean of success that findPattern was in file.
+   */
+  async function exists (filename, findPattern) {
+    let contents = await readFile(filename)
+
+    if (typeof contents !== 'string') {
+      contents = JSON.stringify(contents)
+    }
+
+    let finder = typeof findPattern === 'string' ? new RegExp(`.*${findPattern}.*`, '') : findPattern
+    return !!contents.match(finder)
+  }
+
   /**
    * Updates a text file or json config file. Async.
    *
@@ -15,16 +34,7 @@ function attach (context) {
    * @return {bool}  Whether the operation was successful
    */
   async function update (filename, callback) {
-    // bomb if the file doesn't exist
-    if (!isFile(filename)) {
-      throw new Error(`file not found ${filename}`)
-    }
-
-    // check type of file (JSON or not)
-    const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
-
-    // read the file
-    const contents = await jetpack.readAsync(filename, fileType)
+    const contents = await readFile(filename)
 
     // let the caller mutate the contents in memory
     const mutatedContents = callback(contents)
@@ -90,6 +100,21 @@ function attach (context) {
     return update(filename, data => patchString(data, opts))
   }
 
+  async function readFile (filename) {
+    // bomb if the file doesn't exist
+    if (!isFile(filename)) {
+      throw new Error(`file not found ${filename}`)
+    }
+
+    // check type of file (JSON or not)
+    const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
+
+    // read the file
+    const contents = await jetpack.readAsync(filename, fileType)
+
+    return contents
+  }
+
   function patchString (data, opts) {
     // Already includes string, and not forcing it
     if (data.includes(opts.insert) && !opts.force) return false
@@ -121,7 +146,7 @@ function attach (context) {
     return data.replace(findString, newContents)
   }
 
-  context.patching = { update, append, prepend, replace, patch }
+  context.patching = { update, append, prepend, replace, patch, exists }
 }
 
 module.exports = attach
