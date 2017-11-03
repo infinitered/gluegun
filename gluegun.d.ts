@@ -671,6 +671,13 @@ export interface GluegunPatching {
    * Makes a patch inside file.
    */
   patch(filename: string, options: GluegunPatchingPatchOptions): Promise<boolean>
+  /**
+   * Identifies if something exists in a file.
+   *
+   * @param filename The path to the file we'll be scanning.
+   * @param findPattern The case sensitive string or RegExp that identifies existence.
+   */
+  exists(filename: string, findPattern: string | RegExp): Promise<boolean>
 }
 
 export interface GluegunPrompt {
@@ -775,7 +782,7 @@ export interface GluegunRuntime {
    * runtime. This is useful for testing or if you're completely off your gourd.
    * This one will be deprecated.
    */
-  run(options?: GluegunRunOptions | string[]): Promise<GluegunRunContext>
+  run(options?: GluegunRunOptions | string[]): Promise<GluegunRunContext | void>
 
   /**
    * Ideally named after the command line, the brand will be used
