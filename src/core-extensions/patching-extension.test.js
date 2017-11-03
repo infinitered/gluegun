@@ -24,6 +24,39 @@ test.beforeEach(t => {
   t.context.textFile = tempWrite.sync(TEXT_STRING)
 })
 
+test('exists - checks a JSON file for a string', async t => {
+  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
+  const exists = await patching.exists(configFile, 'test')
+  t.truthy(exists)
+})
+
+test('exists - checks a TEXT file for a string', async t => {
+  const exists = await patching.exists(t.context.textFile, 'words')
+  t.truthy(exists)
+})
+
+test('exists - checks a JSON file for a short form regex', async t => {
+  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
+  const exists = await patching.exists(configFile, /test/)
+  t.truthy(exists)
+})
+
+test('exists - checks a TEXT file for a short form regex', async t => {
+  const exists = await patching.exists(t.context.textFile, /ords\b/)
+  t.truthy(exists)
+})
+
+test('exists - checks a JSON file for a RegExp', async t => {
+  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
+  const exists = await patching.exists(configFile, new RegExp('Test', 'i'))
+  t.truthy(exists)
+})
+
+test('exists - checks a TEXT file for a RegExp', async t => {
+  const exists = await patching.exists(t.context.textFile, new RegExp('Word', 'i'))
+  t.truthy(exists)
+})
+
 test('update - updates a JSON file', async t => {
   const configFile = tempWrite.sync(CONFIG_STRING, '.json')
   const updated = await patching.update(configFile, (contents) => {

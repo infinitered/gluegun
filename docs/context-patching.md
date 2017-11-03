@@ -1,5 +1,22 @@
 Tools to help adjust the contents of text files.
 
+## exists
+
+> This is an **async** function.
+
+Reads in a file and checks whether it's content matches a string or regular expression.
+
+```js
+// Case sensitive string match
+const barbExists = await context.patching.exists('config.txt', 'Barb')
+
+// Short form regex
+const barbExists = await context.patching.exists('config.txt', /Barb/)
+
+// Regex Object
+const barbExists = await context.patching.exists('config.txt', new Regex(/Barb/, 'i'))
+```
+
 ## update
 
 > This is an **async** function.
