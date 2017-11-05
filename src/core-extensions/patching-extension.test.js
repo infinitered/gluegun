@@ -24,37 +24,19 @@ test.beforeEach(t => {
   t.context.textFile = tempWrite.sync(TEXT_STRING)
 })
 
-test('exists - checks a JSON file for a string', async t => {
-  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const exists = await patching.exists(configFile, 'test')
-  t.truthy(exists)
-})
-
 test('exists - checks a TEXT file for a string', async t => {
   const exists = await patching.exists(t.context.textFile, 'words')
-  t.truthy(exists)
-})
-
-test('exists - checks a JSON file for a short form regex', async t => {
-  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const exists = await patching.exists(configFile, /test/)
-  t.truthy(exists)
+  t.true(exists)
 })
 
 test('exists - checks a TEXT file for a short form regex', async t => {
   const exists = await patching.exists(t.context.textFile, /ords\b/)
-  t.truthy(exists)
-})
-
-test('exists - checks a JSON file for a RegExp', async t => {
-  const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const exists = await patching.exists(configFile, new RegExp('Test', 'i'))
-  t.truthy(exists)
+  t.true(exists)
 })
 
 test('exists - checks a TEXT file for a RegExp', async t => {
   const exists = await patching.exists(t.context.textFile, new RegExp('Word', 'i'))
-  t.truthy(exists)
+  t.true(exists)
 })
 
 test('update - updates a JSON file', async t => {
@@ -69,7 +51,7 @@ test('update - updates a JSON file', async t => {
   })
 
   // returned the updated object
-  t.truthy(updated.mutated)
+  t.true(updated.mutated)
   t.is(updated.test, 'what???')
   t.is(updated.test2, 'never')
 
@@ -102,7 +84,7 @@ test('update - cancel updating a file', async t => {
   })
 
   // returned false
-  t.falsy(updated)
+  t.false(updated)
 
   // file was not altered
   const newContents = await jetpack.read(t.context.textFile, 'utf8')
