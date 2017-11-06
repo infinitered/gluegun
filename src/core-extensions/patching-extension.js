@@ -20,7 +20,7 @@ function attach (context) {
   async function exists (filename, findPattern) {
     // sanity check the filename
     if (isNotString(filename) || isNotFile(filename)) {
-      false
+      return false
     }
 
     // sanity check the findPattern
