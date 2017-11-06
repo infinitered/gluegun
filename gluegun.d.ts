@@ -589,6 +589,10 @@ export interface GluegunPrintUtils {
   newline: () => void
   table: (data: any, options: any) => void
   /**
+   * An `ora` spinner.
+   */
+  spin(options: any): any
+  /**
    * Colors as seen from colors.js.
    */
   colors: any

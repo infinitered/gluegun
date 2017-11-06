@@ -1,6 +1,5 @@
 const print = require('../utils/print')
 const printCommands = require('../utils/cli/print-commands')
-const ora = require('ora')
 
 /**
  * Extensions to print to the console.
@@ -49,7 +48,7 @@ function attach (context) {
    * @returns The spinner.
    */
   function spin (config) {
-    return ora(config).start()
+    return print.spin(config)
   }
 
   // attach the feature set
@@ -64,7 +63,6 @@ function attach (context) {
     xmark,
     spin,
     printCommands,
-
     table: print.table,
     newline: print.newline,
     color: colors

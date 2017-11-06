@@ -1,5 +1,6 @@
 const colors = require('colors')
 const AsciiTable = require('ascii-table')
+const ora = require('ora')
 
 /**
  * Sets the color scheme.
@@ -117,6 +118,16 @@ function success (message) {
   console.log(colors.success(message))
 }
 
+/**
+   * Creates a spinner and starts it up.
+   *
+   * @param {string|Object} config The text for the spinner or an ora configuration object.
+   * @returns The spinner.
+   */
+function spin(config) {
+  return ora(config).start()
+}
+
 module.exports = {
   info,
   warning,
@@ -127,5 +138,6 @@ module.exports = {
   divider,
   newline,
   table,
+  spin,
   colors
 }
