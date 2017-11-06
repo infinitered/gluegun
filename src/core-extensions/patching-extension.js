@@ -1,5 +1,7 @@
 const jetpack = require('fs-jetpack')
-const { isFile } = require('../utils/filesystem-utils')
+const { isFile, isNotFile } = require('../utils/filesystem-utils')
+const { isNotString } = require('../utils/string-utils')
+const { is, test } = require('ramda')
 
 /**
  * Builds the patching feature.
@@ -9,21 +11,35 @@ const { isFile } = require('../utils/filesystem-utils')
 function attach (context) {
 
   /**
-   * Identifies if something exists in a file
+   * Identifies if something exists in a file. Async.
    *
-   * @param  {string}  filename     The path to the file we'll be scanning.
-   * @param  {string}  findPattern  The case sensitive string or RegExp that identifies existence.
-   * @return {boolean}              Boolean of success that findPattern was in file.
+   * @param {string} filename The path to the file we'll be scanning.
+   * @param {string} findPattern The case sensitive string or RegExp that identifies existence.
+   * @return {Promise<boolean>} Boolean of success that findPattern was in file.
    */
   async function exists (filename, findPattern) {
-    let contents = await readFile(filename)
-
-    if (typeof contents !== 'string') {
-      contents = JSON.stringify(contents)
+    // sanity check the filename
+    if (isNotString(filename) || isNotFile(filename)) {
+      return false
     }
 
-    let finder = typeof findPattern === 'string' ? new RegExp(`.*${findPattern}.*`, '') : findPattern
-    return !!contents.match(finder)
+    // sanity check the findPattern
+    const patternIsString = typeof findPattern === 'string'
+    if (!findPattern instanceof RegExp && !patternIsString) {
+      return false
+    }
+
+    // read from jetpack -- they guard against a lot of the edge
+    // cases and return nil if problematic
+    const contents = await jetpack.readAsync(filename)
+
+    // only let the strings pass
+    if (isNotString(contents)) {
+      return false
+    }
+
+    // do the appropriate check
+    return patternIsString ? contents.includes(findPattern) : test(findPattern, contents)
   }
 
   /**
