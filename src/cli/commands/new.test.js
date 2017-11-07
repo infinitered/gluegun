@@ -2,8 +2,8 @@ const test = require('ava')
 const sinon = require('sinon')
 const command = require('./new')
 const strings = require('../../utils/string-utils')
+sinon.stub(console, 'log')
 
-// const spyLog = sinon.stub(console, 'log')
 const createContext = () => ({
   strings,
   filesystem: {
