@@ -5,7 +5,6 @@ module.exports = {
   hidden: false,
   run: async (context) => {
     const { parameters, template, filesystem, print, strings, system } = context
-    const { resolve } = filesystem
     const { generate } = template
     const { kebabCase } = strings
 
@@ -36,7 +35,7 @@ module.exports = {
     active.push(generate({
       template: `cli/bin/cli-executable.ejs`,
       target: `./${props.name}/bin/${props.name}`,
-      props: props,
+      props: props
     }))
 
     const files = [
@@ -51,7 +50,7 @@ module.exports = {
       '.prettierrc.ejs',
       'package.json.ejs',
       'readme.md.ejs',
-      '.gitignore.ejs',
+      '.gitignore.ejs'
     ]
 
     if (props.typescript) {
@@ -66,7 +65,7 @@ module.exports = {
         ? file.replace('.js.ejs', '.ts')
         : file.replace('.ejs', ''))
 
-      gen = generate({ template, target, props })
+      const gen = generate({ template, target, props })
       return prev.concat([ gen ])
     }, active)
 
@@ -74,7 +73,7 @@ module.exports = {
     await Promise.all(active)
 
     // make bin executable
-    filesystem.chmodSync(`${props.name}/bin/${props.name}`, 0755)
+    filesystem.chmodSync(`${props.name}/bin/${props.name}`, '755')
 
     await system.spawn(`cd ${props.name} && npm i && npm run format`, { shell: true, stdio: 'inherit', stderr: 'inherit' })
     print.info(`cd ${props.name} && npm i && npm format`)

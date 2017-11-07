@@ -85,7 +85,7 @@ test.serial('table', t => {
   t.is(spyLog.args[i++][0], '  liam      5  \n  matthew   2  ')
 })
 
-test.only('spin', t => {
+test.serial('spin', t => {
   t.is(typeof print.spin, 'function')
   const spinner = print.spin()
   t.is(typeof spinner.stop, 'function')
