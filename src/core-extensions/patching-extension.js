@@ -1,7 +1,7 @@
 const jetpack = require('fs-jetpack')
 const { isFile, isNotFile } = require('../utils/filesystem-utils')
 const { isNotString } = require('../utils/string-utils')
-const { is, test } = require('ramda')
+const { test } = require('ramda')
 
 /**
  * Builds the patching feature.
@@ -9,7 +9,6 @@ const { is, test } = require('ramda')
  * @param  {RunContext} context The running context.
  */
 function attach (context) {
-
   /**
    * Identifies if something exists in a file. Async.
    *
@@ -25,13 +24,13 @@ function attach (context) {
 
     // sanity check the findPattern
     const patternIsString = typeof findPattern === 'string'
-    if (!findPattern instanceof RegExp && !patternIsString) {
+    if (!(findPattern instanceof RegExp) && !patternIsString) {
       return false
     }
 
     // read from jetpack -- they guard against a lot of the edge
     // cases and return nil if problematic
-    const contents = await jetpack.readAsync(filename)
+    const contents = jetpack.read(filename)
 
     // only let the strings pass
     if (isNotString(contents)) {
