@@ -1,5 +1,5 @@
 const colors = require('colors')
-const AsciiTable = require('ascii-table')
+const { table: asciiTable, getBorderCharacters } = require('table')
 const ora = require('ora')
 
 /**
@@ -40,10 +40,40 @@ function divider () {
  * @param {{}} object The object to turn into a table.
  */
 function table (data, options) {
-  const t = new AsciiTable()
-  t.addRowMatrix(data)
-  t.removeBorder()
-  console.log(t.toString())
+  let tableDesign
+  if (options) {
+    if (options.markdown) {
+      // hopefully a new template coming soon
+      // https://github.com/gajus/table/issues/53
+      tableDesign = asciiTable(data, {
+        border: {
+          topBody: '',
+          topJoin: '',
+          topLeft: '',
+          topRight: '',
+          bottomBody: '',
+          bottomJoin: '',
+          bottomLeft: '',
+          bottomRight: '',
+          bodyLeft: '|',
+          bodyRight: '|',
+          bodyJoin: '|',
+          joinBody: '-',
+          joinLeft: '|',
+          joinRight: '|',
+          joinJoin: '|'
+        },
+        drawHorizontalLine: (index) => index === 1,
+        ...options
+      })
+    } else {
+      tableDesign = asciiTable(data, options)
+    }
+  } else {
+    // default no frills table
+    tableDesign = asciiTable(data, {border: getBorderCharacters(`void`), drawHorizontalLine: () => false})
+  }
+  console.log(tableDesign)
 }
 
 /**
