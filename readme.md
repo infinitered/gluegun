@@ -38,7 +38,7 @@ If you want to have **your** CLI...
 Just run the `gluegun` CLI like this:
 
 ```
-$ npm install -g gluegun-cli
+$ npm install -g gluegun@next
 $ gluegun new movies
 $ cd movies
 $ npm install
