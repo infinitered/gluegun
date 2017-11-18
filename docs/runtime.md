@@ -96,7 +96,7 @@ And now we're ready to run:
   cli.run()
 ```
 
-With no parameters, `gluegun` will parse the command line arguments looking for the commmand to run.
+With no parameters, `gluegun` will parse the command line arguments looking for the command to run.
 
 ```sh
 # list the plugins
@@ -123,7 +123,7 @@ $ movie credits producers "Planes, Trains, & Automobiles" --sort age
 
 Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
 
-A plugin is a folder that contains a structure something like this:
+A plugin is a folder that contains a structure - something like this:
 
 ```
 credits
@@ -183,10 +183,10 @@ There's a few situations that make this useful.
 
 1. Maybe you like to use `meow` or `commander` to parse the command line.
 2. Maybe your interface isn't a CLI.
-3. Maybe you want to run several command in a row.
+3. Maybe you want to run several commands in a row.
 4. Maybe this is your program and you don't like strangers telling you how to code.
 
-Bottom line, is you get to pick. It's yours. `gluegun` is just glue.
+Bottom line is, you get to pick. It's yours. `gluegun` is just glue.
 
 ## configFile
 
