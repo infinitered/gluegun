@@ -7,7 +7,7 @@ file system.  All jetpack-based functions have an equivalent `*Async` version if
 This value is the path separator `\` or `/` depending on the OS.
 
 ```js
-context.filesystem.seperator // '/' on posix but '\' on windows
+context.filesystem.separator // '/' on posix but '\' on windows
 ```
 
 ## eol
