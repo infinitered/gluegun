@@ -35,7 +35,6 @@
   "dependencies": {
     "apisauce": "^0.14.1",
     "app-module-path": "^2.2.0",
-    "ascii-table": "^0.0.9",
     "colors": "^1.1.2",
     "cross-spawn": "^5.1.0",
     "ejs": "^2.5.7",
@@ -71,6 +70,7 @@
     "ramda": "^0.24.1",
     "ramdasauce": "^2.1.0",
     "semver": "^5.3.0",
+    "table": "^4.0.2",
     "toml": "^2.3.2",
     "which": "^1.2.14"
   },

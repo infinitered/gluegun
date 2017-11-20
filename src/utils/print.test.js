@@ -82,7 +82,11 @@ test.serial('table', t => {
     ['matthew', '2']
   ]
   print.table(data)
-  t.is(spyLog.args[i++][0], '  liam      5  \n  matthew   2  ')
+  t.is(spyLog.args[i++][0], ' liam     5 \n matthew  2 \n')
+  print.table(data, {})
+  t.is(spyLog.args[i++][0], '╔═════════╤═══╗\n║ liam    │ 5 ║\n╟─────────┼───╢\n║ matthew │ 2 ║\n╚═════════╧═══╝\n')
+  print.table(data, {markdown: true})
+  t.is(spyLog.args[i++][0], '| liam    | 5 |\n|---------|---|\n| matthew | 2 |\n')
 })
 
 test.serial('spin', t => {
