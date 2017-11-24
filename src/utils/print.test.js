@@ -83,7 +83,7 @@ test.serial('table', t => {
   ]
   print.table(data)
   // WTF?
-  t.is(spyLog.args[i++][0], '\u001b[90m \u001b[39m liam    \u001b[90m \u001b[39m 5 \n\u001b[90m \u001b[39m matthew \u001b[90m \u001b[39m 2 ')
+  t.is(spyLog.args[i++][0], '  liam      5 \n  matthew   2 ')
   // t.is(spyLog.args[i++][0], '  liam      5 \n  matthew   2 ')
 })
 
