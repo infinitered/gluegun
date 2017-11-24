@@ -36,26 +36,56 @@ function divider () {
  * @param {{}} object The object to turn into a table.
  */
 function table (data, options) {
-  const t = new CLITable({
-    chars: {
-      top: '',
-      'top-mid': '',
-      'top-left': '',
-      'top-right': '',
-      bottom: '',
-      'bottom-mid': '',
-      'bottom-left': '',
-      'bottom-right': '',
-      left: ' ',
-      'left-mid': '',
-      mid: '',
-      'mid-mid': '',
-      right: '',
-      'right-mid': '',
-      middle: ' '
-    }
-  })
-  t.push(...data)
+  let t
+  if (options.markdown) {
+    const header = data.shift()
+    t = new CLITable({
+      head: header,
+      chars: {
+        top: '',
+        'top-mid': '',
+        'top-left': '',
+        'top-right': '',
+        bottom: '',
+        'bottom-mid': '',
+        'bottom-left': '',
+        'bottom-right': '',
+        left: '|',
+        'left-mid': '',
+        mid: '',
+        'mid-mid': '',
+        right: '|',
+        'right-mid': '',
+        middle: '|'
+      }
+    })
+    data.unshift(new Array(header.length).fill('---'))
+    t.push(...data)
+  } else if (options.lean) {
+    t = new CLITable()
+    t.push(...data)
+  } else {
+    t = new CLITable({
+      chars: {
+        top: '',
+        'top-mid': '',
+        'top-left': '',
+        'top-right': '',
+        bottom: '',
+        'bottom-mid': '',
+        'bottom-left': '',
+        'bottom-right': '',
+        left: ' ',
+        'left-mid': '',
+        mid: '',
+        'mid-mid': '',
+        right: '',
+        'right-mid': '',
+        middle: ' '
+      }
+    })
+    t.push(...data)
+  }
   console.log(t.toString())
 }
 
