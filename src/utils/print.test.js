@@ -82,7 +82,7 @@ test.serial('table', t => {
     ['matthew', '2']
   ]
   print.table(data)
-  t.snapshot(spyLog.args[i++][0])
+  t.snapshot(spyLog.args)
 })
 
 test.serial('spin', t => {
