@@ -1,4 +1,3 @@
-
 module.exports = {
   run: () => true
 }

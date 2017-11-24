@@ -36,12 +36,12 @@ const addPatchingExtension = require('../core-extensions/patching-extension')
 const COMMAND_DELIMITER = ' '
 
 /**
-* Runs a command.
-*
-* @param  {string} rawCommand Command string.
-* @param  {{}} options Additional options use to execute a command.
-* @return {RunContext} The RunContext object indicating what happened.
-*/
+ * Runs a command.
+ *
+ * @param  {string} rawCommand Command string.
+ * @param  {{}} options Additional options use to execute a command.
+ * @return {RunContext} The RunContext object indicating what happened.
+ */
 async function run (rawCommand, options) {
   // prepare the run context
   const context = new RunContext()
@@ -188,10 +188,7 @@ class Runtime {
     })
 
     this.plugins = append(plugin, this.plugins)
-    forEach(
-      extension => this.addExtension(extension.name, extension.setup),
-      plugin.extensions
-    )
+    forEach(extension => this.addExtension(extension.name, extension.setup), plugin.extensions)
     return plugin
   }
 
@@ -278,10 +275,7 @@ class Runtime {
           )
         },
         // sorted shortest path to longest
-        sort(
-          (a, b) => a.commandPath.length - b.commandPath.length,
-          plugin.commands
-        )
+        sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands)
       )
       if (cmd) {
         rest.shift() // remove the current item
@@ -293,10 +287,7 @@ class Runtime {
 
     let targetCommand
     if (finalCommandPath.length === 0) {
-      targetCommand = find(
-        command => equals(command.commandPath, [plugin.name]),
-        plugin.commands
-      )
+      targetCommand = find(command => equals(command.commandPath, [plugin.name]), plugin.commands)
     } else {
       targetCommand = find(
         command => equals(command.commandPath, finalCommandPath),

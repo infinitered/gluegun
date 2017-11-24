@@ -3,18 +3,12 @@ const loadCommandFromFile = require('./command-loader')
 
 test('loading from a missing file', async t => {
   const error = await t.throws(() => loadCommandFromFile('foo.js'), Error)
-  t.is(
-    error.message,
-    "Error: couldn't load command (this isn't a file): foo.js"
-  )
+  t.is(error.message, "Error: couldn't load command (this isn't a file): foo.js")
 })
 
 test('deals with weird input', async t => {
   const error = await t.throws(() => loadCommandFromFile(), Error)
-  t.is(
-    error.message,
-    "Error: couldn't load command (file is blank): undefined"
-  )
+  t.is(error.message, "Error: couldn't load command (file is blank): undefined")
 })
 
 test('open a weird js file', async t => {

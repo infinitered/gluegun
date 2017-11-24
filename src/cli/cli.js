@@ -5,8 +5,7 @@ const { build } = require('../index.js')
  */
 async function run (argv) {
   // create a CLI runtime
-  const cli =
-    build()
+  const cli = build()
     .brand('gluegun')
     .src(`${__dirname}`)
     // .plugin('~/Desktop/some-gluegun-plugin')

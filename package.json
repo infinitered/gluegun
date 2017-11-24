@@ -8,10 +8,12 @@
     "gluegun": "bin/gluegun"
   },
   "scripts": {
+    "precommit": "lint-staged",
     "test": "ava",
     "watch": "ava --watch",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
+    "format": "prettier --write \"**/*.{js,json}\" && standard --fix",
     "start": "node src/index.js",
     "lint": "standard",
     "shipit": "np --yolo"
@@ -21,15 +23,7 @@
     "email": "npm@infinite.red",
     "url": "https://github.com/infinitered/gluegun"
   },
-  "files": [
-    "docs",
-    "bin",
-    "src",
-    "sniff.js",
-    "LICENSE",
-    "readme.md",
-    "gluegun.d.ts"
-  ],
+  "files": ["docs", "bin", "src", "sniff.js", "LICENSE", "readme.md", "gluegun.d.ts"],
   "types": "gluegun.d.ts",
   "license": "MIT",
   "dependencies": {
@@ -78,8 +72,11 @@
     "ava": "^0.22.0",
     "babel-eslint": "^8.0.1",
     "coveralls": "^3.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^5.0.0",
     "np": "^2.16.0",
     "nyc": "^11.2.1",
+    "prettier": "^1.8.2",
     "sinon": "^4.0.1",
     "standard": "^10.0.2",
     "temp-write": "^3.3.0"
@@ -88,8 +85,17 @@
   "standard": {
     "parser": "babel-eslint"
   },
-  "devEngines": {
-    "node": ">=7.6.x",
-    "npm": ">=4.x"
+  "prettier": {
+    "printWidth": 100,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "lint-staged": {
+    "subTaskConcurrency": 1,
+    "linters": {
+      "*.{js}": ["prettier --write", "standard --fix", "git add"],
+      "*.{json}": ["prettier --write", "git add"]
+    }
   }
 }

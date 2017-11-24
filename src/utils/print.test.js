@@ -15,8 +15,7 @@ const spyLog = sinon.spy(console, 'log')
 // finally require the print
 const print = require('./print')
 
-test.before(() => {
-})
+test.before(() => {})
 
 test.after.always(() => {
   spyLog.reset()
@@ -78,10 +77,7 @@ test.serial('newline', t => {
 })
 
 test.serial('table', t => {
-  const data = [
-    ['liam', '5'],
-    ['matthew', '2']
-  ]
+  const data = [['liam', '5'], ['matthew', '2']]
   print.table(data)
   t.is(stripAnsi(spyLog.args[i++][0]), '  liam      5 \n  matthew   2 ')
 })

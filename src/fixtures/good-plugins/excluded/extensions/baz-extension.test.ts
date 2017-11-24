@@ -1,1 +1,3 @@
-module.exports = () => { return `I'm not an extension, ignore me.` }
+module.exports = () => {
+  return `I'm not an extension, ignore me.`
+}

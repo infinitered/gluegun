@@ -1,15 +1,5 @@
 const print = require('../print')
-const {
-  pipe,
-  map,
-  sortBy,
-  prop,
-  propEq,
-  reject,
-  replace,
-  unnest,
-  equals
-} = require('ramda')
+const { pipe, map, sortBy, prop, propEq, reject, replace, unnest, equals } = require('ramda')
 
 /**
  * Is this a hidden command?
@@ -48,10 +38,7 @@ function getListOfCommands (context, plugin, commandRoot) {
       if (!commandRoot) {
         return false
       }
-      return !equals(
-        command.commandPath.slice(0, commandRoot.length),
-        commandRoot
-      )
+      return !equals(command.commandPath.slice(0, commandRoot.length), commandRoot)
     }),
     map(command => {
       const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''

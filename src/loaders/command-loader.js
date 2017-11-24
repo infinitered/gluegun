@@ -29,10 +29,11 @@ function loadFromFile (file, options = {}) {
   // default name is the name without the file extension
   command.name = head(split('.', jetpack.inspect(file).name))
   // strip the extension from the end of the commandPath
-  command.commandPath = (options.commandPath || last(file.split('/commands/')).split('/'))
-    .map((f) => f === `${command.name}.js` ? command.name : f)
+  command.commandPath = (options.commandPath || last(file.split('/commands/')).split('/')).map(
+    f => (f === `${command.name}.js` ? command.name : f)
+  )
 
-    // if the last two elements of the commandPath are the same, remove the last one
+  // if the last two elements of the commandPath are the same, remove the last one
   const lastElems = takeLast(2, command.commandPath)
   if (lastElems.length === 2 && lastElems[0] === lastElems[1]) {
     command.commandPath = command.commandPath.slice(0, -1)
@@ -42,16 +43,22 @@ function loadFromFile (file, options = {}) {
   const commandModule = loadModule(file)
 
   // are we expecting this?
-  const valid = commandModule && typeof commandModule === 'object' && typeof commandModule.run === 'function'
+  const valid =
+    commandModule && typeof commandModule === 'object' && typeof commandModule.run === 'function'
 
   if (valid) {
     command.name = commandModule.name || last(command.commandPath)
     command.description = commandModule.description
     command.hidden = !!commandModule.hidden
-    command.alias = reject(isNil, is(Array, commandModule.alias) ? commandModule.alias : [ commandModule.alias ])
+    command.alias = reject(
+      isNil,
+      is(Array, commandModule.alias) ? commandModule.alias : [commandModule.alias]
+    )
     command.run = commandModule.run
   } else {
-    throw new Error(`Error: Couldn't load command ${command.name} -- needs a "run" property with a function.`)
+    throw new Error(
+      `Error: Couldn't load command ${command.name} -- needs a "run" property with a function.`
+    )
   }
 
   return command

@@ -37,9 +37,7 @@ function loadFromDirectory (directory, options = {}) {
 
   // directory check
   if (isNotDirectory(directory)) {
-    throw new Error(
-      `Error: couldn't load plugin (not a directory): ${directory}`
-    )
+    throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
   }
 
   plugin.directory = directory
@@ -57,10 +55,7 @@ function loadFromDirectory (directory, options = {}) {
       .cwd('commands')
       .find({ matching: commandFilePattern, recursive: true })
 
-    plugin.commands = map(
-      file => loadCommandFromFile(`${directory}/commands/${file}`),
-      commands
-    )
+    plugin.commands = map(file => loadCommandFromFile(`${directory}/commands/${file}`), commands)
   } else {
     plugin.commands = []
   }

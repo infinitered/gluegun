@@ -32,15 +32,12 @@ class Builder {
     const runtime = new Runtime(this.brand)
 
     // should we try to load the config?
-    const attemptConfigLoad =
-      !isBlank(this.configFile) && isFile(this.configFile)
+    const attemptConfigLoad = !isBlank(this.configFile) && isFile(this.configFile)
 
     // load the config if we got it
     if (attemptConfigLoad) {
       // load the config
-      const config = pipe(jetpack.read, tryCatch(toml.parse, always({})))(
-        this.configFile
-      )
+      const config = pipe(jetpack.read, tryCatch(toml.parse, always({})))(this.configFile)
 
       // extract the defaults
       runtime.defaults = config.defaults

@@ -16,11 +16,7 @@ const sniff = require('../sniff')
 
 // check the node version
 if (!sniff.isNewEnough) {
-  console.log(
-    'Node.js 7.6+ is required to run. You have ' +
-      sniff.nodeVersion +
-      '. Womp, womp.'
-  )
+  console.log('Node.js 7.6+ is required to run. You have ' + sniff.nodeVersion + '. Womp, womp.')
   process.exit(1)
 }
 

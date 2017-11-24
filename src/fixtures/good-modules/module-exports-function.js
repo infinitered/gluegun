@@ -1,1 +1,3 @@
-module.exports = function hi () { return 'hi' }
+module.exports = function hi () {
+  return 'hi'
+}
