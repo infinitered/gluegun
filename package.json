@@ -13,7 +13,7 @@
     "watch": "ava --watch",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
-    "format": "prettier --write \"**/*.{js,json}\" && standard --fix",
+    "format": "prettier --write \"**/*.js\" && standard --fix",
     "start": "node src/index.js",
     "lint": "standard",
     "shipit": "np --yolo"
@@ -94,8 +94,8 @@
   "lint-staged": {
     "subTaskConcurrency": 1,
     "linters": {
-      "*.{js}": ["prettier --write", "standard --fix", "git add"],
-      "*.{json}": ["prettier --write", "git add"]
+      "*.js": ["prettier --write", "standard --fix", "git add"],
+      "*.json": ["prettier --write", "git add"]
     }
   }
 }
