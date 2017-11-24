@@ -1,7 +1,5 @@
 const test = require('ava')
-const createExtension = require(
-  './filesystem-extension'
-)
+const createExtension = require('./filesystem-extension')
 const os = require('os')
 const path = require('path')
 const { split } = require('ramda')

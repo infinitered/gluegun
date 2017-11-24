@@ -41,7 +41,7 @@ test('exists - checks a TEXT file for a RegExp', async t => {
 
 test('update - updates a JSON file', async t => {
   const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const updated = await patching.update(configFile, (contents) => {
+  const updated = await patching.update(configFile, contents => {
     t.is(typeof contents, 'object')
     t.is(contents.test, 'what???')
     t.is(contents.test2, 'never')
@@ -62,7 +62,7 @@ test('update - updates a JSON file', async t => {
 })
 
 test('update - updates a text file', async t => {
-  const updated = await patching.update(t.context.textFile, (contents) => {
+  const updated = await patching.update(t.context.textFile, contents => {
     t.is(contents, `These are some words.\n\nThey're very amazing.\n`)
 
     contents = `These are some different words.\nEven more amazing.\n`
@@ -79,7 +79,7 @@ test('update - updates a text file', async t => {
 })
 
 test('update - cancel updating a file', async t => {
-  const updated = await patching.update(t.context.textFile, (contents) => {
+  const updated = await patching.update(t.context.textFile, contents => {
     return false
   })
 

@@ -8,10 +8,7 @@ test('loading from a missing file', async t => {
 
 test('deals with wierd input', async t => {
   const error = await t.throws(() => load(), Error)
-  t.is(
-    error.message,
-    `Error: couldn't load extension (file is blank): undefined`
-  )
+  t.is(error.message, `Error: couldn't load extension (file is blank): undefined`)
 })
 
 test('open a wierd js file', async t => {

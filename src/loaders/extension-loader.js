@@ -37,7 +37,9 @@ function loadFromFile (file, options = {}) {
   if (valid) {
     extension.setup = extensionModule
   } else {
-    throw new Error(`Error: couldn't load ${extension.name}. Expected a function, got ${extensionModule}.`)
+    throw new Error(
+      `Error: couldn't load ${extension.name}. Expected a function, got ${extensionModule}.`
+    )
   }
 
   return extension

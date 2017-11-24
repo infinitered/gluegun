@@ -1,9 +1,9 @@
 module.exports = {
   name: 'new',
-  alias: [ 'n', 'create' ],
+  alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
   hidden: false,
-  run: async (context) => {
+  run: async context => {
     const { parameters, template, filesystem, print, strings, system } = context
     const { generate } = template
     const { kebabCase } = strings
@@ -32,11 +32,13 @@ module.exports = {
     let active = []
 
     // executable is treated specially
-    active.push(generate({
-      template: `cli/bin/cli-executable.ejs`,
-      target: `./${props.name}/bin/${props.name}`,
-      props: props
-    }))
+    active.push(
+      generate({
+        template: `cli/bin/cli-executable.ejs`,
+        target: `./${props.name}/bin/${props.name}`,
+        props: props
+      })
+    )
 
     const files = [
       'docs/commands.md.ejs',
@@ -60,13 +62,14 @@ module.exports = {
     active = files.reduce((prev, file) => {
       const template = `cli/${file}`
 
-      const target = `${props.name}/` +
-        ((props.typescript && file.includes('.js.ejs'))
-        ? file.replace('.js.ejs', '.ts')
-        : file.replace('.ejs', ''))
+      const target =
+        `${props.name}/` +
+        (props.typescript && file.includes('.js.ejs')
+          ? file.replace('.js.ejs', '.ts')
+          : file.replace('.ejs', ''))
 
       const gen = generate({ template, target, props })
-      return prev.concat([ gen ])
+      return prev.concat([gen])
     }, active)
 
     // let all generator calls run in parallel
@@ -75,7 +78,11 @@ module.exports = {
     // make bin executable
     filesystem.chmodSync(`${props.name}/bin/${props.name}`, '755')
 
-    await system.spawn(`cd ${props.name} && npm i && npm run format`, { shell: true, stdio: 'inherit', stderr: 'inherit' })
+    await system.spawn(`cd ${props.name} && npm i && npm run format`, {
+      shell: true,
+      stdio: 'inherit',
+      stderr: 'inherit'
+    })
     print.info(`cd ${props.name} && npm i && npm format`)
 
     print.info(`Generated ${props.name} CLI.`)

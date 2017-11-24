@@ -13,8 +13,7 @@ env.hasAsyncAwait = false
 try {
   require('./src/utils/async-await-check')
   env.hasAsyncAwait = true
-} catch (e) {
-}
+} catch (e) {}
 
 env.ok = env.hasAsyncAwait && env.isNewEnough
 

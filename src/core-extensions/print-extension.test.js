@@ -1,9 +1,8 @@
 const test = require('ava')
-let context = {};
+let context = {}
 require('./print-extension')(context)
 
-const { print } = context;
-
+const { print } = context
 
 test('info', t => {
   t.is(typeof print.info, 'function')

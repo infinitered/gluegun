@@ -1,9 +1,9 @@
 module.exports = {
   name: 'help',
-  alias: [ 'h' ],
+  alias: ['h'],
   description: 'Displays this help',
   hidden: false,
-  run: (context) => {
+  run: context => {
     const { info, printCommands } = context.print
 
     info('GlueGun CLI')

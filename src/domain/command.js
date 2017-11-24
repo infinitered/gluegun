@@ -13,8 +13,10 @@ class Command {
   }
 
   get aliases () {
-    if (this.alias === null) { return [] }
-    return Array.isArray(this.alias) ? this.alias : [ this.alias ]
+    if (this.alias === null) {
+      return []
+    }
+    return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 
   hasAlias () {

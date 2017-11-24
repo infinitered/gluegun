@@ -1,7 +1,7 @@
 const test = require('ava')
 const create = require('./system-extension')
 
-const delay = ms => new Promise((resolve) => setTimeout(resolve, ms))
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const context = {}
 create(context)

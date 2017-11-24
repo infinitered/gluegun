@@ -57,9 +57,7 @@ test('name must pass regex', async t => {
   t.deepEqual(error.getCall(0).args, [
     `${name} is not a valid name. Use lower-case and dashes only.`
   ])
-  t.deepEqual(error.getCall(1).args, [
-    `Suggested: gluegun new ${strings.kebabCase(name)}`
-  ])
+  t.deepEqual(error.getCall(1).args, [`Suggested: gluegun new ${strings.kebabCase(name)}`])
 })
 
 test('generates properly', async t => {

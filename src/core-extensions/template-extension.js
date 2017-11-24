@@ -39,9 +39,7 @@ function attach (context) {
     }, keys(stringUtils))
 
     // pick a base directory for templates
-    const directory = opts.directory
-      ? opts.directory
-      : `${plugin && plugin.directory}/templates`
+    const directory = opts.directory ? opts.directory : `${plugin && plugin.directory}/templates`
 
     const pathToTemplate = `${directory}/${template}`
 

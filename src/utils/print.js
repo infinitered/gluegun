@@ -26,11 +26,7 @@ function newline () {
  * Prints a divider line
  */
 function divider () {
-  console.log(
-    colors.line(
-      '---------------------------------------------------------------'
-    )
-  )
+  console.log(colors.line('---------------------------------------------------------------'))
 }
 
 /**

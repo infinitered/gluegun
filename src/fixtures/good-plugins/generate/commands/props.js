@@ -4,7 +4,7 @@ async function command (context) {
   const target = `${dir}/props.txt`
   const props = {
     thing: 'world',
-    colors: [ 'red', 'green', 'blue' ]
+    colors: ['red', 'green', 'blue']
   }
 
   return context.template.generate({ template, target, props })
