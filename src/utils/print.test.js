@@ -1,5 +1,6 @@
 const test = require('ava')
 const sinon = require('sinon')
+const stripAnsi = require('strip-ansi')
 
 // couldn't figure out a way to reset the spy on console.log
 // for each run... switched to .serial and incrementing.  sorry.  :(
@@ -82,9 +83,7 @@ test.serial('table', t => {
     ['matthew', '2']
   ]
   print.table(data)
-  // WTF?
-  t.is(spyLog.args[i++][0], '  liam      5 \n  matthew   2 ')
-  // t.is(spyLog.args[i++][0], '  liam      5 \n  matthew   2 ')
+  t.is(stripAnsi(spyLog.args[i++][0]), '  liam      5 \n  matthew   2 ')
 })
 
 test.serial('spin', t => {
