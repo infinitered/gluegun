@@ -37,7 +37,7 @@ function divider () {
  */
 function table (data, options) {
   let t
-  if (options.markdown) {
+  if (options && options.markdown) {
     const header = data.shift()
     t = new CLITable({
       head: header,
@@ -61,7 +61,7 @@ function table (data, options) {
     })
     data.unshift(new Array(header.length).fill('---'))
     t.push(...data)
-  } else if (options.lean) {
+  } else if (options && options.lean) {
     t = new CLITable()
     t.push(...data)
   } else {
