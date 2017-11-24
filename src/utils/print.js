@@ -1,6 +1,7 @@
 const colors = require('colors')
 const AsciiTable = require('ascii-table')
 const ora = require('ora')
+const CLITable = require('cli-table2')
 
 /**
  * Sets the color scheme.
@@ -40,10 +41,21 @@ function divider () {
  * @param {{}} object The object to turn into a table.
  */
 function table (data, options) {
+  console.log('using AsciiTable')
   const t = new AsciiTable()
   t.addRowMatrix(data)
   t.removeBorder()
   console.log(t.toString())
+
+  console.log('using CLI Table 2')
+  var t2 = new CLITable({
+    chars: { 'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': ''
+      , 'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': ''
+      , 'left': ' ' , 'left-mid': '' , 'mid': '' , 'mid-mid': ''
+      , 'right': '' , 'right-mid': '' , 'middle': ' ' }
+  })
+  t2.push(...data)
+  console.log(t2.toString())
 }
 
 /**
