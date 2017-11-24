@@ -92,7 +92,6 @@
     "trailingComma": "es5"
   },
   "lint-staged": {
-    "subTaskConcurrency": 1,
     "linters": {
       "*.js": ["prettier --write", "standard --fix", "git add"],
       "*.json": ["prettier --write", "git add"]
