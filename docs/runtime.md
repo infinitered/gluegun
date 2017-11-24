@@ -10,7 +10,7 @@ const { build } = 'gluegun'
 
 await build()
   .brand('movie')
-  .src('${__dirname})
+  .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
   .create()
