@@ -132,7 +132,7 @@ colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 | [apisauce](https://github.com/skellock/apisauce)                | http requests           |
 | [lodash](https://github.com/lodash/lodash)                      | utilities               |
 | [colors](https://github.com/Marak/colors.js)                    | colors in your terminal |
-| [ascii-table](https://github.com/sorensen/ascii-table)          | tables in your terminal |
+| [cli-table2](https://github.com/jamestalmage/cli-table2)        | tables in your terminal |
 | [ramda](https://github.com/ramda/ramda)                         | functional utilities    |
 | [ramdasauce](https://github.com/skellock/ramdasauce)            | functional utilities    |
 | [minimist](https://github.com/substack/minimist)                | command line parsing    |

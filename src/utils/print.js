@@ -1,5 +1,4 @@
 const colors = require('colors')
-const AsciiTable = require('ascii-table')
 const ora = require('ora')
 const CLITable = require('cli-table2')
 
@@ -41,21 +40,27 @@ function divider () {
  * @param {{}} object The object to turn into a table.
  */
 function table (data, options) {
-  console.log('using AsciiTable')
-  const t = new AsciiTable()
-  t.addRowMatrix(data)
-  t.removeBorder()
-  console.log(t.toString())
-
-  console.log('using CLI Table 2')
-  var t2 = new CLITable({
-    chars: { 'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': ''
-      , 'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': ''
-      , 'left': ' ' , 'left-mid': '' , 'mid': '' , 'mid-mid': ''
-      , 'right': '' , 'right-mid': '' , 'middle': ' ' }
+  const t = new CLITable({
+    chars: {
+      top: '',
+      'top-mid': '',
+      'top-left': '',
+      'top-right': '',
+      bottom: '',
+      'bottom-mid': '',
+      'bottom-left': '',
+      'bottom-right': '',
+      left: ' ',
+      'left-mid': '',
+      mid: '',
+      'mid-mid': '',
+      right: '',
+      'right-mid': '',
+      middle: ' '
+    }
   })
-  t2.push(...data)
-  console.log(t2.toString())
+  t.push(...data)
+  console.log(t.toString())
 }
 
 /**
@@ -131,12 +136,12 @@ function success (message) {
 }
 
 /**
-   * Creates a spinner and starts it up.
-   *
-   * @param {string|Object} config The text for the spinner or an ora configuration object.
-   * @returns The spinner.
-   */
-function spin(config) {
+ * Creates a spinner and starts it up.
+ *
+ * @param {string|Object} config The text for the spinner or an ora configuration object.
+ * @returns The spinner.
+ */
+function spin (config) {
   return ora(config).start()
 }
 
