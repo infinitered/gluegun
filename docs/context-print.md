@@ -144,6 +144,7 @@ table(
     ['First Name', 'Last Name', 'Age'],
     ['Jamon', 'Holmgren', 35],
     ['Gant', 'Laborde', 36],
+    ['Steve', 'Kellock', 43],
     ['Gary', 'Busey', 73],
   ],
   { format: 'markdown' }
@@ -157,5 +158,6 @@ Output:
 | ---------- | --------- | --- |
 | Jamon      | Holmgren  | 35  |
 | Gant       | Laborde   | 36  |
+| Steve      | Kellock   | 43  |
 | Gary       | Busey     | 73  |
 ```
