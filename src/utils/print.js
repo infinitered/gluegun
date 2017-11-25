@@ -2,6 +2,31 @@ const colors = require('colors')
 const ora = require('ora')
 const CLITable = require('cli-table2')
 
+const CLI_TABLE_DEFAULT = {
+  top: '',
+  'top-mid': '',
+  'top-left': '',
+  'top-right': '',
+  bottom: '',
+  'bottom-mid': '',
+  'bottom-left': '',
+  'bottom-right': '',
+  left: ' ',
+  'left-mid': '',
+  mid: '',
+  'mid-mid': '',
+  right: '',
+  'right-mid': '',
+  middle: ' '
+}
+
+const CLI_TABLE_MARKDOWN = {
+  ...CLI_TABLE_DEFAULT,
+  left: '|',
+  right: '|',
+  middle: '|'
+}
+
 /**
  * Sets the color scheme.
  */
@@ -37,54 +62,25 @@ function divider () {
  */
 function table (data, options) {
   let t
-  if (options && options.markdown) {
-    const header = data.shift()
-    t = new CLITable({
-      head: header,
-      chars: {
-        top: '',
-        'top-mid': '',
-        'top-left': '',
-        'top-right': '',
-        bottom: '',
-        'bottom-mid': '',
-        'bottom-left': '',
-        'bottom-right': '',
-        left: '|',
-        'left-mid': '',
-        mid: '',
-        'mid-mid': '',
-        right: '|',
-        'right-mid': '',
-        middle: '|'
-      }
-    })
-    data.unshift(new Array(header.length).fill('---'))
-    t.push(...data)
-  } else if (options && options.lean) {
-    t = new CLITable()
-    t.push(...data)
-  } else {
-    t = new CLITable({
-      chars: {
-        top: '',
-        'top-mid': '',
-        'top-left': '',
-        'top-right': '',
-        bottom: '',
-        'bottom-mid': '',
-        'bottom-left': '',
-        'bottom-right': '',
-        left: ' ',
-        'left-mid': '',
-        mid: '',
-        'mid-mid': '',
-        right: '',
-        'right-mid': '',
-        middle: ' '
-      }
-    })
-    t.push(...data)
+  switch (options && options.format) {
+    case 'markdown':
+      const header = data.shift()
+      t = new CLITable({
+        head: header,
+        chars: CLI_TABLE_MARKDOWN
+      })
+      data.unshift(new Array(header.length).fill('---'))
+      t.push(...data)
+      break
+    case 'lean':
+      t = new CLITable()
+      t.push(...data)
+      break
+    default:
+      t = new CLITable({
+        chars: CLI_TABLE_DEFAULT
+      })
+      t.push(...data)
   }
   console.log(t.toString())
 }
