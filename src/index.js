@@ -20,6 +20,11 @@ if (!sniff.isNewEnough) {
   process.exit(1)
 }
 
+// we want to see real exceptions with backtraces and stuff
+process.on('unhandledRejection', up => {
+  throw up
+})
+
 require('app-module-path').addPath(`${__dirname}/../node_modules`)
 require('app-module-path').addPath(process.cwd())
 // ----------------------------------------------------------------------------

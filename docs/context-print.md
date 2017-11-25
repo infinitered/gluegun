@@ -1,14 +1,15 @@
 Features for allowing you to print to the console.
 
-
 ## info
-Prints an informational message.  Use this as your goto.
+
+Prints an informational message. Use this as your goto.
 
 ```js
 context.print.info('Hello.  I am a chatty plugin.')
 ```
 
 ## success
+
 Print a "something good just happened" message.
 
 ```js
@@ -16,35 +17,38 @@ context.print.success('We did it!')
 ```
 
 ## warning
-Prints a warning message.  Use this when you feel a disturbance in the force.
+
+Prints a warning message. Use this when you feel a disturbance in the force.
 
 ```js
-context.print.warning('Your system does not have Yarn installed.  It\'s awesome.')
+context.print.warning("Your system does not have Yarn installed.  It's awesome.")
 ```
 
 ## error
-Prints an error message.  Use this when something goes Pants-On-Head wrong.
-What does that mean?  Well, if your next line of code isn't `process.exit(0)`, then
-it was probably a warning.
+
+Prints an error message. Use this when something goes Pants-On-Head wrong. What does that mean?
+Well, if your next line of code isn't `process.exit(0)`, then it was probably a warning.
 
 ```js
 context.print.error('Out of disk space.  lol.')
 ```
 
 ## debug
+
 Only used for debugging your plugins. You can pass this function a string or an object.
 
 ```js
 context.print.debug(someObject, 'download status')
-``` 
+```
 
 The `message` parameter is object you would like to see.
 
-The `title` is an optional title message which is handy if you've got a lot of debug messages
-and you're losing track of which one is which.
+The `title` is an optional title message which is handy if you've got a lot of debug messages and
+you're losing track of which one is which.
 
 ## colors
-An object for working with printing colors on the command line. It is from the `colors` NPM package, 
+
+An object for working with printing colors on the command line. It is from the `colors` NPM package,
 however we define a theme to make things a bit consistent.
 
 Some available functions include:
@@ -57,13 +61,15 @@ Some available functions include:
 | `colors.info()`    | to say something informational           |
 | `colors.muted()`   | you need to say something secondary      |
 
-Each take a `string` parameter and return a `string`. 
+Each take a `string` parameter and return a `string`.
 
-One gotcha here is that the length of the string is longer than you think
-because of the embedded color codes that disappear when you print them. 🔥
+One gotcha here is that the length of the string is longer than you think because of the embedded
+color codes that disappear when you print them. 🔥
 
 ## spin
-Creates a spinner for long running tasks on the command line.  It's [ora](https://github.com/sindresorhus/ora)!
+
+Creates a spinner for long running tasks on the command line. It's
+[ora](https://github.com/sindresorhus/ora)!
 
 Here's an example of how to work with it:
 
@@ -73,7 +79,8 @@ const spinner = context.print.spin('Time for fun!')
 await context.system.run('sleep 5')
 ```
 
-🚨 Important 🚨 - Make sure you don't print anything else while a spinner is going.  You need to stop it first.
+🚨 Important 🚨 - Make sure you don't print anything else while a spinner is going. You need to stop
+it first.
 
 There's a few ways to stop it.
 
@@ -123,4 +130,32 @@ You can pass in a "command path" to refine what commands you'd like to see:
 ```js
 const { printCommands } = context.print
 printCommands(context, ['generate', 'model'])
+```
+
+## table
+
+Prints out a table of data, including a header. You can choose from three different formats:
+`default`, `markdown`, and `lean`.
+
+```js
+const { table } = context.print
+table(
+  [
+    ['First Name', 'Last Name', 'Age'],
+    ['Jamon', 'Holmgren', 35],
+    ['Gant', 'Laborde', 36],
+    ['Gary', 'Busey', 73],
+  ],
+  { format: 'markdown' }
+)
+```
+
+Output:
+
+```
+| First Name | Last Name | Age |
+| ---------- | --------- | --- |
+| Jamon      | Holmgren  | 35  |
+| Gant       | Laborde   | 36  |
+| Gary       | Busey     | 73  |
 ```
