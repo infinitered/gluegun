@@ -82,6 +82,12 @@ test.serial('table', t => {
   t.is(stripAnsi(spyLog.args[i++][0]), '  liam      5 \n  matthew   2 ')
 })
 
+test.serial('markdown table', t => {
+  const data = [['liam', '5'], ['matthew', '2']]
+  print.table(data, { format: 'markdown' })
+  t.is(stripAnsi(spyLog.args[i++][0]), '| liam    | 5 |\n| ------- | - |\n| matthew | 2 |')
+})
+
 test.serial('spin', t => {
   t.is(typeof print.spin, 'function')
   const spinner = print.spin()

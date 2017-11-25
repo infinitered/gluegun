@@ -9,6 +9,8 @@ module.exports = {
     info('GlueGun CLI')
     printCommands(context)
 
+    info('')
+
     return 'helped'
   }
 }

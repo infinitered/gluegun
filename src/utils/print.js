@@ -2,7 +2,7 @@ const colors = require('colors')
 const ora = require('ora')
 const CLITable = require('cli-table2')
 
-const CLI_TABLE_DEFAULT = {
+const CLI_TABLE_COMPACT = {
   top: '',
   'top-mid': '',
   'top-left': '',
@@ -21,7 +21,7 @@ const CLI_TABLE_DEFAULT = {
 }
 
 const CLI_TABLE_MARKDOWN = {
-  ...CLI_TABLE_DEFAULT,
+  ...CLI_TABLE_COMPACT,
   left: '|',
   right: '|',
   middle: '|'
@@ -55,6 +55,23 @@ function divider () {
 }
 
 /**
+ * Returns an array of the column widths.
+ */
+function findWidths (table) {
+  return [table.options.head, ...table].reduce(
+    (colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)),
+    []
+  )
+}
+
+/**
+ * Returns an array of column headers based on column widths.
+ */
+function columnHeaderDivider (table) {
+  return findWidths(table).map(w => Array(w).join('-'))
+}
+
+/**
  * Prints an object to table format.  The values will already be
  * stringified.
  *
@@ -69,8 +86,8 @@ function table (data, options) {
         head: header,
         chars: CLI_TABLE_MARKDOWN
       })
-      data.unshift(new Array(header.length).fill('---'))
       t.push(...data)
+      t.unshift(columnHeaderDivider(t))
       break
     case 'lean':
       t = new CLITable()
@@ -78,7 +95,7 @@ function table (data, options) {
       break
     default:
       t = new CLITable({
-        chars: CLI_TABLE_DEFAULT
+        chars: CLI_TABLE_COMPACT
       })
       t.push(...data)
   }
