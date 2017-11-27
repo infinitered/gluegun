@@ -20,12 +20,11 @@ const CLI_TABLE_COMPACT = {
   middle: ' '
 }
 
-const CLI_TABLE_MARKDOWN = {
-  ...CLI_TABLE_COMPACT,
+const CLI_TABLE_MARKDOWN = Object.assign({}, CLI_TABLE_COMPACT, {
   left: '|',
   right: '|',
   middle: '|'
-}
+})
 
 /**
  * Sets the color scheme.
