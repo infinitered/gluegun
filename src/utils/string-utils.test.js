@@ -18,7 +18,15 @@ const {
   trim,
   trimStart,
   trimEnd,
-  repeat
+  repeat,
+  plural,
+  singular,
+  addPluralRule,
+  addSingularRule,
+  addIrregularRule,
+  addUncountableRule,
+  isPlural,
+  isSingular
 } = require('./string-utils')
 
 test('isBlank', t => {
@@ -124,4 +132,42 @@ test('repeat', t => {
 
 test('identity', t => {
   t.is(identity('x'), 'x')
+})
+
+test('plural', t => {
+  t.is(plural('bug'), 'bugs')
+})
+
+test('singular', t => {
+  t.is(singular('bugs'), 'bug')
+})
+
+test('addPluralRule', t => {
+  addPluralRule(/gex$/i, 'gexii')
+  t.is(plural('regex'), 'regexii')
+})
+
+test('addSingularRule', t => {
+  addSingularRule(/bugs$/i, 'bugger')
+  t.is(singular('bugs'), 'bugger')
+})
+
+test('addIrregularRule', t => {
+  addIrregularRule('octopus', 'octopodes')
+  t.is(plural('octopus'), 'octopodes')
+})
+
+test('addUncountableRule', t => {
+  addUncountableRule('paper')
+  t.is(plural('paper'), 'paper')
+})
+
+test('isPlural', t => {
+  t.is(isPlural('bug'), false)
+  t.is(isPlural('bugs'), true)
+})
+
+test('isSingular', t => {
+  t.is(isSingular('bug'), true)
+  t.is(isSingular('bugs'), false)
 })

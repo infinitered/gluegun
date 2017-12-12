@@ -53,6 +53,7 @@
     "lodash.upperfirst": "^4.3.1",
     "minimist": "^1.2.0",
     "ora": "^1.2.0",
+    "pluralize": "^7.0.0",
     "prompt-autocompletion": "^0.1.1",
     "prompt-checkbox": "^2.2.0",
     "prompt-confirm": "^1.2.0",
@@ -76,7 +77,7 @@
     "lint-staged": "^5.0.0",
     "np": "^2.16.0",
     "nyc": "^11.2.1",
-    "prettier": "^1.8.2",
+    "prettier": "^1.9.2",
     "sinon": "^4.0.1",
     "standard": "^10.0.2",
     "temp-write": "^3.3.0"

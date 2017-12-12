@@ -14,6 +14,16 @@ const trim = require('lodash.trim')
 const trimStart = require('lodash.trimstart')
 const trimEnd = require('lodash.trimend')
 const repeat = require('lodash.repeat')
+const {
+  plural,
+  singular,
+  addPluralRule,
+  addSingularRule,
+  addIrregularRule,
+  addUncountableRule,
+  isPlural,
+  isSingular
+} = require('pluralize')
 
 /**
  * Is this not a string?
@@ -76,5 +86,13 @@ module.exports = {
   trim,
   trimStart,
   trimEnd,
-  repeat
+  repeat,
+  plural,
+  singular,
+  addPluralRule,
+  addSingularRule,
+  addIrregularRule,
+  addUncountableRule,
+  isPlural,
+  isSingular
 }
