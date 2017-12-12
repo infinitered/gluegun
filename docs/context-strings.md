@@ -231,3 +231,76 @@ pascalCase('XMLHttpRequest is strange.') // 'XmlHttpRequestIsStrange'
 pascalCase('OSnap') // 'OSnap'
 pascalCase('this.is.sparta!') // 'ThisIsSparta'
 ```
+
+## pluralize
+Pluralize or singularize a word based on the passed in count.
+
+```
+pluralize('test', 1) // 'test'
+pluralize('test', 5) // 'tests'
+pluralize('test', 1, true) // '1 test'
+pluralize('test', 5, true) // '5 tests'
+
+```
+
+## plural
+Converts a given singular word to plural.
+
+```
+plural('bug') // 'bugs'
+plural('word') // 'words'
+```
+
+## singular
+Converts a given plural word to singular.
+
+```
+singular('bugs') // 'bug'
+singular('words') // 'word'
+```
+
+## isPlural
+Checks if the give word is plural.
+
+```
+isPlural('bugs') // true
+isPlural('bug') // false
+```
+
+## isSingular
+Checks if the give word is singular.
+
+```
+isSingular('bugs') // false
+isSingular('bug') // true
+```
+
+## addPluralRule
+Adds a pluralization rule for the given singular word when calling plural.
+
+```
+addPluralRule('regex', 'regexii')
+addPluralRule(/regex$/, 'regexii')
+```
+
+## addSingularRule
+Adds a pluralization rule for the given plural word when calling singular.
+
+```
+addSingularRule('regexii', 'regex')
+addSingularRule(/regexii$/, 'regex')
+```
+
+## addIrregularRule
+Adds a pluralization rule for the given irregular word when calling plural.
+
+```
+addIrregularRule('octopus', 'octopodes')
+```
+
+## addUncountableRule
+Exempts the given uncountable word from pluralization so that calling plural or singular with that word will return the same word unchanged.
+
+```
+addUncountableRule('paper')
+```
