@@ -556,6 +556,42 @@ export interface GluegunStrings {
    * Repeats a `string` a `numberOfTimes`.
    */
   repeat(string: string, numberOfTimes: number): string
+  /**
+   * Converts a given `string` to singular or plural depending on an optional `count`. Can also include the `count` in returned string when `inclusive` is true.
+   */
+  pluralize(string: string | RegExp, count?: number, inclusive?: boolean): string
+  /**
+   * Converts a singular `string` (word) to plural (words).
+   */
+  plural(string: string): string
+  /**
+   * Converts a plural `string` (words) to singular (word).
+   */
+  singular(string: string): string
+  /**
+   * Tests if a given `string` is a plural word.
+   */
+  isPlural(string: string): boolean
+  /**
+   * Tests if a given `string` is a singular word.
+   */
+  isSingular(string: string): boolean
+  /**
+   * Adds a pluralization rule for the given singular `string` when calling plural.
+   */
+  addPluralRule(string: string | RegExp, plural: string): void
+  /**
+   * Adds a pluralization rule for the given plural `string` when calling singular.
+   */
+  addSingularRule(string: string | RegExp, singular: string): void
+  /**
+   * Adds a pluralization rule for the given irregular `string` when calling plural.
+   */
+  addIrregularRule(string: string, plural: string): void
+  /**
+   * Exempts the given uncountable `string` from pluralization so that calling plural or singular with that `string` will return the same `string` unchanged.
+   */
+  addUncountableRule(string: string | RegExp): void
 }
 
 export interface GluegunPrintExtensionExtra {
