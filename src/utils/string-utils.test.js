@@ -19,6 +19,7 @@ const {
   trimStart,
   trimEnd,
   repeat,
+  pluralize,
   plural,
   singular,
   addPluralRule,
@@ -132,6 +133,11 @@ test('repeat', t => {
 
 test('identity', t => {
   t.is(identity('x'), 'x')
+})
+
+test('pluralize', t => {
+  t.is(pluralize('test', 1, true), '1 test')
+  t.is(pluralize('test', 5, true), '5 tests')
 })
 
 test('plural', t => {
