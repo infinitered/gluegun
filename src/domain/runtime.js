@@ -258,7 +258,8 @@ class Runtime {
     let targetPlugin, targetCommand, rest
 
     // start with defaultPlugin, then move on to the others
-    const plugins = [this.defaultPlugin, ...this.plugins.filter(p => p !== this.defaultPlugin)]
+    const otherPlugins = this.plugins.filter(p => p !== this.defaultPlugin)
+    const plugins = [this.defaultPlugin, ...otherPlugins].filter(p => !isNil(p))
 
     targetPlugin = find(plugin => {
       if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return { command: null, args: [] }
