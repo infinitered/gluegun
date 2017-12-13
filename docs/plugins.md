@@ -14,7 +14,7 @@ And 1 optional file:
 
 Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
 
-Since multiple plugins can be loaded, they must have unique names.  The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself.
+Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself.
 
 ## commands
 
@@ -29,14 +29,14 @@ Here, the `actor` command is run. It is a JS file (`commands/actor.js`) that exp
 ```js
 module.exports = {
   name: 'actor',
-  alias: [ 'a' ],
+  alias: ['a'],
   description: 'Displays the name of an actor',
   hidden: false,
-  run: async (context) => {
+  run: async context => {
     const { print } = context
 
     print.info(`Tom Hanks`)
-  }
+  },
 }
 ```
 
@@ -60,10 +60,12 @@ Extensions are additional functionality that you can monkeypatch onto the `conte
 
 ```js
 // extensions/sayhello.js
-function attach (context) {
+function attach(context) {
   const { print } = context
 
-  context.sayhello = () => { print.info('Hello from an extension!') }
+  context.sayhello = () => {
+    print.info('Hello from an extension!')
+  }
 }
 
 module.exports = attach
@@ -73,15 +75,15 @@ When you have this extension, you can access it in any command file, like this:
 
 ```js
 // ...
-  run: async (context) => {
-    const { sayhello } = context
+run: async context => {
+  const { sayhello } = context
 
-    sayhello()
+  sayhello()
 
-    // or
+  // or
 
-    context.sayhello()
-  }
+  context.sayhello()
+}
 ```
 
 # Configuration File
@@ -120,25 +122,4 @@ semicolons = true
 colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
 ```
 
-
-## 3rd Party Modules
-
-| module                                                          | purpose                 |
-| --------------------------------------------------------------- | ----------------------- |
-| [enquirer](https://github.com/enquirer/enquirer)                | prompts & user input    |
-| [fs-jetpack](https://github.com/szwacz/fs-jetpack)              | files & folders         |
-| [semver](https://github.com/npm/node-semver)                    | semantic versioning     |
-| [ejs](https://github.com/mde/ejs)                               | templates               |
-| [apisauce](https://github.com/skellock/apisauce)                | http requests           |
-| [lodash](https://github.com/lodash/lodash)                      | utilities               |
-| [colors](https://github.com/Marak/colors.js)                    | colors in your terminal |
-| [cli-table2](https://github.com/jamestalmage/cli-table2)        | tables in your terminal |
-| [ramda](https://github.com/ramda/ramda)                         | functional utilities    |
-| [ramdasauce](https://github.com/skellock/ramdasauce)            | functional utilities    |
-| [minimist](https://github.com/substack/minimist)                | command line parsing    |
-| [toml](https://github.com/BinaryMuse/toml-node)                 | TOML files              |
-| [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) | running sub-commands    |
-| [execa](https://github.com/sindresorhus/execa)                  | running sub-commands    |
-| [node-which](https://github.com/npm/node-which)                 | executable finder       |
-| [ora](https://github.com/sindresorhus/ora)                      | spinner                 |
-
+If you'd like to follow a tutorial to make a plugin, check out the ["Making a Plugin" tutorial](./tutorial-making-a-plugin.md).
