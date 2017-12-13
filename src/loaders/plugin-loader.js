@@ -1,11 +1,11 @@
 const jetpack = require('fs-jetpack')
 const Plugin = require('../domain/plugin')
-const loadCommandFromFile = require('./command-loader')
-const loadExtensionFromFile = require('./extension-loader')
-const { isNotDirectory, isFile } = require('../utils/filesystem-utils')
+const { loadConfig } = require('./config-loader')
+const { loadCommandFromFile } = require('./command-loader')
+const { loadExtensionFromFile } = require('./extension-loader')
+const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
 const { assoc, map } = require('ramda')
-const toml = require('toml')
 
 /**
  * Loads a plugin from a directory.
@@ -13,7 +13,7 @@ const toml = require('toml')
  * @param {string} directory The full path to the directory to load.
  * @param {{}}     options   Additional options to customize the loading process.
  */
-function loadFromDirectory (directory, options = {}) {
+function loadPluginFromDirectory (directory, options = {}) {
   const plugin = new Plugin()
 
   const {
@@ -28,11 +28,6 @@ function loadFromDirectory (directory, options = {}) {
 
   if (!isBlank(name)) {
     plugin.name = name
-  }
-
-  // sanity check the input
-  if (isBlank(directory)) {
-    throw new Error(`Error: couldn't find toml file in ${directory}`)
   }
 
   // directory check
@@ -73,21 +68,15 @@ function loadFromDirectory (directory, options = {}) {
   } else {
     plugin.extensions = []
   }
-  // if we have a config toml
-  // attempt to load the toml file
-  const tomlFile = `${directory}/${brand}.toml`
-  if (isFile(tomlFile)) {
-    // read it
-    const config = toml.parse(jetpack.read(tomlFile) || '')
 
-    // set the name if we have one (unless we were told what it was)
-    if (isBlank(name)) {
-      plugin.name = config.name || plugin.name
-    }
-    plugin[brand] = config[brand]
-    plugin.defaults = config.defaults || {}
-    plugin.description = config.description
-  }
+  // load config using cosmiconfig
+  const config = loadConfig(plugin.name, directory)
+
+  // set the name if we have one (unless we were told what it was)
+  plugin.name = config.name || plugin.name
+  plugin[brand] = config[brand]
+  plugin.defaults = config.defaults || {}
+  plugin.description = config.description
 
   // set the hidden bit
   if (hidden) {
@@ -97,4 +86,4 @@ function loadFromDirectory (directory, options = {}) {
   return plugin
 }
 
-module.exports = loadFromDirectory
+module.exports = { loadPluginFromDirectory }

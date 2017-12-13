@@ -1,5 +1,5 @@
 const test = require('ava')
-const loadCommandFromFile = require('./command-loader')
+const { loadCommandFromFile } = require('./command-loader')
 
 test('loading from a missing file', async t => {
   const error = await t.throws(() => loadCommandFromFile('foo.js'), Error)

@@ -1,9 +1,6 @@
 const Runtime = require('./runtime')
-const { dissoc, pipe, tryCatch, always } = require('ramda')
-const { isBlank } = require('../utils/string-utils')
-const { isFile } = require('../utils/filesystem-utils')
-const jetpack = require('fs-jetpack')
-const toml = require('toml')
+const { dissoc } = require('ramda')
+const { loadConfig } = require('../loaders/config-loader')
 
 /**
  * Provides a cleaner way to build a runtime.
@@ -13,14 +10,11 @@ const toml = require('toml')
 class Builder {
   constructor () {
     this.loadPlugins = [] // the plugins
-    this.events = {} // the events
     this.create = this.create.bind(this)
-    this.configFile = this.configFile.bind(this)
     this.brand = this.brand.bind(this)
     this.src = this.src.bind(this)
     this.plugin = this.plugin.bind(this)
     this.plugins = this.plugins.bind(this)
-    this.on = this.on.bind(this)
   }
 
   /**
@@ -31,23 +25,15 @@ class Builder {
   create () {
     const runtime = new Runtime(this.brand)
 
-    // should we try to load the config?
-    const attemptConfigLoad = !isBlank(this.configFile) && isFile(this.configFile)
+    const defaultPlugin = this.loadPlugins.find(p => p.type === 'default')
 
-    // load the config if we got it
-    if (attemptConfigLoad) {
-      // load the config
-      const config = pipe(jetpack.read, tryCatch(toml.parse, always({})))(this.configFile)
+    const config = defaultPlugin ? loadConfig(this.brand, defaultPlugin.value) : {}
 
-      // extract the defaults
-      runtime.defaults = config.defaults
+    // extract the defaults
+    runtime.defaults = config.defaults
 
-      // set config to be the file minutes defaults
-      runtime.config = dissoc('defaults', config)
-    }
-
-    // set the rest of the properties
-    runtime.events = this.events
+    // set config to be the file minutes defaults
+    runtime.config = dissoc('defaults', config)
 
     // the plugins get loaded last
     this.loadPlugins.forEach(entry => {
@@ -65,17 +51,6 @@ class Builder {
     })
 
     return runtime
-  }
-
-  /**
-   * Sets the config file.
-   *
-   * @param {string} configFile A path to a TOML file to load configs.
-   */
-  configFile (configFile) {
-    this.configFile = configFile
-
-    return this
   }
 
   /**
@@ -123,19 +98,6 @@ class Builder {
    */
   plugins (value, options = {}) {
     this.loadPlugins.push({ type: 'loadAll', value, options })
-    return this
-  }
-
-  /**
-   * Registers an event.
-   *
-   * @param  {string}   event    The name of the event.
-   * @param  {function} callback The function to call when the even is triggered.
-   * @return {Builder}           self.
-   */
-  on (event, callback) {
-    this.events[event] = this.events[event] || []
-    this.events[event].push(callback)
     return this
   }
 }

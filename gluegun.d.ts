@@ -75,7 +75,7 @@ export interface GluegunRunOptions {
 export type GluegunExtensionAttacher = (
   plugin: string,
   command: string,
-  context: GluegunRunContext,
+  context: GluegunRunContext
 ) => { [name: string]: object }
 
 export interface GluegunParameters {
@@ -297,7 +297,7 @@ export interface GluegunFilesystemJetpack {
   appendAsync: (
     path: string,
     data: string | Buffer,
-    options?: GluegunFilesystemAppendOptions,
+    options?: GluegunFilesystemAppendOptions
   ) => Promise<void>
 
   /** Copies given file or directory (with everything inside). */
@@ -370,7 +370,7 @@ export interface GluegunFilesystemJetpack {
    */
   inspect: (
     path: string,
-    options?: GluegunFileSystemInspectOptions,
+    options?: GluegunFileSystemInspectOptions
   ) => GluegunFileSystemInspectResult[] | void
 
   /**
@@ -378,7 +378,7 @@ export interface GluegunFilesystemJetpack {
    */
   inspectAsync: (
     path: string,
-    options?: GluegunFileSystemInspectOptions,
+    options?: GluegunFileSystemInspectOptions
   ) => Promise<GluegunFileSystemInspectResult[] | void>
 
   /**
@@ -386,7 +386,7 @@ export interface GluegunFilesystemJetpack {
    */
   inspectTree: (
     path: string,
-    options?: GluegunFileSystemInspectTreeOptions,
+    options?: GluegunFileSystemInspectTreeOptions
   ) => GluegunFileSystemInspectTreeResult | void
 
   /**
@@ -394,7 +394,7 @@ export interface GluegunFilesystemJetpack {
    */
   inspectTreeAsync: (
     path: string,
-    options?: GluegunFileSystemInspectTreeOptions,
+    options?: GluegunFileSystemInspectTreeOptions
   ) => Promise<GluegunFileSystemInspectTreeResult | void>
 
   /**
@@ -608,8 +608,8 @@ export interface GluegunPrintExtensionExtra {
    */
   spin(options: any): any
   /**
-  * Print help info for CLI commands
-  */
+   * Print help info for CLI commands
+   */
   printCommands(context: GluegunRunContext): void
 }
 
@@ -936,13 +936,6 @@ export interface GluegunBuilder {
   brand(name: string): GluegunBuilder
 
   /**
-   * The name of the file to use for configuration options.
-   *
-   * @param filename A path to a TOML file to load configs.
-   */
-  configFile(filename: string): GluegunBuilder
-
-  /**
    * Specifies where the default commands and extensions live.
    *
    * @param path The path to the source directory.
@@ -968,7 +961,7 @@ export interface GluegunBuilder {
    */
   plugins(
     parentPath: string,
-    options?: GluegunLoadOptions & GluegunMultiLoadOptions,
+    options?: GluegunLoadOptions & GluegunMultiLoadOptions
   ): GluegunBuilder
 
   /**

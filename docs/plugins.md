@@ -10,11 +10,16 @@ A plugin is directory that contains 3 optional sub-directories:
 
 And 1 optional file:
 
-* `<brand>.toml`
+* `<brand>.config.js`
 
 Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
 
+<<<<<<< HEAD
 Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself.
+=======
+Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the object exported in `<brand>.config.js` inside the plugin directory, or the plugin directory name itself.
+
+> > > > > > > Replaces toml with cosmiconfig
 
 ## commands
 
@@ -60,7 +65,11 @@ Extensions are additional functionality that you can monkeypatch onto the `conte
 
 ```js
 // extensions/sayhello.js
+<<<<<<< HEAD
 module.exports = (context) {
+=======
+function attach(context) {
+>>>>>>> Replaces toml with cosmiconfig
   const { print } = context
 
   context.sayhello = () => {
@@ -86,21 +95,19 @@ run: async context => {
 
 # Configuration File
 
+You can configure your plugin's name and also set up certain user-overridable defaults.
+
 ## name
 
-The name is a prefix to your commands.
+The name of your plugin. This is also used to prefix your plugin's commands.
 
-```toml
-name = 'something'
+```json
+{
+  "name": "something"
+}
 ```
 
-Since many plugins can be installed, we namespace them. If you're creating plugins
-for others to use, try to be very specific about the name. Naming it after a project
-is a good idea (e.g. `ignite` or `reactotron`). Calling it `dev` or `internet` is
-probably asking for trouble.
-
-If you're just making plugins for your project, then please, feel free to call it
-whatever you'd like.
+Since many plugins can be installed, we recommend namespacing them with your CLI. For example, for [Ignite](https://github.com/infinitered/ignite) plugins we have `ignite-i18n`, `ignite-maps`, etc. For [Solidarity](https://github.com/infinitered/solidarity), we have `solidarity-react-native` and `solidarity-elixir`.
 
 A name:
 
@@ -114,10 +121,11 @@ If `name` does not exist, the default will be the name of the directory.
 
 Default configuration settings which may be used by your commands and overridden by end users.
 
-```toml
-[defaults]
-semicolons = true
-colorTheme = ['red', 'no', 'blue', 'aaaaaaaaa']
+```json
+{
+  "semicolons": true,
+  "colorTheme": ["red", "no", "blue", "aaaaaaaaa"]
+}
 ```
 
 If you'd like to follow a tutorial to make a plugin, check out the ["Making a Plugin" tutorial](./tutorial-making-a-plugin.md).
