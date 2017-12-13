@@ -60,15 +60,13 @@ Extensions are additional functionality that you can monkeypatch onto the `conte
 
 ```js
 // extensions/sayhello.js
-function attach(context) {
+module.exports = (context) {
   const { print } = context
 
   context.sayhello = () => {
     print.info('Hello from an extension!')
   }
 }
-
-module.exports = attach
 ```
 
 When you have this extension, you can access it in any command file, like this:
