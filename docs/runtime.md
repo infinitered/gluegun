@@ -120,7 +120,7 @@ Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plu
 A plugin is a folder that contains a structure - something like this:
 
 ```
-credits
+movie-credits
   commands
     actors.js
     producers.js
@@ -128,14 +128,14 @@ credits
     retrieve-imdb.js
   templates
     actor-view.js.ejs
-  credits.config.js
+  movie.config.js
 ```
 
 You can load a plugin from a directory:
 
 ```js
-  .plugin('~/Desktop/movie/quote')
-  .plugin('~/Desktop/movie/credits')
+  .plugin('~/.movie/quote')
+  .plugin('~/.movie/credits')
 ```
 
 ## plugins
@@ -143,7 +143,7 @@ You can load a plugin from a directory:
 You can also load multiple plugins within a directory.
 
 ```js
-  .plugins('~/Downloads/VariousMoviePlugins')
+  .plugins('~/.movie/VariousMoviePlugins')
 ```
 
 Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
