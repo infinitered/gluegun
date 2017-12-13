@@ -80,8 +80,8 @@ async function run (rawCommand, options) {
     context.commandName = commandName
   }
 
-  context.plugin = context.plugin || this.findPlugin(context.pluginName)
-  const { command, args } = this.findCommand(context.plugin, commandArray)
+  const { plugin, command, args } = this.findCommand(commandArray)
+  context.plugin = plugin
   context.command = command
 
   // jet if we have no plugin or command
@@ -249,53 +249,63 @@ class Runtime {
   }
 
   /**
-   * Find the command for this pluginName & commandPath.
+   * Find the command for this commandPath.
    *
-   * @param {Plugin} plugin           The plugin in which the command lives.
+   * @param {Context} context         Current runtime context
    * @param {string[]} commandPath    The command to find.
    * @returns {{}}                    An object containing a Command & rest of arguments, otherwise null.
    */
-  findCommand (plugin, commandPath) {
-    if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return { command: null, args: [] }
-    if (!commandPath) {
-      commandPath = []
-    }
+  findCommand (commandPath) {
+    let targetPlugin, targetCommand, rest
 
-    // track the rest of the commandPath as we traverse
-    const rest = commandPath.slice() // dup
+    // start with defaultPlugin, then move on to the others
+    const plugins = [this.defaultPlugin, ...this.plugins.filter(p => p !== this.defaultPlugin)]
 
-    // traverse through the command path, retrieving aliases along the way
-    const finalCommandPath = reduce((prevPath, currName) => {
-      // find a command that fits the previous path + currentName, which can be an alias
-      const cmd = find(
-        command => {
-          return (
-            equals(command.commandPath.slice(0, -1), prevPath) &&
-            [command.name].concat(command.aliases).includes(currName)
-          )
-        },
-        // sorted shortest path to longest
-        sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands)
-      )
-      if (cmd) {
-        rest.shift() // remove the current item
-        return cmd.commandPath
-      } else {
-        return prevPath
+    targetPlugin = find(plugin => {
+      if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return { command: null, args: [] }
+      if (!commandPath) {
+        commandPath = []
       }
-    }, [])(commandPath)
 
-    let targetCommand
-    if (finalCommandPath.length === 0) {
-      targetCommand = find(command => equals(command.commandPath, [plugin.name]), plugin.commands)
-    } else {
-      targetCommand = find(
-        command => equals(command.commandPath, finalCommandPath),
-        plugin.commands
-      )
-    }
+      // track the rest of the commandPath as we traverse
+      rest = commandPath.slice() // dup
 
-    return { command: targetCommand, args: rest }
+      // traverse through the command path, retrieving aliases along the way
+      const finalCommandPath = reduce((prevPath, currName) => {
+        // find a command that fits the previous path + currentName, which can be an alias
+        const cmd = find(
+          command => {
+            return (
+              equals(command.commandPath.slice(0, -1), prevPath) &&
+              [command.name].concat(command.aliases).includes(currName)
+            )
+          },
+          // sorted shortest path to longest
+          sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands)
+        )
+
+        if (cmd) {
+          rest.shift() // remove the current item
+          return cmd.commandPath
+        } else {
+          return prevPath
+        }
+      }, [])(commandPath)
+
+      if (finalCommandPath.length === 0) {
+        targetCommand = find(command => equals(command.commandPath, [plugin.name]), plugin.commands)
+      } else {
+        targetCommand = find(
+          command => equals(command.commandPath, finalCommandPath),
+          plugin.commands
+        )
+      }
+
+      // Did we find the targetCommand?
+      return Boolean(targetCommand)
+    }, plugins)
+
+    return { plugin: targetPlugin, command: targetCommand, args: rest }
   }
 }
 
