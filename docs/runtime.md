@@ -2,7 +2,6 @@ With the gluegun API, you're able to load & execute commands.
 
 Check out the [sniff](./sniff.md) module for detecting if your environment is able to run.
 
-
 Here's what we're about to cover.
 
 ```js
@@ -16,7 +15,6 @@ await build()
   .create()
   .run()
 ```
-
 
 ## build
 
@@ -32,10 +30,9 @@ Now let's build a `gluegun` cli environment by configuring various features.
 const cli = build()
 ```
 
-But out of the box, it does very little.  And by very little I mean nothing.  So let's configure this.
+But out of the box, it does very little. And by very little I mean nothing. So let's configure this.
 
 We'll be chaining the `build()` function from here.
-
 
 ## brand
 
@@ -46,7 +43,6 @@ We'll be chaining the `build()` function from here.
 ```
 
 The brand is most likely to share the same name of the CLI.
-
 
 ## src
 
@@ -70,10 +66,9 @@ $ movie producers "Planes, Trains, & Automobiles" --sort age
 
 For most CLIs, you might find this is all you need.
 
-
 ## create
 
-At this point, we've been configuring our environment.  When we're ready, we call:
+At this point, we've been configuring our environment. When we're ready, we call:
 
 ```js
   .create()
@@ -82,18 +77,18 @@ At this point, we've been configuring our environment.  When we're ready, we cal
 This command applies the configuration that you were just chaining, and turns it into a `runtime cli` which supports calling `run()`.
 
 ```js
-  const cli = build()
-    .brand('movie')
-    .src(`${__dirname}`)
-    .plugin('~/Desktop/movie/credits')
-    .plugins('~/Downloads/VariousMoviePlugins')
-    .create()
+const cli = build()
+  .brand('movie')
+  .src(`${__dirname}`)
+  .plugin('~/Desktop/movie/credits')
+  .plugins('~/Downloads/VariousMoviePlugins')
+  .create()
 ```
 
 And now we're ready to run:
 
 ```js
-  cli.run()
+cli.run()
 ```
 
 With no parameters, `gluegun` will parse the command line arguments looking for the command to run.
@@ -118,7 +113,6 @@ $ movie credits actors Kingpin
 $ movie credits producers "Planes, Trains, & Automobiles" --sort age
 ```
 
-
 ## plugin
 
 Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
@@ -134,7 +128,7 @@ credits
     retrieve-imdb.js
   templates
     actor-view.js.ejs
-  gluegun.toml
+  credits.config.js
 ```
 
 You can load a plugin from a directory:
@@ -166,7 +160,6 @@ If you would like to keep plugins hidden and not available at the command line:
 
 When plugins are hidden they can still be run directly from the cli.
 
-
 ## run
 
 `gluegun` can also be `run()` with options.
@@ -188,24 +181,23 @@ There's a few situations that make this useful.
 
 Bottom line is, you get to pick. It's yours. `gluegun` is just glue.
 
-## configFile
+## configuration
 
-Each plugin can have its own configuration file where it places defaults.  These defaults can then be overridden by reading defaults from a configuration file.
+Each plugin can have its own configuration file where it places defaults. These defaults can then be overridden by reading defaults from a configuration file or entry in `package.json`. We use [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for this.
 
-You can specify your config file to read from the current directory like this:
+It will read the plugin name from the `name` key and the defaults will be read from the `defaults` section. Each section underneath `default` can be used to override the sections of the plugin. Since that was horribly explained, here's an example.
 
 ```js
-  .configFile('./movie.toml')
-```
-
-A configuration file is a [TOML](./what-is-toml.md) file.
-
-It will read the plugin name from the `name` key and the defaults will be read from the `[defaults]` section.  Each section underneath `default` can be used to override the sections of the plugin.  Since that was horribly explained, here's an example.
-
-```toml
-[defaults.movie]
-cache = '~/.movies/cache'
-
-[defaults.another]
-count = 100
+// in movies.config.js
+module.exports = {
+  name: 'movies',
+  defaults: {
+    movie: {
+      cache: '~/.movies/cache',
+    },
+    another: {
+      count: 100,
+    },
+  },
+}
 ```

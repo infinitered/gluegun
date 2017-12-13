@@ -1,26 +1,26 @@
 const test = require('ava')
-const load = require('./toml-plugin-loader')
+const { loadPluginFromDirectory } = require('./plugin-loader')
 const { find, propEq } = require('ramda')
 
 test('deals with weird input', t => {
-  t.throws(() => load())
-  t.throws(() => load(`${__dirname}/gonebabygone`))
+  t.throws(() => loadPluginFromDirectory())
+  t.throws(() => loadPluginFromDirectory(`${__dirname}/gonebabygone`))
 })
 
 test('missing config files is fine', t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/empty`)
+  const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/empty`)
   t.deepEqual(plugin.commands, [])
   t.deepEqual(plugin.extensions, [])
 })
 
 test('default name', t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/missing-name`)
+  const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/missing-name`)
   t.is(plugin.name, 'missing-name')
 })
 
 test('sane defaults', t => {
   const dir = `${__dirname}/../fixtures/good-plugins/simplest`
-  const plugin = load(dir)
+  const plugin = loadPluginFromDirectory(dir)
 
   t.is(plugin.name, 'simplest')
   t.is(plugin.directory, dir)
@@ -31,7 +31,7 @@ test('sane defaults', t => {
 
 test('loads commands', async t => {
   const dir = `${__dirname}/../fixtures/good-plugins/threepack`
-  const plugin = load(dir)
+  const plugin = loadPluginFromDirectory(dir)
 
   t.is(plugin.name, '3pack')
   t.is(plugin.directory, dir)
@@ -50,7 +50,7 @@ test('loads commands', async t => {
 
 test('load commands with front matter', async t => {
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
-  const plugin = load(dir)
+  const plugin = loadPluginFromDirectory(dir)
 
   t.is(plugin.commands.length, 1)
 
@@ -66,7 +66,7 @@ test('loads extensions with front matter', async t => {
   const context = {}
 
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
-  const plugin = load(dir)
+  const plugin = loadPluginFromDirectory(dir)
 
   // test the extension
   t.is(plugin.extensions.length, 1)
@@ -79,24 +79,26 @@ test('loads extensions with front matter', async t => {
 })
 
 test('names default to the filename', async t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/auto-detect`)
+  const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/auto-detect`)
   t.is(plugin.commands[0].name, 'detectCommand')
   t.is(plugin.extensions[0].name, 'detectExtension')
 })
 
 test('plugin names can be overridden', async t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/auto-detect`, { name: 'override' })
+  const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/auto-detect`, {
+    name: 'override'
+  })
   t.is(plugin.name, 'override')
 })
 
 test('blank names fallback to directory name', t => {
-  const plugin = load(`${__dirname}/../fixtures/good-plugins/blank-name`)
+  const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/blank-name`)
   t.is(plugin.name, 'blank-name')
 })
 
 test('supports hidden plugins & commands', t => {
   const dir = `${__dirname}/../fixtures/good-plugins/threepack`
-  const plugin = load(dir, { hidden: true })
+  const plugin = loadPluginFromDirectory(dir, { hidden: true })
 
   t.true(plugin.hidden)
   t.true(plugin.commands[0].hidden)
@@ -106,7 +108,7 @@ test('supports hidden plugins & commands', t => {
 
 test('ignores test files', t => {
   const dir = `${__dirname}/../fixtures/good-plugins/excluded`
-  const plugin = load(dir)
+  const plugin = loadPluginFromDirectory(dir)
 
   t.is(plugin.commands.length, 2)
   t.is(plugin.commands[0].name, 'bar')

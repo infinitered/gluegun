@@ -11,7 +11,7 @@ const Command = require('../domain/command')
  * @param  {string} file      The full path to the file to load.
  * @return {Command}          The command in any condition
  */
-function loadFromFile (file, options = {}) {
+function loadCommandFromFile (file, options = {}) {
   const command = new Command()
 
   // sanity check the input
@@ -64,4 +64,4 @@ function loadFromFile (file, options = {}) {
   return command
 }
 
-module.exports = loadFromFile
+module.exports = { loadCommandFromFile }

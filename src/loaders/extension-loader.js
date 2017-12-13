@@ -10,7 +10,7 @@ const Extension = require('../domain/extension')
  *
  * @param {string} file         The full path to the file to load.
  */
-function loadFromFile (file, options = {}) {
+function loadExtensionFromFile (file, options = {}) {
   const extension = new Extension()
 
   // sanity check the input
@@ -45,4 +45,4 @@ function loadFromFile (file, options = {}) {
   return extension
 }
 
-module.exports = loadFromFile
+module.exports = { loadExtensionFromFile }

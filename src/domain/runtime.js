@@ -19,7 +19,7 @@ const { findByProp, isNilOrEmpty } = require('ramdasauce')
 const { isBlank } = require('../utils/string-utils')
 const { subdirectories, isDirectory } = require('../utils/filesystem-utils')
 const RunContext = require('./run-context')
-const loadPluginFromDirectory = require('../loaders/toml-plugin-loader')
+const { loadPluginFromDirectory } = require('../loaders/plugin-loader')
 const { resolve } = require('path')
 
 // core extensions
@@ -129,7 +129,6 @@ class Runtime {
     this.extensions = []
     this.defaults = {}
     this.defaultPlugin = null
-    this.events = {}
     this.config = {}
 
     this.addCoreExtensions()
@@ -178,6 +177,13 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   load (directory, options = {}) {
+    if (!isDirectory(directory)) {
+      if (options.required) {
+        throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
+      } else {
+        return
+      }
+    }
     const { brand } = this
     const plugin = loadPluginFromDirectory(resolve(directory), {
       brand,
@@ -200,7 +206,7 @@ class Runtime {
    * @return {Plugin}           A plugin.
    */
   loadDefault (directory, options = {}) {
-    const plugin = this.load(directory, options)
+    const plugin = this.load(directory, Object.assign({ required: true }, options))
     this.defaultPlugin = plugin
     return plugin
   }

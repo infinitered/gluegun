@@ -65,7 +65,6 @@ const { build } = require('gluegun')
 // aim
 const movieCLI = build()
   .brand('movie')
-  .configFile('./movie.toml')
   .src(`${__dirname}/core-plugins`)
   .plugins('node_modules', { matching: 'movie-*' })
   .create()
@@ -114,7 +113,7 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
 ⭐️ [minimist](https://github.com/substack/minimist), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [cli-table2](https://github.com/jamestalmage/cli-table2) for the command line<br />
 ⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
-⭐️ [toml](https://github.com/BinaryMuse/toml-node) for human-friendly config files </br>
+⭐️ [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for flexible configuration </br>
 ⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
 ⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
