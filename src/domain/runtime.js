@@ -251,7 +251,6 @@ class Runtime {
   /**
    * Find the command for this commandPath.
    *
-   * @param {Context} context         Current runtime context
    * @param {string[]} commandPath    The command to find.
    * @returns {{}}                    An object containing a Command & rest of arguments, otherwise null.
    */
