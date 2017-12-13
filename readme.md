@@ -78,7 +78,7 @@ movieCLI.run()
 
 ```js
 // in movie/commands/foo.js
-module.exports = async function (context) {
+module.exports = async function(context) {
   // gluegun provides all these features and more!
   const { system, print, filesystem, strings } = context
 
@@ -118,6 +118,7 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 ⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
 ⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
+⭐️ [pluralize](https://github.com/blakeembrey/pluralize) for manipulating strings</br>
 
 Node [Node.js 7.6+](https://nodejs.org) is required.
 
