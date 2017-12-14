@@ -84,7 +84,13 @@ run: async context => {
 
 # Configuration File
 
-Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be a property in the package.json, a `.,brand>rc.json` or `.<brand>rc.yaml` file, or `<brand>.config.js` JS file that exports the configuration you want.
+Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be: 
+
+* an object under the `<brand>` key in the `package.json`
+* a `.<brand>rc` file (containing either yaml or json)
+* `.<brand>rc.json` file
+* `.<brand>rc.yaml` file
+* `<brand>.config.js` JS file that exports an object
 
 In this configuration, you can configure your plugin's name and also set up certain user-overridable defaults.
 
