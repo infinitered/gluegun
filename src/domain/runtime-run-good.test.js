@@ -20,7 +20,7 @@ test('runs an aliased command', async t => {
 test('runs a nested command', async t => {
   const r = new Runtime()
   r.load(`${__dirname}/../fixtures/good-plugins/nested`)
-  const context = await r.run('nested thing foo')
+  const context = await r.run('thing foo')
   t.truthy(context.command)
   t.is(context.command.name, 'foo')
   t.deepEqual(context.command.commandPath, ['thing', 'foo'])
