@@ -8,18 +8,11 @@ A plugin is directory that contains 3 optional sub-directories:
 * `templates`
 * `extensions`
 
-And 1 optional file:
-
-* `<brand>.config.js`
+And 1 optional file, which can be `<brand>.config.js`, `.<brand>rc.json`, or `.<brand>rc.yaml`. Replace `<brand>` with the name of your CLI.
 
 Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
 
-<<<<<<< HEAD
-Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the `<brand>.toml` inside the plugin directory, or the plugin directory name itself.
-=======
-Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the object exported in `<brand>.config.js` inside the plugin directory, or the plugin directory name itself.
-
-> > > > > > > Replaces toml with cosmiconfig
+Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the configuration (more on this below), or the plugin directory name itself.
 
 ## commands
 
@@ -65,11 +58,7 @@ Extensions are additional functionality that you can monkeypatch onto the `conte
 
 ```js
 // extensions/sayhello.js
-<<<<<<< HEAD
 module.exports = (context) {
-=======
-function attach(context) {
->>>>>>> Replaces toml with cosmiconfig
   const { print } = context
 
   context.sayhello = () => {
@@ -95,7 +84,9 @@ run: async context => {
 
 # Configuration File
 
-You can configure your plugin's name and also set up certain user-overridable defaults.
+Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be a property in the package.json, a `.,brand>rc.json` or `.<brand>rc.yaml` file, or `<brand>.config.js` JS file that exports the configuration you want.
+
+In this configuration, you can configure your plugin's name and also set up certain user-overridable defaults.
 
 ## name
 
