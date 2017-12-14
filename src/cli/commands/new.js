@@ -13,7 +13,6 @@ module.exports = {
       typescript: parameters.options.typescript
     }
 
-    // TODO: check validity of props.name
     if (!props.name || props.name.length === 0) {
       print.error('You must provide a valid CLI name.')
       print.error('Example: gluegun new foo')
@@ -24,8 +23,6 @@ module.exports = {
       print.error(`Suggested: gluegun new ${validName}`)
       return
     }
-
-    // TODO: check if directory exists
 
     await filesystem.dir(props.name)
 
