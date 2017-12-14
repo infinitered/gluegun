@@ -4,7 +4,7 @@ const Runtime = require('./runtime')
 test('can pass arguments', async t => {
   const r = new Runtime()
   r.load(`${__dirname}/../fixtures/good-plugins/args`)
-  const { command, parameters } = await r.run('args hello steve kellock', { caps: false })
+  const { command, parameters } = await r.run('hello steve kellock', { caps: false })
 
   t.is(parameters.string, 'steve kellock')
   t.is(parameters.first, 'steve')
@@ -20,7 +20,7 @@ test('can pass arguments', async t => {
 test('can pass arguments, even with nested alias', async t => {
   const r = new Runtime()
   r.load(`${__dirname}/../fixtures/good-plugins/nested`)
-  const { command, parameters } = await r.run('nested t f jamon holmgren', { chocolate: true })
+  const { command, parameters } = await r.run('t f jamon holmgren', { chocolate: true })
 
   t.is(parameters.string, 'jamon holmgren')
   t.is(parameters.first, 'jamon')
@@ -31,4 +31,18 @@ test('can pass arguments, even with nested alias', async t => {
   t.deepEqual(parameters.array, ['jamon', 'holmgren'])
   t.deepEqual(parameters.options, { chocolate: true })
   t.deepEqual(command.commandPath, ['thing', 'foo'])
+})
+
+test('can pass arguments with mixed options', async t => {
+  const r = new Runtime()
+  r.load(`${__dirname}/../fixtures/good-plugins/args`)
+  const { command, parameters } = await r.run('--chocolate=true --foo -n 1 hello steve kellock')
+  t.deepEqual(command.commandPath, ['hello'])
+  t.is(parameters.string, 'steve kellock')
+  t.is(parameters.first, 'steve')
+  t.is(parameters.second, 'kellock')
+  t.is(parameters.command, 'hello')
+  t.is(parameters.options.foo, true)
+  t.is(parameters.options.n, 1)
+  t.is(parameters.options.chocolate, 'true')
 })

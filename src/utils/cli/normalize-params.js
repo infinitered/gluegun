@@ -1,20 +1,28 @@
 const minimist = require('minimist')
+const { merge } = require('ramda')
+
+function parseParams (argv, extraOpts = {}) {
+  // chop it up minimist!
+  const parsed = minimist(argv)
+  const array = parsed._.slice()
+  delete parsed._
+  const options = merge(parsed, extraOpts)
+  return { array, options }
+}
 
 /**
- * Parses the command-line arguments into a normalized object.
+ * Constructs the parameters object.
  *
- * @param {string} plugin     Plugin name
- * @param {string} command    The command being run
- * @param {[]} args           List of rest of command arguments _after_ the command
- * @param {[]} argv           List of command arguments
+ * @param {{}} params         Provided parameters
  * @return {{}}               An object with normalized parameters
  */
-function normalizeParams (plugin, command, restArgs, argv = []) {
-  // chop it up minimist!
-  const options = minimist(argv)
-  const array = restArgs
-  delete options._
-  const raw = array.join(' ')
+function createParams (params) {
+  // make a copy of the args so we can mutate it
+  const array = params.array.slice()
+
+  // Remove the first two elements from the array if they're the plugin and command
+  if (array[0] === params.plugin) array.shift()
+  if (array[0] === params.command) array.shift()
 
   const first = array[0]
   const second = array[1]
@@ -24,18 +32,13 @@ function normalizeParams (plugin, command, restArgs, argv = []) {
   const string = array.join(' ')
 
   // :shipit:
-  return {
-    plugin,
-    command,
+  return Object.assign(params, {
+    array,
     first,
     second,
     third,
-    raw,
-    string,
-    array,
-    options,
-    argv
-  }
+    string
+  })
 }
 
-module.exports = normalizeParams
+module.exports = { parseParams, createParams }

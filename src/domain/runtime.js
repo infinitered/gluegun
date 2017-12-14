@@ -1,4 +1,4 @@
-const normalizeParams = require('../utils/cli/normalize-params')
+const { parseParams, createParams } = require('../utils/cli/normalize-params')
 const {
   clone,
   merge,
@@ -39,10 +39,10 @@ const COMMAND_DELIMITER = ' '
  * Runs a command.
  *
  * @param  {string} rawCommand Command string.
- * @param  {{}} options Additional options use to execute a command.
+ * @param  {{}} extraOptions Additional options use to execute a command.
  * @return {RunContext} The RunContext object indicating what happened.
  */
-async function run (rawCommand, options) {
+async function run (rawCommand, extraOptions) {
   // prepare the run context
   const context = new RunContext()
 
@@ -60,32 +60,30 @@ async function run (rawCommand, options) {
     commandArray = commandArray.slice(2)
   }
 
-  // find the pluginName and commandName from the cli args
-  let commandName = commandArray[0]
-  if (!commandName) {
-    // if no first arg, we want to go for the default, which is named the same as the plugin
-    context.pluginName = this.brand
-    context.commandName = this.brand
-    context.plugin = this.defaultPlugin
-  } else if (this.pluginNames.includes(commandName)) {
-    // this is the name of a plugin, so let's set that, and try with the second argument
-    context.pluginName = commandName
-    // set to the second argument, or back to the plugin name (for default command)
-    context.commandName = commandArray[1] || commandName
-    // remove the plugin name from the commandArray
-    commandArray = commandArray.slice(1)
-  } else {
-    // it's one of our default commands...probably
-    context.pluginName = this.brand
-    context.commandName = commandName
-  }
+  // parse the parameters initially
+  context.parameters = parseParams(commandArray, extraOptions)
 
-  const { plugin, command, args } = this.findCommand(commandArray)
-  context.plugin = plugin
-  context.command = command
+  // find the plugin and command, and parse out aliases
+  const { plugin, command, array } = this.findCommand(context.parameters.array)
 
   // jet if we have no plugin or command
-  if (isNil(context.plugin) || isNil(context.command)) return context
+  if (isNil(plugin) || isNil(command)) return context
+
+  // set a few properties
+  context.plugin = plugin
+  context.command = command
+  context.pluginName = plugin.name
+  context.commandName = command.name
+
+  // rebuild the parameters, now that we know the plugin and command
+  context.parameters = createParams({
+    plugin: context.plugin.name,
+    command: context.command.name,
+    array: array,
+    options: context.parameters.options,
+    raw: commandArray,
+    argv: process.argv
+  })
 
   // setup the config
   context.config = clone(this.config)
@@ -93,15 +91,6 @@ async function run (rawCommand, options) {
     context.plugin.defaults,
     (this.defaults && this.defaults[context.plugin.name]) || {}
   )
-
-  // normalized parameters
-  context.parameters = normalizeParams(
-    context.plugin.name,
-    context.command.name,
-    args,
-    commandArray
-  )
-  context.parameters.options = merge(context.parameters.options, options || {})
 
   // kick it off
   if (context.command.run) {
@@ -258,7 +247,7 @@ class Runtime {
    * Find the command for this commandPath.
    *
    * @param {string[]} commandPath    The command to find.
-   * @returns {{}}                    An object containing a Command & rest of arguments, otherwise null.
+   * @returns {{}}                    An object containing a Plugin and Command if found, otherwise null
    */
   findCommand (commandPath) {
     let targetPlugin, targetCommand, rest
@@ -311,7 +300,7 @@ class Runtime {
       return Boolean(targetCommand)
     }, plugins)
 
-    return { plugin: targetPlugin, command: targetCommand, args: rest }
+    return { plugin: targetPlugin, command: targetCommand, array: rest }
   }
 }
 
