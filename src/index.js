@@ -34,16 +34,18 @@ require('app-module-path').addPath(process.cwd())
 const build = require('./domain/builder')
 const strings = require('./utils/string-utils')
 const print = require('./utils/print')
-const printCommands = require('./utils/cli/print-commands')
+const { printHelp, printCommands } = require('./utils/print-help')
 
 const context = {
   build,
   strings,
   print,
-  printCommands
+  printCommands,
+  printHelp
 }
 
 // bring in a few extensions to make available for stand-alone purposes
+require('./core-extensions/core-extension')(context)
 require('./core-extensions/filesystem-extension')(context)
 require('./core-extensions/semver-extension')(context)
 require('./core-extensions/system-extension')(context)

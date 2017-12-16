@@ -1,10 +1,8 @@
-require('./help')
-
 module.exports = {
   name: 'gluegun',
   description: 'Run the gluegun CLI',
-  run: () => {
-    console.log('gluegun')
+  run: context => {
+    context.print.printHelp(context)
     return 'default command'
   }
 }

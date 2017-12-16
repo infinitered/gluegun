@@ -17,6 +17,8 @@ export interface GluegunCommand {
   run(context: GluegunRunContext): Promise<any | void>
   /** Is this command hidden from the command line? */
   hidden?: boolean
+  /** Can you invoke this command with dashes? e.g. --help, -v */
+  dashed?: boolean
 }
 
 export interface GluegunPlugin {
@@ -76,7 +78,7 @@ export type GluegunExtensionAttacher = (
   plugin: string,
   command: string,
   context: GluegunRunContext
-) => { [name: string]: object }
+) => void
 
 export interface GluegunParameters {
   /**
@@ -109,6 +111,9 @@ export interface GluegunParameters {
 
   /** Just the 3rd argument. */
   third?: string
+
+  /** The raw argv object from the command line. */
+  argv?: { [name: string]: any }
 }
 
 export interface GluegunFilesystemAppendOptions {
@@ -117,7 +122,7 @@ export interface GluegunFilesystemAppendOptions {
 }
 
 /**
- * Used for resolving conflicts when performing copy oeperations.
+ * Used for resolving conflicts when performing copy operations.
  *
  * @param srcData The source inspect data.
  * @param destData The destination inspect data.
@@ -820,7 +825,6 @@ export interface GluegunRuntime {
    *
    * The 3rd option is an array of strings used to mimic the `process.argv` node
    * runtime. This is useful for testing or if you're completely off your gourd.
-   * This one will be deprecated.
    */
   run(options?: GluegunRunOptions | string[]): Promise<GluegunRunContext | void>
 
@@ -846,9 +850,8 @@ export interface GluegunRuntime {
   defaults?: { [pluginName: string]: any }
 
   /**
-   * The plugin which will be used as a default, bypassing the
-   * need use the plugin's name as a prefix to run one of
-   * it's commands.
+   * The plugin which will be used as a default, meaning its
+   * commands are checked for a match first.
    */
   readonly defaultPlugin?: GluegunPlugin
 
@@ -963,6 +966,16 @@ export interface GluegunBuilder {
     parentPath: string,
     options?: GluegunLoadOptions & GluegunMultiLoadOptions
   ): GluegunBuilder
+
+  /**
+   * Load a default help command.
+   */
+  help(command?: any): GluegunBuilder
+
+  /**
+   * Load a default version command.
+   */
+  version(command?: any): GluegunBuilder
 
   /**
    * Creates a runtime.

@@ -1,7 +1,7 @@
 const jetpack = require('fs-jetpack')
 const Plugin = require('../domain/plugin')
 const { loadConfig } = require('./config-loader')
-const { loadCommandFromFile } = require('./command-loader')
+const { loadCommandFromFile, loadCommandFromPreload } = require('./command-loader')
 const { loadExtensionFromFile } = require('./extension-loader')
 const { isNotDirectory } = require('../utils/filesystem-utils')
 const { isBlank } = require('../utils/string-utils')
@@ -44,15 +44,18 @@ function loadPluginFromDirectory (directory, options = {}) {
 
   const jetpackPlugin = jetpack.cwd(plugin.directory)
 
+  // load any default commands passed in
+  plugin.commands = map(loadCommandFromPreload, options.preloadedCommands || [])
+
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
     const commands = jetpackPlugin
       .cwd('commands')
       .find({ matching: commandFilePattern, recursive: true })
 
-    plugin.commands = map(file => loadCommandFromFile(`${directory}/commands/${file}`), commands)
-  } else {
-    plugin.commands = []
+    plugin.commands = plugin.commands.concat(
+      map(file => loadCommandFromFile(`${directory}/commands/${file}`), commands)
+    )
   }
 
   // load the extensions found in the extensions sub-directory

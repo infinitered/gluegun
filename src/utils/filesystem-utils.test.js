@@ -30,7 +30,7 @@ test('isNotDirectory', t => {
 
 test('subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`)
-  t.is(dirs.length, 6)
+  t.is(dirs.length, 7)
   t.true(contains(`${__dirname}/../utils`, dirs))
 })
 
@@ -42,7 +42,7 @@ test('blank subdirectories', t => {
 
 test('relative subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`, true)
-  t.is(dirs.length, 6)
+  t.is(dirs.length, 7)
   t.true(contains(`utils`, dirs))
 })
 

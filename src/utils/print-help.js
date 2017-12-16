@@ -1,4 +1,4 @@
-const print = require('../print')
+const print = require('./print')
 const { pipe, map, sortBy, prop, propEq, reject, replace, unnest, equals } = require('ramda')
 
 /**
@@ -72,4 +72,10 @@ function printCommands (context, commandRoot) {
   print.table(data) // the data
 }
 
-module.exports = printCommands
+function printHelp (context) {
+  const { print, runtime: { brand } } = context
+  print.info(`${brand} version ${context.version()}`)
+  print.printCommands(context)
+}
+
+module.exports = { printHelp, printCommands }

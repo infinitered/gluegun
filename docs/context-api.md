@@ -1,18 +1,23 @@
 # Inside Context
 
-So you're making a plugin. Let's get started.
+So you're making a command. Let's get started.
 
 ```js
-module.exports = async function(context) {
-  // great! now what?
+module.exports = {
+  name: 'dostuff',
+  alias: 'd',
+  run: async function(context) {
+    // great! now what?
+  },
 }
 ```
 
-Here's what's available inside `context` object.
+Here's what's available inside the `context` object you see all over Gluegun.
 
 | name           | provides the...                                    | 3rd party                      |
 | -------------- | -------------------------------------------------- | ------------------------------ |
 | **config**     | configuration options from the app or plugin       |
+| **version**    | function to retrieve your CLI's current version    |                                |
 | **filesystem** | ability to copy, move & delete files & directories | fs-jetpack                     |
 | **http**       | ability to talk to the web                         | apisauce                       |
 | **parameters** | command line arguments and options                 | yargs-parser                   |
@@ -24,5 +29,21 @@ Here's what's available inside `context` object.
 | **system**     | ability to execute                                 | node-which, execa, cross-spawn |
 | **template**   | code generation from templates                     | ejs                            |
 
-If this is starting to sound like a scripting language, then good. That's exactly how to think of it. Except
-we're not inventing another language. And we're still running in a `node.js` environment, so you can do whatever you want.
+Think of `context` as a toolbox full of useful tools for building CLIs. For example, the `context.version` function can be invoked like this:
+
+```js
+module.exports = {
+  name: 'dostuff',
+  alias: 'd',
+  run: async function(context) {
+    // use them like this...
+    context.print.info(context.version())
+
+    // or destructure!
+    const { print: { info }, version } = context
+    info(version())
+  },
+}
+```
+
+To learn more about each tool, explore the rest of the `context-*.md` files in this folder.
