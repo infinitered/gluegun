@@ -52,7 +52,6 @@
     "lodash.trimstart": "^4.5.1",
     "lodash.uppercase": "^4.3.0",
     "lodash.upperfirst": "^4.3.1",
-    "minimist": "^1.2.0",
     "ora": "^1.2.0",
     "pluralize": "^7.0.0",
     "prompt-autocompletion": "^0.1.1",
@@ -67,7 +66,8 @@
     "ramda": "^0.24.1",
     "ramdasauce": "^2.1.0",
     "semver": "^5.3.0",
-    "which": "^1.2.14"
+    "which": "^1.2.14",
+    "yargs-parser": "^8.0.0"
   },
   "devDependencies": {
     "ava": "^0.22.0",

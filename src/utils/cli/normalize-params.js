@@ -1,9 +1,10 @@
-const minimist = require('minimist')
+const yargsParse = require('yargs-parser')
+
 const { merge } = require('ramda')
 
 function parseParams (argv, extraOpts = {}) {
-  // chop it up minimist!
-  const parsed = minimist(argv)
+  // chop it up yargsParse!
+  const parsed = yargsParse(argv)
   const array = parsed._.slice()
   delete parsed._
   const options = merge(parsed, extraOpts)
