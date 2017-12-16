@@ -21,6 +21,7 @@ if (!sniff.isNewEnough) {
 }
 
 // we want to see real exceptions with backtraces and stuff
+process.removeAllListeners('unhandledRejection')
 process.on('unhandledRejection', up => {
   throw up
 })
