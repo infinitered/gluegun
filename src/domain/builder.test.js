@@ -7,6 +7,12 @@ test('the gauntlet', t => {
     .brand(brand)
     // plugins
     .src(`${__dirname}/../fixtures/good-plugins/threepack`)
+    .help()
+    .version({
+      name: 'gimmedatversion',
+      alias: ['version', 'v'],
+      run: context => 'it works'
+    })
     .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
     .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
 
@@ -15,4 +21,9 @@ test('the gauntlet', t => {
 
   const runtime = builder.create()
   t.truthy(runtime)
+
+  t.is(runtime.defaultPlugin.commands.length, 5)
+  t.is(runtime.defaultPlugin.commands[0].name, 'help')
+  t.is(runtime.defaultPlugin.commands[1].name, 'gimmedatversion')
+  t.is(runtime.defaultPlugin.commands[1].run(), 'it works')
 })

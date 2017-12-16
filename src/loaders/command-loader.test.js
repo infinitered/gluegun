@@ -1,5 +1,5 @@
 const test = require('ava')
-const { loadCommandFromFile } = require('./command-loader')
+const { loadCommandFromFile, loadCommandFromPreload } = require('./command-loader')
 
 test('loading from a missing file', async t => {
   const error = await t.throws(() => loadCommandFromFile('foo.js'), Error)
@@ -29,4 +29,23 @@ test('default but no run property exported', async t => {
 test('fat arrows', async t => {
   const file = `${__dirname}/../fixtures/good-modules/module-exports-fat-arrow-fn.js`
   await t.notThrows(() => loadCommandFromFile(file))
+})
+
+test('load command from preload', async t => {
+  const command = loadCommandFromPreload({
+    name: 'hello',
+    description: 'yiss dream',
+    alias: ['z'],
+    dashed: true,
+    run: context => 'ran!'
+  })
+
+  t.is(command.name, 'hello')
+  t.is(command.description, 'yiss dream')
+  t.is(command.hidden, false)
+  t.deepEqual(command.alias, ['z'])
+  t.is(command.run(), 'ran!')
+  t.is(command.file, null)
+  t.is(command.dashed, true)
+  t.deepEqual(command.commandPath, ['hello'])
 })

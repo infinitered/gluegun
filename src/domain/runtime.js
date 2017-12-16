@@ -23,6 +23,7 @@ const { loadPluginFromDirectory } = require('../loaders/plugin-loader')
 const { resolve } = require('path')
 
 // core extensions
+const addCoreExtension = require('../core-extensions/core-extension')
 const addTemplateExtension = require('../core-extensions/template-extension')
 const addPrintExtension = require('../core-extensions/print-extension')
 const addFilesystemExtension = require('../core-extensions/filesystem-extension')
@@ -64,7 +65,7 @@ async function run (rawCommand, extraOptions) {
   context.parameters = parseParams(commandArray, extraOptions)
 
   // find the plugin and command, and parse out aliases
-  const { plugin, command, array } = this.findCommand(context.parameters.array)
+  const { plugin, command, array } = this.findCommand(context.parameters)
 
   // jet if we have no plugin or command
   if (isNil(plugin) || isNil(command)) return context
@@ -133,6 +134,7 @@ class Runtime {
    * for extending the core as 3rd party extensions do.
    */
   addCoreExtensions () {
+    this.addExtension('core', addCoreExtension)
     this.addExtension('strings', addStringsExtension)
     this.addExtension('print', addPrintExtension)
     this.addExtension('template', addTemplateExtension)
@@ -179,7 +181,8 @@ class Runtime {
       hidden: options['hidden'],
       name: options['name'],
       commandFilePattern: options['commandFilePattern'],
-      extensionFilePattern: options['extensionFilePattern']
+      extensionFilePattern: options['extensionFilePattern'],
+      preloadedCommands: options['preloadedCommands']
     })
 
     this.plugins = append(plugin, this.plugins)
@@ -244,12 +247,13 @@ class Runtime {
   }
 
   /**
-   * Find the command for this commandPath.
+   * Find the command for these parameters.
    *
-   * @param {string[]} commandPath    The command to find.
+   * @param {Object} parameters       The parameters provided.
    * @returns {{}}                    An object containing a Plugin and Command if found, otherwise null
    */
-  findCommand (commandPath) {
+  findCommand ({ array, options }) {
+    const commandPath = array
     let targetPlugin, targetCommand, rest
 
     // start with defaultPlugin, then move on to the others
@@ -257,10 +261,7 @@ class Runtime {
     const plugins = [this.defaultPlugin, ...otherPlugins].filter(p => !isNil(p))
 
     targetPlugin = find(plugin => {
-      if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return { command: null, args: [] }
-      if (!commandPath) {
-        commandPath = []
-      }
+      if (isNil(plugin) || isNilOrEmpty(plugin.commands)) return false
 
       // track the rest of the commandPath as we traverse
       rest = commandPath.slice() // dup
@@ -271,8 +272,7 @@ class Runtime {
         const cmd = find(
           command => {
             return (
-              equals(command.commandPath.slice(0, -1), prevPath) &&
-              [command.name].concat(command.aliases).includes(currName)
+              equals(command.commandPath.slice(0, -1), prevPath) && command.matchesAlias(currName)
             )
           },
           // sorted shortest path to longest
@@ -288,7 +288,15 @@ class Runtime {
       }, [])(commandPath)
 
       if (finalCommandPath.length === 0) {
-        targetCommand = find(command => equals(command.commandPath, [plugin.name]), plugin.commands)
+        // If we're not looking down a command path, look for dashed commands or a default command
+        const dashedOptions = Object.keys(options).filter(k => options[k] === true)
+
+        targetCommand = find(command => {
+          // dashed commands, like --version or -v
+          const dashMatch = command.dashed && command.matchesAlias(dashedOptions)
+          const isDefault = equals(command.commandPath, [plugin.name])
+          return dashMatch || isDefault
+        }, plugin.commands)
       } else {
         targetCommand = find(
           command => equals(command.commandPath, finalCommandPath),

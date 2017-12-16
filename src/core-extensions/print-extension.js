@@ -1,5 +1,5 @@
 const print = require('../utils/print')
-const printCommands = require('../utils/cli/print-commands')
+const { printHelp, printCommands } = require('../utils/print-help')
 
 /**
  * Extensions to print to the console.
@@ -62,6 +62,7 @@ function attach (context) {
     checkmark,
     xmark,
     spin,
+    printHelp,
     printCommands,
     table: print.table,
     newline: print.newline,

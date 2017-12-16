@@ -10,6 +10,7 @@ const { loadConfig } = require('../loaders/config-loader')
 class Builder {
   constructor () {
     this.loadPlugins = [] // the plugins
+    this.preloadedCommands = [] // any preloaded commands to add to the default plugin
     this.create = this.create.bind(this)
     this.brand = this.brand.bind(this)
     this.src = this.src.bind(this)
@@ -35,11 +36,14 @@ class Builder {
     // set config to be the file minutes defaults
     runtime.config = dissoc('defaults', config)
 
-    // the plugins get loaded last
+    // the plugins get loaded next
     this.loadPlugins.forEach(entry => {
       switch (entry.type) {
         case 'default':
-          runtime.loadDefault(entry.value, entry.options)
+          const defaultOptions = Object.assign({}, entry.options, {
+            preloadedCommands: this.preloadedCommands
+          })
+          runtime.loadDefault(entry.value, defaultOptions)
           break
         case 'load':
           runtime.load(entry.value, entry.options)
@@ -98,6 +102,42 @@ class Builder {
    */
   plugins (value, options = {}) {
     this.loadPlugins.push({ type: 'loadAll', value, options })
+    return this
+  }
+
+  /**
+   * Add a default help handler.
+   * @param  {any} command An optional command function or object
+   * @return {Builder}         self.
+   */
+  help (command) {
+    this.handler('help', command || require(`../core-commands/help`))
+    return this
+  }
+
+  /**
+   * Add a default version handler.
+   * @param  {any} command An optional command function or object
+   * @return {Builder}         self.
+   */
+  version (command) {
+    this.handler('version', command || require(`../core-commands/version`))
+    return this
+  }
+
+  /**
+   * Add preloaded handlers
+   */
+  handler (type, command) {
+    if (typeof command === 'function') {
+      command = {
+        name: type,
+        alias: type[0],
+        run: command,
+        dashed: true // allow running with -v, --version, etc
+      }
+    }
+    this.preloadedCommands.push(command)
     return this
   }
 }

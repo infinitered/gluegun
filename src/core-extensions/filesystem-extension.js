@@ -1,6 +1,6 @@
 const jetpack = require('fs-jetpack')
-const os = require('os')
-const path = require('path')
+const { EOL } = require('os')
+const { sep } = require('path')
 const { subdirectories } = require('../utils/filesystem-utils')
 
 /**
@@ -10,8 +10,8 @@ const { subdirectories } = require('../utils/filesystem-utils')
  */
 function attach (context) {
   const extension = jetpack // jetpack
-  extension.eol = os.EOL // end of line marker
-  extension.separator = path.sep // path separator
+  extension.eol = EOL // end of line marker
+  extension.separator = sep // path separator
   extension.subdirectories = subdirectories
 
   context.filesystem = extension

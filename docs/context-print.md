@@ -116,6 +116,15 @@ The text can also be set with the normal printing colors.
 spinner.text = context.print.colors.green('i like trees')
 ```
 
+## printHelp
+
+Prints a default help screen, consisting of the brand name, version, and `printCommands` output (next).
+
+```js
+const { printHelp } = context.print
+printHelp(context)
+```
+
 ## printCommands
 
 Prints out a table of available commands in a given context.

@@ -30,7 +30,7 @@ function loadCommandFromFile (file, options = {}) {
   command.name = head(split('.', jetpack.inspect(file).name))
   // strip the extension from the end of the commandPath
   command.commandPath = (options.commandPath || last(file.split('/commands/')).split('/')).map(
-    f => (f === `${command.name}.js` ? command.name : f)
+    f => ([`${command.name}.js`, `${command.name}.ts`].includes(f) ? command.name : f)
   )
 
   // if the last two elements of the commandPath are the same, remove the last one
@@ -64,4 +64,17 @@ function loadCommandFromFile (file, options = {}) {
   return command
 }
 
-module.exports = { loadCommandFromFile }
+function loadCommandFromPreload (preload) {
+  const command = new Command()
+  command.name = preload.name
+  command.description = preload.description
+  command.hidden = !!preload.hidden
+  command.alias = preload.alias
+  command.run = preload.run
+  command.file = null
+  command.dashed = !!preload.dashed
+  command.commandPath = preload.commandPath || [preload.name]
+  return command
+}
+
+module.exports = { loadCommandFromFile, loadCommandFromPreload }

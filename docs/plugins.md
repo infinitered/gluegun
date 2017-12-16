@@ -30,6 +30,7 @@ module.exports = {
   alias: ['a'],
   description: 'Displays the name of an actor',
   hidden: false,
+  dashed: false,
   run: async context => {
     const { print } = context
 
@@ -43,6 +44,8 @@ The `name` and `description` properties are used in `printCommands` calls to pri
 `alias` allows you to invoke these commands using an alias.
 
 `hidden` says whether to show the command in help screens or not.
+
+`dashed` lets you run the command as a dashed command, like `--version` or `-v`.
 
 The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `context` object which contains the [core extensions](./context-api.md) and any additional extensions you've loaded.
 
@@ -84,7 +87,7 @@ run: async context => {
 
 # Configuration File
 
-Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be: 
+Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be:
 
 * an object under the `<brand>` key in the `package.json`
 * a `.<brand>rc` file (containing either yaml or json)
