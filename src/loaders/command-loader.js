@@ -49,7 +49,7 @@ function loadCommandFromFile (file, options = {}) {
   if (valid) {
     command.name = commandModule.name || last(command.commandPath)
     command.description = commandModule.description
-    command.hidden = !!commandModule.hidden
+    command.hidden = Boolean(commandModule.hidden)
     command.alias = reject(
       isNil,
       is(Array, commandModule.alias) ? commandModule.alias : [commandModule.alias]
@@ -68,11 +68,11 @@ function loadCommandFromPreload (preload) {
   const command = new Command()
   command.name = preload.name
   command.description = preload.description
-  command.hidden = !!preload.hidden
+  command.hidden = Boolean(preload.hidden)
   command.alias = preload.alias
   command.run = preload.run
   command.file = null
-  command.dashed = !!preload.dashed
+  command.dashed = Boolean(preload.dashed)
   command.commandPath = preload.commandPath || [preload.name]
   return command
 }
