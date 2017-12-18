@@ -111,7 +111,11 @@ class Builder {
    * @return {Builder}         self.
    */
   help (command) {
-    this.handler('help', command || require(`../core-commands/help`))
+    command = command || require(`../core-commands/help`)
+    if (typeof command === 'function') {
+      command = { name: 'help', alias: ['h'], dashed: true, run: command }
+    }
+    this.preloadedCommands.push(command)
     return this
   }
 
@@ -121,21 +125,9 @@ class Builder {
    * @return {Builder}         self.
    */
   version (command) {
-    this.handler('version', command || require(`../core-commands/version`))
-    return this
-  }
-
-  /**
-   * Add preloaded handlers
-   */
-  handler (type, command) {
+    command = command || require(`../core-commands/version`)
     if (typeof command === 'function') {
-      command = {
-        name: type,
-        alias: type[0],
-        run: command,
-        dashed: true // allow running with -v, --version, etc
-      }
+      command = { name: 'version', alias: ['v'], dashed: true, run: command }
     }
     this.preloadedCommands.push(command)
     return this
