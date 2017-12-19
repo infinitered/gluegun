@@ -19,7 +19,7 @@ function commandInfo (context, plugins, commandRoot) {
     sortBy(prop('name')),
     map(p => getListOfCommands(context, p, commandRoot)),
     unnest
-  )(plugins)
+  )(plugins || context.runtime.plugins)
 }
 
 /**
