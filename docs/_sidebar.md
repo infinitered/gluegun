@@ -1,5 +1,4 @@
 - [Home](/)
-- [Quick Start](/quick-start)
 - [Runtime API](/runtime)
 - [Context API](/context-api)
   - [config](/context-config)

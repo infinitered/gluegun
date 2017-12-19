@@ -10,8 +10,9 @@ async function run (argv) {
     .brand('<%= props.name %>')
     .src(`${__dirname}`)
     .plugins('./node_modules', { matching: '<%= props.name %>-*', hidden: true })
-    .help()     // provides default for help, h, --help, -h
-    .version()  // provides default for version, v, --version, -v
+    .help()           // provides default for help, h, --help, -h
+    .version()        // provides default for version, v, --version, -v
+    .defaultCommand() // provides default command if none other is found
     .create()
 
   // and run it
