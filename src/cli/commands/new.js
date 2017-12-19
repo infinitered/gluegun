@@ -40,7 +40,6 @@ module.exports = {
     const files = [
       'docs/commands.md.ejs',
       'docs/plugins.md.ejs',
-      'src/commands/help.js.ejs',
       'src/commands/generate.js.ejs',
       'src/extensions/cli-extension.js.ejs',
       'src/templates/model.js.ejs.ejs',
