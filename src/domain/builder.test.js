@@ -13,6 +13,7 @@ test('the gauntlet', t => {
       alias: ['version', 'v'],
       run: context => 'it works'
     })
+    .defaultCommand()
     .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
     .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
 
@@ -22,8 +23,9 @@ test('the gauntlet', t => {
   const runtime = builder.create()
   t.truthy(runtime)
 
-  t.is(runtime.defaultPlugin.commands.length, 5)
+  t.is(runtime.defaultPlugin.commands.length, 6)
   t.is(runtime.defaultPlugin.commands[0].name, 'help')
   t.is(runtime.defaultPlugin.commands[1].name, 'gimmedatversion')
   t.is(runtime.defaultPlugin.commands[1].run(), 'it works')
+  t.is(runtime.defaultPlugin.commands[2].name, brand)
 })

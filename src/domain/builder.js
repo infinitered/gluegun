@@ -115,8 +115,7 @@ class Builder {
     if (typeof command === 'function') {
       command = { name: 'help', alias: ['h'], dashed: true, run: command }
     }
-    this.preloadedCommands.push(command)
-    return this
+    return this.command(command)
   }
 
   /**
@@ -129,6 +128,29 @@ class Builder {
     if (typeof command === 'function') {
       command = { name: 'version', alias: ['v'], dashed: true, run: command }
     }
+    return this.command(command)
+  }
+
+  /**
+   * Add a default command that runs if none other is found.
+   * @param  {any} command An optional command function or object
+   * @return {Builder}         self.
+   */
+  defaultCommand (command) {
+    command = command || require(`../core-commands/default`)
+    if (typeof command === 'function') {
+      command = { run: command }
+    }
+    command.name = this.brand
+    return this.command(command)
+  }
+
+  /**
+   * Add a way to add an arbitrary command when building the CLI.
+   * @param {Object}
+   * @return {Builder}
+   */
+  command (command) {
     this.preloadedCommands.push(command)
     return this
   }
