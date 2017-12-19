@@ -1,5 +1,10 @@
 const jetpack = require('fs-jetpack')
 
+/**
+ * Finds the version for the currently running CLI.
+ *
+ * @param {RunContext} context
+ */
 function getVersion (context) {
   let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
   if (!directory) {
@@ -26,13 +31,4 @@ function getVersion (context) {
   throw new Error(`context.version: Unknown CLI version (no package.json found in ${directory}`)
 }
 
-/**
- * Gluegun-specific extensions.
- *
- * @param  {RunContext} context The running context.
- */
-function attach (context) {
-  context.version = () => getVersion(context)
-}
-
-module.exports = attach
+module.exports = { getVersion }

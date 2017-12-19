@@ -23,7 +23,7 @@ const { loadPluginFromDirectory } = require('../loaders/plugin-loader')
 const { resolve } = require('path')
 
 // core extensions
-const addCoreExtension = require('../core-extensions/core-extension')
+const addMetaExtension = require('../core-extensions/meta-extension')
 const addTemplateExtension = require('../core-extensions/template-extension')
 const addPrintExtension = require('../core-extensions/print-extension')
 const addFilesystemExtension = require('../core-extensions/filesystem-extension')
@@ -134,7 +134,7 @@ class Runtime {
    * for extending the core as 3rd party extensions do.
    */
   addCoreExtensions () {
-    this.addExtension('core', addCoreExtension)
+    this.addExtension('meta', addMetaExtension)
     this.addExtension('strings', addStringsExtension)
     this.addExtension('print', addPrintExtension)
     this.addExtension('template', addTemplateExtension)

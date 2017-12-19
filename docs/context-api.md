@@ -16,8 +16,8 @@ Here's what's available inside the `context` object you see all over Gluegun.
 
 | name           | provides the...                                    | 3rd party                      |
 | -------------- | -------------------------------------------------- | ------------------------------ |
-| **config**     | configuration options from the app or plugin       |
-| **version**    | function to retrieve your CLI's current version    |                                |
+| **meta**       | information about the currently running CLI        |                                |
+| **config**     | configuration options from the app or plugin       |                                |
 | **filesystem** | ability to copy, move & delete files & directories | fs-jetpack                     |
 | **http**       | ability to talk to the web                         | apisauce                       |
 | **parameters** | command line arguments and options                 | yargs-parser                   |
@@ -37,10 +37,10 @@ module.exports = {
   alias: 'd',
   run: async function(context) {
     // use them like this...
-    context.print.info(context.version())
+    context.print.info(context.meta.version())
 
     // or destructure!
-    const { print: { info }, version } = context
+    const { print: { info }, meta: { version } } = context
     info(version())
   },
 }
