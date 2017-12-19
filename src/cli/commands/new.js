@@ -41,6 +41,7 @@ module.exports = {
       'docs/commands.md.ejs',
       'docs/plugins.md.ejs',
       'src/commands/generate.js.ejs',
+      'src/commands/default.js.ejs',
       'src/extensions/cli-extension.js.ejs',
       'src/templates/model.js.ejs.ejs',
       'src/cli.js.ejs',
@@ -74,19 +75,25 @@ module.exports = {
     // make bin executable
     filesystem.chmodSync(`${props.name}/bin/${props.name}`, '755')
 
+    // rename default.js to project name
+    const ext = props.typescript ? 'ts' : 'js'
+    filesystem.rename(
+      `${props.name}/src/commands/default.${ext}`,
+      `${props.name}/src/commands/${props.name}.${ext}`
+    )
+
     await system.spawn(`cd ${props.name} && npm i && npm run format`, {
       shell: true,
       stdio: 'inherit',
       stderr: 'inherit'
     })
-    print.info(`cd ${props.name} && npm i && npm format`)
 
     print.info(`Generated ${props.name} CLI.`)
     print.info(``)
     print.info(`Next:`)
     print.info(`  $ cd ${props.name}`)
     print.info(`  $ npm link`)
-    print.info(`  $ ${props.name} help`)
+    print.info(`  $ ${props.name}`)
     print.info(``)
 
     // for tests
