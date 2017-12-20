@@ -9,7 +9,8 @@ const createContext = () => ({
   filesystem: {
     resolve: sinon.stub(),
     dir: sinon.stub(),
-    chmodSync: sinon.stub()
+    chmodSync: sinon.stub(),
+    rename: sinon.stub()
   },
   system: {
     spawn: sinon.stub()
@@ -92,6 +93,7 @@ test('generates properly', async t => {
     ['docs/commands.md.ejs', 'docs/commands.md'],
     ['docs/plugins.md.ejs', 'docs/plugins.md'],
     ['src/commands/generate.js.ejs', 'src/commands/generate.js'],
+    ['src/commands/default.js.ejs', 'src/commands/default.js'],
     ['src/extensions/cli-extension.js.ejs', 'src/extensions/cli-extension.js'],
     ['src/templates/model.js.ejs.ejs', 'src/templates/model.js.ejs'],
     ['src/cli.js.ejs', 'src/cli.js'],
@@ -156,6 +158,7 @@ test('generates with typescript', async t => {
     ['docs/commands.md.ejs', 'docs/commands.md'],
     ['docs/plugins.md.ejs', 'docs/plugins.md'],
     ['src/commands/generate.js.ejs', 'src/commands/generate.ts'],
+    ['src/commands/default.js.ejs', 'src/commands/default.ts'],
     ['src/extensions/cli-extension.js.ejs', 'src/extensions/cli-extension.ts'],
     ['src/templates/model.js.ejs.ejs', 'src/templates/model.ts.ejs'],
     ['src/cli.js.ejs', 'src/cli.ts'],

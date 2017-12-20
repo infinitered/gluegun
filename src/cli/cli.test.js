@@ -10,11 +10,6 @@ test('can start the cli', async t => {
   t.truthy(c)
 })
 
-test('cli shows default', async t => {
-  const c = await cli([])
-  t.is(c.command.name, 'gluegun')
-})
-
 test('can create a new boilerplate cli', async t => {
   const pwd = process.cwd()
 
