@@ -10,7 +10,6 @@ async function run (argv) {
     .src(`${__dirname}`)
     .help()
     .version()
-    .defaultCommand()
     .create()
 
   // and run it
