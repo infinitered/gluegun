@@ -14,14 +14,14 @@ class Command {
   }
 
   get aliases () {
-    if (this.alias === null) {
+    if (!this.alias) {
       return []
     }
     return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 
   hasAlias () {
-    return this.alias !== null && this.alias.length > 0
+    return this.aliases.length > 0
   }
 
   /**

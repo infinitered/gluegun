@@ -8,8 +8,9 @@ async function run (argv) {
   const cli = build()
     .brand('gluegun')
     .src(`${__dirname}`)
-    // .plugin('~/Desktop/some-gluegun-plugin')
-    .plugins('./node_modules', { matching: 'gluegun-*', hidden: true })
+    .help()
+    .version()
+    .defaultCommand()
     .create()
 
   // and run it

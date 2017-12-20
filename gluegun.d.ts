@@ -54,9 +54,6 @@ export interface GluegunExtension {
  * way to run a command within the system.
  */
 export interface GluegunRunOptions {
-  /** The name of the plugin to run. */
-  pluginName?: string
-
   /**
    * The raw command contains the name of the command plus
    * any named parameters.
@@ -79,6 +76,11 @@ export type GluegunExtensionAttacher = (
   command: string,
   context: GluegunRunContext
 ) => void
+
+export interface GluegunMeta {
+  version: () => string
+  commandInfo: (context: GluegunRunContext) => string[][]
+}
 
 export interface GluegunParameters {
   /**
@@ -978,6 +980,16 @@ export interface GluegunBuilder {
   version(command?: any): GluegunBuilder
 
   /**
+   * Add a default command.
+   */
+  defaultCommand(command?: any): GluegunBuilder
+
+  /**
+   * Add an arbitrary command.
+   */
+  command(command?: any): GluegunBuilder
+
+  /**
    * Creates a runtime.
    *
    * Call this function when you are finished configuring the builder
@@ -1025,3 +1037,6 @@ export const prompt: GluegunPrompt
 
 /** File generation functions. */
 export const template: GluegunTemplate
+
+/** Info about the current CLI. */
+export const meta: GluegunMeta

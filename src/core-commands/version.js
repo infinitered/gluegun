@@ -3,6 +3,6 @@ module.exports = {
   alias: 'v',
   dashed: true,
   run: context => {
-    context.print.info(context.version())
+    context.print.info(context.meta.version())
   }
 }

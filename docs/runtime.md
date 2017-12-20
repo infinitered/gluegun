@@ -7,13 +7,18 @@ Here's what we're about to cover.
 ```js
 const { build } = 'gluegun'
 
-await build()
+const cli = build()
   .brand('movie')
   .src(__dirname)
-  .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .help()
+  .version()
+  .defaultCommand()
+  .command({ name: 'hi', run: context => context.print.info('hi!') })
   .create()
-  .run()
+
+await cli.run()
 ```
 
 ## build
@@ -39,6 +44,7 @@ We'll be chaining the `build()` function from here.
 **Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
 
 ```js
+const cli = build()
   .brand('movie')
 ```
 
@@ -50,11 +56,12 @@ This sets where the default commands and extensions are located, in
 `commands` and `extensions` folders, respectively.
 
 ```js
-  .src('~/Desktop/movie/credits')
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
 ```
 
-When you run a command, it'll first load these extensions and then check this
-set of commands for the right command.
+When you run a command, it'll first load extensions in this folder and then check the commands in this folder for the right command.
 
 ```sh
 # run a command with arguments
@@ -64,60 +71,11 @@ $ movie actors Kingpin
 $ movie producers "Planes, Trains, & Automobiles" --sort age
 ```
 
-For most CLIs, you might find this is all you need.
-
-## create
-
-At this point, we've been configuring our environment. When we're ready, we call:
-
-```js
-  .create()
-```
-
-This command applies the configuration that you were just chaining, and turns it into a `runtime cli` which supports calling `run()`.
-
-```js
-const cli = build()
-  .brand('movie')
-  .src(`${__dirname}`)
-  .plugin('~/Desktop/movie/credits')
-  .plugins('~/Downloads/VariousMoviePlugins')
-  .create()
-```
-
-And now we're ready to run:
-
-```js
-cli.run()
-```
-
-With no parameters, `gluegun` will parse the command line arguments looking for the command to run.
-
-```sh
-# list the plugins
-$ movie
-
-# list the commands of a plugin
-$ movie quote
-
-# run a command
-$ movie quote random
-
-# run a command with options
-$ movie quote random --funny
-
-# run a command with arguments
-$ movie credits actors Kingpin
-
-# run a command with arguments & options
-$ movie credits producers "Planes, Trains, & Automobiles" --sort age
-```
-
 ## plugin
 
-Functionality is added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
+Additional functionality can be added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
 
-A plugin is a folder that contains a structure - something like this:
+A plugin is a folder (or NPM package) that contains a structure - something like this:
 
 ```
 movie-credits
@@ -134,8 +92,10 @@ movie-credits
 You can load a plugin from a directory:
 
 ```js
-  .plugin('~/.movie/quote')
-  .plugin('~/.movie/credits')
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugin('~/.movie/movie-imdb')
 ```
 
 ## plugins
@@ -143,22 +103,155 @@ You can load a plugin from a directory:
 You can also load multiple plugins within a directory.
 
 ```js
-  .plugins('~/.movie/VariousMoviePlugins')
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugin('~/.movie/movie-imdb')
+  .plugins('./node_modules', { pattern: 'movie-' })
 ```
 
-Load all supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
+`plugins` supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
 
 ```js
-  .plugins('node_modules', { matching: 'movies-*' })
+  .plugins('./node_modules', { matching: 'movies-*' })
 ```
 
 If you would like to keep plugins hidden and not available at the command line:
 
 ```js
-  .plugins('node_modules', { matching: 'movies-*', hidden: true })
+  .plugins('./node_modules', { matching: 'movies-*', hidden: true })
 ```
 
 When plugins are hidden they can still be run directly from the cli.
+
+## help
+
+Gluegun ships with a somewhat adequate `help` screen out of the box. Add it to your
+CLI easily by calling `.help()`.
+
+```js
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+```
+
+You can also pass in a function or command object here:
+
+```js
+  .help(context => context.print.info('No help for you!'))
+  .help({
+    name: 'help',
+    alias: 'helpmeplease',
+    hidden: true,
+    dashed: true,
+    run: context => context.print.info('No help for you!'))
+  })
+```
+
+## version
+
+You usually like to be able to run `--version` to see your CLI's version from the command
+line, so add it easily with `.version()`.
+
+```js
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+  .version()
+```
+
+Just like `help` above, you can pass in a function or command object to configure it further.
+
+## defaultCommand
+
+If the user runs your CLI and doesn't supply any matching parameters, it'll run this command
+instead. Note that you can do this by supplying a `<brand>.js` file in your `./commands`
+folder as well.
+
+```js
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+  .version()
+  .defaultCommand()
+```
+
+Just like `help` and `version` above, you can pass in a function or command object if 
+you prefer more control.
+
+## command
+
+If you want to pass in arbitrary commands, you can do that with `.command()`.
+
+```js
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+  .version()
+  .defaultCommand()
+  .command({ name: 'hi', run: context => context.print.info('hi!') })
+```
+
+In this case, if you ran `movie hi`, it would run the function provided and print out 'hi!'.
+
+You must provide an object with at least a `name` and a `run` function, which can be
+`async` or regular.
+
+## create
+
+At this point, we've been configuring our CLI. When we're ready, we call `create()`:
+
+```js
+const cli = build()
+  .brand('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+  .version()
+  .defaultCommand()
+  .command({ name: 'hi', run: context => context.print.info('hi!') })
+  .create()
+```
+
+This command applies the configuration that you were just chaining, and turns it into a `runtime cli` which supports calling `run()`.
+
+And now we're ready to run:
+
+```js
+cli.run()
+```
+
+With no parameters, `gluegun` will parse the command line arguments looking for the command to run.
+
+```sh
+# list the plugins
+$ movie
+
+# run a command
+$ movie quote
+
+# run a command with options
+$ movie quote --funny
+
+# run a command with arguments
+$ movie actors Kingpin
+
+# run a command with arguments & options
+$ movie producers "Planes, Trains, & Automobiles" --sort age
+```
 
 ## run
 

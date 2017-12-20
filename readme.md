@@ -67,6 +67,9 @@ const movieCLI = build()
   .brand('movie')
   .src(`${__dirname}/core-plugins`)
   .plugins('node_modules', { matching: 'movie-*' })
+  .help()
+  .version()
+  .defaultCommand()
   .create()
 
 // fire!
@@ -75,22 +78,28 @@ movieCLI.run()
 
 **Commands**
 
+Commands are simple objects that provide a name, optional aliases, and a function to run.
+
 ```js
 // in movie/commands/foo.js
-module.exports = async function(context) {
-  // gluegun provides all these features and more!
-  const { system, print, filesystem, strings } = context
+module.exports = {
+  name: 'foo',
+  alias: 'f',
+  run: async function(context) {
+    // gluegun provides all these features and more!
+    const { system, print, filesystem, strings } = context
 
-  // ...and be the CLI you wish to see in the world
-  const awesome = strings.trim(system.run('whoami'))
-  const moreAwesome = strings.kebabCase(`${awesome} and a keyboard`)
-  const contents = `🚨 Warning! ${moreAwesome} coming thru! 🚨`
-  const home = process.env['HOME']
-  filesystem.write(`${home}/realtalk.json`, { contents })
+    // ...and be the CLI you wish to see in the world
+    const awesome = strings.trim(system.run('whoami'))
+    const moreAwesome = strings.kebabCase(`${awesome} and a keyboard`)
+    const contents = `🚨 Warning! ${moreAwesome} coming thru! 🚨`
+    const home = process.env['HOME']
+    filesystem.write(`${home}/realtalk.json`, { contents })
 
-  print.info(`${print.checkmark} Citius`)
-  print.warning(`${print.checkmark} Altius`)
-  print.success(`${print.checkmark} Fortius`)
+    print.info(`${print.checkmark} Citius`)
+    print.warning(`${print.checkmark} Altius`)
+    print.success(`${print.checkmark} Fortius`)
+  }
 }
 ```
 
