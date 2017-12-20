@@ -11,6 +11,7 @@
     "precommit": "lint-staged",
     "test": "ava",
     "watch": "ava --watch",
+    "snapupdate": "ava --update-snapshots",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
     "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
     "format": "prettier --write \"**/*.js\" && standard --fix",
