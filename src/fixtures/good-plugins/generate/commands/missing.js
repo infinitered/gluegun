@@ -1,6 +1,8 @@
-async function missing (context) {
+const uniqueTempDir = require('unique-temp-dir')
+
+async function missing(context) {
   const template = 'missing.ejs'
-  const dir = 'generated'
+  const dir = uniqueTempDir({ create: true })
   const target = `${dir}/missing.txt`
 
   const result = await context.template.generate({ template, target })

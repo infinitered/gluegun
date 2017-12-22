@@ -6,4 +6,4 @@ require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
 <% } %>
 
 // run the CLI with the current process arguments
-require('../src/cli')(process.argv)
+require('../src/cli').run(process.argv)

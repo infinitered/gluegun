@@ -1,2 +1,4 @@
 .vscode
 readme.md
+dist/
+build/

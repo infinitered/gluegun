@@ -7,3 +7,5 @@ yarn.lock
 coverage
 .nyc_output
 generated
+dist/**/*
+build/**/*

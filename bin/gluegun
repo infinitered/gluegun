@@ -1,2 +1,13 @@
 #!/usr/bin/env node
-require(`${__dirname}/../src/cli/cli.js`)(process.argv);
+
+// check if we're running in dev mode
+var devMode = require('fs').existsSync(`${__dirname}/../sr2c`)
+
+if (devMode) {
+  // hook into ts-node so we can run typescript on the fly
+  register({ project: `${__dirname}/../tsconfig.json` })
+  // kick off gluegun
+  require(`${__dirname}/../src/cli/cli`).run(process.argv)
+} else {
+  require(`${__dirname}/../dist/cli/cli`).run(process.argv)
+}
