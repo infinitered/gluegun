@@ -2,30 +2,41 @@
   "name": "gluegun",
   "version": "2.0.0-alpha.17",
   "description": "Build yourself a pluggable CLI.",
-  "main": "src/index.js",
   "repository": "infinitered/gluegun",
   "bin": {
     "gluegun": "bin/gluegun"
   },
+  "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "test": "ava",
-    "watch": "ava --watch",
-    "snapupdate": "ava --update-snapshots",
-    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava",
-    "coveralls": "nyc ava && nyc report --reporter=text-lcov | coveralls",
-    "format": "prettier --write \"**/*.js\" && standard --fix",
-    "start": "node src/index.js",
-    "lint": "standard",
-    "shipit": "np --yolo"
+    "format": "prettier --write \"**/*.ts\" && tslint -p . --fix",
+    "compile": "tsc -p .",
+    "rollup": "rollup -c && cp -a ./build/cli ./dist/",
+    "build": "yarn format && yarn compile && cp -a ./src/cli/templates ./build/cli/ && yarn rollup",
+    "lint": "tslint -p .",
+    "test": "ava-ts",
+    "watch": "ava-ts --watch",
+    "snapupdate": "ava-ts --update-snapshots",
+    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",
+    "coveralls": "nyc ava-ts && nyc report --reporter=text-lcov | coveralls",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "shipit": "yarn build && yarn rollup && yarn lint && np --yolo"
   },
   "author": {
     "name": "Infinite Red, Inc.",
     "email": "npm@infinite.red",
     "url": "https://github.com/infinitered/gluegun"
   },
-  "files": ["docs", "bin", "src", "sniff.js", "LICENSE", "readme.md", "gluegun.d.ts"],
-  "types": "gluegun.d.ts",
+  "files": [
+    "docs",
+    "bin",
+    "dist",
+    "sniff.js",
+    "sniff-async.js",
+    "LICENSE",
+    "readme.md"
+  ],
   "license": "MIT",
   "dependencies": {
     "apisauce": "^0.14.1",
@@ -59,44 +70,67 @@
     "prompt-checkbox": "^2.2.0",
     "prompt-confirm": "^1.2.0",
     "prompt-expand": "^1.0.0",
-    "prompt-list": "^2.2.0",
+    "prompt-list": "^3.1.0",
     "prompt-password": "^1.2.0",
     "prompt-question": "^5.0.2",
     "prompt-radio": "^1.2.1",
     "prompt-rawlist": "^2.0.1",
-    "ramda": "^0.24.1",
+    "ramda": "^0.25.0",
     "ramdasauce": "^2.1.0",
     "semver": "^5.3.0",
+    "spawn-sync": "^1.0.15",
     "which": "^1.2.14",
     "yargs-parser": "^8.0.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "babel-eslint": "^8.0.1",
+    "@types/cli-table2": "^0.2.1",
+    "@types/node": "^8.5.1",
+    "@types/ramda": "^0.25.8",
+    "ava": "^0.24.0",
+    "ava-ts": "^0.23.0",
     "coveralls": "^3.0.0",
     "husky": "^0.14.3",
-    "lint-staged": "^5.0.0",
+    "lint-staged": "^6.0.0",
     "np": "^2.16.0",
     "nyc": "^11.2.1",
     "prettier": "^1.9.2",
+    "rollup": "^0.52.3",
+    "rollup-plugin-closure-compiler-js": "^1.0.6",
+    "rollup-plugin-commonjs": "^8.2.6",
+    "rollup-plugin-filesize": "^1.5.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-progress": "^0.4.0",
+    "rollup-plugin-re": "^1.0.6",
+    "rollup-plugin-uglify-es": "^0.0.1",
     "sinon": "^4.0.1",
-    "standard": "^10.0.2",
-    "temp-write": "^3.3.0"
+    "temp-write": "^3.3.0",
+    "ts-node": "^4.0.2",
+    "tslint": "^5.8.0",
+    "tslint-config-prettier": "^1.6.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.2"
   },
   "ava": {},
-  "standard": {
-    "parser": "babel-eslint"
-  },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 120,
     "semi": false,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "all"
   },
   "lint-staged": {
-    "linters": {
-      "*.js": ["prettier --write", "standard --fix", "git add"],
-      "*.json": ["prettier --write", "git add"]
-    }
+    "*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

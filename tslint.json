@@ -1,0 +1,12 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier", "tslint-config-standard"],
+  "rules": {
+    "trailing-comma": [true],
+    "no-string-throw": false,
+    "strict-type-predicates": false,
+    "no-console": false,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "interface-name": false
+  }
+}

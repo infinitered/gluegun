@@ -2,7 +2,7 @@
  * A script that helps generate some content for the strings documentation.
  */
 
-const strings = require('../packages/gluegun/src/utils/string-utils')
+const strings = require('../packages/gluegun/src/toolbox/string-tools')
 
 const functions = [
   'camelCase',
@@ -13,7 +13,7 @@ const functions = [
   'startCase',
   'upperFirst',
   'lowerFirst',
-  'pascalCase'
+  'pascalCase',
 ]
 
 const testCases = [
@@ -24,7 +24,7 @@ const testCases = [
   'Welcome to ZOMBO.com',
   'XMLHttpRequest is strange.',
   'OSnap',
-  'this.is.sparta!'
+  'this.is.sparta!',
 ]
 
 functions.forEach(fn => {

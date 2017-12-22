@@ -1,0 +1,129 @@
+{
+  "projectName": "gluegun",
+  "projectOwner": "infinitered",
+  "files": [
+    "readme.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "skellock",
+      "name": "Steve Kellock",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/68273?v=4",
+      "profile": "https://github.com/skellock",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "infra",
+        "platform",
+        "plugin",
+        "review",
+        "test",
+        "tool"
+      ]
+    },
+    {
+      "login": "jamonholmgren",
+      "name": "Jamon Holmgren",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/1479215?v=4",
+      "profile": "https://infinite.red",
+      "contributions": [
+        "question",
+        "bug",
+        "code",
+        "doc",
+        "example",
+        "financial",
+        "ideas",
+        "infra",
+        "platform",
+        "plugin",
+        "review",
+        "test",
+        "tool",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "GantMan",
+      "name": "Gant Laborde",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/997157?v=4",
+      "profile": "http://gantlaborde.com/",
+      "contributions": [
+        "question",
+        "blog",
+        "bug",
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "infra",
+        "plugin",
+        "talk",
+        "test",
+        "tutorial",
+        "video"
+      ]
+    },
+    {
+      "login": "mlaco",
+      "name": "Morgan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/4466642?v=4",
+      "profile": "http://morganlaco.com",
+      "contributions": [
+        "blog",
+        "bug",
+        "code",
+        "doc",
+        "test",
+        "tutorial"
+      ]
+    },
+    {
+      "login": "ryanlntn",
+      "name": "Ryan Linton",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1944151?v=4",
+      "profile": "http://infinite.red",
+      "contributions": [
+        "bug",
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "imranolas",
+      "name": "Imran Sulemanji",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4206028?v=4",
+      "profile": "https://github.com/imranolas",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "fvonhoven",
+      "name": "Frank von Hoven III",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/10098988?v=4",
+      "profile": "https://github.com/fvonhoven",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "ekryski",
+      "name": "Eric Kryski",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/599019?v=4",
+      "profile": "http://erickryski.com",
+      "contributions": [
+        "bug",
+        "code",
+        "test"
+      ]
+    }
+  ]
+}

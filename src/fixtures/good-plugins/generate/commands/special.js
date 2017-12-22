@@ -1,6 +1,8 @@
-async function command (context) {
+const uniqueTempDir = require('unique-temp-dir')
+
+async function command(context) {
   const template = 'special.ejs'
-  const dir = 'generated'
+  const dir = uniqueTempDir({ create: true })
   const target = `${dir}/special.txt`
   const props = { thing: context.parameters.first }
   const directory = `${__dirname}/../custom-directory`

@@ -4,7 +4,7 @@ const after = time => {
   })
 }
 
-async function hi () {
+async function hi() {
   await after(50)
   return 'hi'
 }
