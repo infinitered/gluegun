@@ -1,6 +1,6 @@
 import * as jetpack from 'fs-jetpack'
 import { map } from 'ramda'
-import Plugin from '../domain/plugin'
+import { Plugin } from '../domain/plugin'
 import { isNotDirectory } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
 import { loadCommandFromFile, loadCommandFromPreload } from './command-loader'

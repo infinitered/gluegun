@@ -1,7 +1,7 @@
 import { clone, isNil, merge } from 'ramda'
-import RunContext from '../domain/run-context'
+import { RunContext } from '../domain/run-context'
 import { createParams, parseParams } from '../toolbox/parameter-tools'
-import Runtime from './runtime'
+import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
 
 /**

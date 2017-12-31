@@ -1,7 +1,7 @@
-import Command from '../domain/command'
-import Extension from '../domain/extension'
-import Plugin from '../domain/plugin'
-import RunContext from '../domain/run-context'
+import { Command } from '../domain/command'
+import { Extension } from '../domain/extension'
+import { Plugin } from '../domain/plugin'
+import { RunContext } from '../domain/run-context'
 import { loadCommandFromPreload } from '../loaders/command-loader'
 import { loadConfig } from '../loaders/config-loader'
 import { loadPluginFromDirectory } from '../loaders/plugin-loader'
@@ -11,12 +11,12 @@ import { run } from './run'
 
 import { resolve } from 'path'
 import { dissoc } from 'ramda'
-import Options from '../domain/options'
+import { Options } from '../domain/options'
 
 /**
  * Loads plugins, extensions, and invokes the intended command.
  */
-class Runtime {
+export class Runtime {
   public brand?: string
   public plugins?: Plugin[]
   public extensions?: Extension[]
@@ -170,5 +170,3 @@ class Runtime {
     return subdirs.map(dir => this.addPlugin(dir, dissoc('matching', options)))
   }
 }
-
-export default Runtime

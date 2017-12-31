@@ -1,9 +1,9 @@
 import { equals, find, isNil, reduce, sort } from 'ramda'
 import { isNilOrEmpty } from 'ramdasauce'
 
-import Command from '../domain/command'
-import Plugin from '../domain/plugin'
-import Runtime from './runtime'
+import { Command } from '../domain/command'
+import { Plugin } from '../domain/plugin'
+import { Runtime } from './runtime'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given

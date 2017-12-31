@@ -1,6 +1,6 @@
 import test from 'ava'
 import { find, propEq } from 'ramda'
-import RunContext from '../domain/run-context'
+import { RunContext } from '../domain/run-context'
 import { loadPluginFromDirectory } from './plugin-loader'
 
 test('deals with weird input', t => {

@@ -1,9 +1,9 @@
-import RunContext from './run-context'
+import { RunContext } from './run-context'
 
 /**
  * An extension will add functionality to the context that each command will receive.
  */
-export default class Extension {
+export class Extension {
   public name?: string
   public description?: string
   public file?: string

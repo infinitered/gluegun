@@ -1,5 +1,5 @@
 import test from 'ava'
-import Runtime from './runtime'
+import { Runtime } from './runtime'
 
 test('runs a command explicitly', async t => {
   const r = new Runtime()

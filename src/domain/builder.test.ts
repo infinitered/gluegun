@@ -1,6 +1,6 @@
 import test from 'ava'
 import { build } from './builder'
-import RunContext from './run-context'
+import { RunContext } from './run-context'
 
 test('the gauntlet', t => {
   const brand = 'test'

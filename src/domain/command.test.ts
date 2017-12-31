@@ -1,5 +1,5 @@
 import test from 'ava'
-import Command from './command'
+import { Command } from './command'
 
 test('default state', t => {
   const command = new Command()

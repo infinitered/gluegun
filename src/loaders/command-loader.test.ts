@@ -1,5 +1,5 @@
 import test from 'ava'
-import RunContext from '../domain/run-context'
+import { RunContext } from '../domain/run-context'
 import { loadCommandFromFile, loadCommandFromPreload } from './command-loader'
 
 test('loading from a missing file', async t => {

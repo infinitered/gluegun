@@ -2,8 +2,8 @@ import test from 'ava'
 import * as os from 'os'
 import * as path from 'path'
 import { split } from 'ramda'
+import { RunContext } from '../domain/run-context'
 
-import RunContext from '../domain/run-context'
 const createExtension = require('./filesystem-extension')
 
 test('has the proper interface', t => {

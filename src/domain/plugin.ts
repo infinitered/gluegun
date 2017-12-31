@@ -1,11 +1,11 @@
-import Command from './command'
-import Extension from './extension'
-import Options from './options'
+import { Command } from './command'
+import { Extension } from './extension'
+import { Options } from './options'
 
 /**
  * Extends the environment with new commands.
  */
-class Plugin {
+export class Plugin {
   public name?: string
   public description?: string
   public defaults: Options
@@ -27,5 +27,3 @@ class Plugin {
     this.extensions = []
   }
 }
-
-export default Plugin

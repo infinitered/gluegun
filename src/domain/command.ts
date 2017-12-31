@@ -1,9 +1,9 @@
-import RunContext from './run-context'
+import { RunContext } from './run-context'
 
 /**
  * A command is user-callable function that runs stuff.
  */
-class Command {
+export class Command {
   public name?: string
   public description?: string
   public file?: string
@@ -46,5 +46,3 @@ class Command {
     return aliases.find(a => this.name === a || this.aliases.includes(a))
   }
 }
-
-export default Command

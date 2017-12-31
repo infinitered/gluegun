@@ -1,4 +1,4 @@
-import Runtime from '../runtime/runtime'
+import { Runtime } from '../runtime/runtime'
 
 /**
  * Provides a cleaner way to build a runtime.
