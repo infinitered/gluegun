@@ -87,11 +87,11 @@ function attach (context) {
    * Convenience function for replacing a string in a given file. Async.
    *
    * @param {string} filename       File to be prepended to
-   * @param {string} strReplace     String to replace
+   * @param {string} oldContent     String to replace
    * @param {string} newContent     String to write
    */
-  async function replace (filename, strReplace, newContent) {
-    return update(filename, data => data.replace(strReplace, newContent))
+  async function replace (filename, oldContent, newContent) {
+    return update(filename, data => data.replace(oldContent, newContent))
   }
 
   /**

@@ -1,4 +1,3 @@
-import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import filesize from 'rollup-plugin-filesize'
@@ -43,7 +42,7 @@ export default {
     // via https://github.com/rollup/rollup-plugin-commonjs/issues/28#issuecomment-167934572
     json(),
 
-    // shows
+    // shows file size at end, so we can keep an eye on it
     filesize(),
   ],
 }
