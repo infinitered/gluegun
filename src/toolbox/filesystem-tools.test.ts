@@ -24,7 +24,7 @@ test('isNotDirectory', t => {
 
 test('subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`)
-  t.is(dirs.length, 9)
+  t.is(dirs.length, 8)
   t.true(contains(`${__dirname}/../toolbox`, dirs))
 })
 
@@ -35,7 +35,7 @@ test('blank subdirectories', t => {
 
 test('relative subdirectories', t => {
   const dirs = subdirectories(`${__dirname}/..`, true)
-  t.is(dirs.length, 9)
+  t.is(dirs.length, 8)
   t.true(contains(`toolbox`, dirs))
 })
 
