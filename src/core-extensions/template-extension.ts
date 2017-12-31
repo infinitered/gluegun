@@ -1,7 +1,7 @@
 import * as ejs from 'ejs'
 import * as jetpack from 'fs-jetpack'
 import { forEach, keys, replace } from 'ramda'
-import Options from '../domain/options'
+import { Options } from '../domain/options'
 import { isFile } from '../toolbox/filesystem-tools'
 import * as stringTools from '../toolbox/string-tools'
 

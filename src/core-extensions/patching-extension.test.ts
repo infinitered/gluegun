@@ -1,6 +1,7 @@
 import test from 'ava'
 import * as jetpack from 'fs-jetpack'
-import RunContext from '../domain/run-context'
+import { RunContext } from '../domain/run-context'
+
 const create = require('./patching-extension')
 const tempWrite = require('temp-write')
 

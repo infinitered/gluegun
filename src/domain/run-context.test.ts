@@ -1,5 +1,5 @@
 import test from 'ava'
-import RunContext from './run-context'
+import { RunContext } from './run-context'
 
 test('initial state', t => {
   const ctx = new RunContext()

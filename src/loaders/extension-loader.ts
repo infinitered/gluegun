@@ -1,9 +1,9 @@
 import * as jetpack from 'fs-jetpack'
 import { head, split } from 'ramda'
-import Extension from '../domain/extension'
+import { Extension } from '../domain/extension'
 import { isNotFile } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
-import loadModule from './module-loader'
+import { loadModule } from './module-loader'
 
 /**
  * Loads the extension from a file.

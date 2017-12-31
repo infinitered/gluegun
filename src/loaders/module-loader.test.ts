@@ -1,6 +1,6 @@
 import test from 'ava'
 import { keys } from 'ramda'
-import loadModule from './module-loader'
+import { loadModule } from './module-loader'
 
 test('handles weird input', t => {
   t.throws(() => loadModule(''))

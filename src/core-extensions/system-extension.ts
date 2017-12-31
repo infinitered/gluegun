@@ -1,10 +1,10 @@
 import { exec as nodeExec } from 'child_process'
+import * as crossSpawn from 'cross-spawn'
+import * as execa from 'execa'
 import { dissoc, head, identity, isNil, split, tail, trim } from 'ramda'
-const execa = require('execa')
-const nodeWhich = require('which')
-const crossSpawn = require('cross-spawn')
-import Options from '../domain/options'
-import RunContext from '../domain/run-context'
+import * as nodeWhich from 'which'
+import { Options } from '../domain/options'
+import { RunContext } from '../domain/run-context'
 
 /**
  * Extensions to launch processes and open files.

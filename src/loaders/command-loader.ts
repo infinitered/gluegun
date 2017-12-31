@@ -1,9 +1,9 @@
 import * as jetpack from 'fs-jetpack'
 import { head, is, isNil, last, reject, split, takeLast } from 'ramda'
-import Command from '../domain/command'
+import { Command } from '../domain/command'
 import { isNotFile } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
-import loadModule from './module-loader'
+import { loadModule } from './module-loader'
 
 /**
  * Loads the command from the given file.

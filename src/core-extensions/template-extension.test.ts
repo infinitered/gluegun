@@ -1,6 +1,6 @@
 import test from 'ava'
 import { startsWith } from 'ramdasauce'
-import Runtime from '../runtime/runtime'
+import { Runtime } from '../runtime/runtime'
 
 const createRuntime = () => {
   const r = new Runtime()

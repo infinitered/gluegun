@@ -1,5 +1,5 @@
 import test from 'ava'
-import Runtime from './runtime'
+import { Runtime } from './runtime'
 
 test('can read from config', async t => {
   const r = new Runtime()

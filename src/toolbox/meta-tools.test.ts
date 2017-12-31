@@ -1,8 +1,8 @@
 import test from 'ava'
-import Command from '../domain/command'
-import Plugin from '../domain/plugin'
-import RunContext from '../domain/run-context'
-import Runtime from '../runtime/runtime'
+import { Command } from '../domain/command'
+import { Plugin } from '../domain/plugin'
+import { RunContext } from '../domain/run-context'
+import { Runtime } from '../runtime/runtime'
 import { commandInfo } from './meta-tools'
 
 test('commandInfo', t => {

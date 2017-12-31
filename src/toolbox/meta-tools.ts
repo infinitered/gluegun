@@ -1,7 +1,7 @@
 import * as jetpack from 'fs-jetpack'
 import { equals, map, pipe, prop, propEq, reject, replace, sortBy, unnest } from 'ramda'
-import Plugin from '../domain/plugin'
-import RunContext from '../domain/run-context'
+import { Plugin } from '../domain/plugin'
+import { RunContext } from '../domain/run-context'
 /**
  * Finds the version for the currently running CLI.
  *

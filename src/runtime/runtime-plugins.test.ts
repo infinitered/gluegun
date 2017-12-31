@@ -1,5 +1,5 @@
 import test from 'ava'
-import Runtime from './runtime'
+import { Runtime } from './runtime'
 
 test('loads all sub-directories', t => {
   const r = new Runtime()
