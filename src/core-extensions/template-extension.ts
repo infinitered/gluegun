@@ -10,7 +10,7 @@ import * as stringTools from '../toolbox/string-tools'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   const { plugin } = context
 
   /**
@@ -19,7 +19,7 @@ function attach (context) {
    * @param  {{}} opts Generation options.
    * @return {string}  The generated string.
    */
-  async function generate (opts: Options = {}) {
+  async function generate(opts: Options = {}) {
     // required
     const template = opts.template
 

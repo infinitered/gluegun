@@ -11,7 +11,7 @@ import { loadModule } from './module-loader'
  * @param  {string} file      The full path to the file to load.
  * @return {Command}          The command in any condition
  */
-export function loadCommandFromFile (file: string, options: any = {}) {
+export function loadCommandFromFile(file: string, options: any = {}) {
   const command = new Command()
 
   // sanity check the input
@@ -58,7 +58,7 @@ export function loadCommandFromFile (file: string, options: any = {}) {
   return command
 }
 
-export function loadCommandFromPreload (preload) {
+export function loadCommandFromPreload(preload) {
   const command = new Command()
   command.name = preload.name
   command.description = preload.description

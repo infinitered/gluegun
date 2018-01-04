@@ -8,7 +8,7 @@ import { subdirectories } from '../toolbox/filesystem-tools'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   const extension = jetpack // jetpack
   extension.eol = os.EOL // end of line marker
   extension.separator = path.sep // path separator

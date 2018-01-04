@@ -11,7 +11,7 @@ const COMMAND_DELIMITER = ' '
  * @param {Object} extraOpts
  * @returns {RunContextParameters}
  */
-export function parseParams (commandArray, extraOpts = {}): RunContextParameters {
+export function parseParams(commandArray, extraOpts = {}): RunContextParameters {
   // use the command line args if not passed in
   if (is(String, commandArray)) {
     commandArray = commandArray.split(COMMAND_DELIMITER)
@@ -36,7 +36,7 @@ export function parseParams (commandArray, extraOpts = {}): RunContextParameters
  * @param {{}} params         Provided parameters
  * @return {{}}               An object with normalized parameters
  */
-export function createParams (params) {
+export function createParams(params) {
   // make a copy of the args so we can mutate it
   const array = params.array.slice()
 

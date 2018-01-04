@@ -6,7 +6,7 @@ import * as cosmiconfig from 'cosmiconfig'
  * @param {string} name The base name of the config to load.
  * @param {string} src The directory to look in.
  */
-export function loadConfig (name, src) {
+export function loadConfig(name, src) {
   const cosmicOpts = {
     sync: true, // load the config synchronously
     rcExtensions: true, // allow .namerc.yaml and .namerc.json as well

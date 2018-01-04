@@ -10,7 +10,7 @@ import { loadModule } from './module-loader'
  *
  * @param {string} file         The full path to the file to load.
  */
-export function loadExtensionFromFile (file, options = {}) {
+export function loadExtensionFromFile(file, options = {}) {
   const extension = new Extension()
 
   // sanity check the input

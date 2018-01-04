@@ -7,7 +7,7 @@ import { RunContext } from '../domain/run-context'
  *
  * @param {RunContext} context
  */
-export function getVersion (context: RunContext): string {
+export function getVersion(context: RunContext): string {
   let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
   if (!directory) {
     throw new Error('context.version: Unknown CLI version (no src folder found)')
@@ -48,7 +48,7 @@ const isHidden = propEq('hidden', true)
  * @param {string[]} commandRoot   Optional, only show commands with this root
  * @return {[string, string]}
  */
-export function commandInfo (context: RunContext, plugins?: Plugin[], commandRoot?: string[]): any {
+export function commandInfo(context: RunContext, plugins?: Plugin[], commandRoot?: string[]): any {
   return pipe(reject(isHidden), sortBy(prop('name')), map(p => getListOfCommands(context, p, commandRoot)), unnest)(
     plugins || context.runtime.plugins,
   )
@@ -62,7 +62,7 @@ export function commandInfo (context: RunContext, plugins?: Plugin[], commandRoo
  * @param {string[]} commandRoot   Optional, only show commands with this root
  * @return {[string, string]}
  */
-export function getListOfCommands (context: RunContext, plugin?: Plugin, commandRoot?: string[]) {
+export function getListOfCommands(context: RunContext, plugin?: Plugin, commandRoot?: string[]) {
   return pipe(
     reject(isHidden),
     reject(command => {

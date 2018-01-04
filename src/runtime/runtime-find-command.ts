@@ -13,7 +13,7 @@ import { Runtime } from './runtime'
  * @param {any} parameters The parameters passed in
  * @returns { plugin: Plugin|null, command: Command|null, array: string[] }
  */
-export function findCommand (
+export function findCommand(
   runtime: Runtime,
   parameters: any,
 ): { plugin: Plugin | null; command: Command | null; array: string[] } {

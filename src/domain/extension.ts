@@ -9,7 +9,7 @@ export class Extension {
   public file?: string
   public setup?: (context: RunContext) => void
 
-  constructor () {
+  constructor() {
     this.name = null
     this.description = null
     this.file = null

@@ -5,7 +5,7 @@ const stringTools = require('../toolbox/string-tools')
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   context.strings = stringTools
 }
 

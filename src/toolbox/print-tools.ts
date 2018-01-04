@@ -44,21 +44,21 @@ colors.setTheme({
 /**
  * Print a blank line.
  */
-function newline () {
+function newline() {
   console.log('')
 }
 
 /**
  * Prints a divider line
  */
-function divider () {
+function divider() {
   console.log(colors.line('---------------------------------------------------------------'))
 }
 
 /**
  * Returns an array of the column widths.
  */
-function findWidths (tableArray) {
+function findWidths(tableArray) {
   return [tableArray.options.head, ...tableArray].reduce(
     (colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)),
     [],
@@ -68,7 +68,7 @@ function findWidths (tableArray) {
 /**
  * Returns an array of column headers based on column widths.
  */
-function columnHeaderDivider (tableArray) {
+function columnHeaderDivider(tableArray) {
   return findWidths(tableArray).map(w => Array(w).join('-'))
 }
 
@@ -78,7 +78,7 @@ function columnHeaderDivider (tableArray) {
  *
  * @param {{}} object The object to turn into a table.
  */
-function table (data: string[][], options: any = {}) {
+function table(data: string[][], options: any = {}) {
   let t
   switch (options.format) {
     case 'markdown':
@@ -111,7 +111,7 @@ function table (data: string[][], options: any = {}) {
  *
  * @param {string} message The message to write.
  */
-function fancy (message: string) {
+function fancy(message: string) {
   console.log(message)
 }
 
@@ -122,7 +122,7 @@ function fancy (message: string) {
  *
  * @param {string} message The message to show.
  */
-function info (message: string) {
+function info(message: string) {
   console.log(colors.info(message))
 }
 
@@ -133,7 +133,7 @@ function info (message: string) {
  *
  * @param {string} message The message to show.
  */
-function error (message: string) {
+function error(message: string) {
   console.log(colors.error(message))
 }
 
@@ -144,7 +144,7 @@ function error (message: string) {
  *
  * @param {string} message The message to show.
  */
-function warning (message: string) {
+function warning(message: string) {
   console.log(colors.warning(message))
 }
 
@@ -155,7 +155,7 @@ function warning (message: string) {
  *
  * @param {string} message The message to show.
  */
-function debug (message: string, title: string = 'DEBUG') {
+function debug(message: string, title: string = 'DEBUG') {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
@@ -171,7 +171,7 @@ function debug (message: string, title: string = 'DEBUG') {
  *
  * @param {string} message The message to show.
  */
-function success (message: string) {
+function success(message: string) {
   console.log(colors.success(message))
 }
 
@@ -181,7 +181,7 @@ function success (message: string) {
  * @param {string|Object} config The text for the spinner or an ora configuration object.
  * @returns The spinner.
  */
-function spin (config: string | object) {
+function spin(config: string | object) {
   return ora(config).start()
 }
 
@@ -191,7 +191,7 @@ function spin (config: string | object) {
  * @param {RunContext} context     The context that was used
  * @param {string[]} commandRoot   Optional, only show commands with this root
  */
-function printCommands (context, commandRoot?: string[]) {
+function printCommands(context, commandRoot?: string[]) {
   let printPlugins = []
   if (context.plugin === context.defaultPlugin) {
     // print for all plugins
@@ -207,7 +207,7 @@ function printCommands (context, commandRoot?: string[]) {
   table(data) // the data
 }
 
-function printHelp (context) {
+function printHelp(context) {
   const { runtime: { brand } } = context
   info(`${brand} version ${context.meta.version()}`)
   printCommands(context)

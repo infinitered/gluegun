@@ -7,7 +7,7 @@ const command = require('./new')
 
 sinon.stub(console, 'log')
 
-function createContext (): RunContext {
+function createContext(): RunContext {
   const fakeContext = new RunContext()
   fakeContext.strings = strings
   fakeContext.filesystem = {

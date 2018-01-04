@@ -5,7 +5,7 @@ import * as print from '../toolbox/print-tools'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   // attach the feature set
   context.print = print
 }

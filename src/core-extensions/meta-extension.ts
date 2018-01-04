@@ -5,7 +5,7 @@ import { commandInfo, getVersion } from '../toolbox/meta-tools'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   context.meta = {
     version: () => getVersion(context),
     commandInfo: () => commandInfo(context),

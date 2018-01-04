@@ -13,7 +13,7 @@ export class Command {
   public alias: string[]
   public dashed: boolean
 
-  constructor () {
+  constructor() {
     this.name = null
     this.description = null
     this.file = null
@@ -24,14 +24,14 @@ export class Command {
     this.dashed = false
   }
 
-  get aliases (): string[] {
+  get aliases(): string[] {
     if (!this.alias) {
       return []
     }
     return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 
-  public hasAlias () {
+  public hasAlias() {
     return this.aliases.length > 0
   }
 
@@ -41,7 +41,7 @@ export class Command {
    *
    * @param {string|string[]} alias
    */
-  public matchesAlias (alias) {
+  public matchesAlias(alias) {
     const aliases = Array.isArray(alias) ? alias : [alias]
     return aliases.find(a => this.name === a || this.aliases.includes(a))
   }

@@ -11,7 +11,7 @@ import { findCommand } from './runtime-find-command'
  * @param  {{}} extraOptions Additional options use to execute a command.
  * @return {RunContext} The RunContext object indicating what happened.
  */
-export async function run (this: Runtime, rawCommand: string | object, extraOptions = {}): Promise<RunContext> {
+export async function run(this: Runtime, rawCommand: string | object, extraOptions = {}): Promise<RunContext> {
   // use provided rawCommand or process arguments if none given
   rawCommand = rawCommand || process.argv
 
