@@ -5,7 +5,7 @@ import * as Enquirer from 'enquirer'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   const enquirer = new Enquirer()
   enquirer.register('list', require('prompt-list'))
   enquirer.register('rawlist', require('prompt-rawlist'))

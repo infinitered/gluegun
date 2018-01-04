@@ -46,7 +46,7 @@ export class RunContext implements GluegunRunContext {
   public commandName?: string
   public runtime?: Runtime
 
-  constructor () {
+  constructor() {
     /**
      * The result of the run command.
      */

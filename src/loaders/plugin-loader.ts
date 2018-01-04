@@ -13,7 +13,7 @@ import { loadExtensionFromFile } from './extension-loader'
  * @param {string} directory The full path to the directory to load.
  * @param {{}}     options   Additional options to customize the loading process.
  */
-export function loadPluginFromDirectory (directory: string, options: any = {}) {
+export function loadPluginFromDirectory(directory: string, options: any = {}) {
   const plugin = new Plugin()
 
   const {

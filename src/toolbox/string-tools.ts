@@ -53,7 +53,7 @@ const isBlank = (value: any) => {
  * @param {any} value
  * @returns     the value.
  */
-function identity (value) {
+function identity(value) {
   return value
 }
 
@@ -63,7 +63,7 @@ function identity (value) {
  * @param {string} value The string to convert
  * @returns {string}
  */
-function pascalCase (value) {
+function pascalCase(value) {
   return pipe(camelCase, upperFirst)(value)
 }
 

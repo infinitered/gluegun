@@ -5,7 +5,7 @@ import { create } from 'apisauce'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   context.http = { create }
 }
 

@@ -8,7 +8,7 @@ import { Runtime } from '../runtime/runtime'
 export class Builder {
   public runtime: Runtime
 
-  constructor () {
+  constructor() {
     this.runtime = new Runtime()
   }
 
@@ -18,7 +18,7 @@ export class Builder {
    *
    * @param name The name should be all lowercase and contains only numbers, letters, and dashes.
    */
-  public brand (value: string): Builder {
+  public brand(value: string): Builder {
     this.runtime.brand = value
     return this
   }
@@ -30,7 +30,7 @@ export class Builder {
    * @param options Additional plugin loading options.
    * @return {Builder} self.
    */
-  public src (value: string, options: object = {}): Builder {
+  public src(value: string, options: object = {}): Builder {
     this.runtime.addDefaultPlugin(value, options)
     return this
   }
@@ -42,7 +42,7 @@ export class Builder {
    * @param  {Object}  options Additional loading options.
    * @return {Builder}         self.
    */
-  public plugin (value: string, options: object = {}) {
+  public plugin(value: string, options: object = {}) {
     this.runtime.addPlugin(value, options)
     return this
   }
@@ -54,7 +54,7 @@ export class Builder {
    * @param  {Object}  options Additional loading options.
    * @return {Builder}         self.
    */
-  public plugins (value: string, options: object = {}) {
+  public plugins(value: string, options: object = {}) {
     this.runtime.addPlugin(value, options)
     return this
   }
@@ -64,7 +64,7 @@ export class Builder {
    * @param  {any} command An optional command function or object
    * @return {Builder}         self.
    */
-  public help (command?: any) {
+  public help(command?: any) {
     command = command || require(`../core-commands/help`)
     if (typeof command === 'function') {
       command = { name: 'help', alias: ['h'], dashed: true, run: command }
@@ -77,7 +77,7 @@ export class Builder {
    * @param  {any} command An optional command function or object
    * @return {Builder}         self.
    */
-  public version (command?: any) {
+  public version(command?: any) {
     command = command || require(`../core-commands/version`)
     if (typeof command === 'function') {
       command = { name: 'version', alias: ['v'], dashed: true, run: command }
@@ -90,7 +90,7 @@ export class Builder {
    * @param  {any} command An optional command function or object
    * @return {Builder}         self.
    */
-  public defaultCommand (command?: any) {
+  public defaultCommand(command?: any) {
     command = command || require(`../core-commands/default`)
     if (typeof command === 'function') {
       command = { run: command }
@@ -104,7 +104,7 @@ export class Builder {
    * @param {Object}
    * @return {Builder}
    */
-  public command (command: object) {
+  public command(command: object) {
     this.runtime.addCommand(command)
     return this
   }
@@ -112,7 +112,7 @@ export class Builder {
   /**
    * Hand over the runtime.
    */
-  public create (): Runtime {
+  public create(): Runtime {
     return this.runtime
   }
 }
@@ -120,6 +120,6 @@ export class Builder {
 /**
  * Export it as a factory function.
  */
-export function build (): Builder {
+export function build(): Builder {
   return new Builder()
 }

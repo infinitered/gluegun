@@ -2,7 +2,7 @@ import { isNotFile } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
 
 // try loading this module
-export function loadModule (path) {
+export function loadModule(path) {
   if (isBlank(path)) {
     throw new Error('path is required')
   }

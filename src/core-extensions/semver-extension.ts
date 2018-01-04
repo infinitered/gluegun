@@ -5,7 +5,7 @@ import * as semver from 'semver'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   context.semver = semver
 }
 

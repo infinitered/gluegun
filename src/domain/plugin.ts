@@ -14,7 +14,7 @@ export class Plugin {
   public commands: Command[]
   public extensions: Extension[]
 
-  constructor () {
+  constructor() {
     this.name = null
     this.description = null
     this.defaults = {}

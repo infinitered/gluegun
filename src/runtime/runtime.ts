@@ -28,7 +28,7 @@ export class Runtime {
   /**
    * Create and initialize an empty Runtime.
    */
-  constructor (brand?: string) {
+  constructor(brand?: string) {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.plugins = []
@@ -44,7 +44,7 @@ export class Runtime {
    * For backwards compatability. No-op.
    * @returns {Runtime} This runtime.
    */
-  public create (): Runtime {
+  public create(): Runtime {
     return this
   }
 
@@ -53,7 +53,7 @@ export class Runtime {
    * available in gluegun, but follow the exact same method
    * for extending the core as 3rd party extensions do.
    */
-  public addCoreExtensions (): void {
+  public addCoreExtensions(): void {
     this.addExtension('meta', require('../core-extensions/meta-extension'))
     this.addExtension('strings', require('../core-extensions/template-extension'))
     this.addExtension('print', require('../core-extensions/print-extension'))
@@ -71,7 +71,7 @@ export class Runtime {
    *
    * @param {Object} command
    */
-  public addCommand (command: any): Runtime {
+  public addCommand(command: any): Runtime {
     if (!this.defaultPlugin) {
       throw new Error(
         `Can't add command ${command.name} - no default plugin. You may have forgotten a src() on your runtime.`,
@@ -98,7 +98,7 @@ export class Runtime {
    * @param {string} name   The context property name.
    * @param {object} setup  The setup function.
    */
-  public addExtension (name: string, setup: (context: RunContext) => any): Runtime {
+  public addExtension(name: string, setup: (context: RunContext) => any): Runtime {
     this.extensions.push({ name, setup })
     return this
   }
@@ -110,7 +110,7 @@ export class Runtime {
    * @param  {Object} options   Additional loading options.
    * @return {Runtime}          This runtime.
    */
-  public addDefaultPlugin (directory: string, options: object = {}): Runtime {
+  public addDefaultPlugin(directory: string, options: object = {}): Runtime {
     this.defaultPlugin = this.addPlugin(directory, { required: true, name: this.brand, ...options })
 
     // load config and set defaults
@@ -128,7 +128,7 @@ export class Runtime {
    * @param  {Object} options   Additional loading options.
    * @return {Plugin | null}           The plugin that was created.
    */
-  public addPlugin (directory: string, options: Options = {}): Plugin | null {
+  public addPlugin(directory: string, options: Options = {}): Plugin | null {
     if (!isDirectory(directory)) {
       if (options.required) {
         throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
@@ -158,7 +158,7 @@ export class Runtime {
    * @param {Object} options   Addition loading options.
    * @return {Runtime}         This runtime
    */
-  public addPlugins (directory: string, options: Options = {}): Plugin[] {
+  public addPlugins(directory: string, options: Options = {}): Plugin[] {
     if (isBlank(directory) || !isDirectory(directory)) {
       return []
     }

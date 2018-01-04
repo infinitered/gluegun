@@ -8,7 +8,7 @@ import { isNotString } from '../toolbox/string-tools'
  *
  * @param  {RunContext} context The running context.
  */
-function attach (context) {
+function attach(context) {
   /**
    * Identifies if something exists in a file. Async.
    *
@@ -16,7 +16,7 @@ function attach (context) {
    * @param {string} findPattern The case sensitive string or RegExp that identifies existence.
    * @return {Promise<boolean>} Boolean of success that findPattern was in file.
    */
-  async function exists (filename, findPattern) {
+  async function exists(filename, findPattern) {
     // sanity check the filename
     if (isNotString(filename) || isNotFile(filename)) {
       return false
@@ -48,7 +48,7 @@ function attach (context) {
    * @param  {Function} callback Callback function for modifying the contents of the file.
    * @return {bool}  Whether the operation was successful
    */
-  async function update (filename, callback) {
+  async function update(filename, callback) {
     const contents = await readFile(filename)
 
     // let the caller mutate the contents in memory
@@ -69,7 +69,7 @@ function attach (context) {
    * @param {string} filename       File to be prepended to
    * @param {string} prependedData  String to prepend
    */
-  async function prepend (filename, prependedData) {
+  async function prepend(filename, prependedData) {
     return update(filename, data => prependedData + data)
   }
 
@@ -79,7 +79,7 @@ function attach (context) {
    * @param {string} filename       File to be appended to
    * @param {string} appendedData  String to append
    */
-  async function append (filename, appendedData) {
+  async function append(filename, appendedData) {
     return update(filename, data => data + appendedData)
   }
 
@@ -90,7 +90,7 @@ function attach (context) {
    * @param {string} oldContent     String to replace
    * @param {string} newContent     String to write
    */
-  async function replace (filename, oldContent, newContent) {
+  async function replace(filename, oldContent, newContent) {
     return update(filename, data => data.replace(oldContent, newContent))
   }
 
@@ -111,11 +111,11 @@ function attach (context) {
    *   await context.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
    *
    */
-  async function patch (filename, opts = {}) {
+  async function patch(filename, opts = {}) {
     return update(filename, data => patchString(data, opts))
   }
 
-  async function readFile (filename) {
+  async function readFile(filename) {
     // bomb if the file doesn't exist
     if (!isFile(filename)) {
       throw new Error(`file not found ${filename}`)
@@ -130,7 +130,7 @@ function attach (context) {
     return contents
   }
 
-  function patchString (data, opts) {
+  function patchString(data, opts) {
     // Already includes string, and not forcing it
     if (data.includes(opts.insert) && !opts.force) {
       return false
@@ -150,7 +150,7 @@ function attach (context) {
     }
   }
 
-  function insertNextToString (data, opts) {
+  function insertNextToString(data, opts) {
     // Insert before/after a particular string
     const findString = opts.before || opts.after
     if (!data.includes(findString)) {
