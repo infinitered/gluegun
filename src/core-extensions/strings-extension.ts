@@ -1,4 +1,4 @@
-const stringTools = require('../toolbox/string-tools')
+import * as stringTools from '../toolbox/string-tools'
 
 /**
  * Attaches some string helpers for convenience.

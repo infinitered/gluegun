@@ -11,9 +11,14 @@
   "scripts": {
     "precommit": "lint-staged",
     "format": "prettier --write \"**/*.ts\" && tslint -p . --fix",
+    "clean-build": "rm -rf ./dist ./build",
     "compile": "tsc -p .",
-    "rollup": "rollup -c && cp -a ./build/cli ./dist/",
-    "build": "yarn format && yarn compile && cp -a ./src/cli/templates ./build/cli/ && yarn rollup",
+    "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
+    "rollup": "rollup -c",
+    "copy-cli": "cp -a ./build/cli ./dist/",
+    "clean-types": "find ./dist/types -type f -size 0 -delete && find ./dist/types -type d -empty -delete",
+    "build":
+      "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn rollup && yarn copy-cli && yarn clean-types",
     "lint": "tslint -p .",
     "test": "ava-ts",
     "watch": "ava-ts --watch",
