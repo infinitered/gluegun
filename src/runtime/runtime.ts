@@ -1,17 +1,37 @@
+// helpers
+import { resolve } from 'path'
+import { dissoc } from 'ramda'
+
+// domains
 import { Command } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
 import { RunContext } from '../domain/run-context'
+import { Options } from '../domain/options'
+
+// loaders
 import { loadCommandFromPreload } from '../loaders/command-loader'
 import { loadConfig } from '../loaders/config-loader'
 import { loadPluginFromDirectory } from '../loaders/plugin-loader'
+
+// tools
 import { isDirectory, subdirectories } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
+
+// the special run function
 import { run } from './run'
 
-import { resolve } from 'path'
-import { dissoc } from 'ramda'
-import { Options } from '../domain/options'
+// core extensions
+import metaExtensionAttach from '../core-extensions/meta-extension'
+import templateExtensionAttach from '../core-extensions/template-extension'
+import printExtensionAttach from '../core-extensions/print-extension'
+import filesystemExtensionAttach from '../core-extensions/filesystem-extension'
+import semverExtensionAttach from '../core-extensions/semver-extension'
+import systemExtensionAttach from '../core-extensions/system-extension'
+import promptExtensionAttach from '../core-extensions/prompt-extension'
+import httpExtensionAttach from '../core-extensions/http-extension'
+import stringsExtensionAttach from '../core-extensions/strings-extension'
+import patchingExtensionAttach from '../core-extensions/patching-extension'
 
 /**
  * Loads plugins, extensions, and invokes the intended command.
@@ -54,16 +74,16 @@ export class Runtime {
    * for extending the core as 3rd party extensions do.
    */
   public addCoreExtensions(): void {
-    this.addExtension('meta', require('../core-extensions/meta-extension'))
-    this.addExtension('strings', require('../core-extensions/template-extension'))
-    this.addExtension('print', require('../core-extensions/print-extension'))
-    this.addExtension('template', require('../core-extensions/filesystem-extension'))
-    this.addExtension('filesystem', require('../core-extensions/semver-extension'))
-    this.addExtension('semver', require('../core-extensions/system-extension'))
-    this.addExtension('system', require('../core-extensions/prompt-extension'))
-    this.addExtension('http', require('../core-extensions/http-extension'))
-    this.addExtension('prompt', require('../core-extensions/strings-extension'))
-    this.addExtension('patching', require('../core-extensions/patching-extension'))
+    this.addExtension('meta', metaExtensionAttach)
+    this.addExtension('strings', templateExtensionAttach)
+    this.addExtension('print', printExtensionAttach)
+    this.addExtension('template', filesystemExtensionAttach)
+    this.addExtension('filesystem', semverExtensionAttach)
+    this.addExtension('semver', systemExtensionAttach)
+    this.addExtension('system', promptExtensionAttach)
+    this.addExtension('http', httpExtensionAttach)
+    this.addExtension('prompt', stringsExtensionAttach)
+    this.addExtension('patching', patchingExtensionAttach)
   }
 
   /**

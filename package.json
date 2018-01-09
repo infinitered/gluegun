@@ -20,7 +20,7 @@
     "build":
       "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn rollup && yarn copy-cli && yarn clean-types",
     "lint": "tslint -p .",
-    "test": "ava-ts",
+    "test": "yarn build && ava-ts",
     "watch": "ava-ts --watch",
     "snapupdate": "ava-ts --update-snapshots",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",
@@ -83,6 +83,7 @@
   "devDependencies": {
     "@types/cli-table2": "^0.2.1",
     "@types/node": "^8.5.1",
+    "@types/pluralize": "^0.0.28",
     "@types/ramda": "^0.25.8",
     "ava": "^0.24.0",
     "ava-ts": "^0.23.0",

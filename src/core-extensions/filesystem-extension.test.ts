@@ -3,8 +3,7 @@ import * as os from 'os'
 import * as path from 'path'
 import { split } from 'ramda'
 import { RunContext } from '../domain/run-context'
-
-const createExtension = require('./filesystem-extension')
+import createExtension from './filesystem-extension'
 
 test('has the proper interface', t => {
   const context = new RunContext()

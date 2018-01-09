@@ -11,7 +11,7 @@ import { RunContext } from '../domain/run-context'
  *
  * @param  {RunContext} context The running context.
  */
-function attach(context: RunContext) {
+export default function attach(context: RunContext) {
   /**
    * Executes a commandline program asynchronously.
    *
@@ -108,5 +108,3 @@ function attach(context: RunContext) {
 
   context.system = { exec, run, spawn, which, startTimer }
 }
-
-module.exports = attach
