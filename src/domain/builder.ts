@@ -1,4 +1,7 @@
 import { Runtime } from '../runtime/runtime'
+import coreCommandHelp from '../core-commands/help'
+import coreCommandDefault from '../core-commands/default'
+import coreCommandVersion from '../core-commands/version'
 
 /**
  * Provides a cleaner way to build a runtime.
@@ -65,7 +68,7 @@ export class Builder {
    * @return {Builder}         self.
    */
   public help(command?: any) {
-    command = command || require(`../core-commands/help`)
+    command = command || coreCommandHelp
     if (typeof command === 'function') {
       command = { name: 'help', alias: ['h'], dashed: true, run: command }
     }
@@ -78,7 +81,7 @@ export class Builder {
    * @return {Builder}         self.
    */
   public version(command?: any) {
-    command = command || require(`../core-commands/version`)
+    command = command || coreCommandVersion
     if (typeof command === 'function') {
       command = { name: 'version', alias: ['v'], dashed: true, run: command }
     }
@@ -91,7 +94,7 @@ export class Builder {
    * @return {Builder}         self.
    */
   public defaultCommand(command?: any) {
-    command = command || require(`../core-commands/default`)
+    command = command || coreCommandDefault
     if (typeof command === 'function') {
       command = { run: command }
     }

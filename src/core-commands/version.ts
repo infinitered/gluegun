@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'version',
   alias: 'v',
   dashed: true,
