@@ -1,7 +1,10 @@
 import * as CLITable from 'cli-table2'
-import * as colors from 'colors'
+import * as colorsModule from 'colors'
 import { commandInfo } from './meta-tools'
-const ora = require('ora')
+import { RunContext } from '../domain/run-context'
+import * as ora from 'ora'
+
+export const colors = colorsModule
 
 const CLI_TABLE_COMPACT = {
   top: '',
@@ -44,21 +47,21 @@ colors.setTheme({
 /**
  * Print a blank line.
  */
-function newline() {
+export function newline() {
   console.log('')
 }
 
 /**
  * Prints a divider line
  */
-function divider() {
+export function divider() {
   console.log(colors.line('---------------------------------------------------------------'))
 }
 
 /**
  * Returns an array of the column widths.
  */
-function findWidths(tableArray) {
+export function findWidths(tableArray) {
   return [tableArray.options.head, ...tableArray].reduce(
     (colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)),
     [],
@@ -68,7 +71,7 @@ function findWidths(tableArray) {
 /**
  * Returns an array of column headers based on column widths.
  */
-function columnHeaderDivider(tableArray) {
+export function columnHeaderDivider(tableArray) {
   return findWidths(tableArray).map(w => Array(w).join('-'))
 }
 
@@ -78,7 +81,7 @@ function columnHeaderDivider(tableArray) {
  *
  * @param {{}} object The object to turn into a table.
  */
-function table(data: string[][], options: any = {}) {
+export function table(data: string[][], options: any = {}) {
   let t
   switch (options.format) {
     case 'markdown':
@@ -111,7 +114,7 @@ function table(data: string[][], options: any = {}) {
  *
  * @param {string} message The message to write.
  */
-function fancy(message: string) {
+export function fancy(message: string) {
   console.log(message)
 }
 
@@ -122,7 +125,7 @@ function fancy(message: string) {
  *
  * @param {string} message The message to show.
  */
-function info(message: string) {
+export function info(message: string) {
   console.log(colors.info(message))
 }
 
@@ -133,7 +136,7 @@ function info(message: string) {
  *
  * @param {string} message The message to show.
  */
-function error(message: string) {
+export function error(message: string) {
   console.log(colors.error(message))
 }
 
@@ -144,7 +147,7 @@ function error(message: string) {
  *
  * @param {string} message The message to show.
  */
-function warning(message: string) {
+export function warning(message: string) {
   console.log(colors.warning(message))
 }
 
@@ -155,7 +158,7 @@ function warning(message: string) {
  *
  * @param {string} message The message to show.
  */
-function debug(message: string, title: string = 'DEBUG') {
+export function debug(message: string, title: string = 'DEBUG') {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
@@ -171,7 +174,7 @@ function debug(message: string, title: string = 'DEBUG') {
  *
  * @param {string} message The message to show.
  */
-function success(message: string) {
+export function success(message: string) {
   console.log(colors.success(message))
 }
 
@@ -181,8 +184,8 @@ function success(message: string) {
  * @param {string|Object} config The text for the spinner or an ora configuration object.
  * @returns The spinner.
  */
-function spin(config: string | object) {
-  return ora(config).start()
+export function spin(config?: string | object) {
+  return ora(config || '').start()
 }
 
 /**
@@ -191,7 +194,7 @@ function spin(config: string | object) {
  * @param {RunContext} context     The context that was used
  * @param {string[]} commandRoot   Optional, only show commands with this root
  */
-function printCommands(context, commandRoot?: string[]) {
+export function printCommands(context: RunContext, commandRoot?: string[]) {
   let printPlugins = []
   if (context.plugin === context.defaultPlugin) {
     // print for all plugins
@@ -207,29 +210,11 @@ function printCommands(context, commandRoot?: string[]) {
   table(data) // the data
 }
 
-function printHelp(context) {
+export function printHelp(context) {
   const { runtime: { brand } } = context
   info(`${brand} version ${context.meta.version()}`)
   printCommands(context)
 }
 
-const checkmark = colors.success('✔︎')
-const xmark = colors.error('ⅹ')
-
-export {
-  info,
-  warning,
-  success,
-  error,
-  debug,
-  fancy,
-  divider,
-  newline,
-  table,
-  spin,
-  colors,
-  printCommands,
-  printHelp,
-  checkmark,
-  xmark,
-}
+export const checkmark = colors.success('✔︎')
+export const xmark = colors.error('ⅹ')

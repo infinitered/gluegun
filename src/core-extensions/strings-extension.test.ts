@@ -1,7 +1,6 @@
 import test from 'ava'
 import { RunContext } from '../domain/run-context'
-
-const createExtension = require('./strings-extension')
+import createExtension from './strings-extension'
 
 test('has the proper interface', t => {
   const context = new RunContext()

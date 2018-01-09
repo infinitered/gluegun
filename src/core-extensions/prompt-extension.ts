@@ -1,11 +1,12 @@
 import * as Enquirer from 'enquirer'
+import { RunContext } from '../domain/run-context'
 
 /**
  * Provides user input prompts via enquirer.js.
  *
  * @param  {RunContext} context The running context.
  */
-function attach(context) {
+export default function attach(context: RunContext) {
   const enquirer = new Enquirer()
   enquirer.register('list', require('prompt-list'))
   enquirer.register('rawlist', require('prompt-rawlist'))
@@ -37,5 +38,3 @@ function attach(context) {
 
   context.prompt = enquirer
 }
-
-module.exports = attach

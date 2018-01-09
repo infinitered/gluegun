@@ -1,7 +1,6 @@
 import test from 'ava'
 import { RunContext } from '../domain/run-context'
-
-const create = require('./system-extension')
+import create from './system-extension'
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 

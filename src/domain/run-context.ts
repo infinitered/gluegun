@@ -22,7 +22,7 @@ export interface GluegunRunContext {
   // known properties
   result?: any
   error?: any
-  config: object
+  config?: object
   parameters?: RunContextParameters
   plugin?: Plugin
   command?: Command
@@ -38,7 +38,7 @@ export class RunContext implements GluegunRunContext {
   // known properties
   public result?: any
   public error?: any
-  public config: object
+  public config?: object
   public parameters?: RunContextParameters
   public plugin?: Plugin
   public command?: Command

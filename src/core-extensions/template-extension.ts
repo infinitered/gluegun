@@ -4,13 +4,14 @@ import { forEach, keys, replace } from 'ramda'
 import { Options } from '../domain/options'
 import { isFile } from '../toolbox/filesystem-tools'
 import * as stringTools from '../toolbox/string-tools'
+import { RunContext } from '../domain/run-context'
 
 /**
  * Builds the code generation feature.
  *
  * @param  {RunContext} context The running context.
  */
-function attach(context) {
+export default function attach(context: RunContext) {
   const { plugin } = context
 
   /**
@@ -70,5 +71,3 @@ function attach(context) {
 
   context.template = { generate }
 }
-
-module.exports = attach

@@ -1,19 +1,11 @@
 import test from 'ava'
 import * as stripANSI from 'strip-ansi'
+import * as print from './print-tools'
 
 // hijack the console
 const log = console.log
-
 let spyLogger = []
 console.log = (x, y) => spyLogger.push([stripANSI(x), stripANSI(y)])
-
-// then spy on it
-// const spyLog = sinon.spy(console, 'log')
-
-// finally require the print
-const print = require('./print-tools')
-
-// test.before(() => null)
 
 test.after.always(() => {
   spyLogger = []

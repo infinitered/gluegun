@@ -2,13 +2,14 @@ import * as jetpack from 'fs-jetpack'
 import { test } from 'ramda'
 import { isFile, isNotFile } from '../toolbox/filesystem-tools'
 import { isNotString } from '../toolbox/string-tools'
+import { RunContext } from '../domain/run-context'
 
 /**
  * Builds the patching feature.
  *
  * @param  {RunContext} context The running context.
  */
-function attach(context) {
+export default function attach(context: RunContext) {
   /**
    * Identifies if something exists in a file. Async.
    *
@@ -163,5 +164,3 @@ function attach(context) {
 
   context.patching = { update, append, prepend, replace, patch, exists }
 }
-
-module.exports = attach

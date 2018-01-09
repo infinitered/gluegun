@@ -12,7 +12,7 @@ test('create', t => {
 })
 
 test('print', t => {
-  t.is(typeof exported.printCommands, 'function')
+  t.is(typeof exported.print.printCommands, 'function')
   t.is(typeof exported.print.info, 'function')
 })
 

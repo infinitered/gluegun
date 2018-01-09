@@ -1,7 +1,7 @@
 import test from 'ava'
 import * as sinon from 'sinon'
+import * as uniqueTempDir from 'unique-temp-dir'
 import { run as cli } from './cli'
-const uniqueTempDir = require('unique-temp-dir')
 
 sinon.stub(console, 'log')
 

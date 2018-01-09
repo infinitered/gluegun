@@ -1,7 +1,8 @@
 import test from 'ava'
-const printExtension = require('./print-extension')
+import { RunContext } from '../domain/run-context'
+import printExtension from './print-extension'
 
-const context: any = {}
+const context = new RunContext()
 printExtension(context)
 
 const { print } = context
