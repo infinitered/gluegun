@@ -65,7 +65,6 @@ function externalPackages() {
     'crypto',
     'os',
     'child_process',
-    'spawn-sync',
     'assert',
     'events',
     'tty',
