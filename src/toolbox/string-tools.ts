@@ -1,39 +1,39 @@
 import { is, isEmpty, pipe } from 'ramda'
 
-import * as lodashCamelCase from 'lodash.camelcase'
-import * as lodashKebabCase from 'lodash.kebabcase'
-import * as lodashLowerCase from 'lodash.lowercase'
-import * as lodashLowerFirst from 'lodash.lowerfirst'
-import * as lodashPad from 'lodash.pad'
-import * as lodashPadEnd from 'lodash.padend'
-import * as lodashPadStart from 'lodash.padstart'
-import * as lodashRepeat from 'lodash.repeat'
-import * as lodashSnakeCase from 'lodash.snakecase'
-import * as lodashStartCase from 'lodash.startcase'
-import * as lodashTrim from 'lodash.trim'
-import * as lodashTrimEnd from 'lodash.trimend'
-import * as lodashTrimStart from 'lodash.trimstart'
-import * as lodashUpperCase from 'lodash.uppercase'
-import * as lodashUpperFirst from 'lodash.upperfirst'
-import * as pluralizeModule from 'pluralize'
+import * as camelCase from 'lodash.camelcase'
+import * as kebabCase from 'lodash.kebabcase'
+import * as lowerCase from 'lodash.lowercase'
+import * as lowerFirst from 'lodash.lowerfirst'
+import * as pad from 'lodash.pad'
+import * as padEnd from 'lodash.padend'
+import * as padStart from 'lodash.padstart'
+import * as repeat from 'lodash.repeat'
+import * as snakeCase from 'lodash.snakecase'
+import * as startCase from 'lodash.startcase'
+import * as trim from 'lodash.trim'
+import * as trimEnd from 'lodash.trimend'
+import * as trimStart from 'lodash.trimstart'
+import * as upperCase from 'lodash.uppercase'
+import * as upperFirst from 'lodash.upperfirst'
+import * as pluralize from 'pluralize'
 
-export const camelCase = lodashCamelCase
-export const kebabCase = lodashKebabCase
-export const lowerCase = lodashLowerCase
-export const lowerFirst = lodashLowerFirst
-export const pad = lodashPad
-export const padEnd = lodashPadEnd
-export const padStart = lodashPadStart
-export const repeat = lodashRepeat
-export const snakeCase = lodashSnakeCase
-export const startCase = lodashStartCase
-export const trim = lodashTrim
-export const trimEnd = lodashTrimEnd
-export const trimStart = lodashTrimStart
-export const upperCase = lodashUpperCase
-export const upperFirst = lodashUpperFirst
+export { camelCase }
+export { kebabCase }
+export { lowerCase }
+export { lowerFirst }
+export { pad }
+export { padEnd }
+export { padStart }
+export { repeat }
+export { snakeCase }
+export { startCase }
+export { trim }
+export { trimEnd }
+export { trimStart }
+export { upperCase }
+export { upperFirst }
 
-export const pluralize = pluralizeModule
+export { pluralize }
 export const plural = pluralize.plural
 export const singular = pluralize.singular
 export const addPluralRule = pluralize.addPluralRule
