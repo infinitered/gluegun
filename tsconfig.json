@@ -10,11 +10,9 @@
     "noUnusedLocals": true,
     "sourceMap": true,
     "outDir": "build",
-
     // Emits types for others to consume
     "declaration": true,
     "declarationDir": "dist/types",
-
     "strict": false,
     "target": "es5"
   },

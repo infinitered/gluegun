@@ -43,7 +43,7 @@ export class Runtime {
   public defaults?: object
   public defaultPlugin?: Plugin
   public config?: object
-  public run?: (rawCommand: string | object, extraOptions?: object) => any
+  public run: (rawCommand?: string | object, extraOptions?: object) => any
 
   /**
    * Create and initialize an empty Runtime.
