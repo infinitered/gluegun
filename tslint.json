@@ -1,4 +1,6 @@
 {
   "extends": ["tslint-config-standard", "tslint-config-prettier"],
-  "rules": {}
+  "rules": {
+    "strict-type-predicates": false
+  }
 }
