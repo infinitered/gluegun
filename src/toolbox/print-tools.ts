@@ -1,10 +1,10 @@
 import * as CLITable from 'cli-table2'
-import * as colorsModule from 'colors'
+import * as colors from 'colors'
 import { commandInfo } from './meta-tools'
 import { RunContext } from '../domain/run-context'
 import * as ora from 'ora'
 
-export const colors = colorsModule
+export { colors }
 
 const CLI_TABLE_COMPACT = {
   top: '',
