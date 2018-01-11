@@ -4,6 +4,7 @@ import { isNilOrEmpty } from 'ramdasauce'
 import { Command } from '../domain/command'
 import { Plugin } from '../domain/plugin'
 import { Runtime } from './runtime'
+import { RunContextParameters } from '../domain/run-context'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given
@@ -13,10 +14,7 @@ import { Runtime } from './runtime'
  * @param {any} parameters The parameters passed in
  * @returns { plugin: Plugin|null, command: Command|null, array: string[] }
  */
-export function findCommand(
-  runtime: Runtime,
-  parameters: any,
-): { plugin: Plugin | null; command: Command | null; array: string[] } {
+export function findCommand(runtime: Runtime, parameters: RunContextParameters) {
   let rest: string[]
   let targetCommand: Command
 
