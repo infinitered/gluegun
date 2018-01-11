@@ -17,8 +17,7 @@
     "rollup": "rollup -c",
     "copy-cli": "cp -a ./build/cli ./dist/",
     "clean-types": "find ./dist/types -type f -size 0 -delete && find ./dist/types -type d -empty -delete",
-    "build":
-      "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn rollup && yarn copy-cli && yarn clean-types",
+    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn rollup && yarn copy-cli && yarn clean-types",
     "lint": "tslint -p .",
     "test": "yarn build && ava-ts",
     "watch": "ava-ts --watch",
@@ -34,7 +33,15 @@
     "email": "npm@infinite.red",
     "url": "https://github.com/infinitered/gluegun"
   },
-  "files": ["docs", "bin", "dist", "sniff.js", "sniff-async.js", "LICENSE", "readme.md"],
+  "files": [
+    "docs",
+    "bin",
+    "dist",
+    "sniff.js",
+    "sniff-async.js",
+    "LICENSE",
+    "readme.md"
+  ],
   "license": "MIT",
   "dependencies": {
     "apisauce": "^0.14.1",
@@ -44,7 +51,7 @@
     "cosmiconfig": "^3.1.0",
     "cross-spawn": "^5.1.0",
     "ejs": "^2.5.7",
-    "enquirer": "^1.0.2",
+    "enquirer": "^1.0.3",
     "execa": "^0.8.0",
     "fs-jetpack": "^1.2.0",
     "lodash.camelcase": "^4.3.0",
@@ -115,8 +122,18 @@
     "trailingComma": "all"
   },
   "lint-staged": {
-    "*.ts": ["prettier --write", "tslint --fix", "git add"],
-    "*.md": ["prettier --write", "git add"],
-    "*.json": ["prettier --write", "git add"]
+    "*.ts": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ],
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
