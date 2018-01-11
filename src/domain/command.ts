@@ -1,17 +1,27 @@
 import { RunContext } from './run-context'
 
+export interface GluegunCommand {
+  name?: string
+  description?: string
+  run: (context: RunContext) => void
+  hidden?: boolean
+  commandPath?: string[]
+  alias?: string | string[]
+  dashed?: boolean
+}
+
 /**
  * A command is user-callable function that runs stuff.
  */
-export class Command {
-  public name?: string
-  public description?: string
-  public file?: string
-  public run?: (context: RunContext) => any
-  public hidden: boolean
-  public commandPath?: string[]
-  public alias: string[]
-  public dashed: boolean
+export class Command implements GluegunCommand {
+  public name
+  public description
+  public file
+  public run
+  public hidden
+  public commandPath
+  public alias
+  public dashed
 
   constructor() {
     this.name = null

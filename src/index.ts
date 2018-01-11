@@ -29,6 +29,7 @@ export { build } from './domain/builder'
 
 // export the GluegunRunContext interface
 export { GluegunRunContext } from './domain/run-context'
+export { GluegunCommand } from './domain/command'
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
