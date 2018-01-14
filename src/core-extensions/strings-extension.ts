@@ -4,8 +4,8 @@ import { RunContext } from '../domain/run-context'
 /**
  * Attaches some string helpers for convenience.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   context.strings = stringTools
 }

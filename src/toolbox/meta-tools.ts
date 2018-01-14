@@ -5,7 +5,8 @@ import { RunContext } from '../domain/run-context'
 /**
  * Finds the version for the currently running CLI.
  *
- * @param {RunContext} context
+ * @param context Currently running context.
+ * @returns Version as a string.
  */
 export function getVersion(context: RunContext): string {
   let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
@@ -43,26 +44,26 @@ const isHidden = propEq('hidden', true)
 /**
  * Gets the list of plugins.
  *
- * @param {RunContext} context     The context
- * @param {Plugin[]} plugins       The plugins holding the commands
- * @param {string[]} commandRoot   Optional, only show commands with this root
- * @return {[string, string]}
+ * @param context The context
+ * @param plugins The plugins holding the commands
+ * @param commandRoot Optional, only show commands with this root
+ * @return List of plugins.
  */
-export function commandInfo(context: RunContext, plugins?: Plugin[], commandRoot?: string[]): any {
+export function commandInfo(context: RunContext, plugins?: Plugin[], commandRoot?: string[]): string[][] {
   return pipe(reject(isHidden), sortBy(prop('name')), map(p => getListOfCommands(context, p, commandRoot)), unnest)(
     plugins || context.runtime.plugins,
-  )
+  ) as string[][]
 }
 
 /**
  * Gets the list of commands for the given plugin.
  *
- * @param {RunContext} context     The context
- * @param {Plugin} plugin          The plugins holding the commands
- * @param {string[]} commandRoot   Optional, only show commands with this root
- * @return {[string, string]}
+ * @param context The context
+ * @param plugin The plugins holding the commands
+ * @param commandRoot   Optional, only show commands with this root
+ * @return List of commands.
  */
-export function getListOfCommands(context: RunContext, plugin?: Plugin, commandRoot?: string[]) {
+export function getListOfCommands(context: RunContext, plugin?: Plugin, commandRoot?: string[]): string[][] {
   return pipe(
     reject(isHidden),
     reject(command => {

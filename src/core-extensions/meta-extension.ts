@@ -4,9 +4,9 @@ import { RunContext } from '../domain/run-context'
 /**
  * Extension that lets you learn more about the currently running CLI.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   context.meta = {
     version: () => getVersion(context),
     commandInfo: () => commandInfo(context),

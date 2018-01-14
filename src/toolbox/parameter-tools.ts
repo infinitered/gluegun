@@ -1,20 +1,21 @@
 import { equals, is, merge } from 'ramda'
 import * as yargsParse from 'yargs-parser'
 import { RunContextParameters } from '../domain/run-context'
+import { Options } from '../domain/options'
 
 const COMMAND_DELIMITER = ' '
 
 /**
  * Parses given command arguments into a more useful format.
  *
- * @param {string|string[]} commandArray
- * @param {Object} extraOpts
- * @returns {RunContextParameters}
+ * @param commandArray Command string or list of command parts.
+ * @param extraOpts Extra options.
+ * @returns Normalized parameters.
  */
-export function parseParams(commandArray, extraOpts = {}): RunContextParameters {
+export function parseParams(commandArray: string | string[], extraOpts: Options = {}): RunContextParameters {
   // use the command line args if not passed in
   if (is(String, commandArray)) {
-    commandArray = commandArray.split(COMMAND_DELIMITER)
+    commandArray = (commandArray as string).split(COMMAND_DELIMITER)
   }
 
   // remove the first 2 args if it comes from process.argv
@@ -33,10 +34,10 @@ export function parseParams(commandArray, extraOpts = {}): RunContextParameters 
 /**
  * Constructs the parameters object.
  *
- * @param {{}} params         Provided parameters
- * @return {{}}               An object with normalized parameters
+ * @param params Provided parameters
+ * @return An object with normalized parameters
  */
-export function createParams(params) {
+export function createParams(params: any): RunContextParameters {
   // make a copy of the args so we can mutate it
   const array = params.array.slice()
 

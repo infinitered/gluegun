@@ -9,18 +9,18 @@ import { RunContext } from '../domain/run-context'
 /**
  * Builds the code generation feature.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   const { plugin } = context
 
   /**
    * Generates a file from a template.
    *
-   * @param  {{}} opts Generation options.
-   * @return {string}  The generated string.
+   * @param opts Generation options.
+   * @return The generated string.
    */
-  async function generate(opts: Options = {}) {
+  async function generate(opts: Options = {}): Promise<string> {
     // required
     const template = opts.template
 

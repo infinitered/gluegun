@@ -4,8 +4,8 @@ import { RunContext } from '../domain/run-context'
 /**
  * Extensions to access semver and helpers
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   context.semver = semver
 }

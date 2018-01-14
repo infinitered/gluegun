@@ -10,9 +10,9 @@ import { RunContextParameters } from '../domain/run-context'
  * This function performs some somewhat complex logic to find a command for a given
  * set of parameters and plugins.
  *
- * @param {Runtime} runtime The current runtime.
- * @param {any} parameters The parameters passed in
- * @returns { plugin: Plugin|null, command: Command|null, array: string[] }
+ * @param runtime The current runtime.
+ * @param parameters The parameters passed in
+ * @returns object with plugin, command, and array
  */
 export function findCommand(runtime: Runtime, parameters: RunContextParameters) {
   let rest: string[]
@@ -36,7 +36,7 @@ export function findCommand(runtime: Runtime, parameters: RunContextParameters) 
 
     // traverse through the command path, retrieving aliases along the way
     // and get a nice commandPath we can use to check for a matching command
-    const finalCommandPath = reduce((prevPath, currName) => {
+    const finalCommandPath = reduce((prevPath: string[], currName: string) => {
       // find a command that fits the previous path + currentName, which can be an alias
       const cmd = find(
         command => {
