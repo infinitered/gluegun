@@ -1,7 +1,4 @@
-// @gluegunCommandName        full
-// @gluegunCommandDescription This is the full meal deal.
-
-async function jimmy (context) {
+async function jimmy(context) {
   return 123
 }
 

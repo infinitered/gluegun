@@ -60,28 +60,33 @@ export function divider() {
 
 /**
  * Returns an array of the column widths.
+ *
+ * @param cliTable Data table.
+ * @returns Array of column widths
  */
-export function findWidths(tableArray) {
-  return [tableArray.options.head, ...tableArray].reduce(
-    (colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)),
-    [],
-  )
+export function findWidths(cliTable: CLITable): number[] {
+  return [(cliTable as any).options.head]
+    .concat(cliTable)
+    .reduce((colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)), [])
 }
 
 /**
- * Returns an array of column headers based on column widths.
+ * Returns an array of column dividers based on column widths.
+ *
+ * @param cliTable Data table.
+ * @returns Array of properly sized column dividers.
  */
-export function columnHeaderDivider(tableArray) {
-  return findWidths(tableArray).map(w => Array(w).join('-'))
+export function columnHeaderDivider(cliTable: CLITable): string[] {
+  return findWidths(cliTable).map(w => Array(w).join('-'))
 }
 
 /**
  * Prints an object to table format.  The values will already be
  * stringified.
  *
- * @param {{}} object The object to turn into a table.
+ * @param object The object to turn into a table.
  */
-export function table(data: string[][], options: any = {}) {
+export function table(data: string[][], options: any = {}): void {
   let t
   switch (options.format) {
     case 'markdown':
@@ -112,9 +117,9 @@ export function table(data: string[][], options: any = {}) {
  * Use this when you're writing stuff outside the context of our
  * printing scheme.  hint: rarely.
  *
- * @param {string} message The message to write.
+ * @param message The message to write.
  */
-export function fancy(message: string) {
+export function fancy(message: string): void {
   console.log(message)
 }
 
@@ -123,9 +128,9 @@ export function fancy(message: string) {
  *
  * This is the default type you should use.
  *
- * @param {string} message The message to show.
+ * @param message The message to show.
  */
-export function info(message: string) {
+export function info(message: string): void {
   console.log(colors.info(message))
 }
 
@@ -134,9 +139,9 @@ export function info(message: string) {
  *
  * This is when something horribly goes wrong.
  *
- * @param {string} message The message to show.
+ * @param message The message to show.
  */
-export function error(message: string) {
+export function error(message: string): void {
   console.log(colors.error(message))
 }
 
@@ -145,9 +150,9 @@ export function error(message: string) {
  *
  * This is when the user might not be getting what they're expecting.
  *
- * @param {string} message The message to show.
+ * @param message The message to show.
  */
-export function warning(message: string) {
+export function warning(message: string): void {
   console.log(colors.warning(message))
 }
 
@@ -156,9 +161,9 @@ export function warning(message: string) {
  *
  * This is for devs only.
  *
- * @param {string} message The message to show.
+ * @param message The message to show.
  */
-export function debug(message: string, title: string = 'DEBUG') {
+export function debug(message: string, title: string = 'DEBUG'): void {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
@@ -172,29 +177,29 @@ export function debug(message: string, title: string = 'DEBUG') {
  *
  * When something is successful.  Use sparingly.
  *
- * @param {string} message The message to show.
+ * @param message The message to show.
  */
-export function success(message: string) {
+export function success(message: string): void {
   console.log(colors.success(message))
 }
 
 /**
  * Creates a spinner and starts it up.
  *
- * @param {string|Object} config The text for the spinner or an ora configuration object.
+ * @param config The text for the spinner or an ora configuration object.
  * @returns The spinner.
  */
-export function spin(config?: string | object) {
+export function spin(config?: string | object): any {
   return ora(config || '').start()
 }
 
 /**
  * Prints the list of commands.
  *
- * @param {RunContext} context     The context that was used
- * @param {string[]} commandRoot   Optional, only show commands with this root
+ * @param context The context that was used
+ * @param commandRoot Optional, only show commands with this root
  */
-export function printCommands(context: RunContext, commandRoot?: string[]) {
+export function printCommands(context: RunContext, commandRoot?: string[]): void {
   let printPlugins = []
   if (context.plugin === context.defaultPlugin) {
     // print for all plugins
@@ -210,7 +215,7 @@ export function printCommands(context: RunContext, commandRoot?: string[]) {
   table(data) // the data
 }
 
-export function printHelp(context) {
+export function printHelp(context: RunContext): void {
   const { runtime: { brand } } = context
   info(`${brand} version ${context.meta.version()}`)
   printCommands(context)

@@ -2,6 +2,8 @@ import { Runtime } from '../runtime/runtime'
 import coreCommandHelp from '../core-commands/help'
 import coreCommandDefault from '../core-commands/default'
 import coreCommandVersion from '../core-commands/version'
+import { Options } from './options'
+import { GluegunCommand } from './command'
 
 /**
  * Provides a cleaner way to build a runtime.
@@ -31,9 +33,9 @@ export class Builder {
    *
    * @param value The path to the source directory.
    * @param options Additional plugin loading options.
-   * @return {Builder} self.
+   * @return self.
    */
-  public src(value: string, options: object = {}): Builder {
+  public src(value: string, options: Options = {}): Builder {
     this.runtime.addDefaultPlugin(value, options)
     return this
   }
@@ -41,11 +43,11 @@ export class Builder {
   /**
    * Add a plugin to the list.
    *
-   * @param  {string}  value   The plugin directory.
-   * @param  {Object}  options Additional loading options.
-   * @return {Builder}         self.
+   * @param value   The plugin directory.
+   * @param options Additional loading options.
+   * @return self.
    */
-  public plugin(value: string, options: object = {}) {
+  public plugin(value: string, options: Options = {}): Builder {
     this.runtime.addPlugin(value, options)
     return this
   }
@@ -53,21 +55,21 @@ export class Builder {
   /**
    * Add a plugin group to the list.
    *
-   * @param  {string}  value   The directory with sub-directories.
-   * @param  {Object}  options Additional loading options.
-   * @return {Builder}         self.
+   * @param value   The directory with sub-directories.
+   * @param options Additional loading options.
+   * @return self.
    */
-  public plugins(value: string, options: object = {}) {
+  public plugins(value: string, options: Options = {}): Builder {
     this.runtime.addPlugin(value, options)
     return this
   }
 
   /**
    * Add a default help handler.
-   * @param  {any} command An optional command function or object
-   * @return {Builder}         self.
+   * @param command An optional command function or object
+   * @return self.
    */
-  public help(command?: any) {
+  public help(command?: any): Builder {
     command = command || coreCommandHelp
     if (typeof command === 'function') {
       command = { name: 'help', alias: ['h'], dashed: true, run: command }
@@ -77,10 +79,10 @@ export class Builder {
 
   /**
    * Add a default version handler.
-   * @param  {any} command An optional command function or object
-   * @return {Builder}         self.
+   * @param command An optional command function or object
+   * @return self.
    */
-  public version(command?: any) {
+  public version(command?: any): Builder {
     command = command || coreCommandVersion
     if (typeof command === 'function') {
       command = { name: 'version', alias: ['v'], dashed: true, run: command }
@@ -90,10 +92,10 @@ export class Builder {
 
   /**
    * Add a default command that runs if none other is found.
-   * @param  {any} command An optional command function or object
-   * @return {Builder}         self.
+   * @param command An optional command function or object
+   * @return self.
    */
-  public defaultCommand(command?: any) {
+  public defaultCommand(command?: any): Builder {
     command = command || coreCommandDefault
     if (typeof command === 'function') {
       command = { run: command }
@@ -104,10 +106,10 @@ export class Builder {
 
   /**
    * Add a way to add an arbitrary command when building the CLI.
-   * @param {Object}
-   * @return {Builder}
+   * @param command command to add
+   * @return self.
    */
-  public command(command: object) {
+  public command(command: GluegunCommand): Builder {
     this.runtime.addCommand(command)
     return this
   }

@@ -7,11 +7,11 @@ import { findCommand } from './runtime-find-command'
 /**
  * Runs a command.
  *
- * @param  {string} rawCommand Command string.
- * @param  {{}} extraOptions Additional options use to execute a command.
- * @return {RunContext} The RunContext object indicating what happened.
+ * @param rawCommand Command string or array of strings.
+ * @param extraOptions Additional options use to execute a command.
+ * @return The RunContext object indicating what happened.
  */
-export async function run(this: Runtime, rawCommand?: string | object, extraOptions = {}): Promise<RunContext> {
+export async function run(this: Runtime, rawCommand?: string | string[], extraOptions = {}): Promise<RunContext> {
   // use provided rawCommand or process arguments if none given
   rawCommand = rawCommand || process.argv
 

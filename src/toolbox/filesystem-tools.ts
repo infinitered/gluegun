@@ -5,54 +5,58 @@ import { isBlank } from './string-tools'
 /**
  * Is this a file?
  *
- * @param  {string} path The filename to check.
- * @return {bool}        `true` if the file exists and is a file, otherwise `false`.
+ * @param path The filename to check.
+ * @returns `true` if the file exists and is a file, otherwise `false`.
  */
-const isFile = path => jetpack.exists(path) === 'file'
+export function isFile(path: string): boolean {
+  return jetpack.exists(path) === 'file'
+}
 
 /**
  * Is this not a file?
  *
- * @param  {string} path The filename to check
- * @return {bool}        `true` if the file doesn't exist.
+ * @param path The filename to check
+ * @return `true` if the file doesn't exist.
  */
-const isNotFile = complement(isFile)
+export const isNotFile = complement(isFile)
 
 /**
  * Is this a directory?
  *
- * @param {string} path The directory to check.
- * @return {bool}       `true` if the directory exists, otherwise false.
+ * @param path The directory to check.
+ * @returns True/false -- does the directory exist?
  */
-const isDirectory = path => jetpack.exists(path) === 'dir'
+export function isDirectory(path: string): boolean {
+  return jetpack.exists(path) === 'dir'
+}
 
 /**
  * Is this not a directory?
  *
- * @param {string} path The directory to check.
- * @return {bool}       `true` if the directory does not exist, otherwise false.
+ * @param path The directory to check.
+ * @return `true` if the directory does not exist, otherwise false.
  */
-const isNotDirectory = complement(isDirectory)
+export const isNotDirectory = complement(isDirectory)
 
 /**
  * Gets the immediate subdirectories.
  *
- * @param  {string} path       Path to a directory to check.
- * @param  {bool}   isRelative Return back the relative directory?
- * @param  {string} matching   A jetpack matching filter
- * @param  {boolean} symlinks  If true, will include any symlinks along the way.
- * @return {string[]}          A list of directories
+ * @param path Path to a directory to check.
+ * @param isRelative Return back the relative directory?
+ * @param matching   A jetpack matching filter
+ * @param symlinks  If true, will include any symlinks along the way.
+ * @return A list of directories
  */
-const subdirectories = (
-  base: string,
+export function subdirectories(
+  path: string,
   isRelative: boolean = false,
   matching: string = '*',
   symlinks: boolean = false,
-) => {
-  if (isBlank(base) || !isDirectory(base)) {
+): string[] {
+  if (isBlank(path) || !isDirectory(path)) {
     return []
   }
-  const dirs = jetpack.cwd(base).find({
+  const dirs = jetpack.cwd(path).find({
     matching,
     directories: true,
     recursive: false,
@@ -62,8 +66,6 @@ const subdirectories = (
   if (isRelative) {
     return dirs
   } else {
-    return map(concat(`${base}/`), dirs)
+    return map(concat(`${path}/`), dirs)
   }
 }
-
-export { isFile, isNotFile, isDirectory, isNotDirectory, subdirectories }

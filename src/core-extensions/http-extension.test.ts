@@ -10,11 +10,11 @@ const ext = context.http
 /**
  * Sends a HTTP response.
  *
- * @param {*} res - The http response object.
- * @param {number} statusCode - The http response status code.
- * @param {string} body - The reponse data.
+ * @param res - The http response object.
+ * @param statusCode - The http response status code.
+ * @param body - The reponse data.
  */
-const sendResponse = (res, statusCode, body) => {
+const sendResponse = (res: any, statusCode: number, body: string) => {
   res.writeHead(statusCode)
   res.write(body)
   res.end()
@@ -23,10 +23,10 @@ const sendResponse = (res, statusCode, body) => {
 /**
  * Sends a 200 OK with some data.
  *
- * @param {*} res - The http response object.
- * @param {string} body - The http response data.
+ * @param res - The http response object.
+ * @param body - The http response data.
  */
-const send200 = (res, body) => {
+const send200 = (res: any, body?: string) => {
   sendResponse(res, 200, body || '<h1>OK</h1>')
 }
 
