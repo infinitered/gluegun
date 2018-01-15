@@ -1,17 +1,18 @@
 import * as jetpack from 'fs-jetpack'
 import { head, is, isNil, last, reject, split, takeLast } from 'ramda'
-import { Command } from '../domain/command'
+import { Command, GluegunCommand } from '../domain/command'
 import { isNotFile } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
 import { loadModule } from './module-loader'
+import { Options } from '../domain/options'
 
 /**
  * Loads the command from the given file.
  *
- * @param  {string} file      The full path to the file to load.
- * @return {Command}          The command in any condition
+ * @param file      The full path to the file to load.
+ * @return The loaded command.
  */
-export function loadCommandFromFile(file: string, options: any = {}) {
+export function loadCommandFromFile(file: string, options: Options = {}): Command {
   const command = new Command()
 
   // sanity check the input
@@ -58,7 +59,7 @@ export function loadCommandFromFile(file: string, options: any = {}) {
   return command
 }
 
-export function loadCommandFromPreload(preload) {
+export function loadCommandFromPreload(preload: GluegunCommand): Command {
   const command = new Command()
   command.name = preload.name
   command.description = preload.description

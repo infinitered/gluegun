@@ -9,17 +9,17 @@ import { RunContext } from '../domain/run-context'
 /**
  * Extensions to launch processes and open files.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
 export default function attach(context: RunContext) {
   /**
    * Executes a commandline program asynchronously.
    *
-   * @param {string} commandLine The command line to execute.
-   * @param {options} options Additional child_process options for node.
-   * @returns {Promise}
+   * @param commandLine The command line to execute.
+   * @param options Additional child_process options for node.
+   * @returns Promise with result.
    */
-  async function run(commandLine, options: Options = {}) {
+  async function run(commandLine: string, options: Options = {}): Promise<any> {
     const trimmer = options && options.trim ? trim : identity
     const nodeOptions = dissoc('trim', options)
 
@@ -37,11 +37,11 @@ export default function attach(context: RunContext) {
   /**
    * Executes a commandline via execa.
    *
-   * @param {string} commandLine The command line to execute.
-   * @param {options} options Additional child_process options for node.
-   * @returns {Promise}
+   * @param commandLine The command line to execute.
+   * @param options Additional child_process options for node.
+   * @returns Promise with result.
    */
-  async function exec(commandLine, options) {
+  async function exec(commandLine: string, options: Options = {}): Promise<any> {
     return new Promise((resolve, reject) => {
       const args = split(' ', commandLine)
       execa(head(args), tail(args), options)
@@ -53,11 +53,11 @@ export default function attach(context: RunContext) {
   /**
    * Uses cross-spawn to run a process.
    *
-   * @param {any} commandLine The command line to execute.
-   * @param {options} options Additional child_process options for node.
-   * @returns {Promise} The response code.
+   * @param commandLine The command line to execute.
+   * @param options Additional child_process options for node.
+   * @returns The response code.
    */
-  async function spawn(commandLine, options) {
+  async function spawn(commandLine: string, options: Options = {}): Promise<any> {
     return new Promise((resolve, reject) => {
       const args = split(' ', commandLine)
       const spawned = crossSpawn(head(args), tail(args), options)
@@ -89,19 +89,19 @@ export default function attach(context: RunContext) {
   /**
    * Finds the location of the path.
    *
-   * @param {string} command The name of program you're looking for.
-   * @return {string} The full path or null.
+   * @param command The name of program you're looking for.
+   * @return The full path or null.
    */
-  function which(command) {
+  function which(command: string): string | null {
     return nodeWhich.sync(command)
   }
 
   /**
    * Starts a timer used for measuring durations.
    *
-   * @return {function} A function that when called will return the elapsed duration in milliseconds.
+   * @return A function that when called will return the elapsed duration in milliseconds.
    */
-  function startTimer() {
+  function startTimer(): () => number {
     const started = process.uptime()
     return () => Math.floor((process.uptime() - started) * 1000) // uptime gives us seconds
   }

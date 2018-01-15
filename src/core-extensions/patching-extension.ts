@@ -7,15 +7,15 @@ import { RunContext } from '../domain/run-context'
 /**
  * Builds the patching feature.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   /**
    * Identifies if something exists in a file. Async.
    *
-   * @param {string} filename The path to the file we'll be scanning.
-   * @param {string} findPattern The case sensitive string or RegExp that identifies existence.
-   * @return {Promise<boolean>} Boolean of success that findPattern was in file.
+   * @param filename The path to the file we'll be scanning.
+   * @param findPattern The case sensitive string or RegExp that identifies existence.
+   * @return Boolean of success that findPattern was in file.
    */
   async function exists(filename, findPattern) {
     // sanity check the filename
@@ -45,9 +45,9 @@ export default function attach(context: RunContext) {
   /**
    * Updates a text file or json config file. Async.
    *
-   * @param  {string} filename File to be modified.
-   * @param  {Function} callback Callback function for modifying the contents of the file.
-   * @return {bool}  Whether the operation was successful
+   * @param filename File to be modified.
+   * @param callback Callback function for modifying the contents of the file.
+   * @return Whether the operation was successful
    */
   async function update(filename, callback) {
     const contents = await readFile(filename)
@@ -67,8 +67,8 @@ export default function attach(context: RunContext) {
   /**
    * Convenience function for prepending a string to a given file. Async.
    *
-   * @param {string} filename       File to be prepended to
-   * @param {string} prependedData  String to prepend
+   * @param filename       File to be prepended to
+   * @param prependedData  String to prepend
    */
   async function prepend(filename, prependedData) {
     return update(filename, data => prependedData + data)
@@ -77,8 +77,8 @@ export default function attach(context: RunContext) {
   /**
    * Convenience function for appending a string to a given file. Async.
    *
-   * @param {string} filename       File to be appended to
-   * @param {string} appendedData  String to append
+   * @param filename       File to be appended to
+   * @param appendedData  String to append
    */
   async function append(filename, appendedData) {
     return update(filename, data => data + appendedData)
@@ -87,9 +87,9 @@ export default function attach(context: RunContext) {
   /**
    * Convenience function for replacing a string in a given file. Async.
    *
-   * @param {string} filename       File to be prepended to
-   * @param {string} oldContent     String to replace
-   * @param {string} newContent     String to write
+   * @param filename       File to be prepended to
+   * @param oldContent     String to replace
+   * @param newContent     String to write
    */
   async function replace(filename, oldContent, newContent) {
     return update(filename, data => data.replace(oldContent, newContent))
@@ -99,14 +99,14 @@ export default function attach(context: RunContext) {
    * Conditionally places a string into a file before or after another string,
    * or replacing another string, or deletes a string. Async.
    *
-   * @param {string}   filename        File to be patched
-   * @param {Object}   opts            Options
-   * @param {string}   opts.insert     String to be inserted
-   * @param {string}   opts.before     Insert before this string
-   * @param {string}   opts.after      Insert after this string
-   * @param {string}   opts.replace    Replace this string
-   * @param {string}   opts.delete     Delete this string
-   * @param {boolean}  opts.force      Write even if it already exists
+   * @param filename        File to be patched
+   * @param opts            Options
+   * @param opts.insert     String to be inserted
+   * @param opts.before     Insert before this string
+   * @param opts.after      Insert after this string
+   * @param opts.replace    Replace this string
+   * @param opts.delete     Delete this string
+   * @param opts.force      Write even if it already exists
    *
    * @example
    *   await context.patching.patch('thing.js', { before: 'bar', insert: 'foo' })

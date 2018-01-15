@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { dissoc } from 'ramda'
 
 // domains
-import { Command } from '../domain/command'
+import { Command, GluegunCommand } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
 import { RunContext } from '../domain/run-context'
@@ -70,7 +70,7 @@ export class Runtime {
 
   /**
    * Adds the core extensions.  These provide the basic features
-   * available in gluegun, but follow the exact same method
+   * available in gluegun, but follow a similar method
    * for extending the core as 3rd party extensions do.
    */
   public addCoreExtensions(): void {
@@ -89,9 +89,10 @@ export class Runtime {
   /**
    * Adds a command to the runtime.
    *
-   * @param {Object} command
+   * @param command A GluegunCommand.
+   * @returns This runtime.
    */
-  public addCommand(command: any): Runtime {
+  public addCommand(command: GluegunCommand): Runtime {
     if (!this.defaultPlugin) {
       throw new Error(
         `Can't add command ${command.name} - no default plugin. You may have forgotten a src() on your runtime.`,
@@ -115,10 +116,11 @@ export class Runtime {
    * to manipulate the context object however they want. The second
    * parameter is a function that allows the extension to attach itself.
    *
-   * @param {string} name   The context property name.
-   * @param {object} setup  The setup function.
+   * @param name The context property name.
+   * @param setup The setup function.
+   * @returns This runtime.
    */
-  public addExtension(name: string, setup: (context: RunContext) => any): Runtime {
+  public addExtension(name: string, setup: (context: RunContext) => void): Runtime {
     this.extensions.push({ name, setup })
     return this
   }
@@ -126,11 +128,11 @@ export class Runtime {
   /**
    * Loads a plugin from a directory and sets it as the default.
    *
-   * @param  {string} directory The directory to load from.
-   * @param  {Object} options   Additional loading options.
-   * @return {Runtime}          This runtime.
+   * @param directory The directory to load from.
+   * @param options Additional loading options.
+   * @returns This runtime.
    */
-  public addDefaultPlugin(directory: string, options: object = {}): Runtime {
+  public addDefaultPlugin(directory: string, options: Options = {}): Runtime {
     this.defaultPlugin = this.addPlugin(directory, { required: true, name: this.brand, ...options })
 
     // load config and set defaults
@@ -144,9 +146,9 @@ export class Runtime {
   /**
    * Loads a plugin from a directory.
    *
-   * @param  {string} directory The directory to load from.
-   * @param  {Object} options   Additional loading options.
-   * @return {Plugin | null}           The plugin that was created.
+   * @param directory The directory to load from.
+   * @param options Additional loading options.
+   * @returns The plugin that was created or null.
    */
   public addPlugin(directory: string, options: Options = {}): Plugin | null {
     if (!isDirectory(directory)) {
@@ -174,9 +176,9 @@ export class Runtime {
   /**
    * Loads a bunch of plugins from the immediate sub-directories of a directory.
    *
-   * @param {string} directory The directory to grab from.
-   * @param {Object} options   Addition loading options.
-   * @return {Runtime}         This runtime
+   * @param directory The directory to grab from.
+   * @param options Addition loading options.
+   * @return This runtime.
    */
   public addPlugins(directory: string, options: Options = {}): Plugin[] {
     if (isBlank(directory) || !isDirectory(directory)) {

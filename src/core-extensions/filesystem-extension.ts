@@ -7,7 +7,7 @@ import { RunContext } from '../domain/run-context'
 /**
  * Extensions to filesystem.  Brought to you by fs-jetpack.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
 export default function attach(context: RunContext) {
   const extension = jetpack // jetpack

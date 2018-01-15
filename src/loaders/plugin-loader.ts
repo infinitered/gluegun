@@ -1,6 +1,7 @@
 import * as jetpack from 'fs-jetpack'
 import { map } from 'ramda'
 import { Plugin } from '../domain/plugin'
+import { Options } from '../domain/options'
 import { isNotDirectory } from '../toolbox/filesystem-tools'
 import { isBlank } from '../toolbox/string-tools'
 import { loadCommandFromFile, loadCommandFromPreload } from './command-loader'
@@ -10,10 +11,10 @@ import { loadExtensionFromFile } from './extension-loader'
 /**
  * Loads a plugin from a directory.
  *
- * @param {string} directory The full path to the directory to load.
- * @param {{}}     options   Additional options to customize the loading process.
+ * @param directory The full path to the directory to load.
+ * @param options Additional options to customize the loading process.
  */
-export function loadPluginFromDirectory(directory: string, options: any = {}) {
+export function loadPluginFromDirectory(directory: string, options: Options = {}): Plugin {
   const plugin = new Plugin()
 
   const {

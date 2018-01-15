@@ -34,6 +34,11 @@ export class Command implements GluegunCommand {
     this.dashed = false
   }
 
+  /**
+   * Returns normalized list of aliases.
+   *
+   * @returns list of aliases.
+   */
   get aliases(): string[] {
     if (!this.alias) {
       return []
@@ -41,7 +46,12 @@ export class Command implements GluegunCommand {
     return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 
-  public hasAlias() {
+  /**
+   * Checks if the command has any aliases at all.
+   *
+   * @returns whether the command has any aliases
+   */
+  public hasAlias(): boolean {
     return this.aliases.length > 0
   }
 
@@ -49,10 +59,11 @@ export class Command implements GluegunCommand {
    * Checks if a given alias matches with this command's aliases, including name.
    * Can take a list of aliases too and check them all.
    *
-   * @param {string|string[]} alias
+   * @param alias
+   * @returns whether the alias[es] matches
    */
-  public matchesAlias(alias) {
+  public matchesAlias(alias: string | string[]): boolean {
     const aliases = Array.isArray(alias) ? alias : [alias]
-    return aliases.find(a => this.name === a || this.aliases.includes(a))
+    return Boolean(aliases.find(a => this.name === a || this.aliases.includes(a)))
   }
 }

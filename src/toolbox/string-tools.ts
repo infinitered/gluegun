@@ -46,39 +46,39 @@ export const isSingular = pluralize.isSingular
 /**
  * Is this not a string?
  *
- * @param  {any}     value The value to check
- * @return {boolean}       True if it is not a string, otherwise false
+ * @param value The value to check
+ * @return True if it is not a string, otherwise false
  */
-export const isNotString = value => {
+export function isNotString(value: any): boolean {
   return !is(String, value)
 }
 
 /**
  * Is this value a blank string?
  *
- * @param   {any}     value The value to check.
- * @returns {boolean}       True if it was, otherwise false.
+ * @param value The value to check.
+ * @returns True if it was, otherwise false.
  */
-export const isBlank = (value: any) => {
+export function isBlank(value: any): boolean {
   return isNotString(value) || isEmpty(trim(value))
 }
 
 /**
  * Returns the value it is given
  *
- * @param {any} value
- * @returns     the value.
+ * @param value
+ * @returns the value.
  */
-export function identity(value) {
+export function identity(value: any): any {
   return value
 }
 
 /**
  * Converts the value ToPascalCase.
  *
- * @param {string} value The string to convert
- * @returns {string}
+ * @param value The string to convert
+ * @returns PascalCase string.
  */
-export function pascalCase(value) {
-  return pipe(camelCase, upperFirst)(value)
+export function pascalCase(value: string): string {
+  return pipe(camelCase, upperFirst)(value) as string
 }

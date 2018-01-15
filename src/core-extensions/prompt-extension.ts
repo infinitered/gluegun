@@ -4,9 +4,9 @@ import { RunContext } from '../domain/run-context'
 /**
  * Provides user input prompts via enquirer.js.
  *
- * @param  {RunContext} context The running context.
+ * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: RunContext): void {
   const enquirer = new Enquirer()
   enquirer.register('list', require('prompt-list'))
   enquirer.register('rawlist', require('prompt-rawlist'))
@@ -21,10 +21,10 @@ export default function attach(context: RunContext) {
   /**
    * A yes/no question.
    *
-   * @param {string} message The message to display to the user.
-   * @returns {bool}         The true/false answer.
+   * @param message The message to display to the user.
+   * @returns The true/false answer.
    */
-  const confirm = async message => {
+  const confirm = async (message: string): Promise<boolean> => {
     const answers = await enquirer.ask({
       name: 'yesno',
       type: 'confirm',
