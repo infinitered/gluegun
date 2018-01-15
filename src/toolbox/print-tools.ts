@@ -66,7 +66,6 @@ export function divider() {
  */
 export function findWidths(cliTable: CLITable): number[] {
   return [(cliTable as any).options.head]
-    .concat(cliTable)
     .reduce((colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)), [])
 }
 
