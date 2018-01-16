@@ -3,8 +3,13 @@ import * as colors from 'colors'
 import { commandInfo } from './meta-tools'
 import { RunContext } from '../domain/run-context'
 import * as ora from 'ora'
+import { times, flip, prop } from 'ramda'
 
 export { colors }
+
+// Generate array of arrays of the data rows for length checking
+// @ts-ignore
+const getRows = t => times(flip(prop)(t), t.length)
 
 const CLI_TABLE_COMPACT = {
   top: '',
@@ -66,6 +71,7 @@ export function divider() {
  */
 export function findWidths(cliTable: CLITable): number[] {
   return [(cliTable as any).options.head]
+    .concat(getRows(cliTable))
     .reduce((colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)), [])
 }
 
