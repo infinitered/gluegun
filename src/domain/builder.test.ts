@@ -24,10 +24,6 @@ test('the gauntlet', t => {
   const runtime = builder.create()
   t.truthy(runtime)
 
-  // console.dir(runtime.defaultPlugin.commands, { colors: true, levels: 2 })
-
-  // t.is({}, runtime.defaultPlugin.commands[2])
-
   t.is(runtime.defaultPlugin.commands.length, 6)
   t.is(runtime.defaultPlugin.commands[0].name, 'gimmedatversion')
   t.is(runtime.defaultPlugin.commands[0].run(new RunContext()), 'it works')
@@ -36,4 +32,6 @@ test('the gauntlet', t => {
   t.is(runtime.defaultPlugin.commands[3].name, 'three')
   t.is(runtime.defaultPlugin.commands[4].name, 'two')
   t.is(runtime.defaultPlugin.commands[5].name, brand)
+
+  t.is(runtime.plugins.length, 15)
 })
