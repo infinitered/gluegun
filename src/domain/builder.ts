@@ -60,7 +60,7 @@ export class Builder {
    * @return self.
    */
   public plugins(value: string, options: Options = {}): Builder {
-    this.runtime.addPlugin(value, options)
+    this.runtime.addPlugins(value, options)
     return this
   }
 
