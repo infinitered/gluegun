@@ -1,19 +1,25 @@
 import { RunContext } from './run-context'
 
-export interface GluegunCommand {
+export interface GluegunCommand<TContext extends RunContext = RunContext> {
+  /** The name of your command */
   name?: string
+  /** A tweet-sized summary of your command */
   description?: string
-  run: (context: RunContext) => void
+  /** The function for running your command, can be async */
+  run: (context: TContext) => void
+  /** Should your command be shown in the listings  */
   hidden?: boolean
   commandPath?: string[]
+  /** Potential other names for this command */
   alias?: string | string[]
+  /** Lets you run the command as a dashed command, like `--version` or `-v`. */
   dashed?: boolean
 }
 
 /**
  * A command is user-callable function that runs stuff.
  */
-export class Command implements GluegunCommand {
+export class Command implements GluegunCommand<RunContext> {
   public name
   public description
   public file
