@@ -4,12 +4,22 @@ import { Options } from './options'
 import { Plugin } from './plugin'
 
 export interface RunContextParameters {
+  /* The command arguments as an array. */
   array?: string[]
+  /**
+   * Any optional parameters. Typically coming from command-line
+   * arguments like this: `--force -p tsconfig.json`.
+   */
   options?: Options
+  /* Just the first argument. */
   first?: string
+  /* Just the 2nd argument. */
   second?: string
+  /* Just the 3rd argument. */
   third?: string
+  /* Everything else after the command as a string. */
   string?: string
+  /* The raw command with any named parameters. */
   raw?: any
   argv?: any
 }
