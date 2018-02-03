@@ -36,7 +36,8 @@ import { GluegunStrings } from './core-extensions/strings-types'
 import { GluegunPrint } from './core-extensions/print-types'
 import { GluegunSystem } from './core-extensions/system-types'
 import { GluegunSemver } from './core-extensions/semver-types'
-export { GluegunFilesystem, GluegunStrings, GluegunPrint, GluegunSystem, GluegunSemver }
+import { GluegunHttp } from './core-extensions/http-types'
+export { GluegunFilesystem, GluegunStrings, GluegunPrint, GluegunSystem, GluegunSemver, GluegunHttp }
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
@@ -61,7 +62,7 @@ export const filesystem: GluegunFilesystem = context.filesystem
 export const semver: GluegunSemver = context.semver
 export const system: GluegunSystem = context.system
 export const prompt = context.prompt
-export const http = context.http
+export const http: GluegunHttp = context.http
 export const template = context.template
 export const patching = context.patching
 export const print: GluegunPrint = context.print
