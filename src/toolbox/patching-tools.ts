@@ -40,21 +40,22 @@ export async function exists(filename: string, findPattern: string | RegExp): Pr
  *
  * @param filename File to be modified.
  * @param callback Callback function for modifying the contents of the file.
- * @return The new contents of the file.
  */
-export async function update(filename: string, callback: (contents: string) => string | boolean): Promise<boolean> {
+export async function update(
+  filename: string,
+  callback: (contents: string | object) => string | object | false,
+): Promise<string | object | false> {
   const contents = await readFile(filename)
 
   // let the caller mutate the contents in memory
   const mutatedContents = callback(contents)
 
   // only write if they actually sent back something to write
-  if (is(String, mutatedContents)) {
+  if (mutatedContents !== false) {
     await jetpack.writeAsync(filename, mutatedContents, { atomic: true })
-    return true
-  } else {
-    return false
   }
+
+  return mutatedContents
 }
 
 /**
@@ -63,8 +64,8 @@ export async function update(filename: string, callback: (contents: string) => s
  * @param filename       File to be prepended to
  * @param prependedData  String to prepend
  */
-export async function prepend(filename: string, prependedData: string): Promise<boolean> {
-  return update(filename, data => prependedData + data)
+export async function prepend(filename: string, prependedData: string): Promise<string | false> {
+  return update(filename, data => prependedData + data) as Promise<string | false>
 }
 
 /**
@@ -73,8 +74,8 @@ export async function prepend(filename: string, prependedData: string): Promise<
  * @param filename       File to be appended to
  * @param appendedData  String to append
  */
-export async function append(filename: string, appendedData: string): Promise<boolean> {
-  return update(filename, data => data + appendedData)
+export async function append(filename: string, appendedData: string): Promise<string | false> {
+  return update(filename, data => data + appendedData) as Promise<string | false>
 }
 
 /**
@@ -84,8 +85,8 @@ export async function append(filename: string, appendedData: string): Promise<bo
  * @param oldContent     String to replace
  * @param newContent     String to write
  */
-export async function replace(filename: string, oldContent: string, newContent: string): Promise<boolean> {
-  return update(filename, data => data.replace(oldContent, newContent))
+export async function replace(filename: string, oldContent: string, newContent: string): Promise<string | false> {
+  return update(filename, data => (data as string).replace(oldContent, newContent)) as Promise<string | false>
 }
 
 /**
@@ -105,8 +106,8 @@ export async function replace(filename: string, oldContent: string, newContent: 
  *   await context.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
  *
  */
-export async function patch(filename: string, opts: GluegunPatchingPatchOptions = {}): Promise<boolean> {
-  return update(filename, data => patchString(data, opts))
+export async function patch(filename: string, opts: GluegunPatchingPatchOptions = {}): Promise<string | false> {
+  return update(filename, data => patchString(data as string, opts)) as Promise<string | false>
 }
 
 export async function readFile(filename: string): Promise<string> {
@@ -119,9 +120,7 @@ export async function readFile(filename: string): Promise<string> {
   const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
 
   // read the file
-  const contents = await jetpack.readAsync(filename, fileType)
-
-  return contents
+  return jetpack.readAsync(filename, fileType)
 }
 
 export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}): string | false {
@@ -144,7 +143,7 @@ export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}
   }
 }
 
-function insertNextToString(data, opts) {
+function insertNextToString(data: string, opts: GluegunPatchingPatchOptions) {
   // Insert before/after a particular string
   const findString = opts.before || opts.after
   if (!data.includes(findString)) {

@@ -6,23 +6,23 @@ export interface GluegunPatching {
   /**
    * Updates a file.
    */
-  update(filename: string, callback: (contents: any) => any): Promise<boolean>
+  update(filename: string, callback: (contents: any) => any): Promise<string | object | boolean>
   /**
    * Appends to the end of a file.
    */
-  append(filename: string, contents: string): Promise<boolean>
+  append(filename: string, contents: string): Promise<string | boolean>
   /**
    * Prepends to the start of a files.
    */
-  prepend(filename: string, contents: string): Promise<boolean>
+  prepend(filename: string, contents: string): Promise<string | boolean>
   /**
    * Replaces part of a file.
    */
-  replace(filename: string, searchFor: string, replaceWith: string): Promise<boolean>
+  replace(filename: string, searchFor: string, replaceWith: string): Promise<string | boolean>
   /**
    * Makes a patch inside file.
    */
-  patch(filename: string, options: GluegunPatchingPatchOptions): Promise<boolean>
+  patch(filename: string, options: GluegunPatchingPatchOptions): Promise<string | boolean>
 }
 
 export interface GluegunPatchingPatchOptions {
