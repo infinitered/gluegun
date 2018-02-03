@@ -10,6 +10,7 @@ import {
   GluegunSemver,
   GluegunHttp,
   GluegunPatching,
+  GluegunPrompt,
 } from '..'
 
 export interface RunContextParameters {
@@ -51,7 +52,7 @@ export interface GluegunRunContext {
   meta?: any
   patching?: GluegunPatching
   print?: GluegunPrint
-  prompt?: any
+  prompt?: GluegunPrompt
   semver?: GluegunSemver
   strings?: GluegunStrings
   system?: GluegunSystem
