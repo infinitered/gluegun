@@ -38,12 +38,12 @@ import patchingExtensionAttach from '../core-extensions/patching-extension'
  */
 export class Runtime {
   public brand?: string
-  public plugins?: Plugin[]
-  public extensions?: Extension[]
-  public defaults?: object
-  public defaultPlugin?: Plugin
-  public config?: object
-  public run: (rawCommand?: string | object, extraOptions?: object) => any
+  public plugins?: Plugin[] = []
+  public extensions?: Extension[] = []
+  public defaults: Options = {}
+  public defaultPlugin?: Plugin = null
+  public config: Options = {}
+  public run: (rawCommand?: string | Options, extraOptions?: Options) => any
 
   /**
    * Create and initialize an empty Runtime.
@@ -51,12 +51,6 @@ export class Runtime {
   constructor(brand?: string) {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
-    this.plugins = []
-    this.extensions = []
-    this.defaults = {}
-    this.defaultPlugin = null
-    this.config = {}
-
     this.addCoreExtensions()
   }
 
