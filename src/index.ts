@@ -30,8 +30,11 @@ export { build } from './domain/builder'
 // export the Gluegun interface
 export { GluegunRunContext } from './domain/run-context'
 export { GluegunCommand } from './domain/command'
-export { GluegunFilesystem } from './core-extensions/filesystem-types'
-export { GluegunStrings } from './core-extensions/strings-types'
+
+import { GluegunFilesystem } from './core-extensions/filesystem-types'
+import { GluegunStrings } from './core-extensions/strings-types'
+import { GluegunPrint } from './core-extensions/print-types'
+export { GluegunFilesystem, GluegunStrings, GluegunPrint }
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
@@ -52,13 +55,13 @@ attachTemplateExtension(context)
 attachPatchingExtension(context)
 
 // some functions are available if you just `import { <things> } from 'gluegun'` directly
-export const filesystem = context.filesystem
+export const filesystem: GluegunFilesystem = context.filesystem
 export const semver = context.semver
 export const system = context.system
 export const prompt = context.prompt
 export const http = context.http
 export const template = context.template
 export const patching = context.patching
-export const print = context.print
+export const print: GluegunPrint = context.print
 export const generate = context.generate
-export const strings = context.strings
+export const strings: GluegunStrings = context.strings
