@@ -4,14 +4,14 @@ import * as execa from 'execa'
 import { dissoc, head, identity, isNil, split, tail, trim } from 'ramda'
 import * as nodeWhich from 'which'
 import { Options } from '../domain/options'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Extensions to launch processes and open files.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: GluegunRunContext) {
   /**
    * Executes a commandline program asynchronously.
    *

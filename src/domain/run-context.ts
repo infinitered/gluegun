@@ -2,7 +2,7 @@ import { Runtime } from '../runtime/runtime'
 import { Command } from './command'
 import { Options } from './options'
 import { Plugin } from './plugin'
-import { GluegunFilesystem, GluegunStrings, GluegunPrint } from '..'
+import { GluegunFilesystem, GluegunStrings, GluegunPrint, GluegunSystem } from '..'
 
 export interface RunContextParameters {
   /* The command arguments as an array. */
@@ -46,7 +46,7 @@ export interface GluegunRunContext {
   prompt?: any
   semver?: any
   strings?: GluegunStrings
-  system?: any
+  system?: GluegunSystem
   template?: any
   generate?: any
 
