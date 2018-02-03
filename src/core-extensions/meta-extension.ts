@@ -1,12 +1,12 @@
 import { commandInfo, getVersion } from '../toolbox/meta-tools'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Extension that lets you learn more about the currently running CLI.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   context.meta = {
     version: () => getVersion(context),
     commandInfo: () => commandInfo(context),

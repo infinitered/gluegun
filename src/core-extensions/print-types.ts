@@ -3,7 +3,6 @@ import { GluegunRunContext } from '../index'
 export interface GluegunPrint {
   /* Colors as seen from colors.js. */
   colors: any
-  color: any
   /* A green checkmark. */
   checkmark: string
   /* A red X marks the spot. */

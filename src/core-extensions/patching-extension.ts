@@ -2,14 +2,14 @@ import * as jetpack from 'fs-jetpack'
 import { test } from 'ramda'
 import { isFile, isNotFile } from '../toolbox/filesystem-tools'
 import { isNotString } from '../toolbox/string-tools'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Builds the patching feature.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   /**
    * Identifies if something exists in a file. Async.
    *

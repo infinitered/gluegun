@@ -2,7 +2,7 @@ import * as jetpack from 'fs-jetpack'
 import * as os from 'os'
 import * as path from 'path'
 import { subdirectories } from '../toolbox/filesystem-tools'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 import { GluegunFilesystem } from './filesystem-types'
 
 /**
@@ -10,7 +10,7 @@ import { GluegunFilesystem } from './filesystem-types'
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext) {
+export default function attach(context: GluegunRunContext) {
   const extension: GluegunFilesystem = Object.assign(
     {
       eol: os.EOL, // end of line marker

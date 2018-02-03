@@ -4,14 +4,14 @@ import { forEach, keys, replace } from 'ramda'
 import { Options } from '../domain/options'
 import { isFile } from '../toolbox/filesystem-tools'
 import * as stringTools from '../toolbox/string-tools'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Builds the code generation feature.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   const { plugin } = context
 
   /**

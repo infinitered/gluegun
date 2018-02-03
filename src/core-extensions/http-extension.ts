@@ -1,11 +1,11 @@
 import { create } from 'apisauce'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * An extension to talk to ye olde internet.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   context.http = { create }
 }

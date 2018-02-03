@@ -1,14 +1,14 @@
 import * as jetpack from 'fs-jetpack'
 import { equals, map, pipe, prop, propEq, reject, replace, sortBy, unnest } from 'ramda'
 import { Plugin } from '../domain/plugin'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 /**
  * Finds the version for the currently running CLI.
  *
  * @param context Currently running context.
  * @returns Version as a string.
  */
-export function getVersion(context: RunContext): string {
+export function getVersion(context: GluegunRunContext): string {
   let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
   if (!directory) {
     throw new Error('context.version: Unknown CLI version (no src folder found)')
@@ -49,7 +49,7 @@ const isHidden = propEq('hidden', true)
  * @param commandRoot Optional, only show commands with this root
  * @return List of plugins.
  */
-export function commandInfo(context: RunContext, plugins?: Plugin[], commandRoot?: string[]): string[][] {
+export function commandInfo(context: GluegunRunContext, plugins?: Plugin[], commandRoot?: string[]): string[][] {
   return pipe(reject(isHidden), sortBy(prop('name')), map(p => getListOfCommands(context, p, commandRoot)), unnest)(
     plugins || context.runtime.plugins,
   ) as string[][]
@@ -63,7 +63,7 @@ export function commandInfo(context: RunContext, plugins?: Plugin[], commandRoot
  * @param commandRoot   Optional, only show commands with this root
  * @return List of commands.
  */
-export function getListOfCommands(context: RunContext, plugin?: Plugin, commandRoot?: string[]): string[][] {
+export function getListOfCommands(context: GluegunRunContext, plugin?: Plugin, commandRoot?: string[]): string[][] {
   return pipe(
     reject(isHidden),
     reject(command => {

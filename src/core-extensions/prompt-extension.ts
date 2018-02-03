@@ -1,12 +1,12 @@
 import * as Enquirer from 'enquirer'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Provides user input prompts via enquirer.js.
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   const enquirer = new Enquirer()
   enquirer.register('list', require('prompt-list'))
   enquirer.register('rawlist', require('prompt-rawlist'))
