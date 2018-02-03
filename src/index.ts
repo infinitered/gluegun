@@ -27,9 +27,11 @@ import attachPatchingExtension from './core-extensions/patching-extension'
 // export the `build` command
 export { build } from './domain/builder'
 
-// export the GluegunRunContext interface
+// export the Gluegun interface
 export { GluegunRunContext } from './domain/run-context'
 export { GluegunCommand } from './domain/command'
+export { GluegunFilesystem } from './core-extensions/filesystem-types'
+export { GluegunStrings } from './core-extensions/strings-types'
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
@@ -49,6 +51,7 @@ attachHttpExtension(context)
 attachTemplateExtension(context)
 attachPatchingExtension(context)
 
+// some functions are available if you just `import { <things> } from 'gluegun'` directly
 export const filesystem = context.filesystem
 export const semver = context.semver
 export const system = context.system
