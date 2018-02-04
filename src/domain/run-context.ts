@@ -38,7 +38,6 @@ export interface RunContextParameters {
 export interface GluegunRunContext {
   // known properties
   result?: any
-  error?: any
   config?: Options
   parameters: RunContextParameters
   plugin?: Plugin
@@ -68,7 +67,6 @@ export class RunContext implements GluegunRunContext {
   [key: string]: any
 
   public result = null
-  public error = null
   public config: Options = {}
   public parameters: RunContextParameters = {}
   public plugin = null
