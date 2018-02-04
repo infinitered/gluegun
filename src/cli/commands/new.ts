@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'new',
   alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
