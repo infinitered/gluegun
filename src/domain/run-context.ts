@@ -33,7 +33,12 @@ export interface RunContextParameters {
   string?: string
   /* The raw command with any named parameters. */
   raw?: any
+  /* The original argv value. */
   argv?: any
+  /* The currently running plugin name. */
+  plugin?: string
+  /* The currently running command name. */
+  command?: string
 }
 
 export interface GluegunRunContext {

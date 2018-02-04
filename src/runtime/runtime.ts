@@ -7,7 +7,7 @@ import { Command, GluegunCommand } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
 import { GluegunRunContext } from '../domain/run-context'
-import { Options } from '../domain/options'
+import { Options, GluegunLoadOptions, GluegunMultiLoadOptions } from '../domain/options'
 
 // loaders
 import { loadCommandFromPreload } from '../loaders/command-loader'
@@ -126,7 +126,7 @@ export class Runtime {
    * @param options Additional loading options.
    * @returns This runtime.
    */
-  public addDefaultPlugin(directory: string, options: Options = {}): Runtime {
+  public addDefaultPlugin(directory: string, options: GluegunLoadOptions = {}): Runtime {
     this.defaultPlugin = this.addPlugin(directory, { required: true, name: this.brand, ...options })
 
     // load config and set defaults
@@ -144,7 +144,7 @@ export class Runtime {
    * @param options Additional loading options.
    * @returns The plugin that was created or null.
    */
-  public addPlugin(directory: string, options: Options = {}): Plugin | null {
+  public addPlugin(directory: string, options: GluegunLoadOptions = {}): Plugin | null {
     if (!isDirectory(directory)) {
       if (options.required) {
         throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
@@ -174,7 +174,7 @@ export class Runtime {
    * @param options Addition loading options.
    * @return This runtime.
    */
-  public addPlugins(directory: string, options: Options = {}): Plugin[] {
+  public addPlugins(directory: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Plugin[] {
     if (isBlank(directory) || !isDirectory(directory)) {
       return []
     }

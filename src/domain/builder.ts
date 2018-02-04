@@ -2,8 +2,8 @@ import { Runtime } from '../runtime/runtime'
 import coreCommandHelp from '../core-commands/help'
 import coreCommandDefault from '../core-commands/default'
 import coreCommandVersion from '../core-commands/version'
-import { Options } from './options'
 import { GluegunCommand } from './command'
+import { GluegunLoadOptions, GluegunMultiLoadOptions } from './options'
 
 /**
  * Provides a cleaner way to build a runtime.
@@ -11,7 +11,7 @@ import { GluegunCommand } from './command'
  * @class Builder
  */
 export class Builder {
-  public runtime: Runtime
+  public readonly runtime: Runtime
 
   constructor() {
     this.runtime = new Runtime()
@@ -35,7 +35,7 @@ export class Builder {
    * @param options Additional plugin loading options.
    * @return self.
    */
-  public src(value: string, options: Options = {}): Builder {
+  public src(value: string, options: GluegunLoadOptions = {}): Builder {
     this.runtime.addDefaultPlugin(value, options)
     return this
   }
@@ -47,7 +47,7 @@ export class Builder {
    * @param options Additional loading options.
    * @return self.
    */
-  public plugin(value: string, options: Options = {}): Builder {
+  public plugin(value: string, options: GluegunLoadOptions = {}): Builder {
     this.runtime.addPlugin(value, options)
     return this
   }
@@ -59,7 +59,7 @@ export class Builder {
    * @param options Additional loading options.
    * @return self.
    */
-  public plugins(value: string, options: Options = {}): Builder {
+  public plugins(value: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Builder {
     this.runtime.addPlugins(value, options)
     return this
   }

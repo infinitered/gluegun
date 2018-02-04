@@ -1,9 +1,9 @@
-import { build } from '../index'
+import { build, GluegunRunContext } from '../index'
 
 /**
  * Create the cli and kick it off
  */
-export async function run(argv?: string[] | string) {
+export async function run(argv?: string[] | string): Promise<GluegunRunContext> {
   // create a CLI runtime
   const cli = build()
     .brand('gluegun')
