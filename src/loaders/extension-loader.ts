@@ -30,7 +30,10 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   extension.name = head(split('.', jetpack.inspect(file).name))
 
   // require in the module -- best chance to bomb is here
-  const extensionModule = loadModule(file)
+  let extensionModule = loadModule(file)
+
+  // if they use `export default` rather than `module.exports =`, we extract that
+  extensionModule = extensionModule.default || extensionModule
 
   // should we try the default export?
   const valid = extensionModule && typeof extensionModule === 'function'
