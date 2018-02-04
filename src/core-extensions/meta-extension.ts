@@ -11,5 +11,4 @@ export default function attach(context: GluegunRunContext): void {
     version: () => getVersion(context),
     commandInfo: () => commandInfo(context),
   }
-  context.version = context.meta.version // easier access to version
 }

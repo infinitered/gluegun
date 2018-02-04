@@ -40,6 +40,7 @@ import { GluegunHttp } from './core-extensions/http-types'
 import { GluegunPatching, GluegunPatchingPatchOptions } from './core-extensions/patching-types'
 import { GluegunPrompt } from './core-extensions/prompt-types'
 import { GluegunTemplate } from './core-extensions/template-types'
+import { GluegunMeta } from './core-extensions/meta-types'
 export {
   GluegunFilesystem,
   GluegunStrings,
@@ -51,6 +52,7 @@ export {
   GluegunPatchingPatchOptions,
   GluegunPrompt,
   GluegunTemplate,
+  GluegunMeta,
 }
 
 // this adds the node_modules path to the "search path"

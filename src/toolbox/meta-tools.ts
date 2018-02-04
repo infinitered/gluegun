@@ -11,7 +11,7 @@ import { GluegunRunContext } from '../domain/run-context'
 export function getVersion(context: GluegunRunContext): string {
   let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
   if (!directory) {
-    throw new Error('context.version: Unknown CLI version (no src folder found)')
+    throw new Error('getVersion: Unknown CLI version (no src folder found)')
   }
 
   // go at most 5 directories up to find the package.json
@@ -33,7 +33,7 @@ export function getVersion(context: GluegunRunContext): string {
     // go up another directory
     directory = jetpack.path(directory, '..')
   }
-  throw new Error(`context.version: Unknown CLI version (no package.json found in ${directory}`)
+  throw new Error(`getVersion: Unknown CLI version (no package.json found in ${directory}`)
 }
 
 /**

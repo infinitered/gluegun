@@ -12,6 +12,7 @@ import {
   GluegunPatching,
   GluegunPrompt,
   GluegunTemplate,
+  GluegunMeta,
 } from '..'
 
 export interface RunContextParameters {
@@ -49,7 +50,7 @@ export interface GluegunRunContext {
   // known extensions
   filesystem?: GluegunFilesystem
   http?: GluegunHttp
-  meta?: any
+  meta?: GluegunMeta
   patching?: GluegunPatching
   print?: GluegunPrint
   prompt?: GluegunPrompt
