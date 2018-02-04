@@ -6,7 +6,7 @@ import { dissoc } from 'ramda'
 import { Command, GluegunCommand } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 import { Options } from '../domain/options'
 
 // loaders
@@ -38,12 +38,12 @@ import patchingExtensionAttach from '../core-extensions/patching-extension'
  */
 export class Runtime {
   public brand?: string
-  public plugins?: Plugin[] = []
-  public extensions?: Extension[] = []
+  public readonly plugins?: Plugin[] = []
+  public readonly extensions?: Extension[] = []
   public defaults: Options = {}
   public defaultPlugin?: Plugin = null
   public config: Options = {}
-  public run: (rawCommand?: string | Options, extraOptions?: Options) => any
+  public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunRunContext>
 
   /**
    * Create and initialize an empty Runtime.
@@ -114,7 +114,7 @@ export class Runtime {
    * @param setup The setup function.
    * @returns This runtime.
    */
-  public addExtension(name: string, setup: (context: RunContext) => void): Runtime {
+  public addExtension(name: string, setup: (context: GluegunRunContext) => void): Runtime {
     this.extensions.push({ name, setup })
     return this
   }
