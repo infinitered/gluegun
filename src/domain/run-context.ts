@@ -11,6 +11,7 @@ import {
   GluegunHttp,
   GluegunPatching,
   GluegunPrompt,
+  GluegunTemplate,
 } from '..'
 
 export interface RunContextParameters {
@@ -56,7 +57,7 @@ export interface GluegunRunContext {
   semver?: GluegunSemver
   strings?: GluegunStrings
   system?: GluegunSystem
-  template?: any
+  template?: GluegunTemplate
   generate?: any
 
   // our catch-all! since we can add whatever to this object

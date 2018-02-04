@@ -39,6 +39,7 @@ import { GluegunSemver } from './core-extensions/semver-types'
 import { GluegunHttp } from './core-extensions/http-types'
 import { GluegunPatching, GluegunPatchingPatchOptions } from './core-extensions/patching-types'
 import { GluegunPrompt } from './core-extensions/prompt-types'
+import { GluegunTemplate } from './core-extensions/template-types'
 export {
   GluegunFilesystem,
   GluegunStrings,
@@ -49,6 +50,7 @@ export {
   GluegunPatching,
   GluegunPatchingPatchOptions,
   GluegunPrompt,
+  GluegunTemplate,
 }
 
 // this adds the node_modules path to the "search path"
@@ -75,7 +77,7 @@ export const semver: GluegunSemver = context.semver
 export const system: GluegunSystem = context.system
 export const prompt: GluegunPrompt = context.prompt
 export const http: GluegunHttp = context.http
-export const template = context.template
+export const template: GluegunTemplate = context.template
 export const patching: GluegunPatching = context.patching
 export const print: GluegunPrint = context.print
 export const generate = context.generate
