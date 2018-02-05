@@ -1,5 +1,14 @@
 import * as Enquirer from 'enquirer'
 import { GluegunRunContext } from '../domain/run-context'
+import * as promptList from 'prompt-list'
+import * as promptRawlist from 'prompt-rawlist'
+import * as promptConfirm from 'prompt-confirm'
+import * as promptExpand from 'prompt-expand'
+import * as promptCheckbox from 'prompt-checkbox'
+import * as promptRadio from 'prompt-radio'
+import * as promptPassword from 'prompt-password'
+import * as promptQuestion from 'prompt-question'
+import * as promptAutocompletion from 'prompt-autocompletion'
 
 /**
  * Provides user input prompts via enquirer.js.
@@ -8,15 +17,15 @@ import { GluegunRunContext } from '../domain/run-context'
  */
 export default function attach(context: GluegunRunContext): void {
   const enquirer = new Enquirer()
-  enquirer.register('list', require('prompt-list'))
-  enquirer.register('rawlist', require('prompt-rawlist'))
-  enquirer.register('confirm', require('prompt-confirm'))
-  enquirer.register('expand', require('prompt-expand'))
-  enquirer.register('checkbox', require('prompt-checkbox'))
-  enquirer.register('radio', require('prompt-radio'))
-  enquirer.register('password', require('prompt-password'))
-  enquirer.register('question', require('prompt-question'))
-  enquirer.register('autocomplete', require('prompt-autocompletion'))
+  enquirer.register('list', promptList)
+  enquirer.register('rawlist', promptRawlist)
+  enquirer.register('confirm', promptConfirm)
+  enquirer.register('expand', promptExpand)
+  enquirer.register('checkbox', promptCheckbox)
+  enquirer.register('radio', promptRadio)
+  enquirer.register('password', promptPassword)
+  enquirer.register('question', promptQuestion)
+  enquirer.register('autocomplete', promptAutocompletion)
 
   /**
    * A yes/no question.

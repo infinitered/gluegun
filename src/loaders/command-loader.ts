@@ -41,9 +41,12 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
   }
 
   // require in the module -- best chance to bomb is here
-  const commandModule = loadModule(file)
+  let commandModule = loadModule(file)
 
-  // are we expecting this?
+  // if they use `export default` rather than `module.exports =`, we extract that
+  commandModule = commandModule.default || commandModule
+
+  // is it a valid commandModule?
   const valid = commandModule && typeof commandModule === 'object' && typeof commandModule.run === 'function'
 
   if (valid) {
