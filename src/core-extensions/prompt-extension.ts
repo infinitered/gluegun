@@ -1,5 +1,5 @@
 import * as Enquirer from 'enquirer'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 import * as promptList from 'prompt-list'
 import * as promptRawlist from 'prompt-rawlist'
 import * as promptConfirm from 'prompt-confirm'
@@ -15,7 +15,7 @@ import * as promptAutocompletion from 'prompt-autocompletion'
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   const enquirer = new Enquirer()
   enquirer.register('list', promptList)
   enquirer.register('rawlist', promptRawlist)

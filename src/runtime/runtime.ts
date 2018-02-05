@@ -6,8 +6,8 @@ import { dissoc } from 'ramda'
 import { Command, GluegunCommand } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
-import { RunContext } from '../domain/run-context'
-import { Options } from '../domain/options'
+import { GluegunRunContext } from '../domain/run-context'
+import { Options, GluegunLoadOptions, GluegunMultiLoadOptions } from '../domain/options'
 
 // loaders
 import { loadCommandFromPreload } from '../loaders/command-loader'
@@ -38,12 +38,12 @@ import patchingExtensionAttach from '../core-extensions/patching-extension'
  */
 export class Runtime {
   public brand?: string
-  public plugins?: Plugin[]
-  public extensions?: Extension[]
-  public defaults?: object
-  public defaultPlugin?: Plugin
-  public config?: object
-  public run: (rawCommand?: string | object, extraOptions?: object) => any
+  public readonly plugins?: Plugin[] = []
+  public readonly extensions?: Extension[] = []
+  public defaults: Options = {}
+  public defaultPlugin?: Plugin = null
+  public config: Options = {}
+  public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunRunContext>
 
   /**
    * Create and initialize an empty Runtime.
@@ -51,12 +51,6 @@ export class Runtime {
   constructor(brand?: string) {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
-    this.plugins = []
-    this.extensions = []
-    this.defaults = {}
-    this.defaultPlugin = null
-    this.config = {}
-
     this.addCoreExtensions()
   }
 
@@ -120,7 +114,7 @@ export class Runtime {
    * @param setup The setup function.
    * @returns This runtime.
    */
-  public addExtension(name: string, setup: (context: RunContext) => void): Runtime {
+  public addExtension(name: string, setup: (context: GluegunRunContext) => void): Runtime {
     this.extensions.push({ name, setup })
     return this
   }
@@ -132,7 +126,7 @@ export class Runtime {
    * @param options Additional loading options.
    * @returns This runtime.
    */
-  public addDefaultPlugin(directory: string, options: Options = {}): Runtime {
+  public addDefaultPlugin(directory: string, options: GluegunLoadOptions = {}): Runtime {
     this.defaultPlugin = this.addPlugin(directory, { required: true, name: this.brand, ...options })
 
     // load config and set defaults
@@ -150,7 +144,7 @@ export class Runtime {
    * @param options Additional loading options.
    * @returns The plugin that was created or null.
    */
-  public addPlugin(directory: string, options: Options = {}): Plugin | null {
+  public addPlugin(directory: string, options: GluegunLoadOptions = {}): Plugin | null {
     if (!isDirectory(directory)) {
       if (options.required) {
         throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
@@ -180,7 +174,7 @@ export class Runtime {
    * @param options Addition loading options.
    * @return This runtime.
    */
-  public addPlugins(directory: string, options: Options = {}): Plugin[] {
+  public addPlugins(directory: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Plugin[] {
     if (isBlank(directory) || !isDirectory(directory)) {
       return []
     }

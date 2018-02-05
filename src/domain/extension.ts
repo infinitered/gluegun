@@ -4,15 +4,12 @@ import { RunContext } from './run-context'
  * An extension will add functionality to the context that each command will receive.
  */
 export class Extension {
-  public name?: string
-  public description?: string
-  public file?: string
-  public setup?: (context: RunContext) => void
-
-  constructor() {
-    this.name = null
-    this.description = null
-    this.file = null
-    this.setup = null
-  }
+  /** The name of the extension. */
+  public name?: string = null
+  /** The description. */
+  public description?: string = null
+  /** The file this extension comes from. */
+  public file?: string = null
+  /** The function used to attach functionality to the context. */
+  public setup?: (context: RunContext) => void = null
 }

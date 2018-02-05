@@ -50,6 +50,7 @@ test('update - updates a JSON file', async t => {
   })
 
   // returned the updated object
+  t.truthy(updated)
   t.true(updated.mutated)
   t.is(updated.test, 'what???')
   t.is(updated.test2, 'never')

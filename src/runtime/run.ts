@@ -3,6 +3,7 @@ import { RunContext } from '../domain/run-context'
 import { createParams, parseParams } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
+import { Options } from '../domain/options'
 
 /**
  * Runs a command.
@@ -11,7 +12,11 @@ import { findCommand } from './runtime-find-command'
  * @param extraOptions Additional options use to execute a command.
  * @return The RunContext object indicating what happened.
  */
-export async function run(this: Runtime, rawCommand?: string | string[], extraOptions = {}): Promise<RunContext> {
+export async function run(
+  this: Runtime,
+  rawCommand?: string | string[],
+  extraOptions: Options = {},
+): Promise<RunContext> {
   // use provided rawCommand or process arguments if none given
   rawCommand = rawCommand || process.argv
 

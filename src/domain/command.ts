@@ -9,11 +9,14 @@ export interface GluegunCommand<TContext extends RunContext = RunContext> {
   run: (context: TContext) => void
   /** Should your command be shown in the listings  */
   hidden?: boolean
+  /** The command path, an array that describes how to get to this command */
   commandPath?: string[]
   /** Potential other names for this command */
   alias?: string | string[]
   /** Lets you run the command as a dashed command, like `--version` or `-v`. */
   dashed?: boolean
+  /** The path to the file name for this command. */
+  file?: string
 }
 
 /**

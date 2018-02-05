@@ -27,9 +27,33 @@ import attachPatchingExtension from './core-extensions/patching-extension'
 // export the `build` command
 export { build } from './domain/builder'
 
-// export the GluegunRunContext interface
+// export the Gluegun interface
 export { GluegunRunContext } from './domain/run-context'
 export { GluegunCommand } from './domain/command'
+
+import { GluegunFilesystem } from './core-extensions/filesystem-types'
+import { GluegunStrings } from './core-extensions/strings-types'
+import { GluegunPrint } from './core-extensions/print-types'
+import { GluegunSystem } from './core-extensions/system-types'
+import { GluegunSemver } from './core-extensions/semver-types'
+import { GluegunHttp } from './core-extensions/http-types'
+import { GluegunPatching, GluegunPatchingPatchOptions } from './core-extensions/patching-types'
+import { GluegunPrompt } from './core-extensions/prompt-types'
+import { GluegunTemplate } from './core-extensions/template-types'
+import { GluegunMeta } from './core-extensions/meta-types'
+export {
+  GluegunFilesystem,
+  GluegunStrings,
+  GluegunPrint,
+  GluegunSystem,
+  GluegunSemver,
+  GluegunHttp,
+  GluegunPatching,
+  GluegunPatchingPatchOptions,
+  GluegunPrompt,
+  GluegunTemplate,
+  GluegunMeta,
+}
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
@@ -49,13 +73,14 @@ attachHttpExtension(context)
 attachTemplateExtension(context)
 attachPatchingExtension(context)
 
-export const filesystem = context.filesystem
-export const semver = context.semver
-export const system = context.system
-export const prompt = context.prompt
-export const http = context.http
-export const template = context.template
-export const patching = context.patching
-export const print = context.print
+// some functions are available if you just `import { <things> } from 'gluegun'` directly
+export const filesystem: GluegunFilesystem = context.filesystem
+export const semver: GluegunSemver = context.semver
+export const system: GluegunSystem = context.system
+export const prompt: GluegunPrompt = context.prompt
+export const http: GluegunHttp = context.http
+export const template: GluegunTemplate = context.template
+export const patching: GluegunPatching = context.patching
+export const print: GluegunPrint = context.print
 export const generate = context.generate
-export const strings = context.strings
+export const strings: GluegunStrings = context.strings

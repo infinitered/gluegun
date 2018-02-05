@@ -1,11 +1,11 @@
 import * as semver from 'semver'
-import { RunContext } from '../domain/run-context'
+import { GluegunRunContext } from '../domain/run-context'
 
 /**
  * Extensions to access semver and helpers
  *
  * @param context The running context.
  */
-export default function attach(context: RunContext): void {
+export default function attach(context: GluegunRunContext): void {
   context.semver = semver
 }

@@ -2,23 +2,49 @@ import { Runtime } from '../runtime/runtime'
 import { Command } from './command'
 import { Options } from './options'
 import { Plugin } from './plugin'
+import {
+  GluegunFilesystem,
+  GluegunStrings,
+  GluegunPrint,
+  GluegunSystem,
+  GluegunSemver,
+  GluegunHttp,
+  GluegunPatching,
+  GluegunPrompt,
+  GluegunTemplate,
+  GluegunMeta,
+} from '..'
 
 export interface RunContextParameters {
+  /* The command arguments as an array. */
   array?: string[]
+  /**
+   * Any optional parameters. Typically coming from command-line
+   * arguments like this: `--force -p tsconfig.json`.
+   */
   options?: Options
+  /* Just the first argument. */
   first?: string
+  /* Just the 2nd argument. */
   second?: string
+  /* Just the 3rd argument. */
   third?: string
+  /* Everything else after the command as a string. */
   string?: string
+  /* The raw command with any named parameters. */
   raw?: any
+  /* The original argv value. */
   argv?: any
+  /* The currently running plugin name. */
+  plugin?: string
+  /* The currently running command name. */
+  command?: string
 }
 
 export interface GluegunRunContext {
   // known properties
   result?: any
-  error?: any
-  config?: object
+  config?: Options
   parameters: RunContextParameters
   plugin?: Plugin
   command?: Command
@@ -27,16 +53,16 @@ export interface GluegunRunContext {
   runtime?: Runtime
 
   // known extensions
-  filesystem?: any
-  http?: any
-  meta?: any
-  patching?: any
-  print?: any
-  prompt?: any
-  semver?: any
-  strings?: any
-  system?: any
-  template?: any
+  filesystem?: GluegunFilesystem
+  http?: GluegunHttp
+  meta?: GluegunMeta
+  patching?: GluegunPatching
+  print?: GluegunPrint
+  prompt?: GluegunPrompt
+  semver?: GluegunSemver
+  strings?: GluegunStrings
+  system?: GluegunSystem
+  template?: GluegunTemplate
   generate?: any
 
   // our catch-all! since we can add whatever to this object
@@ -46,35 +72,12 @@ export interface GluegunRunContext {
 export class RunContext implements GluegunRunContext {
   [key: string]: any
 
-  public result
-  public error
-  public config
-  public parameters
-  public plugin
-  public command
-  public pluginName
-  public commandName
-  public runtime
-
-  constructor() {
-    /**
-     * The result of the run command.
-     */
-    this.result = null
-
-    /**
-     * An error, if any.
-     */
-    this.error = null
-
-    /**
-     * The configuration.  A mashup of defaults + overrides.
-     */
-    this.config = {}
-
-    /**
-     *  The parameters like the command line options and arguments.
-     */
-    this.parameters = {}
-  }
+  public result = null
+  public config: Options = {}
+  public parameters: RunContextParameters = {}
+  public plugin = null
+  public command = null
+  public pluginName = null
+  public commandName = null
+  public runtime = null
 }
