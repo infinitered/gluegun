@@ -1,8 +1,6 @@
-import { equals, find, isNil, reduce, sort } from 'ramda'
-import { isNilOrEmpty } from 'ramdasauce'
+import { equals, last } from 'ramda'
 
 import { Command } from '../domain/command'
-import { Plugin } from '../domain/plugin'
 import { Runtime } from './runtime'
 import { RunContextParameters } from '../domain/run-context'
 
@@ -15,65 +13,47 @@ import { RunContextParameters } from '../domain/run-context'
  * @returns object with plugin, command, and array
  */
 export function findCommand(runtime: Runtime, parameters: RunContextParameters) {
-  let rest: string[]
-  let targetCommand: Command
+  // the commandPath, which could be something like:
+  // > movie list actors 2015
+  // [ 'list', 'actors', '2015' ]
+  // here, the '2015' might not actually be a command, but it's part of it
+  const commandPath = parameters.array
 
-  const commandPath: string[] = parameters.array
+  // the part of the commandPath that doesn't match a command
+  // in the above example, it will end up being [ '2015' ]
+  const rest = commandPath.slice()
 
-  // sort the default plugin to the front
-  const otherPlugins = runtime.plugins.filter(p => p !== runtime.defaultPlugin)
-  const plugins = [runtime.defaultPlugin, ...otherPlugins].filter(p => !isNil(p))
+  // we loop through each segment of the commandPath, looking for aliases among
+  // parent commands, and expand those.
+  const foundCommands = commandPath.reduce((prevCommands: Command[], currName: string) => {
+    // what is the path for the last known command?
+    const lastCommand = last(prevCommands)
+    const prevPath = lastCommand ? lastCommand.commandPath : []
 
-  // loop through each plugin, looking for a command that matches the parameters
-  const targetPlugin = find((plugin: Plugin) => {
-    // if the plugin doesn't have any commands, we can skip it
-    if (isNil(plugin) || isNilOrEmpty(plugin.commands)) {
-      return false
-    }
+    // find a command that fits the previous path + currentName, which can be an alias
+    let segmentCommand = runtime.commands
+      .sort(sortCommands)
+      .find(command => equals(command.commandPath.slice(0, -1), prevPath) && command.matchesAlias(currName))
 
-    // track the rest of the commandPath as we traverse
-    rest = commandPath.slice() // dup
-
-    // traverse through the command path, retrieving aliases along the way
-    // and get a nice commandPath we can use to check for a matching command
-    const finalCommandPath = reduce((prevPath: string[], currName: string) => {
-      // find a command that fits the previous path + currentName, which can be an alias
-      const cmd = find(
-        command => {
-          return equals(command.commandPath.slice(0, -1), prevPath) && command.matchesAlias(currName)
-        },
-        // sorted shortest path to longest
-        sort((a, b) => a.commandPath.length - b.commandPath.length, plugin.commands),
-      )
-
-      if (cmd) {
-        rest.shift() // remove the current item
-        return cmd.commandPath
-      } else {
-        return prevPath
-      }
-    }, [])(commandPath)
-
-    // we don't actually have a command path
-    if (finalCommandPath.length === 0) {
-      // if we're not looking down a command path, look for dashed commands or a default command
-      const dashedOptions = Object.keys(parameters.options).filter(k => parameters.options[k] === true)
-
-      // go find a command that matches the dashed command or a default
-      targetCommand = find(command => {
-        // dashed commands, like --version or -v
-        const dashMatch = command.dashed && command.matchesAlias(dashedOptions)
-        const isDefault = equals(command.commandPath, [plugin.name])
-        return dashMatch || isDefault
-      }, plugin.commands)
+    if (segmentCommand) {
+      // remove another segment from the commandPath
+      rest.shift()
+      // add the new command to the path
+      return prevCommands.concat([segmentCommand])
     } else {
-      // look for a command that matches this commandPath
-      targetCommand = find(command => equals(command.commandPath, finalCommandPath), plugin.commands)
+      // didn't find a command that fit this description
+      return prevCommands
     }
+  }, [])
 
-    // Did we find the targetCommand?
-    return Boolean(targetCommand)
-  }, plugins)
+  // the last command is the one we run
+  // if no targetCommand found, use the default (if set)
+  let targetCommand = last(foundCommands) || runtime.defaultCommand
 
-  return { plugin: targetPlugin, command: targetCommand, array: rest }
+  return { command: targetCommand, array: rest }
+}
+
+// sorts shortest to longest commandPaths, so we always check the shortest ones first
+function sortCommands(a, b) {
+  return a.commandPath.length < b.commandPath.length ? -1 : 1
 }

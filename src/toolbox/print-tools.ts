@@ -205,16 +205,7 @@ export function spin(config?: string | object): any {
  * @param commandRoot Optional, only show commands with this root
  */
 export function printCommands(context: RunContext, commandRoot?: string[]): void {
-  let printPlugins = []
-  if (context.plugin === context.defaultPlugin) {
-    // print for all plugins
-    printPlugins = context.plugins
-  } else {
-    // print for one plugin
-    printPlugins = [context.plugin]
-  }
-
-  const data = commandInfo(context, printPlugins, commandRoot)
+  const data = commandInfo(context, commandRoot)
 
   newline() // a spacer
   table(data) // the data

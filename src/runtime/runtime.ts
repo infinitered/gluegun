@@ -1,6 +1,6 @@
 // helpers
 import { resolve } from 'path'
-import { dissoc } from 'ramda'
+import { dissoc, is } from 'ramda'
 
 // domains
 import { Command, GluegunCommand } from '../domain/command'
@@ -40,8 +40,10 @@ export class Runtime {
   public brand?: string
   public readonly plugins?: Plugin[] = []
   public readonly extensions?: Extension[] = []
+  public readonly commands?: Command[] = []
   public defaults: Options = {}
   public defaultPlugin?: Plugin = null
+  public defaultCommand?: Command = null
   public config: Options = {}
   public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunRunContext>
 
@@ -52,14 +54,6 @@ export class Runtime {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
     this.addCoreExtensions()
-  }
-
-  /**
-   * For backwards compatability. No-op.
-   * @returns {Runtime} This runtime.
-   */
-  public create(): Runtime {
-    return this
   }
 
   /**
@@ -87,20 +81,41 @@ export class Runtime {
    * @returns This runtime.
    */
   public addCommand(command: GluegunCommand): Runtime {
-    if (!this.defaultPlugin) {
+    if (!command.plugin && !this.defaultPlugin) {
       throw new Error(
         `Can't add command ${command.name} - no default plugin. You may have forgotten a src() on your runtime.`,
       )
     }
-    const newCommand: Command = loadCommandFromPreload(command)
 
-    if (newCommand.name === this.brand) {
-      // default command is always the last command in the stack
-      this.defaultPlugin.commands.push(newCommand)
-    } else {
-      // other commands go first
+    // convert the command to a real Command object (if needed)
+    const newCommand: Command = is(Command, command) ? (command as Command) : loadCommandFromPreload(command)
+
+    // set the command's plugin reference to the defaultPlugin
+    // if it doesn't already have one
+    if (!newCommand.plugin) {
+      newCommand.plugin = this.defaultPlugin
       this.defaultPlugin.commands.unshift(newCommand)
     }
+
+    if (newCommand.name === this.brand) {
+      // we want to keep a reference to the default command, so we can find it later
+      this.defaultCommand = newCommand
+    }
+
+    // add the command to the runtime (if it isn't already there)
+    if (!this.commands.find(c => c.commandPath === newCommand.commandPath)) {
+      this.commands.push(newCommand)
+    }
+
+    // now sort the commands
+    this.commands.sort((a, b) => {
+      if (a === this.defaultCommand) return -1
+      if (b === this.defaultCommand) return 1
+      if (a.plugin === this.defaultPlugin) return -1
+      if (b.plugin === this.defaultPlugin) return 1
+      return 0
+    })
+
     return this
   }
 
@@ -164,6 +179,7 @@ export class Runtime {
 
     this.plugins.push(plugin)
     plugin.extensions.forEach(extension => this.addExtension(extension.name, extension.setup))
+    plugin.commands.forEach(command => this.addCommand(command))
     return plugin
   }
 

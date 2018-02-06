@@ -1,4 +1,5 @@
 import { RunContext } from './run-context'
+import { Plugin } from './plugin'
 
 export interface GluegunCommand<TContext extends RunContext = RunContext> {
   /** The name of your command */
@@ -17,6 +18,8 @@ export interface GluegunCommand<TContext extends RunContext = RunContext> {
   dashed?: boolean
   /** The path to the file name for this command. */
   file?: string
+  /** A reference to the plugin that contains this command. */
+  plugin?: Plugin
 }
 
 /**
@@ -31,6 +34,7 @@ export class Command implements GluegunCommand<RunContext> {
   public commandPath
   public alias
   public dashed
+  public plugin
 
   constructor() {
     this.name = null
@@ -41,6 +45,7 @@ export class Command implements GluegunCommand<RunContext> {
     this.commandPath = null
     this.alias = []
     this.dashed = false
+    this.plugin = null
   }
 
   /**
