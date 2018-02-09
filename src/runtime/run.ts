@@ -29,17 +29,17 @@ export async function run(
   // parse the parameters initially
   context.parameters = parseParams(rawCommand, extraOptions)
 
-  // find the plugin and command, and parse out aliases
-  const { plugin, command, array } = findCommand(this, context.parameters)
+  // find the command, and parse out aliases
+  const { command, array } = findCommand(this, context.parameters)
 
-  // jet if we have no plugin or command
-  if (isNil(plugin) || isNil(command)) {
+  // jet if we have no command
+  if (isNil(command)) {
     return context
   }
 
   // rebuild the parameters, now that we know the plugin and command
   context.parameters = createParams({
-    plugin: plugin.name,
+    plugin: command.plugin.name,
     command: command.name,
     array,
     options: context.parameters.options,
@@ -48,9 +48,9 @@ export async function run(
   })
 
   // set a few properties
-  context.plugin = plugin
+  context.plugin = command.plugin || this.defaultPlugin
   context.command = command
-  context.pluginName = plugin.name
+  context.pluginName = context.plugin.name
   context.commandName = command.name
 
   // setup the config

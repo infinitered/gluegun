@@ -24,11 +24,31 @@ test('hides commands', t => {
   t.true(r.plugins[0].commands[2].hidden)
 })
 
-test('loadAll ignores bad directories', t => {
+test('addPlugins ignores bad directories', t => {
   const r = new Runtime()
   r.addPlugins(__filename)
   r.addPlugins(null)
   r.addPlugins(undefined)
   r.addPlugins('')
   t.is(0, r.plugins.length)
+})
+
+test('commands and defaultCommand work properly even when multiple plugins are loaded', async t => {
+  const r = new Runtime('default-command')
+  r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
+  r.addCommand({
+    name: 'default-command',
+    run: () => null,
+  })
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
+
+  t.is(2, r.plugins.length)
+
+  let context = await r.run('')
+
+  t.is(context.command.name, 'default-command')
+
+  context = await r.run('one')
+
+  t.is(context.command.name, 'one')
 })

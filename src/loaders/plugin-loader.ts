@@ -80,5 +80,8 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
     plugin.commands.forEach(command => (command.hidden = true))
   }
 
+  // set all commands to reference their parent plugin
+  plugin.commands.forEach(c => (c.plugin = plugin))
+
   return plugin
 }

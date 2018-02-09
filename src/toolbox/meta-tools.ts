@@ -1,6 +1,5 @@
 import * as jetpack from 'fs-jetpack'
-import { equals, map, pipe, prop, propEq, reject, replace, sortBy, unnest } from 'ramda'
-import { Plugin } from '../domain/plugin'
+import { equals, map, pipe, propEq, reject, replace } from 'ramda'
 import { GluegunRunContext } from '../domain/run-context'
 /**
  * Finds the version for the currently running CLI.
@@ -49,21 +48,7 @@ const isHidden = propEq('hidden', true)
  * @param commandRoot Optional, only show commands with this root
  * @return List of plugins.
  */
-export function commandInfo(context: GluegunRunContext, plugins?: Plugin[], commandRoot?: string[]): string[][] {
-  return pipe(reject(isHidden), sortBy(prop('name')), map(p => getListOfCommands(context, p, commandRoot)), unnest)(
-    plugins || context.runtime.plugins,
-  ) as string[][]
-}
-
-/**
- * Gets the list of commands for the given plugin.
- *
- * @param context The context
- * @param plugin The plugins holding the commands
- * @param commandRoot   Optional, only show commands with this root
- * @return List of commands.
- */
-export function getListOfCommands(context: GluegunRunContext, plugin?: Plugin, commandRoot?: string[]): string[][] {
+export function commandInfo(context: GluegunRunContext, commandRoot?: string[]): string[][] {
   return pipe(
     reject(isHidden),
     reject(command => {
@@ -79,5 +64,5 @@ export function getListOfCommands(context: GluegunRunContext, plugin?: Plugin, c
         replace('$BRAND', context.runtime.brand, command.description || '-'),
       ]
     }),
-  )(plugin.commands)
+  )(context.runtime.commands)
 }
