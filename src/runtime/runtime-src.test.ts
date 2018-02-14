@@ -6,7 +6,7 @@ test('runs a command explicitly', async t => {
   t.falsy(r.defaultPlugin)
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.truthy(r.defaultPlugin)
-  const context = await r.run('3pack three')
+  const context = await r.run('three')
 
   t.truthy(context.plugin)
   t.truthy(context.command)
@@ -20,7 +20,7 @@ test('runs a command via passed in args', async t => {
   t.falsy(r.defaultPlugin)
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.truthy(r.defaultPlugin)
-  const context = await r.run('3pack three')
+  const context = await r.run('three')
   t.truthy(context.plugin)
   t.truthy(context.command)
   t.is(context.plugin.name, '3pack')
