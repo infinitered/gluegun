@@ -7,4 +7,4 @@
 * Plugin-ready
 
 [GitHub](https://github.com/infinitered/gluegun)
-[Get Started](#/?id=welcome-to-gluegun)
+[Get Started](#welcome-to-gluegun)
