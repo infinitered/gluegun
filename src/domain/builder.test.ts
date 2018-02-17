@@ -24,7 +24,7 @@ test('the gauntlet', t => {
   const runtime = builder.create()
   t.truthy(runtime)
 
-  t.is(runtime.commands.length, 25)
+  t.is(runtime.commands.length, 26)
   t.is(runtime.extensions.length, 13)
   t.is(runtime.defaultPlugin.commands.length, 6)
 

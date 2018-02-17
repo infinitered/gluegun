@@ -13,7 +13,7 @@ test('is fatally wounded by exceptions', async t => {
 
   // for some reason, t.throws doesn't work on this one ...
   try {
-    await r.run('throws throw')
+    await r.run('throw')
   } catch (e) {
     t.is(e.message, `thrown an error!`)
   }

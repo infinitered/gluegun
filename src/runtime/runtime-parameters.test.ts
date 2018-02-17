@@ -46,3 +46,15 @@ test('can pass arguments with mixed options', async t => {
   t.is(parameters.options.n, 1)
   t.is(parameters.options.chocolate, 'true')
 })
+
+test('properly infers the heirarchy from folder structure', async t => {
+  const r = new Runtime()
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
+  const { command, parameters } = await r.run('implied bar thing --foo=1 --force')
+
+  t.deepEqual(command.commandPath, ['implied', 'bar'])
+  t.is(parameters.string, 'thing')
+  t.is(parameters.command, 'bar')
+  t.is(parameters.options.foo, 1)
+  t.true(parameters.options.force)
+})

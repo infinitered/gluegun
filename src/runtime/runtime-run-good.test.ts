@@ -4,7 +4,7 @@ import { Runtime } from './runtime'
 test('runs a command', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  const toolbox = await r.run('3pack three')
+  const toolbox = await r.run('three')
 
   t.deepEqual(toolbox.result, [1, 2, 3])
 })
@@ -12,7 +12,7 @@ test('runs a command', async t => {
 test('runs an aliased command', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  const toolbox = await r.run('3pack o')
+  const toolbox = await r.run('o')
 
   t.is(toolbox.result, 1)
 })
@@ -30,7 +30,7 @@ test('runs a nested command', async t => {
 test('runs a command with no name prop', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/missing-name`)
-  const toolbox = await r.run('missing-name foo')
+  const toolbox = await r.run('foo')
   t.truthy(toolbox.command)
   t.is(toolbox.command.name, 'foo')
 })

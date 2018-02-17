@@ -9,13 +9,13 @@ const createRuntime = () => {
 }
 
 test('generates a simple file', async t => {
-  const toolbox = await createRuntime().run('generate simple')
+  const toolbox = await createRuntime().run('simple')
 
   t.is(toolbox.result, 'simple file\n')
 })
 
 test('supports props', async t => {
-  const toolbox = await createRuntime().run('generate props Greetings_and_salutations', {
+  const toolbox = await createRuntime().run('props Greetings_and_salutations', {
     stars: 5,
   })
 
@@ -32,14 +32,14 @@ blue
 
 test('detects missing templates', async t => {
   try {
-    await createRuntime().run('generate missing')
+    await createRuntime().run('missing')
   } catch (e) {
     t.true(startsWith('template not found', e.message))
   }
 })
 
 test('supports directories', async t => {
-  const toolbox = await createRuntime().run('generate special location')
+  const toolbox = await createRuntime().run('special location')
 
   t.is(
     toolbox.result,
