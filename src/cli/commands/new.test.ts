@@ -6,7 +6,7 @@ import command from './new'
 
 sinon.stub(console, 'log')
 
-function createContext(): Toolbox {
+function createFakeToolbox(): Toolbox {
   const fakeContext = new Toolbox()
   fakeContext.strings = strings
   fakeContext.filesystem = {
@@ -36,7 +36,7 @@ test('has the right interface', t => {
 })
 
 test('name is required', async t => {
-  const toolbox = createContext()
+  const toolbox = createFakeToolbox()
   toolbox.parameters.first = null
   await command.run(toolbox)
   const { error } = toolbox.print
@@ -45,7 +45,7 @@ test('name is required', async t => {
 })
 
 test('name cannot be blank', async t => {
-  const toolbox = createContext()
+  const toolbox = createFakeToolbox()
   toolbox.parameters.first = ''
   await command.run(toolbox)
   const { error } = toolbox.print
@@ -54,7 +54,7 @@ test('name cannot be blank', async t => {
 })
 
 test('name must pass regex', async t => {
-  const toolbox = createContext()
+  const toolbox = createFakeToolbox()
   const name = 'O M G'
   toolbox.parameters.first = name
   await command.run(toolbox)
@@ -66,7 +66,7 @@ test('name must pass regex', async t => {
 test('generates properly', async t => {
   const name = 'foo'
   const typescript = undefined
-  const toolbox = createContext()
+  const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
 
   // here we run the command
@@ -130,7 +130,7 @@ test('generates properly', async t => {
 test('generates with typescript', async t => {
   const name = 'foo'
   const typescript = true
-  const toolbox = createContext()
+  const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
   toolbox.parameters.options.typescript = true
 
