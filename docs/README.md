@@ -2,12 +2,11 @@
 
 Gluegun is a toolkit for rapidly building Node-based command line interfaces (CLIs).
 
-It's what powers _your_ CLI.
+It's what powers _your_ CLI. It works on macOS, Linux, and Windows, and you can use TypeScript or JavaScript. Gluegun gives you the tools and gets out of the way.
 
 ## Quick Example
 
-For example, if you wanted to build a CLI that lets you search IMDB, you might have something
-like this:
+Let's say you want to make a `movie` CLI that does something like this:
 
 ```
 $ movie list films
@@ -16,18 +15,22 @@ $ movie open imdb producer="Gene Roddenberry"
 $ movie search "Star Trek"
 ```
 
-This `movie` CLI could be powered by Gluegun, simply by doing this:
+This `movie` CLI could be powered by Gluegun, simply by doing this on your command line (assuming you [have Node installed](https://nodejs.org/en/download/current/)):
 
 ```
 $ npm install -g gluegun
 $ gluegun new movie --typescript
 $ cd movie
-$ npm install
 $ npm link
 $ movie help
+
+movie version 0.0.1
+
+  help (h)       - 
+  generate (g)   - 
 ```
 
-That's it! Now you can flesh out your CLI.
+That's it! Now you can flesh out your CLI. It can be simple or quite complex. See [Getting Started](./getting-started) for more.
 
 ## Gluegun Features
 
@@ -50,6 +53,6 @@ It also supports building your own plugins for _your_ CLI and bringing them in s
 
 Read more by clicking the items to the left.
 
-## Premium Support
+## Sponsors
 
-[gluegun](https://github.com/infinitered/gluegun) was made by [Infinite Red](https://infinite.red/) and, like all our open source projects, is free to use and always will be. We do offer premium gluegun support and general mobile app and web design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us.
+[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React Native, React, and Elixir. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!

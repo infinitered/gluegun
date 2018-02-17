@@ -1,4 +1,5 @@
 * [Home](/)
+* [Getting Started](/getting-started)
 * [Runtime API](/runtime)
 * [Toolbox API](/toolbox-api)
   * [config](/toolbox-config)
