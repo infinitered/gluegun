@@ -103,7 +103,7 @@ export async function replace(filename: string, oldContent: string, newContent: 
  * @param opts.force      Write even if it already exists
  *
  * @example
- *   await context.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
+ *   await toolbox.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
  *
  */
 export async function patch(filename: string, opts: GluegunPatchingPatchOptions = {}): Promise<string | false> {

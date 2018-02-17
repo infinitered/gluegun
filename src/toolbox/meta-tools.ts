@@ -1,14 +1,14 @@
 import * as jetpack from 'fs-jetpack'
 import { equals, map, pipe, propEq, reject, replace } from 'ramda'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 /**
  * Finds the version for the currently running CLI.
  *
- * @param context Currently running context.
+ * @param toolbox Currently running toolbox.
  * @returns Version as a string.
  */
-export function getVersion(context: GluegunRunContext): string {
-  let directory = context.runtime.defaultPlugin && context.runtime.defaultPlugin.directory
+export function getVersion(toolbox: GluegunToolbox): string {
+  let directory = toolbox.runtime.defaultPlugin && toolbox.runtime.defaultPlugin.directory
   if (!directory) {
     throw new Error('getVersion: Unknown CLI version (no src folder found)')
   }
@@ -43,12 +43,12 @@ const isHidden = propEq('hidden', true)
 /**
  * Gets the list of plugins.
  *
- * @param context The context
+ * @param toolbox The toolbox
  * @param plugins The plugins holding the commands
  * @param commandRoot Optional, only show commands with this root
  * @return List of plugins.
  */
-export function commandInfo(context: GluegunRunContext, commandRoot?: string[]): string[][] {
+export function commandInfo(toolbox: GluegunToolbox, commandRoot?: string[]): string[][] {
   return pipe(
     reject(isHidden),
     reject(command => {
@@ -61,8 +61,8 @@ export function commandInfo(context: GluegunRunContext, commandRoot?: string[]):
       const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''
       return [
         `${command.commandPath.join(' ')} ${alias}`,
-        replace('$BRAND', context.runtime.brand, command.description || '-'),
+        replace('$BRAND', toolbox.runtime.brand, command.description || '-'),
       ]
     }),
-  )(context.runtime.commands)
+  )(toolbox.runtime.commands)
 }

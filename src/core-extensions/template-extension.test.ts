@@ -9,18 +9,18 @@ const createRuntime = () => {
 }
 
 test('generates a simple file', async t => {
-  const context = await createRuntime().run('generate simple')
+  const toolbox = await createRuntime().run('generate simple')
 
-  t.is(context.result, 'simple file\n')
+  t.is(toolbox.result, 'simple file\n')
 })
 
 test('supports props', async t => {
-  const context = await createRuntime().run('generate props Greetings_and_salutations', {
+  const toolbox = await createRuntime().run('generate props Greetings_and_salutations', {
     stars: 5,
   })
 
   t.is(
-    context.result,
+    toolbox.result,
     `greetingsAndSalutations world
 red
 green
@@ -39,10 +39,10 @@ test('detects missing templates', async t => {
 })
 
 test('supports directories', async t => {
-  const context = await createRuntime().run('generate special location')
+  const toolbox = await createRuntime().run('generate special location')
 
   t.is(
-    context.result,
+    toolbox.result,
     `location
 `,
   )

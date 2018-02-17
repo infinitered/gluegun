@@ -1,4 +1,4 @@
-import { GluegunRunContext } from '../index'
+import { GluegunToolbox } from '../index'
 
 export interface GluegunPrint {
   /* Colors as seen from colors.js. */
@@ -28,5 +28,5 @@ export interface GluegunPrint {
   /* An `ora`-powered spinner. */
   spin(options: any): any
   /* Print help info for known CLI commands. */
-  printCommands(context: GluegunRunContext): void
+  printCommands(toolbox: GluegunToolbox): void
 }

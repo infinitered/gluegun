@@ -1,12 +1,12 @@
 import test from 'ava'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import create from './system-extension'
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const context = new RunContext()
-create(context)
-const system = context.system
+const toolbox = new Toolbox()
+create(toolbox)
+const system = toolbox.system
 
 test('survives the factory function', t => {
   t.truthy(system)

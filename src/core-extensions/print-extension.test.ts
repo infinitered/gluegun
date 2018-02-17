@@ -1,11 +1,11 @@
 import test from 'ava'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import printExtension from './print-extension'
 
-const context = new RunContext()
-printExtension(context)
+const toolbox = new Toolbox()
+printExtension(toolbox)
 
-const { print } = context
+const { print } = toolbox
 
 test('info', t => {
   t.is(typeof print.info, 'function')

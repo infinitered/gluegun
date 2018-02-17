@@ -1,7 +1,7 @@
 import { chmodSync } from 'fs'
 import { resolve } from 'path'
 
-export default context => {
-  context.filesystem.resolve = resolve
-  context.filesystem.chmodSync = chmodSync
+export default toolbox => {
+  toolbox.filesystem.resolve = resolve
+  toolbox.filesystem.chmodSync = chmodSync
 }

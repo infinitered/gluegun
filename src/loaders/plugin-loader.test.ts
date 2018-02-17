@@ -1,6 +1,6 @@
 import test from 'ava'
 import { find, propEq } from 'ramda'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import { loadPluginFromDirectory } from './plugin-loader'
 
 test('deals with weird input', t => {
@@ -63,7 +63,7 @@ test('load commands with front matter', async t => {
 })
 
 test('loads extensions with front matter', async t => {
-  const context = new RunContext()
+  const toolbox = new Toolbox()
 
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = loadPluginFromDirectory(dir)
@@ -73,9 +73,9 @@ test('loads extensions with front matter', async t => {
   const ext = plugin.extensions[0]
   t.is(ext.name, 'hello')
   t.is(typeof ext.setup, 'function')
-  ext.setup(context)
-  t.truthy(context.hello)
-  t.is(context.hello.very, 'little')
+  ext.setup(toolbox)
+  t.truthy(toolbox.hello)
+  t.is(toolbox.hello.very, 'little')
 })
 
 test('names default to the filename', async t => {

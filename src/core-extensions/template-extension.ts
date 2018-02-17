@@ -4,15 +4,15 @@ import { forEach, keys, replace } from 'ramda'
 import { Options } from '../domain/options'
 import { isFile } from '../toolbox/filesystem-tools'
 import * as stringTools from '../toolbox/string-tools'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 
 /**
  * Builds the code generation feature.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
-  const { plugin } = context
+export default function attach(toolbox: GluegunToolbox): void {
+  const { plugin } = toolbox
 
   /**
    * Generates a file from a template.
@@ -30,8 +30,8 @@ export default function attach(context: GluegunRunContext): void {
 
     // add some goodies to the environment so templates can read them
     const data = {
-      config: context && context.config,
-      parameters: context && context.parameters,
+      config: toolbox && toolbox.config,
+      parameters: toolbox && toolbox.parameters,
       props,
     }
 
@@ -69,5 +69,5 @@ export default function attach(context: GluegunRunContext): void {
     return content
   }
 
-  context.template = { generate }
+  toolbox.template = { generate }
 }

@@ -1,11 +1,11 @@
 import * as stringTools from '../toolbox/string-tools'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 
 /**
  * Attaches some string helpers for convenience.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
-  context.strings = stringTools
+export default function attach(toolbox: GluegunToolbox): void {
+  toolbox.strings = stringTools
 }

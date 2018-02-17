@@ -2,7 +2,7 @@ import { equals, last } from 'ramda'
 
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
-import { RunContextParameters } from '../domain/run-context'
+import { ToolboxParameters } from '../domain/toolbox'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given
@@ -12,7 +12,7 @@ import { RunContextParameters } from '../domain/run-context'
  * @param parameters The parameters passed in
  * @returns object with plugin, command, and array
  */
-export function findCommand(runtime: Runtime, parameters: RunContextParameters) {
+export function findCommand(runtime: Runtime, parameters: ToolboxParameters) {
   // the commandPath, which could be something like:
   // > movie list actors 2015
   // [ 'list', 'actors', '2015' ]

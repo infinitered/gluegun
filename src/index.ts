@@ -28,7 +28,7 @@ import attachPatchingExtension from './core-extensions/patching-extension'
 export { build } from './domain/builder'
 
 // export the Gluegun interface
-export { GluegunRunContext } from './domain/run-context'
+export { GluegunToolbox } from './domain/toolbox'
 export { GluegunCommand } from './domain/command'
 
 import { GluegunFilesystem } from './core-extensions/filesystem-types'
@@ -60,27 +60,27 @@ export {
 require('app-module-path').addPath(`${__dirname}/../node_modules`)
 require('app-module-path').addPath(process.cwd())
 
-// build a temporary context to hang things on
-const context: any = {}
+// build a temporary toolbox to hang things on
+const toolbox: any = {}
 
-attachStringsExtension(context)
-attachPrintExtension(context)
-attachFilesystemExtension(context)
-attachSemverExtension(context)
-attachSystemExtension(context)
-attachPromptExtension(context)
-attachHttpExtension(context)
-attachTemplateExtension(context)
-attachPatchingExtension(context)
+attachStringsExtension(toolbox)
+attachPrintExtension(toolbox)
+attachFilesystemExtension(toolbox)
+attachSemverExtension(toolbox)
+attachSystemExtension(toolbox)
+attachPromptExtension(toolbox)
+attachHttpExtension(toolbox)
+attachTemplateExtension(toolbox)
+attachPatchingExtension(toolbox)
 
 // some functions are available if you just `import { <things> } from 'gluegun'` directly
-export const filesystem: GluegunFilesystem = context.filesystem
-export const semver: GluegunSemver = context.semver
-export const system: GluegunSystem = context.system
-export const prompt: GluegunPrompt = context.prompt
-export const http: GluegunHttp = context.http
-export const template: GluegunTemplate = context.template
-export const patching: GluegunPatching = context.patching
-export const print: GluegunPrint = context.print
-export const generate = context.generate
-export const strings: GluegunStrings = context.strings
+export const filesystem: GluegunFilesystem = toolbox.filesystem
+export const semver: GluegunSemver = toolbox.semver
+export const system: GluegunSystem = toolbox.system
+export const prompt: GluegunPrompt = toolbox.prompt
+export const http: GluegunHttp = toolbox.http
+export const template: GluegunTemplate = toolbox.template
+export const patching: GluegunPatching = toolbox.patching
+export const print: GluegunPrint = toolbox.print
+export const generate = toolbox.generate
+export const strings: GluegunStrings = toolbox.strings
