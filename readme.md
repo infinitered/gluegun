@@ -131,9 +131,9 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 
 Node [Node.js 7.6+](https://nodejs.org) is required.
 
-## Premium Support
+## Sponsors
 
-[gluegun](https://github.com/infinitered/gluegun), as open source projects, is free to use and always will be. [Infinite Red](https://infinite.red/) offers premium gluegun support and general mobile app design/development services. Email us at [hello@infinite.red](mailto:hello@infinite.red) to get in touch with us for more details.
+[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React Native, React, and Elixir. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
 
 ## Contributors
 
