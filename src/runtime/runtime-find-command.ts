@@ -1,4 +1,4 @@
-import { equals, last } from 'ramda'
+import { equals } from 'ramda'
 
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
@@ -21,36 +21,43 @@ export function findCommand(runtime: Runtime, parameters: RunContextParameters) 
 
   // the part of the commandPath that doesn't match a command
   // in the above example, it will end up being [ '2015' ]
-  const rest = commandPath.slice()
+  let tempPathRest = commandPath
+  let commandPathRest = tempPathRest
+
+  // the resolved command will live here
+  // start by setting it to the default command, in case we don't find one
+  let targetCommand: Command = runtime.defaultCommand
+
+  // store the resolved path as we go
+  let resolvedPath: string[] = []
 
   // we loop through each segment of the commandPath, looking for aliases among
   // parent commands, and expand those.
-  const foundCommands = commandPath.reduce((prevCommands: Command[], currName: string) => {
-    // what is the path for the last known command?
-    const lastCommand = last(prevCommands)
-    const prevPath = lastCommand ? lastCommand.commandPath : []
+  commandPath.forEach((currName: string) => {
+    // cut another piece off the front of the commandPath
+    tempPathRest = tempPathRest.slice(1)
 
     // find a command that fits the previous path + currentName, which can be an alias
     let segmentCommand = runtime.commands
       .sort(sortCommands)
-      .find(command => equals(command.commandPath.slice(0, -1), prevPath) && command.matchesAlias(currName))
+      .find(command => equals(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
 
     if (segmentCommand) {
-      // remove another segment from the commandPath
-      rest.shift()
-      // add the new command to the path
-      return prevCommands.concat([segmentCommand])
+      // found another candidate as the "endpoint" command
+      targetCommand = segmentCommand
+
+      // since we found a command, the "commandPathRest" gets updated to the tempPathRest
+      commandPathRest = tempPathRest
+
+      // add the current command to the resolvedPath
+      resolvedPath = resolvedPath.concat([segmentCommand.name])
     } else {
-      // didn't find a command that fit this description
-      return prevCommands
+      // no command found, let's add the segment as-is to the command path
+      resolvedPath = resolvedPath.concat([currName])
     }
   }, [])
 
-  // the last command is the one we run
-  // if no targetCommand found, use the default (if set)
-  let targetCommand = last(foundCommands) || runtime.defaultCommand
-
-  return { command: targetCommand, array: rest }
+  return { command: targetCommand, array: commandPathRest }
 }
 
 // sorts shortest to longest commandPaths, so we always check the shortest ones first
