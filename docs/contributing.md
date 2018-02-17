@@ -1,39 +1,14 @@
 # Contributing
 
-Welcome!
+_Welcome!_
 
-Bug fixes, features, docs, marketing, and issue support are all contributions.
-
+Bug fixes, features, docs, marketing, and issue support are all contributions. We love it when people help out and are more than willing to give you advice, guidance, or just be a 🐥 debugger for you.
 
 ## Global Dependencies
 
 If you're reading this, you might be interested in pitching in from a code point of view.
 
-`gluegun` is a Node JS program. So we'll need NodeJS 7.2. On macOS, the easiest way is:
-
-```sh
-brew install nodejs
-```
-
-`n` is a fantastic node version switcher, I highly recommend this:
-
-```sh
-npm i -g n
-n 7.2
-```
-
-We'll also want the `yarn` package manager because it's fast.
-
-```sh
-npm i -g yarn
-```
-
-And let's grab lerna. Lerna is a monorepo management tool. We're using this because in
-the future we'll have a few packages, not just the one `gluegun` as it is now.
-
-```sh
-npm i -g lerna@2.0.0-beta.31
-```
+`gluegun` is powered by Node (7.6 or above). Install Node using `brew` (if on macOS) or by following the instructions here: [https://nodejs.org/en/download/current/](https://nodejs.org/en/download/current/)
 
 ## Installing `gluegun`
 
@@ -43,26 +18,21 @@ Next, clone the repo.
 git clone git@github.com/infinitered/gluegun
 ```
 
-And switch to the directory and install all the dependencies.
+Install all the dependencies.
 
 ```
 cd gluegun
-yarn
-cd packages/gluegun
-yarn
+npm install
 ```
 
-We'll be mostly living in the `/packages/gluegun` directory. Documentation lives in
-`/docs`. 
+Gluegun's source files are mostly in `./src` and uses TypeScript. Documentation lives in `/docs`.
 
-
-## Running Test And Linting
+## Running Tests And Linting
 
 ```sh
-cd packages/gluegun
-yarn test
-yarn run lint
-yarn run watch
+npm test
+npm run lint
+npm run watch
 ```
 
 ## Features & Fixes
@@ -70,27 +40,27 @@ yarn run watch
 ```sh
 git branch fun
 # furious typing
-yarn run test
-yarn run lint
+npm test
+npm run lint
 git commit -m "Adds fun"
 git push -u origin --HEAD
 ```
 
-Please ensure lint linting & testing passes. That'd be pretty cool. Please write tests for your new stuff. I'll be your BFF if you do.
+Passing tests and linting is required before we'll merge a pull request. If you need help with this, feel free to file an issue or chat with us on the [Infinite Red Community Slack](http://community.infinite.red).
 
-## Submitting a PR
+## Submitting a Pull Request
 
-Jump on github on your fork. Switch to the branch with your new changes, and 
-open a PR against `master` of `infinitered/gluegun`.
+Jump on Github on your fork. Switch to the branch with your new changes, and
+open a PR against `master` of [infinitered/gluegun](https://github.com/infinitered/gluegun).
 
-Screenshots of what the feature is 💯. Animated gifs (licecap or w/e) are 💯 + 🦄.
+Screenshots of what the feature is 💯. Animated gifs (licecap or Gif Brewery are nice for this) are 💯 + 🦄.
 
-Then submit the PR.
+Then submit the pull request.
 
 * It's 👌 to submit an issue before breaking changes or shenanigans to get a sense if it's cool
-* It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to lemme know it's a conversation
-* It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR.
-* If Github is complaining about conflicts, rebase. Rebase downstream,  Merge upstream.
+* It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to let us know it's a conversation
+* It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR
+* If Github is complaining about conflicts, rebase downstream, merge upstream
 
 ## Keeping up to date
 
@@ -106,4 +76,5 @@ git fetch upstream
 git rebase upstream/master
 
 # and here's where you'd create your branch
+git checkout -b mybranch
 ```
