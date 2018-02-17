@@ -13,3 +13,4 @@
   * [system](/toolbox-system)
   * [template](/toolbox-template)
   * [patching](/toolbox-patching)
+* [Contributing](/contributing)

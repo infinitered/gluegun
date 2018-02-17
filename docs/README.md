@@ -30,7 +30,7 @@ movie version 0.0.1
   generate (g)   - 
 ```
 
-That's it! Now you can flesh out your CLI. It can be simple or quite complex. See [Getting Started](./getting-started) for more.
+That's it! Now you can flesh out your CLI. It can be simple or quite complex. See [Getting Started](/getting-started) for more.
 
 ## Gluegun Features
 
