@@ -4,9 +4,9 @@
 
 Runs a shell command and returns the output as a string.
 
-The first parameter `commandLine` is the shell command to run.  It can have pipes! The
+The first parameter `commandLine` is the shell command to run. It can have pipes! The
 second parameter is `options`, object. This is a promise wrapped around node.js `child-process.exec`
-[api call](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback). 
+[api call](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback).
 
 You can also pass `trim: true` inside the options parameter to have the output automatically trim all
 starting and trailing spaces.
@@ -22,31 +22,32 @@ Should the process fail, an `error` will be thrown with properties such as:
 | signal   | number | the signal number used to off the process (if killed) |
 
 ```js
-const nodeVersion = context.system.run('node -v', { trim: true })
+const nodeVersion = toolbox.system.run('node -v', { trim: true })
 ```
 
-### context.system.which
+### toolbox.system.which
 
 Returns the full path to a command on your system if located on your path.
 
 ```js
-const whereIsIt = context.system.which('npm')
+const whereIsIt = toolbox.system.which('npm')
 ```
 
-### context.system.open
+### toolbox.system.open
+
 :(
 
-### context.system.startTimer
+### toolbox.system.startTimer
 
-Starts a timer for... well... timing stuff.  `startTimer()` returns a function.  When this is called, the number of milliseconds will be returned.
+Starts a timer for... well... timing stuff. `startTimer()` returns a function. When this is called, the number of milliseconds will be returned.
 
 ```js
-const timer = context.system.startTimer()
+const timer = toolbox.system.startTimer()
 
 // time passes...
 console.log(`that just took ${timer()} ms.`)
 ```
 
-Caveat: Due to the event loop scheduler in Node.JS, they don't guarantee millisecond accuracy when invoking async functions.  For that reason, expect a up to a 4ms overage.
+Caveat: Due to the event loop scheduler in Node.JS, they don't guarantee millisecond accuracy when invoking async functions. For that reason, expect a up to a 4ms overage.
 
 Note that this lag doesn't apply to synchronous code.

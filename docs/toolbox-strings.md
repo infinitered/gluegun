@@ -1,7 +1,7 @@
-Provides some helper functions to work with strings.  This list is also added to the available filters
+Provides some helper functions to work with strings. This list is also added to the available filters
 inside your EJS templates.
 
------
+---
 
 ## **Utility**
 
@@ -18,12 +18,13 @@ Returns the **input** as **output**. Great for functional programming like sorti
 * the `value` that was passed in
 
 ```js
-identity('hello')   // hello
-identity(4)         // 3
-identity([1, 'a'])  // [1, 'a']
+identity('hello') // hello
+identity(4) // 3
+identity([1, 'a']) // [1, 'a']
 ```
 
 ## isBlank
+
 Determines if a string is empty by trimming it first.
 
 ```js
@@ -32,6 +33,7 @@ isBlank('   ') // true
 ```
 
 ## isNotString
+
 Tests a value to see if it is not a string.
 
 ```js
@@ -42,10 +44,12 @@ isNotString(123) // true
 isNotString('hi') // false
 ```
 
------
+---
+
 ## **Growing**
 
 ## pad
+
 Centers a string to a given length.
 
 ```js
@@ -53,20 +57,23 @@ pad('hola', 20) // '        hola        '
 ```
 
 ## padStart
+
 Fills a string to a certain length by adding characters to the front.
 
 ```js
 padStart('hello', 10, '.') // '.....hello'
-``` 
+```
 
 ## padEnd
+
 Fills a string to a certain length by adding characters to the end.
 
 ```js
 padEnd('hello', 10, '!') // 'hello!!!!!'
-``` 
+```
 
 ## repeat
+
 Repeats a string a number of times to make a pattern.
 
 ```js
@@ -74,10 +81,12 @@ repeat('x', 3) // 'xxx'
 repeat('xo', 3) // 'xoxoxo'
 ```
 
------
+---
+
 ## **Shrinking**
 
 ## trim
+
 Strips white space from both the start and end of a string, but not the middle.
 
 ```js
@@ -85,6 +94,7 @@ trim('    kevin   spacey    ') // 'kevin   spacey'
 ```
 
 ## trimStart
+
 Strips white space from the start of a string.
 
 ```js
@@ -92,16 +102,19 @@ trimStart('          hi ') // 'hi '
 ```
 
 ## trimEnd
+
 Strips white space from the end of a string.
 
 ```js
 trimEnd('windows!\r\n') // 'windows!'
 ```
 
------
+---
+
 ## **Case Conversion**
 
 ## camelCase
+
 Capitalizes the first letter of each word it smashes together on word boundaries. The first letter becomes lowercase. Puncuation gets dropped.
 
 Great for assembling javascript variable names.
@@ -118,6 +131,7 @@ camelCase('this.is.sparta!') // 'thisIsSparta'
 ```
 
 ## kebabCase
+
 Skewers words by placing - characters between them and downcasing.
 
 ```js
@@ -132,6 +146,7 @@ kebabCase('this.is.sparta!') // 'this-is-sparta'
 ```
 
 ## snakeCase
+
 Joins words together with underscores after splitting up into word boundaries.
 
 Great for ruby and some apis.
@@ -148,6 +163,7 @@ snakeCase('this.is.sparta!') // 'this_is_sparta'
 ```
 
 ## upperCase
+
 A staple in every troll's toolbelt, this makes everything uppercase.
 
 ```js
@@ -162,6 +178,7 @@ upperCase('this.is.sparta!') // 'THIS IS SPARTA'
 ```
 
 ## lowerCase
+
 This makes everything lower case.
 
 ```js
@@ -175,8 +192,8 @@ lowerCase('OSnap') // 'o snap'
 lowerCase('this.is.sparta!') // 'this is sparta'
 ```
 
-
 ## startCase
+
 Uppercases the first letter of each word after dicing up on word boundaries.
 
 ```js
@@ -191,6 +208,7 @@ startCase('this.is.sparta!') // 'This Is Sparta'
 ```
 
 ## upperFirst
+
 Uppercases the first letter of the string.
 
 ```js
@@ -205,6 +223,7 @@ upperFirst('this.is.sparta!') // 'This.is.sparta!'
 ```
 
 ## lowerFirst
+
 Lowercases the first letter of the string.
 
 ```js
@@ -219,6 +238,7 @@ lowerFirst('this.is.sparta!') // 'this.is.sparta!'
 ```
 
 ## pascalCase
+
 This is `camelCase` + `upperFirst`.
 
 ```js
@@ -233,6 +253,7 @@ pascalCase('this.is.sparta!') // 'ThisIsSparta'
 ```
 
 ## pluralize
+
 Pluralize or singularize a word based on the passed in count.
 
 ```
@@ -240,10 +261,10 @@ pluralize('test', 1) // 'test'
 pluralize('test', 5) // 'tests'
 pluralize('test', 1, true) // '1 test'
 pluralize('test', 5, true) // '5 tests'
-
 ```
 
 ## plural
+
 Converts a given singular word to plural.
 
 ```
@@ -252,6 +273,7 @@ plural('word') // 'words'
 ```
 
 ## singular
+
 Converts a given plural word to singular.
 
 ```
@@ -260,6 +282,7 @@ singular('words') // 'word'
 ```
 
 ## isPlural
+
 Checks if the give word is plural.
 
 ```
@@ -268,6 +291,7 @@ isPlural('bug') // false
 ```
 
 ## isSingular
+
 Checks if the give word is singular.
 
 ```
@@ -276,6 +300,7 @@ isSingular('bug') // true
 ```
 
 ## addPluralRule
+
 Adds a pluralization rule for the given singular word when calling plural.
 
 ```
@@ -284,6 +309,7 @@ addPluralRule(/regex$/, 'regexii')
 ```
 
 ## addSingularRule
+
 Adds a pluralization rule for the given plural word when calling singular.
 
 ```
@@ -292,6 +318,7 @@ addSingularRule(/regexii$/, 'regex')
 ```
 
 ## addIrregularRule
+
 Adds a pluralization rule for the given irregular word when calling plural.
 
 ```
@@ -299,6 +326,7 @@ addIrregularRule('octopus', 'octopodes')
 ```
 
 ## addUncountableRule
+
 Exempts the given uncountable word from pluralization so that calling plural or singular with that word will return the same word unchanged.
 
 ```

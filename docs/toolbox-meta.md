@@ -5,7 +5,7 @@ Provides functions for accessing information about the currently running CLI.
 Retrieves the currently running CLI's version.
 
 ```js
-context.meta.version() // '1.0.0'
+toolbox.meta.version() // '1.0.0'
 ```
 
 ## commandInfo
@@ -13,6 +13,6 @@ context.meta.version() // '1.0.0'
 Retrieves information about all of this CLI's commands. You can use this to display a custom help screen, for example.
 
 ```js
-const commandInfo = context.meta.commandInfo()
-context.print.table(commandInfo)
+const commandInfo = toolbox.meta.commandInfo()
+toolbox.print.table(commandInfo)
 ```

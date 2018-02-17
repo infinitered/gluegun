@@ -1,13 +1,13 @@
-A set of functions & values to work with files and directories.  The majority of these functions come
+A set of functions & values to work with files and directories. The majority of these functions come
 straight from [fs-jetpack](https://github.com/szwacz/fs-jetpack), a fantastic API for working with the
-file system.  All jetpack-based functions have an equivalent `*Async` version if you need it.
+file system. All jetpack-based functions have an equivalent `*Async` version if you need it.
 
 ## separator
 
 This value is the path separator `\` or `/` depending on the OS.
 
 ```js
-context.filesystem.separator // '/' on posix but '\' on windows
+toolbox.filesystem.separator // '/' on posix but '\' on windows
 ```
 
 ## eol
@@ -15,7 +15,7 @@ context.filesystem.separator // '/' on posix but '\' on windows
 This value is the end of line byte sequence.
 
 ```js
-context.filesystem.eol // '\n' on posix but '\r\n' on windows 
+toolbox.filesystem.eol // '\n' on posix but '\r\n' on windows
 ```
 
 ## subdirectories
@@ -23,7 +23,7 @@ context.filesystem.eol // '\n' on posix but '\r\n' on windows
 Finds the immediate subdirectories in a given directory.
 
 ```js
-context.filesystem.subdirectories(`~/Desktop`) // []
+toolbox.filesystem.subdirectories(`~/Desktop`) // []
 ```
 
 ## append
@@ -41,7 +41,7 @@ Gets the [current working directory](https://github.com/szwacz/fs-jetpack#create
 ## dir
 
 [Ensures a directory exists](https://github.com/szwacz/fs-jetpack#dirpath-criteria) and creates a new jetpack
-instance with it's `cwd` pointing there. 
+instance with it's `cwd` pointing there.
 
 ## exists
 
@@ -89,12 +89,8 @@ Checks to see if file or directory [exists](https://github.com/szwacz/fs-jetpack
 
 ## symlink
 
-[Makes a symbolic link](https://github.com/szwacz/fs-jetpack#symlinksymlinkvalue-path) to a file or directory. 
+[Makes a symbolic link](https://github.com/szwacz/fs-jetpack#symlinksymlinkvalue-path) to a file or directory.
 
 ## write
 
 [Writes](https://github.com/szwacz/fs-jetpack#writepath-data-options) data to a file.
-
-
-
-

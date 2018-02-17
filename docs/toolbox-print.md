@@ -5,7 +5,7 @@ Features for allowing you to print to the console.
 Prints an informational message. Use this as your goto.
 
 ```js
-context.print.info('Hello.  I am a chatty plugin.')
+toolbox.print.info('Hello.  I am a chatty plugin.')
 ```
 
 ## success
@@ -13,7 +13,7 @@ context.print.info('Hello.  I am a chatty plugin.')
 Print a "something good just happened" message.
 
 ```js
-context.print.success('We did it!')
+toolbox.print.success('We did it!')
 ```
 
 ## warning
@@ -21,7 +21,7 @@ context.print.success('We did it!')
 Prints a warning message. Use this when you feel a disturbance in the force.
 
 ```js
-context.print.warning("Your system does not have Yarn installed.  It's awesome.")
+toolbox.print.warning("Your system does not have Yarn installed.  It's awesome.")
 ```
 
 ## error
@@ -30,7 +30,7 @@ Prints an error message. Use this when something goes Pants-On-Head wrong. What 
 Well, if your next line of code isn't `process.exit(0)`, then it was probably a warning.
 
 ```js
-context.print.error('Out of disk space.  lol.')
+toolbox.print.error('Out of disk space.  lol.')
 ```
 
 ## debug
@@ -38,7 +38,7 @@ context.print.error('Out of disk space.  lol.')
 Only used for debugging your plugins. You can pass this function a string or an object.
 
 ```js
-context.print.debug(someObject, 'download status')
+toolbox.print.debug(someObject, 'download status')
 ```
 
 The `message` parameter is object you would like to see.
@@ -75,8 +75,8 @@ Here's an example of how to work with it:
 
 ```js
 // a spinner starts with the text you provide
-const spinner = context.print.spin('Time for fun!')
-await context.system.run('sleep 5')
+const spinner = toolbox.print.spin('Time for fun!')
+await toolbox.system.run('sleep 5')
 ```
 
 🚨 Important 🚨 - Make sure you don't print anything else while a spinner is going. You need to stop
@@ -113,7 +113,7 @@ spinner.color = 'cyan'
 The text can also be set with the normal printing colors.
 
 ```js
-spinner.text = context.print.colors.green('i like trees')
+spinner.text = toolbox.print.colors.green('i like trees')
 ```
 
 ## printHelp
@@ -121,24 +121,24 @@ spinner.text = context.print.colors.green('i like trees')
 Prints a default help screen, consisting of the brand name, version, and `printCommands` output (next).
 
 ```js
-const { printHelp } = context.print
-printHelp(context)
+const { printHelp } = toolbox.print
+printHelp(toolbox)
 ```
 
 ## printCommands
 
-Prints out a table of available commands in a given context.
+Prints out a table of available commands in a given toolbox.
 
 ```js
-const { printCommands } = context.print
-printCommands(context)
+const { printCommands } = toolbox.print
+printCommands(toolbox)
 ```
 
 You can pass in a "command path" to refine what commands you'd like to see:
 
 ```js
-const { printCommands } = context.print
-printCommands(context, ['generate', 'model'])
+const { printCommands } = toolbox.print
+printCommands(toolbox, ['generate', 'model'])
 ```
 
 ## table
@@ -147,7 +147,7 @@ Prints out a table of data, including a header. You can choose from three differ
 `default`, `markdown`, and `lean`.
 
 ```js
-const { table } = context.print
+const { table } = toolbox.print
 table(
   [
     ['First Name', 'Last Name', 'Age'],
@@ -156,7 +156,7 @@ table(
     ['Steve', 'Kellock', 43],
     ['Gary', 'Busey', 73],
   ],
-  { format: 'markdown' }
+  { format: 'markdown' },
 )
 ```
 

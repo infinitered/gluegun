@@ -15,7 +15,7 @@ const cli = build()
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: context => context.print.info('hi!') })
+  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
   .create()
 
 await cli.run()
@@ -44,8 +44,7 @@ We'll be chaining the `build()` function from here.
 **Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build().brand('movie')
 ```
 
 The brand is most likely to share the same name of the CLI.
@@ -141,13 +140,13 @@ const cli = build()
 You can also pass in a function or command object here:
 
 ```js
-  .help(context => context.print.info('No help for you!'))
+  .help(toolbox => toolbox.print.info('No help for you!'))
   .help({
     name: 'help',
     alias: 'helpmeplease',
     hidden: true,
     dashed: true,
-    run: context => context.print.info('No help for you!'))
+    run: toolbox => toolbox.print.info('No help for you!'))
   })
 ```
 
@@ -185,7 +184,7 @@ const cli = build()
   .defaultCommand()
 ```
 
-Just like `help` and `version` above, you can pass in a function or command object if 
+Just like `help` and `version` above, you can pass in a function or command object if
 you prefer more control.
 
 ## command
@@ -201,7 +200,7 @@ const cli = build()
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: context => context.print.info('hi!') })
+  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
 ```
 
 In this case, if you ran `movie hi`, it would run the function provided and print out 'hi!'.
@@ -222,7 +221,7 @@ const cli = build()
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: context => context.print.info('hi!') })
+  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
   .create()
 ```
 

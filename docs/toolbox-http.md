@@ -1,15 +1,14 @@
-
 Gives you the ability to talk to HTTP(s) web and API servers using [apisauce](https://github.com/skellock/apisauce) which
 is a thin wrapper around [axios](https://github.com/mzabriskie/axios).
 
 ## create
 
-This creates an `apisauce` client.  It takes 1 parameter called `options` which is an object.
+This creates an `apisauce` client. It takes 1 parameter called `options` which is an object.
 
 ```js
-const api = context.http.create({
+const api = toolbox.http.create({
   baseURL: 'https://api.github.com',
-  headers: {'Accept': 'application/vnd.github.v3+json'}
+  headers: { Accept: 'application/vnd.github.v3+json' },
 })
 ```
 
@@ -27,4 +26,3 @@ api.post('/todos', {note: 'jump around'}, {headers: {'x-ray': 'machine'}})
 api.patch('/servers/1', {live: false})
 api.put('/servers/1', {live: true})
 ```
-
