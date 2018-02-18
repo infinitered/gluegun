@@ -12,7 +12,7 @@ const askAge = { type: 'input', name: 'age', message: 'How old are you?' }
 
 // multiple choice
 const askShoe = {
-  type: 'input',
+  type: 'list',
   name: 'shoe',
   message: 'What shoes are you wearing?',
   choices: [ 'Clown', 'Other' ]
