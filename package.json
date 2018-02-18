@@ -6,25 +6,23 @@
   "bin": {
     "gluegun": "bin/gluegun"
   },
-  "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "build/index.js",
+  "types": "build/types/index.d.ts",
   "scripts": {
     "precommit": "lint-staged",
     "format": "prettier --write \"**/*.ts\" && tslint -p . --fix",
-    "clean-build": "rm -rf ./dist ./build",
+    "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
-    "rollup": "rollup -c",
-    "copy-cli": "cp -a ./build/cli ./dist/",
-    "clean-types": "find ./dist/types -type f -size 0 -delete && find ./dist/types -type d -empty -delete",
-    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn rollup && yarn copy-cli && yarn clean-types",
+    "clean-types": "find ./build/types -type f -size 0 -delete && find ./build/types -type d -empty -delete",
+    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
     "test": "yarn build && ava-ts",
     "watch": "ava-ts --watch",
     "snapupdate": "ava-ts --update-snapshots",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",
     "coveralls": "nyc ava-ts && nyc report --reporter=text-lcov | coveralls",
-    "shipit": "yarn build && yarn rollup && yarn lint && np --yolo"
+    "shipit": "yarn build && yarn lint && np --yolo"
   },
   "author": {
     "name": "Infinite Red, Inc.",
@@ -34,7 +32,7 @@
   "files": [
     "docs",
     "bin",
-    "dist",
+    "build",
     "sniff.js",
     "sniff-async.js",
     "LICENSE",
@@ -97,11 +95,6 @@
     "np": "^2.19.0",
     "nyc": "^11.2.1",
     "prettier": "^1.10.2",
-    "rollup": "^0.55.3",
-    "rollup-plugin-commonjs": "^8.3.0",
-    "rollup-plugin-filesize": "^1.5.0",
-    "rollup-plugin-json": "^2.3.0",
-    "rollup-plugin-progress": "^0.4.0",
     "sinon": "^4.2.2",
     "strip-ansi": "^4.0.0",
     "temp-write": "^3.3.0",

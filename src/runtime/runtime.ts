@@ -21,18 +21,6 @@ import { isBlank } from '../toolbox/string-tools'
 // the special run function
 import { run } from './run'
 
-// core extensions
-import metaExtensionAttach from '../core-extensions/meta-extension'
-import stringsExtensionAttach from '../core-extensions/strings-extension'
-import printExtensionAttach from '../core-extensions/print-extension'
-import filesystemExtensionAttach from '../core-extensions/filesystem-extension'
-import semverExtensionAttach from '../core-extensions/semver-extension'
-import systemExtensionAttach from '../core-extensions/system-extension'
-import promptExtensionAttach from '../core-extensions/prompt-extension'
-import httpExtensionAttach from '../core-extensions/http-extension'
-import templateExtensionAttach from '../core-extensions/template-extension'
-import patchingExtensionAttach from '../core-extensions/patching-extension'
-
 /**
  * Loads plugins, extensions, and invokes the intended command.
  */
@@ -53,7 +41,6 @@ export class Runtime {
   constructor(brand?: string) {
     this.brand = brand
     this.run = run // awkward because node.js doesn't support async-based class functions yet.
-    this.addCoreExtensions()
   }
 
   /**
@@ -61,17 +48,23 @@ export class Runtime {
    * available in gluegun, but follow a similar method
    * for extending the core as 3rd party extensions do.
    */
-  public addCoreExtensions(): void {
-    this.addExtension('meta', metaExtensionAttach)
-    this.addExtension('strings', stringsExtensionAttach)
-    this.addExtension('print', printExtensionAttach)
-    this.addExtension('filesystem', filesystemExtensionAttach)
-    this.addExtension('semver', semverExtensionAttach)
-    this.addExtension('system', systemExtensionAttach)
-    this.addExtension('prompt', promptExtensionAttach)
-    this.addExtension('http', httpExtensionAttach)
-    this.addExtension('template', templateExtensionAttach)
-    this.addExtension('patching', patchingExtensionAttach)
+  public addCoreExtensions(exclude: string[] = []): void {
+    const coreExtensions = [
+      'meta',
+      'strings',
+      'print',
+      'filesystem',
+      'semver',
+      'system',
+      'prompt',
+      'http',
+      'template',
+      'patching',
+    ]
+
+    coreExtensions.filter(ex => !exclude.includes(ex)).forEach(ex => {
+      this.addExtension(ex, require(`../core-extensions/${ex}-extension`))
+    })
   }
 
   /**

@@ -12,9 +12,11 @@ import { GluegunLoadOptions, GluegunMultiLoadOptions } from './options'
  */
 export class Builder {
   public readonly runtime: Runtime
+  public excludes: string[]
 
   constructor() {
     this.runtime = new Runtime()
+    this.excludes = []
   }
 
   /**
@@ -29,6 +31,14 @@ export class Builder {
   }
 
   /**
+   * Excludes core libraries if they're not needed, for performance reasons.
+   */
+  public exclude(excludes: string[]) {
+    this.excludes = excludes
+    return this
+  }
+
+  /**
    * Specifies where the default commands and extensions live.
    *
    * @param value The path to the source directory.
@@ -36,6 +46,7 @@ export class Builder {
    * @return self.
    */
   public src(value: string, options: GluegunLoadOptions = {}): Builder {
+    this.runtime.addCoreExtensions(this.excludes)
     this.runtime.addDefaultPlugin(value, options)
     return this
   }

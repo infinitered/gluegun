@@ -12,7 +12,7 @@
     "outDir": "build",
     // Emits types for others to consume
     "declaration": true,
-    "declarationDir": "dist/types",
+    "declarationDir": "build/types",
     "strict": false,
     "target": "es5"
   },
