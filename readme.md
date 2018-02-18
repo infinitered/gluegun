@@ -86,9 +86,9 @@ Commands are simple objects that provide a name, optional aliases, and a functio
 module.exports = {
   name: 'foo',
   alias: 'f',
-  run: async function(context) {
+  run: async function(toolbox) {
     // gluegun provides all these features and more!
-    const { system, print, filesystem, strings } = context
+    const { system, print, filesystem, strings } = toolbox
 
     // ...and be the CLI you wish to see in the world
     const awesome = strings.trim(system.run('whoami'))
@@ -104,7 +104,7 @@ module.exports = {
 }
 ```
 
-See the [context api docs](./docs/context-api.md) for more details on what you can do.
+See the [toolbox api docs](./docs/toolbox-api.md) for more details on what you can do.
 
 See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 

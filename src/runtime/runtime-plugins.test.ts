@@ -44,11 +44,11 @@ test('commands and defaultCommand work properly even when multiple plugins are l
 
   t.is(2, r.plugins.length)
 
-  let context = await r.run('')
+  let toolbox = await r.run('')
 
-  t.is(context.command.name, 'default-command')
+  t.is(toolbox.command.name, 'default-command')
 
-  context = await r.run('one')
+  toolbox = await r.run('one')
 
-  t.is(context.command.name, 'one')
+  t.is(toolbox.command.name, 'one')
 })

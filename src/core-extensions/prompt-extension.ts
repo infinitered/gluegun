@@ -1,5 +1,5 @@
 import * as Enquirer from 'enquirer'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 import * as promptList from 'prompt-list'
 import * as promptRawlist from 'prompt-rawlist'
 import * as promptConfirm from 'prompt-confirm'
@@ -13,9 +13,9 @@ import * as promptAutocompletion from 'prompt-autocompletion'
 /**
  * Provides user input prompts via enquirer.js.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
+export default function attach(toolbox: GluegunToolbox): void {
   const enquirer = new Enquirer()
   enquirer.register('list', promptList)
   enquirer.register('rawlist', promptRawlist)
@@ -45,5 +45,5 @@ export default function attach(context: GluegunRunContext): void {
   // attach our helpers
   enquirer.confirm = confirm
 
-  context.prompt = enquirer
+  toolbox.prompt = enquirer
 }

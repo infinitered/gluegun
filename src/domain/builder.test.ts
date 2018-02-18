@@ -1,6 +1,6 @@
 import test from 'ava'
 import { build } from './builder'
-import { RunContext } from './run-context'
+import { Toolbox } from './toolbox'
 
 test('the gauntlet', t => {
   const brand = 'test'
@@ -12,7 +12,7 @@ test('the gauntlet', t => {
     .version({
       name: 'gimmedatversion',
       alias: ['version', 'v'],
-      run: context => 'it works',
+      run: toolbox => 'it works',
     })
     .defaultCommand()
     .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
@@ -30,7 +30,7 @@ test('the gauntlet', t => {
 
   t.is(runtime.defaultPlugin.commands[0].name, brand)
   t.is(runtime.defaultPlugin.commands[1].name, 'gimmedatversion')
-  t.is(runtime.defaultPlugin.commands[1].run(new RunContext()), 'it works')
+  t.is(runtime.defaultPlugin.commands[1].run(new Toolbox()), 'it works')
   t.is(runtime.defaultPlugin.commands[2].name, 'help')
   t.is(runtime.defaultPlugin.commands[3].name, 'one')
   t.is(runtime.defaultPlugin.commands[4].name, 'three')

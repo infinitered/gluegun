@@ -3,8 +3,8 @@ import { Runtime } from './runtime'
 
 test('cannot find a command', async t => {
   const r = new Runtime()
-  const context = await r.run('bloo blah')
-  t.falsy(context.result)
+  const toolbox = await r.run('bloo blah')
+  t.falsy(toolbox.result)
 })
 
 test('is fatally wounded by exceptions', async t => {

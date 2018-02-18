@@ -3,8 +3,8 @@ export default {
   alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
   hidden: false,
-  run: async context => {
-    const { parameters, template: { generate }, filesystem, print, strings, system } = context
+  run: async toolbox => {
+    const { parameters, template: { generate }, filesystem, print, strings, system } = toolbox
     const { kebabCase } = strings
 
     const props = {
@@ -91,6 +91,6 @@ export default {
     print.info(``)
 
     // for tests
-    return `new ${context.parameters.first}`
+    return `new ${toolbox.parameters.first}`
   },
 }

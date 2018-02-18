@@ -6,7 +6,7 @@ import { dissoc, is } from 'ramda'
 import { Command, GluegunCommand } from '../domain/command'
 import { Extension } from '../domain/extension'
 import { Plugin } from '../domain/plugin'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 import { Options, GluegunLoadOptions, GluegunMultiLoadOptions } from '../domain/options'
 
 // loaders
@@ -45,7 +45,7 @@ export class Runtime {
   public defaultPlugin?: Plugin = null
   public defaultCommand?: Command = null
   public config: Options = {}
-  public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunRunContext>
+  public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunToolbox>
 
   /**
    * Create and initialize an empty Runtime.
@@ -121,15 +121,15 @@ export class Runtime {
 
   /**
    * Adds an extension so it is available when commands run. They usually live
-   * as the given name on the context object passed to commands, but are able
-   * to manipulate the context object however they want. The second
+   * as the given name on the toolbox object passed to commands, but are able
+   * to manipulate the toolbox object however they want. The second
    * parameter is a function that allows the extension to attach itself.
    *
-   * @param name The context property name.
+   * @param name The toolbox property name.
    * @param setup The setup function.
    * @returns This runtime.
    */
-  public addExtension(name: string, setup: (context: GluegunRunContext) => void): Runtime {
+  public addExtension(name: string, setup: (toolbox: GluegunToolbox) => void): Runtime {
     this.extensions.push({ name, setup })
     return this
   }

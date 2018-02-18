@@ -11,7 +11,7 @@ This is the lovely and talented [enquirer](https://github.com/enquirer/enquirer)
 const askAge = { type: 'input', name: 'age', message: 'How old are you?' }
 
 // multiple choice
-const askShoe = { 
+const askShoe = {
   type: 'input',
   name: 'shoe',
   message: 'What shoes are you wearing?',
@@ -20,7 +20,7 @@ const askShoe = {
 
 // ask a series of questions
 const questions = [askAge, askShoe]
-const { age, shoe } = await context.prompt.ask(questions)
+const { age, shoe } = await toolbox.prompt.ask(questions)
 ```
 
 ## confirm
@@ -31,7 +31,7 @@ A pre-built prompt which asks a yes or no question.
 
 #### parameters
 
-* **message** is a `string` required for displaying a message to user.  It's the question you're asking. 
+* **message** is a `string` required for displaying a message to user. It's the question you're asking.
 
 #### returns
 
@@ -40,12 +40,12 @@ A pre-built prompt which asks a yes or no question.
 #### example
 
 ```js
-const isThe90s = await context.prompt.confirm('Ya`ll ready for this?')
+const isThe90s = await toolbox.prompt.confirm('Ya`ll ready for this?')
 ```
 
 ## separator
 
-Returns a separator you can use in your multiple choice prompts.  It will draw a nice `--------` line and will not be able to be selected by the user.
+Returns a separator you can use in your multiple choice prompts. It will draw a nice `--------` line and will not be able to be selected by the user.
 
 #### parameters
 
@@ -58,11 +58,5 @@ A value only relevant for a use a multiple choice prompt.
 #### example
 
 ```js
- const choices = [
-   'red',
-   'green',
-   context.prompt.separator(), 
-   'cheese',
-   'bread'
- ]
+const choices = ['red', 'green', toolbox.prompt.separator(), 'cheese', 'bread']
 ```

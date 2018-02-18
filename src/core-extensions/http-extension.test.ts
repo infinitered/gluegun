@@ -1,11 +1,11 @@
 import test from 'ava'
 import * as http from 'http'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import createExtension from './http-extension'
 
-const context = new RunContext()
-createExtension(context)
-const ext = context.http
+const toolbox = new Toolbox()
+createExtension(toolbox)
+const ext = toolbox.http
 
 /**
  * Sends a HTTP response.

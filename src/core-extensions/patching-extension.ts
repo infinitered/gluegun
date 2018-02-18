@@ -1,11 +1,11 @@
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 import { update, append, prepend, replace, patch, exists } from '../toolbox/patching-tools'
 
 /**
  * Builds the patching feature.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
-  context.patching = { update, append, prepend, replace, patch, exists }
+export default function attach(toolbox: GluegunToolbox): void {
+  toolbox.patching = { update, append, prepend, replace, patch, exists }
 }

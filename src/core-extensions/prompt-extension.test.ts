@@ -1,11 +1,11 @@
 import test from 'ava'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import createExtension from './prompt-extension'
 
 test('has the proper interface', t => {
-  const context = new RunContext()
-  createExtension(context)
-  const ext = context.prompt
+  const toolbox = new Toolbox()
+  createExtension(toolbox)
+  const ext = toolbox.prompt
   t.truthy(ext)
   t.is(typeof ext.ask, 'function')
   t.is(typeof ext.separator, 'function')

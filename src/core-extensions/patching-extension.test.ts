@@ -1,12 +1,12 @@
 import test from 'ava'
 import * as jetpack from 'fs-jetpack'
 import * as tempWrite from 'temp-write'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import create from './patching-extension'
 
-const context = new RunContext()
-create(context)
-const patching = context.patching
+const toolbox = new Toolbox()
+create(toolbox)
+const patching = toolbox.patching
 
 const CONFIG_STRING = `{
   "test": "what???",

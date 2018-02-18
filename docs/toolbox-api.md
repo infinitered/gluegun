@@ -1,4 +1,4 @@
-# Inside Context
+# Inside the Gluegun Toolbox
 
 So you're making a command. Let's get started.
 
@@ -6,13 +6,13 @@ So you're making a command. Let's get started.
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(context) {
+  run: async function(toolbox) {
     // great! now what?
   },
 }
 ```
 
-Here's what's available inside the `context` object you see all over Gluegun.
+Here's what's available inside the `toolbox` object you see all over Gluegun.
 
 | name           | provides the...                                    | 3rd party                      |
 | -------------- | -------------------------------------------------- | ------------------------------ |
@@ -29,21 +29,21 @@ Here's what's available inside the `context` object you see all over Gluegun.
 | **system**     | ability to execute                                 | node-which, execa, cross-spawn |
 | **template**   | code generation from templates                     | ejs                            |
 
-Think of `context` as a toolbox full of useful tools for building CLIs. For example, the `context.version` function can be invoked like this:
+The `toolbox` has "drawers" full of useful tools for building CLIs. For example, the `toolbox.meta.version` function can be invoked like this:
 
 ```js
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(context) {
+  run: async function(toolbox) {
     // use them like this...
-    context.print.info(context.meta.version())
+    toolbox.print.info(toolbox.meta.version())
 
     // or destructure!
-    const { print: { info }, meta: { version } } = context
+    const { print: { info }, meta: { version } } = toolbox
     info(version())
   },
 }
 ```
 
-To learn more about each tool, explore the rest of the `context-*.md` files in this folder.
+To learn more about each tool, explore the rest of the `toolbox-*.md` files in this folder.

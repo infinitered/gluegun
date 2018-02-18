@@ -76,14 +76,14 @@ $ touch extensions/macos-extension.js
 Edit this file like so:
 
 ```js
-module.exports = context => {
-  context.internMac = async () => {
-    return await context.system.run(`defaults read loginwindow SystemVersionStampAsString`)
+module.exports = toolbox => {
+  toolbox.internMac = async () => {
+    return await toolbox.system.run(`defaults read loginwindow SystemVersionStampAsString`)
   }
 }
 ```
 
-This adds a new property to gluegun's awesome `context` object, called `internMac`, which is a function that returns the info we need. Since all extensions are loaded automatically, it's available in our command, so let's use it in `commands/macos.js`:
+This adds a new property to gluegun's awesome `toolbox` object, called `internMac`, which is a function that returns the info we need. Since all extensions are loaded automatically, it's available in our command, so let's use it in `commands/macos.js`:
 
 ```js
 module.exports = {

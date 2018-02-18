@@ -8,13 +8,13 @@ Reads in a file and checks whether it's content matches a string or regular expr
 
 ```js
 // Case sensitive string match
-const barbExists = await context.patching.exists('config.txt', 'Barb')
+const barbExists = await toolbox.patching.exists('config.txt', 'Barb')
 
 // Short form regex
-const barbExists = await context.patching.exists('config.txt', /Barb/)
+const barbExists = await toolbox.patching.exists('config.txt', /Barb/)
 
 // Regex Object
-const barbExists = await context.patching.exists('config.txt', new Regex(/Barb/, 'i'))
+const barbExists = await toolbox.patching.exists('config.txt', new Regex(/Barb/, 'i'))
 ```
 
 ## update
@@ -28,12 +28,12 @@ If the file ends in `.json`, it'll be read in as an object. Return the updated o
 If the file doesn't end in `.json`, you'll receive a string. Return an updated string to write back to the file.
 
 ```js
-await context.patching.update('config.json', (config) => {
+await toolbox.patching.update('config.json', (config) => {
   config.key = 'new value'
   return config
 })
 
-await context.patching.update('config.txt', (data) => {
+await toolbox.patching.update('config.txt', (data) => {
   return data.replace('Jamon', 'Boss')
 })
 ```
@@ -45,7 +45,7 @@ await context.patching.update('config.txt', (data) => {
 Appends a string to the given file.
 
 ```js
-await context.patching.append('config.txt', 'Append this string\n')
+await toolbox.patching.append('config.txt', 'Append this string\n')
 ```
 
 ## prepend
@@ -55,7 +55,7 @@ await context.patching.append('config.txt', 'Append this string\n')
 Prepends a string to the given file.
 
 ```js
-await context.patching.prepend('config.txt', 'Prepend this string\n')
+await toolbox.patching.prepend('config.txt', 'Prepend this string\n')
 ```
 
 ## replace
@@ -65,7 +65,7 @@ await context.patching.prepend('config.txt', 'Prepend this string\n')
 Replaces a string in a given file.
 
 ```js
-await context.patching.replace('config.txt', 'Remove this string\n', 'Replace with this string\n')
+await toolbox.patching.replace('config.txt', 'Remove this string\n', 'Replace with this string\n')
 ```
 
 ## patch
@@ -75,9 +75,9 @@ await context.patching.replace('config.txt', 'Remove this string\n', 'Replace wi
 Allows inserting next to, deleting, and replacing strings in a given file. If `insert` is already present in the file, it won't change the file, unless you also pass through `force: true`.
 
 ```js
-await context.patching.patch('config.txt', { insert: 'Jamon', before: 'Something else' })
-await context.patching.patch('config.txt', { insert: 'Jamon', after: 'Something else' })
-await context.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else' })
-await context.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else', force: true })
-await context.patching.patch('config.txt', { delete: 'Something' })
+await toolbox.patching.patch('config.txt', { insert: 'Jamon', before: 'Something else' })
+await toolbox.patching.patch('config.txt', { insert: 'Jamon', after: 'Something else' })
+await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else' })
+await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else', force: true })
+await toolbox.patching.patch('config.txt', { delete: 'Something' })
 ```

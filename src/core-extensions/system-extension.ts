@@ -4,14 +4,14 @@ import * as execa from 'execa'
 import { dissoc, head, identity, isNil, split, tail, trim } from 'ramda'
 import * as nodeWhich from 'which'
 import { Options } from '../domain/options'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 
 /**
  * Extensions to launch processes and open files.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext) {
+export default function attach(toolbox: GluegunToolbox) {
   /**
    * Executes a commandline program asynchronously.
    *
@@ -106,5 +106,5 @@ export default function attach(context: GluegunRunContext) {
     return () => Math.floor((process.uptime() - started) * 1000) // uptime gives us seconds
   }
 
-  context.system = { exec, run, spawn, which, startTimer }
+  toolbox.system = { exec, run, spawn, which, startTimer }
 }

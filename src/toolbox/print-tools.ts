@@ -1,7 +1,7 @@
 import * as CLITable from 'cli-table2'
 import * as colors from 'colors'
 import { commandInfo } from './meta-tools'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import * as ora from 'ora'
 import { times, flip, prop } from 'ramda'
 
@@ -119,7 +119,7 @@ export function table(data: string[][], options: any = {}): void {
 /**
  * Prints text without theming.
  *
- * Use this when you're writing stuff outside the context of our
+ * Use this when you're writing stuff outside the toolbox of our
  * printing scheme.  hint: rarely.
  *
  * @param message The message to write.
@@ -201,20 +201,20 @@ export function spin(config?: string | object): any {
 /**
  * Prints the list of commands.
  *
- * @param context The context that was used
+ * @param toolbox The toolbox that was used
  * @param commandRoot Optional, only show commands with this root
  */
-export function printCommands(context: RunContext, commandRoot?: string[]): void {
-  const data = commandInfo(context, commandRoot)
+export function printCommands(toolbox: Toolbox, commandRoot?: string[]): void {
+  const data = commandInfo(toolbox, commandRoot)
 
   newline() // a spacer
   table(data) // the data
 }
 
-export function printHelp(context: RunContext): void {
-  const { runtime: { brand } } = context
-  info(`${brand} version ${context.meta.version()}`)
-  printCommands(context)
+export function printHelp(toolbox: Toolbox): void {
+  const { runtime: { brand } } = toolbox
+  info(`${brand} version ${toolbox.meta.version()}`)
+  printCommands(toolbox)
 }
 
 export const checkmark = colors.success('✔︎')

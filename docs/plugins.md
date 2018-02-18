@@ -31,8 +31,8 @@ module.exports = {
   description: 'Displays the name of an actor',
   hidden: false,
   dashed: false,
-  run: async context => {
-    const { print } = context
+  run: async toolbox => {
+    const { print } = toolbox
 
     print.info(`Tom Hanks`)
   },
@@ -47,7 +47,7 @@ The `name` and `description` properties are used in `printCommands` calls to pri
 
 `dashed` lets you run the command as a dashed command, like `--version` or `-v`.
 
-The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `context` object which contains the [core extensions](./context-api.md) and any additional extensions you've loaded.
+The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `toolbox` object which contains the [core extensions](./toolbox-api.md) and any additional extensions you've loaded.
 
 ## templates
 
@@ -57,14 +57,14 @@ TODO: Add more info, including examples.
 
 ## extensions
 
-Extensions are additional functionality that you can monkeypatch onto the `context` object. They look something like this:
+Extensions are additional functionality that you can monkeypatch onto the `toolbox` object. They look something like this:
 
 ```js
 // extensions/sayhello.js
-module.exports = (context) {
-  const { print } = context
+module.exports = (toolbox) {
+  const { print } = toolbox
 
-  context.sayhello = () => {
+  toolbox.sayhello = () => {
     print.info('Hello from an extension!')
   }
 }
@@ -74,14 +74,14 @@ When you have this extension, you can access it in any command file, like this:
 
 ```js
 // ...
-run: async context => {
-  const { sayhello } = context
+run: async toolbox => {
+  const { sayhello } = toolbox
 
   sayhello()
 
   // or
 
-  context.sayhello()
+  toolbox.sayhello()
 }
 ```
 

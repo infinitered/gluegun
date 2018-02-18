@@ -1,11 +1,11 @@
 import * as semver from 'semver'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 
 /**
  * Extensions to access semver and helpers
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
-  context.semver = semver
+export default function attach(toolbox: GluegunToolbox): void {
+  toolbox.semver = semver
 }

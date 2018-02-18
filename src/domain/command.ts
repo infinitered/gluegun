@@ -1,13 +1,13 @@
-import { RunContext } from './run-context'
+import { Toolbox } from './toolbox'
 import { Plugin } from './plugin'
 
-export interface GluegunCommand<TContext extends RunContext = RunContext> {
+export interface GluegunCommand<TContext extends Toolbox = Toolbox> {
   /** The name of your command */
   name?: string
   /** A tweet-sized summary of your command */
   description?: string
   /** The function for running your command, can be async */
-  run: (context: TContext) => void
+  run: (toolbox: TContext) => void
   /** Should your command be shown in the listings  */
   hidden?: boolean
   /** The command path, an array that describes how to get to this command */
@@ -25,7 +25,7 @@ export interface GluegunCommand<TContext extends RunContext = RunContext> {
 /**
  * A command is user-callable function that runs stuff.
  */
-export class Command implements GluegunCommand<RunContext> {
+export class Command implements GluegunCommand<Toolbox> {
   public name
   public description
   public file

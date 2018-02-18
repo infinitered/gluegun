@@ -15,7 +15,7 @@ import {
   GluegunMeta,
 } from '..'
 
-export interface RunContextParameters {
+export interface ToolboxParameters {
   /* The command arguments as an array. */
   array?: string[]
   /**
@@ -41,11 +41,11 @@ export interface RunContextParameters {
   command?: string
 }
 
-export interface GluegunRunContext {
+export interface GluegunToolbox {
   // known properties
   result?: any
   config?: Options
-  parameters: RunContextParameters
+  parameters: ToolboxParameters
   plugin?: Plugin
   command?: Command
   pluginName?: string
@@ -69,15 +69,19 @@ export interface GluegunRunContext {
   [key: string]: any
 }
 
-export class RunContext implements GluegunRunContext {
+export class Toolbox implements GluegunToolbox {
   [key: string]: any
 
   public result = null
   public config: Options = {}
-  public parameters: RunContextParameters = {}
+  public parameters: ToolboxParameters = {}
   public plugin = null
   public command = null
   public pluginName = null
   public commandName = null
   public runtime = null
 }
+
+// Toolbox used to be known as RunContext. This is for backwards compatibility.
+export type GluegunRunContext = GluegunToolbox
+export type RunContext = Toolbox

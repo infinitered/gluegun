@@ -2,13 +2,13 @@ import test from 'ava'
 import * as os from 'os'
 import * as path from 'path'
 import { split } from 'ramda'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import createExtension from './filesystem-extension'
 
 test('has the proper interface', t => {
-  const context = new RunContext()
-  createExtension(context)
-  const ext = context.filesystem
+  const toolbox = new Toolbox()
+  createExtension(toolbox)
+  const ext = toolbox.filesystem
 
   t.truthy(ext)
 

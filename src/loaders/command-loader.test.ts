@@ -1,5 +1,5 @@
 import test from 'ava'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import { loadCommandFromFile, loadCommandFromPreload } from './command-loader'
 
 test('loading from a missing file', async t => {
@@ -35,14 +35,14 @@ test('load command from preload', async t => {
     description: 'yiss dream',
     alias: ['z'],
     dashed: true,
-    run: context => 'ran!',
+    run: toolbox => 'ran!',
   })
 
   t.is(command.name, 'hello')
   t.is(command.description, 'yiss dream')
   t.is(command.hidden, false)
   t.deepEqual(command.alias, ['z'])
-  t.is(command.run(new RunContext()), 'ran!')
+  t.is(command.run(new Toolbox()), 'ran!')
   t.is(command.file, null)
   t.is(command.dashed, true)
   t.deepEqual(command.commandPath, ['hello'])

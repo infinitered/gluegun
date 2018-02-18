@@ -1,12 +1,12 @@
 import * as print from '../toolbox/print-tools'
-import { GluegunRunContext } from '../domain/run-context'
+import { GluegunToolbox } from '../domain/toolbox'
 
 /**
  * Extensions to print to the console.
  *
- * @param context The running context.
+ * @param toolbox The running toolbox.
  */
-export default function attach(context: GluegunRunContext): void {
+export default function attach(toolbox: GluegunToolbox): void {
   // attach the feature set
-  context.print = print
+  toolbox.print = print
 }

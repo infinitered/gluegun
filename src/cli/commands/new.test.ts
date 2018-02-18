@@ -1,13 +1,13 @@
 import test from 'ava'
 import * as sinon from 'sinon'
-import { RunContext } from '../../domain/run-context'
+import { Toolbox } from '../../domain/toolbox'
 import * as strings from '../../toolbox/string-tools'
 import command from './new'
 
 sinon.stub(console, 'log')
 
-function createContext(): RunContext {
-  const fakeContext = new RunContext()
+function createFakeToolbox(): Toolbox {
+  const fakeContext = new Toolbox()
   fakeContext.strings = strings
   fakeContext.filesystem = {
     resolve: sinon.stub(),
@@ -36,29 +36,29 @@ test('has the right interface', t => {
 })
 
 test('name is required', async t => {
-  const context = createContext()
-  context.parameters.first = null
-  await command.run(context)
-  const { error } = context.print
+  const toolbox = createFakeToolbox()
+  toolbox.parameters.first = null
+  await command.run(toolbox)
+  const { error } = toolbox.print
   t.is(error.getCall(0).args[0], 'You must provide a valid CLI name.')
   t.is(error.getCall(1).args[0], 'Example: gluegun new foo')
 })
 
 test('name cannot be blank', async t => {
-  const context = createContext()
-  context.parameters.first = ''
-  await command.run(context)
-  const { error } = context.print
+  const toolbox = createFakeToolbox()
+  toolbox.parameters.first = ''
+  await command.run(toolbox)
+  const { error } = toolbox.print
   t.deepEqual(error.getCall(0).args, ['You must provide a valid CLI name.'])
   t.deepEqual(error.getCall(1).args, ['Example: gluegun new foo'])
 })
 
 test('name must pass regex', async t => {
-  const context = createContext()
+  const toolbox = createFakeToolbox()
   const name = 'O M G'
-  context.parameters.first = name
-  await command.run(context)
-  const { error } = context.print
+  toolbox.parameters.first = name
+  await command.run(toolbox)
+  const { error } = toolbox.print
   t.deepEqual(error.getCall(0).args, [`${name} is not a valid name. Use lower-case and dashes only.`])
   t.deepEqual(error.getCall(1).args, [`Suggested: gluegun new ${strings.kebabCase(name)}`])
 })
@@ -66,16 +66,16 @@ test('name must pass regex', async t => {
 test('generates properly', async t => {
   const name = 'foo'
   const typescript = undefined
-  const context = createContext()
-  context.parameters.first = name
+  const toolbox = createFakeToolbox()
+  toolbox.parameters.first = name
 
   // here we run the command
-  const result = await command.run(context)
+  const result = await command.run(toolbox)
 
   // setup some conveniences so we don't have giant lines
-  const { dir, chmodSync } = context.filesystem
-  const { generate } = context.template
-  const { spawn } = context.system
+  const { dir, chmodSync } = toolbox.filesystem
+  const { generate } = toolbox.template
+  const { spawn } = toolbox.system
   const props = { name, typescript }
 
   // assure that the directory was created
@@ -130,17 +130,17 @@ test('generates properly', async t => {
 test('generates with typescript', async t => {
   const name = 'foo'
   const typescript = true
-  const context = createContext()
-  context.parameters.first = name
-  context.parameters.options.typescript = true
+  const toolbox = createFakeToolbox()
+  toolbox.parameters.first = name
+  toolbox.parameters.options.typescript = true
 
   // here we run the command
-  const result = await command.run(context)
+  const result = await command.run(toolbox)
 
   // setup some conveniences so we don't have giant lines
-  const { dir, chmodSync } = context.filesystem
-  const { generate } = context.template
-  const { spawn } = context.system
+  const { dir, chmodSync } = toolbox.filesystem
+  const { generate } = toolbox.template
+  const { spawn } = toolbox.system
   const props = { name, typescript }
 
   // assure that the directory was created

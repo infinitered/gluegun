@@ -4,33 +4,33 @@ import { Runtime } from './runtime'
 test('runs a command', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  const context = await r.run('three')
+  const toolbox = await r.run('three')
 
-  t.deepEqual(context.result, [1, 2, 3])
+  t.deepEqual(toolbox.result, [1, 2, 3])
 })
 
 test('runs an aliased command', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  const context = await r.run('o')
+  const toolbox = await r.run('o')
 
-  t.is(context.result, 1)
+  t.is(toolbox.result, 1)
 })
 
 test('runs a nested command', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
-  const context = await r.run('thing foo')
-  t.truthy(context.command)
-  t.is(context.command.name, 'foo')
-  t.deepEqual(context.command.commandPath, ['thing', 'foo'])
-  t.is(context.result, 'nested thing foo has run')
+  const toolbox = await r.run('thing foo')
+  t.truthy(toolbox.command)
+  t.is(toolbox.command.name, 'foo')
+  t.deepEqual(toolbox.command.commandPath, ['thing', 'foo'])
+  t.is(toolbox.result, 'nested thing foo has run')
 })
 
 test('runs a command with no name prop', async t => {
   const r = new Runtime()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/missing-name`)
-  const context = await r.run('foo')
-  t.truthy(context.command)
-  t.is(context.command.name, 'foo')
+  const toolbox = await r.run('foo')
+  t.truthy(toolbox.command)
+  t.is(toolbox.command.name, 'foo')
 })

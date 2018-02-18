@@ -1,12 +1,12 @@
 import test from 'ava'
 import { Command } from '../domain/command'
 import { Plugin } from '../domain/plugin'
-import { RunContext } from '../domain/run-context'
+import { Toolbox } from '../domain/toolbox'
 import { Runtime } from '../runtime/runtime'
 import { commandInfo } from './meta-tools'
 
 test('commandInfo', t => {
-  const fakeContext = new RunContext()
+  const fakeContext = new Toolbox()
   const fakeCommand = new Command()
   const fakePlugin = new Plugin()
 
