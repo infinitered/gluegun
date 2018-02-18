@@ -24,8 +24,6 @@
     "snapupdate": "ava-ts --update-snapshots",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",
     "coveralls": "nyc ava-ts && nyc report --reporter=text-lcov | coveralls",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
     "shipit": "yarn build && yarn rollup && yarn lint && np --yolo"
   },
   "author": {
