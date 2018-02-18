@@ -23,14 +23,14 @@ import { run } from './run'
 
 // core extensions
 import metaExtensionAttach from '../core-extensions/meta-extension'
-import templateExtensionAttach from '../core-extensions/template-extension'
+import stringsExtensionAttach from '../core-extensions/strings-extension'
 import printExtensionAttach from '../core-extensions/print-extension'
 import filesystemExtensionAttach from '../core-extensions/filesystem-extension'
 import semverExtensionAttach from '../core-extensions/semver-extension'
 import systemExtensionAttach from '../core-extensions/system-extension'
 import promptExtensionAttach from '../core-extensions/prompt-extension'
 import httpExtensionAttach from '../core-extensions/http-extension'
-import stringsExtensionAttach from '../core-extensions/strings-extension'
+import templateExtensionAttach from '../core-extensions/template-extension'
 import patchingExtensionAttach from '../core-extensions/patching-extension'
 
 /**
@@ -63,14 +63,14 @@ export class Runtime {
    */
   public addCoreExtensions(): void {
     this.addExtension('meta', metaExtensionAttach)
-    this.addExtension('strings', templateExtensionAttach)
+    this.addExtension('strings', stringsExtensionAttach)
     this.addExtension('print', printExtensionAttach)
-    this.addExtension('template', filesystemExtensionAttach)
-    this.addExtension('filesystem', semverExtensionAttach)
-    this.addExtension('semver', systemExtensionAttach)
-    this.addExtension('system', promptExtensionAttach)
+    this.addExtension('filesystem', filesystemExtensionAttach)
+    this.addExtension('semver', semverExtensionAttach)
+    this.addExtension('system', systemExtensionAttach)
+    this.addExtension('prompt', promptExtensionAttach)
     this.addExtension('http', httpExtensionAttach)
-    this.addExtension('prompt', stringsExtensionAttach)
+    this.addExtension('template', templateExtensionAttach)
     this.addExtension('patching', patchingExtensionAttach)
   }
 
