@@ -3,6 +3,7 @@ import { Runtime } from './runtime'
 
 test('can pass arguments', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/args`)
   const { command, parameters } = await r.run('hello steve kellock', { caps: false })
 
@@ -19,6 +20,7 @@ test('can pass arguments', async t => {
 
 test('can pass arguments, even with nested alias', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
   const { command, parameters } = await r.run('t f jamon holmgren', { chocolate: true })
 
@@ -35,6 +37,7 @@ test('can pass arguments, even with nested alias', async t => {
 
 test('can pass arguments with mixed options', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/args`)
   const { command, parameters } = await r.run('--chocolate=true --foo -n 1 hello steve kellock')
   t.deepEqual(command.commandPath, ['hello'])
@@ -49,6 +52,7 @@ test('can pass arguments with mixed options', async t => {
 
 test('properly infers the heirarchy from folder structure', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
   const { command, parameters } = await r.run('implied bar thing --foo=1 --force')
 

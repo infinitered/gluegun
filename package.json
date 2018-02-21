@@ -17,7 +17,7 @@
     "clean-types": "find ./build/types -type f -size 0 -delete && find ./build/types -type d -empty -delete",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
-    "test": "yarn build && ava-ts",
+    "test": "yarn build && ava-ts --fail-fast",
     "watch": "ava-ts --watch",
     "snapupdate": "ava-ts --update-snapshots",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",

@@ -7,8 +7,8 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
   // create a CLI runtime
   const cli = build()
     .brand('gluegun')
-    .exclude(['semver', 'system', 'prompt', 'http'])
-    .src(`${__dirname}`)
+    .exclude(['semver', 'prompt', 'http', 'patching'])
+    .src(__dirname)
     .help()
     .version()
     .create()

@@ -122,7 +122,8 @@ export class Runtime {
    * @param setup The setup function.
    * @returns This runtime.
    */
-  public addExtension(name: string, setup: (toolbox: GluegunToolbox) => void): Runtime {
+  public addExtension(name: string, setup: any): Runtime {
+    setup = setup.default || setup
     this.extensions.push({ name, setup })
     return this
   }
