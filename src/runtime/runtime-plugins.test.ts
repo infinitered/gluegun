@@ -3,6 +3,7 @@ import { Runtime } from './runtime'
 
 test('loads all sub-directories', t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`)
 
   t.is(13, r.plugins.length)
@@ -10,12 +11,14 @@ test('loads all sub-directories', t => {
 
 test('matches sub-directories', t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`, { matching: 'blank-*' })
   t.is(1, r.plugins.length)
 })
 
 test('hides commands', t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`, {
     matching: 'threepack',
     hidden: true,
@@ -26,6 +29,7 @@ test('hides commands', t => {
 
 test('addPlugins ignores bad directories', t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugins(__filename)
   r.addPlugins(null)
   r.addPlugins(undefined)
@@ -35,6 +39,7 @@ test('addPlugins ignores bad directories', t => {
 
 test('commands and defaultCommand work properly even when multiple plugins are loaded', async t => {
   const r = new Runtime('default-command')
+  r.addCoreExtensions()
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
   r.addCommand({
     name: 'default-command',

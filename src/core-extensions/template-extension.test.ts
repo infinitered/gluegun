@@ -4,6 +4,7 @@ import { Runtime } from '../runtime/runtime'
 
 const createRuntime = () => {
   const r = new Runtime()
+  r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/generate`)
   return r
 }

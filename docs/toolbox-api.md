@@ -47,3 +47,15 @@ module.exports = {
 ```
 
 To learn more about each tool, explore the rest of the `toolbox-*.md` files in this folder.
+
+## Accessing Tools Directly
+
+You can access almost all of Gluegun's toolbox tools without running a command. This is useful when you'd like to use these tools outside of a CLI context or when doing some really specialized CLI.
+
+```js
+const { print, filesystem, strings } = require('gluegun/toolbox')
+
+print.info(`Hey, I'm Gluegun!`)
+filesystem.dir('/tmp/jamon')
+print.error(strings.isBlank(''))
+```

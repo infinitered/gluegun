@@ -3,6 +3,7 @@ import { Runtime } from './runtime'
 
 test('runs a command explicitly', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   t.falsy(r.defaultPlugin)
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.truthy(r.defaultPlugin)
@@ -17,6 +18,7 @@ test('runs a command explicitly', async t => {
 
 test('runs a command via passed in args', async t => {
   const r = new Runtime()
+  r.addCoreExtensions()
   t.falsy(r.defaultPlugin)
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
   t.truthy(r.defaultPlugin)

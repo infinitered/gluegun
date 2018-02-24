@@ -12,10 +12,10 @@
     "outDir": "build",
     // Emits types for others to consume
     "declaration": true,
-    "declarationDir": "dist/types",
+    "declarationDir": "build/types",
     "strict": false,
     "target": "es5"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "src/fixtures", "*.test.ts", "*.md"]
+  "exclude": ["src/fixtures", "src/**/*.test.ts"]
 }

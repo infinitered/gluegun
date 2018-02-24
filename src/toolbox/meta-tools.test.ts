@@ -11,6 +11,7 @@ test('commandInfo', t => {
   const fakePlugin = new Plugin()
 
   fakeContext.runtime = new Runtime()
+  fakeContext.runtime.addCoreExtensions()
 
   fakeCommand.name = 'foo'
   fakeCommand.description = 'foo is a command'

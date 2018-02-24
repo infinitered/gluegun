@@ -10,5 +10,5 @@ if (devMode && !wantsCompiled) {
   // kick off gluegun
   require(`${__dirname}/../src/cli/cli`).run(process.argv)
 } else {
-  require(`${__dirname}/../dist/cli/cli`).run(process.argv)
+  require(`${__dirname}/../build/cli/cli`).run(process.argv)
 }

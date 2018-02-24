@@ -49,6 +49,31 @@ const cli = build().brand('movie')
 
 The brand is most likely to share the same name of the CLI.
 
+## exclude
+
+If you don't need certain core extensions, you can skip loading them (thus improving startup time) by using `.exclude()`. Just pass in an array of string names for the core extensions you don't need. Just make sure this appears before the `.src()` command (documented below).
+
+```js
+const cli = build()
+  .brand('movie')
+  .exclude(['meta', 'strings', 'print', 'filesystem', 'semver', 'system', 'prompt', 'http', 'template', 'patching'])
+```
+
+If you find you need one of these extensions for just _one_ command but don't want to load it for _all_ of your commands, you can always load it separately from the Gluegun toolbox, like this:
+
+```js
+const { prompt } = require('gluegun/toolbox')
+```
+
+For reference, the core extensions that incur the biggest startup performance penalty are (timing varies per machine, but this gives some sense of scale):
+
+```
+prompt +100ms
+print +45ms
+http +30ms
+system +10ms
+```
+
 ## src
 
 This sets where the default commands and extensions are located, in
