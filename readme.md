@@ -64,8 +64,7 @@ Let's start with what a `gluegun` CLI looks like.
 const { build } = require('gluegun')
 
 // aim
-const movieCLI = build()
-  .brand('movie')
+const movieCLI = build('movie')
   .src(`${__dirname}/core-plugins`)
   .plugins('node_modules', { matching: 'movie-*' })
   .help()

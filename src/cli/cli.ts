@@ -5,12 +5,11 @@ import { build, GluegunToolbox } from '../index'
  */
 export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
   // create a CLI runtime
-  const cli = build()
-    .brand('gluegun')
-    .exclude(['semver', 'prompt', 'http', 'patching'])
+  const cli = build('gluegun')
     .src(__dirname)
     .help()
     .version()
+    .exclude(['semver', 'prompt', 'http', 'patching'])
     .create()
 
   // and run it
