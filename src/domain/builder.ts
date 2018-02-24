@@ -5,18 +5,35 @@ import coreCommandVersion from '../core-commands/version'
 import { GluegunCommand } from './command'
 import { GluegunLoadOptions, GluegunMultiLoadOptions } from './options'
 
+interface BuilderItem {
+  value: string
+  options: GluegunLoadOptions
+}
+
 /**
  * Provides a cleaner way to build a runtime.
  *
  * @class Builder
  */
 export class Builder {
-  public readonly runtime: Runtime
-  public excludes: string[]
+  private data: {
+    defaultCommand?: GluegunCommand
+    brand?: string
+    excludes: string[]
+    defaultPlugin?: BuilderItem
+    commands: GluegunCommand[]
+    plugins: BuilderItem[]
+    multiPlugins: { value: string; options: GluegunLoadOptions & GluegunMultiLoadOptions }[]
+  }
 
-  constructor() {
-    this.runtime = new Runtime()
-    this.excludes = []
+  constructor(brand?: string) {
+    this.data = {
+      brand: brand,
+      excludes: [],
+      commands: [],
+      plugins: [],
+      multiPlugins: [],
+    }
   }
 
   /**
@@ -26,7 +43,7 @@ export class Builder {
    * @param name The name should be all lowercase and contains only numbers, letters, and dashes.
    */
   public brand(value: string): Builder {
-    this.runtime.brand = value
+    this.data.brand = value
     return this
   }
 
@@ -34,7 +51,7 @@ export class Builder {
    * Excludes core libraries if they're not needed, for performance reasons.
    */
   public exclude(excludes: string[]) {
-    this.excludes = excludes
+    this.data.excludes = excludes
     return this
   }
 
@@ -46,8 +63,7 @@ export class Builder {
    * @return self.
    */
   public src(value: string, options: GluegunLoadOptions = {}): Builder {
-    this.runtime.addCoreExtensions(this.excludes)
-    this.runtime.addDefaultPlugin(value, options)
+    this.data.defaultPlugin = { value, options }
     return this
   }
 
@@ -59,7 +75,8 @@ export class Builder {
    * @return self.
    */
   public plugin(value: string, options: GluegunLoadOptions = {}): Builder {
-    this.runtime.addPlugin(value, options)
+    // this.runtime.addPlugin(value, options)
+    this.data.plugins.push({ value, options })
     return this
   }
 
@@ -71,7 +88,7 @@ export class Builder {
    * @return self.
    */
   public plugins(value: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Builder {
-    this.runtime.addPlugins(value, options)
+    this.data.multiPlugins.push({ value, options })
     return this
   }
 
@@ -111,7 +128,7 @@ export class Builder {
     if (typeof command === 'function') {
       command = { run: command }
     }
-    command.name = this.runtime.brand
+    command.name = this.data.brand
     return this.command(command)
   }
 
@@ -121,7 +138,8 @@ export class Builder {
    * @return self.
    */
   public command(command: GluegunCommand): Builder {
-    this.runtime.addCommand(command)
+    // this.data.addCommand(command)
+    this.data.commands.push(command)
     return this
   }
 
@@ -129,13 +147,38 @@ export class Builder {
    * Hand over the runtime.
    */
   public create(): Runtime {
-    return this.runtime
+    // create a runtime
+    const runtime = new Runtime()
+
+    // extract the data the builder has collected
+    const { brand, excludes, defaultCommand, defaultPlugin, plugins, multiPlugins, commands } = this.data
+
+    // set the brand
+    runtime.brand = brand
+
+    // load the core extensions, minus excludes
+    runtime.addCoreExtensions(excludes)
+
+    // add a default command first
+    if (defaultCommand) runtime.addCommand(defaultCommand)
+
+    // add a default plugin
+    if (defaultPlugin) runtime.addDefaultPlugin(defaultPlugin.value, defaultPlugin.options)
+
+    // add other plugins, both singular and multiple
+    plugins.forEach(p => runtime.addPlugin(p.value, p.options))
+    multiPlugins.forEach(mp => runtime.addPlugins(mp.value, mp.options))
+
+    // add other commands
+    commands.forEach(c => runtime.addCommand(c))
+
+    return runtime
   }
 }
 
 /**
  * Export it as a factory function.
  */
-export function build(): Builder {
-  return new Builder()
+export function build(brand?: string): Builder {
+  return new Builder(brand)
 }
