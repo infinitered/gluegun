@@ -3,9 +3,7 @@ import { build } from './builder'
 import { Toolbox } from './toolbox'
 
 test('the gauntlet', t => {
-  const brand = 'test'
-  const builder = build()
-    .brand(brand)
+  const builder = build('test')
     // plugins
     .src(`${__dirname}/../fixtures/good-plugins/threepack`)
     .help()
@@ -21,11 +19,12 @@ test('the gauntlet', t => {
   const runtime = builder.create()
   t.truthy(runtime)
 
+  t.is(runtime.brand, 'test')
   t.is(runtime.commands.length, 26)
   t.is(runtime.extensions.length, 13)
   t.is(runtime.defaultPlugin.commands.length, 6)
 
-  t.is(runtime.defaultPlugin.commands[0].name, brand)
+  t.is(runtime.defaultPlugin.commands[0].name, 'test')
   t.is(runtime.defaultPlugin.commands[1].name, 'gimmedatversion')
   t.is(runtime.defaultPlugin.commands[1].run(new Toolbox()), 'it works')
   t.is(runtime.defaultPlugin.commands[2].name, 'help')

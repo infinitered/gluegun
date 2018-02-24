@@ -138,7 +138,6 @@ export class Builder {
    * @return self.
    */
   public command(command: GluegunCommand): Builder {
-    // this.data.addCommand(command)
     this.data.commands.push(command)
     return this
   }

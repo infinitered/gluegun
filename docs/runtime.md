@@ -2,13 +2,12 @@ With the gluegun API, you're able to load & execute commands.
 
 Check out the [sniff](./sniff.md) module for detecting if your environment is able to run.
 
-Here's what we're about to cover.
+Here's a kitchen sink version, which we're about to cover.
 
 ```js
 const { build } = 'gluegun'
 
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugin('~/.movie/movie-imdb')
   .plugins('./node_modules', { pattern: 'movie-' })
@@ -16,6 +15,7 @@ const cli = build()
   .version()
   .defaultCommand()
   .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .exclude(['filesystem', 'semver', 'system', 'prompt', 'http'])
   .create()
 
 await cli.run()
@@ -32,47 +32,16 @@ const { build } = require('gluegun')
 Now let's build a `gluegun` cli environment by configuring various features.
 
 ```js
-const cli = build()
+const cli = build('mycli')
 ```
 
-But out of the box, it does very little. And by very little I mean nothing. So let's configure this.
-
-We'll be chaining the `build()` function from here.
-
-## brand
-
-**Brand** is used through-out the glue for things like configuration file names and folder names for plugins.
+The `mycli` brand that you pass into `build` is used through-out gluegun for things like configuration file names and folder names for plugins. You can also set it later, like this:
 
 ```js
 const cli = build().brand('movie')
 ```
 
-The brand is most likely to share the same name of the CLI.
-
-## exclude
-
-If you don't need certain core extensions, you can skip loading them (thus improving startup time) by using `.exclude()`. Just pass in an array of string names for the core extensions you don't need. Just make sure this appears before the `.src()` command (documented below).
-
-```js
-const cli = build()
-  .brand('movie')
-  .exclude(['meta', 'strings', 'print', 'filesystem', 'semver', 'system', 'prompt', 'http', 'template', 'patching'])
-```
-
-If you find you need one of these extensions for just _one_ command but don't want to load it for _all_ of your commands, you can always load it separately from the Gluegun toolbox, like this:
-
-```js
-const { prompt } = require('gluegun/toolbox')
-```
-
-For reference, the core extensions that incur the biggest startup performance penalty are (timing varies per machine, but this gives some sense of scale):
-
-```
-prompt +100ms
-print +45ms
-http +30ms
-system +10ms
-```
+Out of the box, this CLI does very little. And by very little I mean nothing. So let's configure this. We'll be chaining the `build()` function from here.
 
 ## src
 
@@ -80,9 +49,7 @@ This sets where the default commands and extensions are located, in
 `commands` and `extensions` folders, respectively.
 
 ```js
-const cli = build()
-  .brand('movie')
-  .src(__dirname)
+const cli = build('movie').src(__dirname)
 ```
 
 When you run a command, it'll first load extensions in this folder and then check the commands in this folder for the right command.
@@ -116,8 +83,7 @@ movie-credits
 You can load a plugin from a directory:
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugin('~/.movie/movie-imdb')
 ```
@@ -127,8 +93,7 @@ const cli = build()
 You can also load multiple plugins within a directory.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugin('~/.movie/movie-imdb')
   .plugins('./node_modules', { pattern: 'movie-' })
@@ -154,8 +119,7 @@ Gluegun ships with a somewhat adequate `help` screen out of the box. Add it to y
 CLI easily by calling `.help()`.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
@@ -181,8 +145,7 @@ You usually like to be able to run `--version` to see your CLI's version from th
 line, so add it easily with `.version()`.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
@@ -199,8 +162,7 @@ instead. Note that you can do this by supplying a `<brand>.js` file in your `./c
 folder as well.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
@@ -217,8 +179,7 @@ you prefer more control.
 If you want to pass in arbitrary commands, you can do that with `.command()`.
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
@@ -233,13 +194,46 @@ In this case, if you ran `movie hi`, it would run the function provided and prin
 You must provide an object with at least a `name` and a `run` function, which can be
 `async` or regular.
 
+## exclude
+
+If you don't need certain core extensions, you can skip loading them (thus improving startup time) by using `.exclude()`. Just pass in an array of string names for the core extensions you don't need.
+
+```js
+const cli = build('movie').exclude([
+  'meta',
+  'strings',
+  'print',
+  'filesystem',
+  'semver',
+  'system',
+  'prompt',
+  'http',
+  'template',
+  'patching',
+])
+```
+
+If you find you need one of these extensions for just _one_ command but don't want to load it for _all_ of your commands, you can always load it separately from the Gluegun toolbox, like this:
+
+```js
+const { prompt } = require('gluegun/toolbox')
+```
+
+For reference, the core extensions that incur the biggest startup performance penalty are (timing varies per machine, but this gives some sense of scale):
+
+```
+prompt +100ms
+print +45ms
+http +30ms
+system +10ms
+```
+
 ## create
 
 At this point, we've been configuring our CLI. When we're ready, we call `create()`:
 
 ```js
-const cli = build()
-  .brand('movie')
+const cli = build('movie')
   .src(__dirname)
   .plugins('./node_modules', { pattern: 'movie-' })
   .plugin('~/.movie/movie-imdb')
