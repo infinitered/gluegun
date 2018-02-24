@@ -18,9 +18,6 @@ test('the gauntlet', t => {
     .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
     .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
 
-  // test the builder
-  t.is(builder.runtime.brand, 'test')
-
   const runtime = builder.create()
   t.truthy(runtime)
 
