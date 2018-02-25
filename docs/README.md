@@ -30,7 +30,7 @@ movie version 0.0.1
   generate (g)   - 
 ```
 
-That's it! Now you can flesh out your CLI. It can be simple or quite complex. See [Getting Started](/getting-started) for more.
+That's it! Now you can flesh out your CLI. It can be simple or quite complex. See [Getting Started](/getting-started) and [Tutorial: Making a Movie CLI](/tutorial-making-a-movie-cli) for more.
 
 ## Gluegun Features
 
@@ -51,7 +51,7 @@ It also supports building your own plugins for _your_ CLI and bringing them in s
 
 ## API
 
-Read more by clicking the items to the left.
+Read more about the Gluegun Toolbox API by clicking the items to the left.
 
 ## Sponsors
 

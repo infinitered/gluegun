@@ -13,4 +13,10 @@
   * [system](/toolbox-system)
   * [template](/toolbox-template)
   * [patching](/toolbox-patching)
+* Tutorials
+  * [Tutorial: Making a Movie CLI](/tutorial-making-a-movie-cli)
+  * [Tutorial: Making a Plugin](/tutorial-making-a-plugin)
+* Guides
+  * [Guide: Architecting Your Gluegun CLI](/guide-architecture)
+* [Plugins](/plugins)
 * [Contributing](/contributing)
