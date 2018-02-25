@@ -18,6 +18,14 @@ This value is the end of line byte sequence.
 toolbox.filesystem.eol // '\n' on posix but '\r\n' on windows
 ```
 
+## homedir
+
+This function retrieves the path to the home directory.
+
+```js
+toolbox.filesystem.homedir() // '/Users/jh' on my macOS machine
+```
+
 ## subdirectories
 
 Finds the immediate subdirectories in a given directory.
