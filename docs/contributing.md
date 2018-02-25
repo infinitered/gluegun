@@ -25,7 +25,7 @@ cd gluegun
 npm install
 ```
 
-Gluegun's source files are mostly in `./src` and uses TypeScript. Documentation lives in `/docs`.
+Gluegun's source files are mostly in `./src` and are written in [TypeScript](www.typescriptlang.org). Documentation lives in `/docs`.
 
 ## Running Tests And Linting
 
@@ -38,7 +38,7 @@ npm run watch
 ## Features & Fixes
 
 ```sh
-git branch fun
+git branch feature/fun
 # furious typing
 npm test
 npm run lint
@@ -76,5 +76,5 @@ git fetch upstream
 git rebase upstream/master
 
 # and here's where you'd create your branch
-git checkout -b mybranch
+git checkout -b feature/mybranch
 ```

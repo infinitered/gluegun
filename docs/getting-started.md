@@ -95,4 +95,4 @@ Hello from an extension!
 
 ## Next steps
 
-There are _many_ more tools in the toolbox than just `print.info`. You can generate from a template, manipulate files, hit API endpoints via HTTP, access parameters, run system commands, ask for user input, and much more. Explore the API docs in the sidebar to learn more or follow a guide.
+There are _many_ more tools in the toolbox than just `print.info`. You can generate from a template, manipulate files, hit API endpoints via HTTP, access parameters, run system commands, ask for user input, and much more. Explore the API docs in the sidebar to learn more or follow a tutorial like [Making a Movie CLI](/tutorial-making-a-movie-cli).
