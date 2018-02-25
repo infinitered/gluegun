@@ -28,6 +28,11 @@ export function findCommand(runtime: Runtime, parameters: ToolboxParameters) {
   // start by setting it to the default command, in case we don't find one
   let targetCommand: Command = runtime.defaultCommand
 
+  // if the commandPath is empty, it could be a dashed command, like --help
+  if (commandPath.length === 0) {
+    targetCommand = findDashedCommand(runtime.commands, parameters.options) || targetCommand
+  }
+
   // store the resolved path as we go
   let resolvedPath: string[] = []
 
@@ -39,6 +44,7 @@ export function findCommand(runtime: Runtime, parameters: ToolboxParameters) {
 
     // find a command that fits the previous path + currentName, which can be an alias
     let segmentCommand = runtime.commands
+      .slice() // dup so we keep the original order
       .sort(sortCommands)
       .find(command => equals(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
 
@@ -63,4 +69,10 @@ export function findCommand(runtime: Runtime, parameters: ToolboxParameters) {
 // sorts shortest to longest commandPaths, so we always check the shortest ones first
 function sortCommands(a, b) {
   return a.commandPath.length < b.commandPath.length ? -1 : 1
+}
+
+// finds dashed commands
+function findDashedCommand(commands, options) {
+  const dashedOptions = Object.keys(options).filter(k => options[k] === true)
+  return commands.filter(c => c.dashed).find(c => c.matchesAlias(dashedOptions))
 }

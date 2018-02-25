@@ -29,7 +29,7 @@ test('can create a new boilerplate cli', async t => {
   await toolbox.system.run(`cd ${tmp}/foo && npm install ${pwd}`)
 
   // Try running the help command, see what it does
-  const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo help`)
+  const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo --help`)
   t.snapshot(runCommand)
 
   // Try running the generate command, see what it does

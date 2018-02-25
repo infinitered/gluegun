@@ -24,13 +24,15 @@ test('the gauntlet', t => {
   t.is(runtime.extensions.length, 13)
   t.is(runtime.defaultPlugin.commands.length, 6)
 
-  t.is(runtime.defaultPlugin.commands[0].name, 'test')
-  t.is(runtime.defaultPlugin.commands[1].name, 'gimmedatversion')
-  t.is(runtime.defaultPlugin.commands[1].run(new Toolbox()), 'it works')
-  t.is(runtime.defaultPlugin.commands[2].name, 'help')
-  t.is(runtime.defaultPlugin.commands[3].name, 'one')
-  t.is(runtime.defaultPlugin.commands[4].name, 'three')
-  t.is(runtime.defaultPlugin.commands[5].name, 'two')
+  const { commands } = runtime.defaultPlugin
+
+  t.is(commands[0].name, 'one')
+  t.is(commands[1].name, 'three')
+  t.is(commands[2].name, 'two')
+  t.is(commands[3].name, 'test')
+  t.is(commands[4].name, 'help')
+  t.is(commands[5].name, 'gimmedatversion')
+  t.is(commands[5].run(new Toolbox()), 'it works')
 
   t.is(runtime.plugins.length, 15)
 })

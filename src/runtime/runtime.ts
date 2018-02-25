@@ -87,7 +87,7 @@ export class Runtime {
     // if it doesn't already have one
     if (!newCommand.plugin) {
       newCommand.plugin = this.defaultPlugin
-      this.defaultPlugin.commands.unshift(newCommand)
+      this.defaultPlugin.commands.push(newCommand)
     }
 
     if (newCommand.name === this.brand) {
