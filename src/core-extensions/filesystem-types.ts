@@ -10,6 +10,11 @@ export interface GluegunFilesystem {
   separator: string
 
   /**
+   * Convenience property for `os.homedir` function
+   */
+  homedir: () => string
+
+  /**
    * Appends given data to the end of file. If file or any parent directory doesn't exist it will be created.
    *
    * @param path The path to the file.

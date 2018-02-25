@@ -14,6 +14,7 @@ export default function attach(toolbox: GluegunToolbox) {
   const extension: GluegunFilesystem = Object.assign(
     {
       eol: os.EOL, // end of line marker
+      homedir: os.homedir, // get home directory
       separator: path.sep, // path separator
       subdirectories: subdirectories, // retrieve subdirectories
     },
