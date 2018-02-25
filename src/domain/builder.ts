@@ -75,7 +75,6 @@ export class Builder {
    * @return self.
    */
   public plugin(value: string, options: GluegunLoadOptions = {}): Builder {
-    // this.runtime.addPlugin(value, options)
     this.data.plugins.push({ value, options })
     return this
   }
@@ -129,7 +128,8 @@ export class Builder {
       command = { run: command }
     }
     command.name = this.data.brand
-    return this.command(command)
+    this.data.defaultCommand = command
+    return this
   }
 
   /**
@@ -158,15 +158,15 @@ export class Builder {
     // load the core extensions, minus excludes
     runtime.addCoreExtensions(excludes)
 
-    // add a default command first
-    if (defaultCommand) runtime.addCommand(defaultCommand)
-
     // add a default plugin
     if (defaultPlugin) runtime.addDefaultPlugin(defaultPlugin.value, defaultPlugin.options)
 
     // add other plugins, both singular and multiple
     plugins.forEach(p => runtime.addPlugin(p.value, p.options))
     multiPlugins.forEach(mp => runtime.addPlugins(mp.value, mp.options))
+
+    // add a default command first
+    if (defaultCommand) runtime.addCommand(defaultCommand)
 
     // add other commands
     commands.forEach(c => runtime.addCommand(c))
