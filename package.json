@@ -35,6 +35,7 @@
     "build",
     "sniff.js",
     "sniff-async.js",
+    "toolbox.js",
     "LICENSE",
     "readme.md"
   ],
