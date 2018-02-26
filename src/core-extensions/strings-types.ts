@@ -75,4 +75,47 @@ export interface GluegunStrings {
    * Repeats a `string` a `numberOfTimes`.
    */
   repeat(sourceString: string, numberOfTimes: number): string
+  /**
+   * Pluralize or singularize a word based on the passed in count.
+   */
+  pluralize(word: string, count?: number, inclusive?: boolean): string
+  /**
+   * Pluralize a word based.
+   */
+  plural(word: string): string
+
+  /**
+   * Singularize a word based.
+   */
+  singular(word: string): string
+
+  /**
+   * Add a pluralization rule to the collection.
+   */
+  addPluralRule(rule: string | RegExp, replacemant: string): void
+
+  /**
+   * Add a singularization rule to the collection.
+   */
+  addSingularRule(rule: string | RegExp, replacemant: string): void
+
+  /**
+   * Add an irregular word definition.
+   */
+  addIrregularRule(single: string, plural: string): void
+
+  /**
+   * Add an uncountable word rule.
+   */
+  addUncountableRule(word: string | RegExp): void
+
+  /**
+   * Test if provided word is plural.
+   */
+  isPlural(word: string): boolean
+
+  /**
+   * Test if provided word is singular.
+   */
+  isSingular(word: string): boolean
 }
