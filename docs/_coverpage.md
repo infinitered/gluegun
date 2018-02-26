@@ -1,4 +1,4 @@
-# gluegun <small>2.0.0-beta.5</small>
+# gluegun <small>2.0.0-beta.6</small>
 
 > A delightful toolkit for building Node-powered CLIs.
 

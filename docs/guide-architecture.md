@@ -69,7 +69,7 @@ commands
     world.js
 ```
 
-You don't have to have a default command for a folder. Gluegun will pick up on it (as of 2.0.0-beta.5).
+You don't have to have a default command for a folder. Gluegun will pick up on it (as of 2.0.0-beta.6).
 
 ```
 commands
