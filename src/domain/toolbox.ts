@@ -13,9 +13,10 @@ import {
   GluegunPrompt,
   GluegunTemplate,
   GluegunMeta,
+  GluegunParameters,
 } from '..'
 
-export interface ToolboxParameters {
+export interface GluegunParameters {
   /* The command arguments as an array. */
   array?: string[]
   /**
@@ -45,7 +46,7 @@ export interface GluegunToolbox {
   // known properties
   result?: any
   config?: Options
-  parameters: ToolboxParameters
+  parameters: GluegunParameters
   plugin?: Plugin
   command?: Command
   pluginName?: string
@@ -74,7 +75,7 @@ export class Toolbox implements GluegunToolbox {
 
   public result = null
   public config: Options = {}
-  public parameters: ToolboxParameters = {}
+  public parameters: GluegunParameters = {}
   public plugin = null
   public command = null
   public pluginName = null

@@ -2,7 +2,7 @@ import { equals } from 'ramda'
 
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
-import { ToolboxParameters } from '../domain/toolbox'
+import { GluegunParameters } from '../domain/toolbox'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given
@@ -12,7 +12,7 @@ import { ToolboxParameters } from '../domain/toolbox'
  * @param parameters The parameters passed in
  * @returns object with plugin, command, and array
  */
-export function findCommand(runtime: Runtime, parameters: ToolboxParameters) {
+export function findCommand(runtime: Runtime, parameters: GluegunParameters) {
   // the commandPath, which could be something like:
   // > movie list actors 2015
   // [ 'list', 'actors', '2015' ]
