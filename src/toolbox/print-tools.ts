@@ -1,9 +1,12 @@
 import * as CLITable from 'cli-table2'
-import * as colors from 'colors'
+import * as importedColors from 'colors'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import * as ora from 'ora'
 import { times, flip, prop } from 'ramda'
+
+// wtf typescript
+const colors: any = importedColors
 
 export { colors }
 
