@@ -1,6 +1,6 @@
 import { equals, is, merge } from 'ramda'
 import * as yargsParse from 'yargs-parser'
-import { ToolboxParameters } from '../domain/toolbox'
+import { GluegunParameters } from '../domain/toolbox'
 import { Options } from '../domain/options'
 
 const COMMAND_DELIMITER = ' '
@@ -12,7 +12,7 @@ const COMMAND_DELIMITER = ' '
  * @param extraOpts Extra options.
  * @returns Normalized parameters.
  */
-export function parseParams(commandArray: string | string[], extraOpts: Options = {}): ToolboxParameters {
+export function parseParams(commandArray: string | string[], extraOpts: Options = {}): GluegunParameters {
   // use the command line args if not passed in
   if (is(String, commandArray)) {
     commandArray = (commandArray as string).split(COMMAND_DELIMITER)
@@ -37,7 +37,7 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
  * @param params Provided parameters
  * @return An object with normalized parameters
  */
-export function createParams(params: any): ToolboxParameters {
+export function createParams(params: any): GluegunParameters {
   // make a copy of the args so we can mutate it
   const array = params.array.slice()
 

@@ -17,7 +17,7 @@ process.on('unhandledRejection', up => {
 export { build } from './domain/builder'
 
 // export the Gluegun interface
-export { GluegunToolbox, GluegunRunContext } from './domain/toolbox'
+export { GluegunToolbox, GluegunRunContext, GluegunParameters } from './domain/toolbox'
 export { GluegunCommand } from './domain/command'
 
 import { GluegunFilesystem } from './core-extensions/filesystem-types'
