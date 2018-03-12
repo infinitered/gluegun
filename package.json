@@ -44,7 +44,7 @@
     "apisauce": "0.14.3",
     "app-module-path": "^2.2.0",
     "cli-table2": "^0.2.0",
-    "colors": "^1.1.2",
+    "colors": "1.2.1",
     "cosmiconfig": "^4.0.0",
     "cross-spawn": "^6.0.4",
     "ejs": "^2.5.7",
@@ -103,7 +103,7 @@
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.7.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.7.1",
+    "typescript": "2.7.2",
     "unique-temp-dir": "^1.0.0"
   },
   "ava": {},
