@@ -8,7 +8,7 @@ import { times, flip, prop } from 'ramda'
 // wtf typescript
 const colors: any = importedColors
 
-export { colors }
+import { GluegunPrint } from './print-types'
 
 // Generate array of arrays of the data rows for length checking
 // @ts-ignore
@@ -55,14 +55,14 @@ colors.setTheme({
 /**
  * Print a blank line.
  */
-export function newline() {
+function newline() {
   console.log('')
 }
 
 /**
  * Prints a divider line
  */
-export function divider() {
+function divider() {
   console.log(colors.line('---------------------------------------------------------------'))
 }
 
@@ -72,7 +72,7 @@ export function divider() {
  * @param cliTable Data table.
  * @returns Array of column widths
  */
-export function findWidths(cliTable: CLITable): number[] {
+function findWidths(cliTable: CLITable): number[] {
   return [(cliTable as any).options.head]
     .concat(getRows(cliTable))
     .reduce((colWidths, row) => row.map((str, i) => Math.max(`${str}`.length + 1, colWidths[i] || 1)), [])
@@ -84,7 +84,7 @@ export function findWidths(cliTable: CLITable): number[] {
  * @param cliTable Data table.
  * @returns Array of properly sized column dividers.
  */
-export function columnHeaderDivider(cliTable: CLITable): string[] {
+function columnHeaderDivider(cliTable: CLITable): string[] {
   return findWidths(cliTable).map(w => Array(w).join('-'))
 }
 
@@ -94,7 +94,7 @@ export function columnHeaderDivider(cliTable: CLITable): string[] {
  *
  * @param object The object to turn into a table.
  */
-export function table(data: string[][], options: any = {}): void {
+function table(data: string[][], options: any = {}): void {
   let t
   switch (options.format) {
     case 'markdown':
@@ -127,7 +127,7 @@ export function table(data: string[][], options: any = {}): void {
  *
  * @param message The message to write.
  */
-export function fancy(message: string): void {
+function fancy(message: string): void {
   console.log(message)
 }
 
@@ -138,7 +138,7 @@ export function fancy(message: string): void {
  *
  * @param message The message to show.
  */
-export function info(message: string): void {
+function info(message: string): void {
   console.log(colors.info(message))
 }
 
@@ -149,7 +149,7 @@ export function info(message: string): void {
  *
  * @param message The message to show.
  */
-export function error(message: string): void {
+function error(message: string): void {
   console.log(colors.error(message))
 }
 
@@ -160,7 +160,7 @@ export function error(message: string): void {
  *
  * @param message The message to show.
  */
-export function warning(message: string): void {
+function warning(message: string): void {
   console.log(colors.warning(message))
 }
 
@@ -171,7 +171,7 @@ export function warning(message: string): void {
  *
  * @param message The message to show.
  */
-export function debug(message: string, title: string = 'DEBUG'): void {
+function debug(message: string, title: string = 'DEBUG'): void {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
@@ -187,7 +187,7 @@ export function debug(message: string, title: string = 'DEBUG'): void {
  *
  * @param message The message to show.
  */
-export function success(message: string): void {
+function success(message: string): void {
   console.log(colors.success(message))
 }
 
@@ -197,7 +197,7 @@ export function success(message: string): void {
  * @param config The text for the spinner or an ora configuration object.
  * @returns The spinner.
  */
-export function spin(config?: string | object): any {
+function spin(config?: string | object): any {
   return ora(config || '').start()
 }
 
@@ -207,18 +207,40 @@ export function spin(config?: string | object): any {
  * @param toolbox The toolbox that was used
  * @param commandRoot Optional, only show commands with this root
  */
-export function printCommands(toolbox: Toolbox, commandRoot?: string[]): void {
+function printCommands(toolbox: Toolbox, commandRoot?: string[]): void {
   const data = commandInfo(toolbox, commandRoot)
 
   newline() // a spacer
   table(data) // the data
 }
 
-export function printHelp(toolbox: Toolbox): void {
+function printHelp(toolbox: Toolbox): void {
   const { runtime: { brand } } = toolbox
   info(`${brand} version ${toolbox.meta.version()}`)
   printCommands(toolbox)
 }
 
-export const checkmark = colors.success('✔︎')
-export const xmark = colors.error('ⅹ')
+const checkmark = colors.success('✔︎')
+const xmark = colors.error('ⅹ')
+
+const print: GluegunPrint = {
+  colors,
+  newline,
+  divider,
+  findWidths,
+  columnHeaderDivider,
+  table,
+  fancy,
+  info,
+  error,
+  warning,
+  debug,
+  success,
+  spin,
+  printCommands,
+  printHelp,
+  checkmark,
+  xmark,
+}
+
+export { print, GluegunPrint }

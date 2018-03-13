@@ -1,4 +1,5 @@
 import { GluegunToolbox } from '../index'
+import * as CLITable from 'cli-table2'
 
 export interface GluegunPrint {
   /* Colors as seen from colors.js. */
@@ -21,6 +22,10 @@ export interface GluegunPrint {
   fancy: (value: string) => void
   /* Prints a divider. */
   divider: () => void
+  /* Finds the column widths for a table */
+  findWidths: (cliTable: CLITable) => number[]
+  /* Returns column header dividers for a table */
+  columnHeaderDivider: (cliTable: CLITable) => string[]
   /* Prints a newline. */
   newline: () => void
   /* Prints a table of data (usually a 2-dimensional array). */
@@ -29,4 +34,6 @@ export interface GluegunPrint {
   spin(options: any): any
   /* Print help info for known CLI commands. */
   printCommands(toolbox: GluegunToolbox): void
+  /* Prints help info, including version and commands. */
+  printHelp(toolbox: GluegunToolbox): void
 }

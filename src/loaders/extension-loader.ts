@@ -1,8 +1,7 @@
-import * as jetpack from 'fs-jetpack'
 import { head, split } from 'ramda'
 import { Extension } from '../domain/extension'
-import { isNotFile } from '../toolbox/filesystem-tools'
-import { isBlank } from '../toolbox/string-tools'
+import { filesystem } from '../toolbox/filesystem-tools'
+import { strings } from '../toolbox/string-tools'
 import { loadModule } from './module-loader'
 
 /**
@@ -15,19 +14,19 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   const extension = new Extension()
 
   // sanity check the input
-  if (isBlank(file)) {
+  if (strings.isBlank(file)) {
     throw new Error(`Error: couldn't load extension (file is blank): ${file}`)
   }
 
   extension.file = file
 
   // not a file?
-  if (isNotFile(file)) {
+  if (filesystem.isNotFile(file)) {
     throw new Error(`Error: couldn't load command (not a file): ${file}`)
   }
 
   // default is the name of the file without the extension
-  extension.name = head(split('.', jetpack.inspect(file).name))
+  extension.name = head(split('.', (filesystem.inspect(file) as any).name))
 
   // require in the module -- best chance to bomb is here
   let extensionModule = loadModule(file)

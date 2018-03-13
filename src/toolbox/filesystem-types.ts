@@ -208,6 +208,26 @@ export interface GluegunFilesystem {
    * Retrieves a list of subdirectories for a given path.
    */
   subdirectories(path: string, isRelative?: boolean, matching?: string, symlinks?: boolean): string[]
+
+  /**
+   * Is this a file?
+   */
+  isFile(path: string): boolean
+
+  /**
+   * Is this not a file?
+   */
+  isNotFile(path: string): boolean
+
+  /**
+   * Is this a directory?
+   */
+  isDirectory(path: string): boolean
+
+  /**
+   * Is this not a directory?
+   */
+  isNotDirectory(path: string): boolean
 }
 
 export interface GluegunFilesystemAppendOptions {

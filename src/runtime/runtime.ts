@@ -15,8 +15,8 @@ import { loadConfig } from '../loaders/config-loader'
 import { loadPluginFromDirectory } from '../loaders/plugin-loader'
 
 // tools
-import { isDirectory, subdirectories } from '../toolbox/filesystem-tools'
-import { isBlank } from '../toolbox/string-tools'
+import { filesystem } from '../toolbox/filesystem-tools'
+import { strings } from '../toolbox/string-tools'
 
 // the special run function
 import { run } from './run'
@@ -154,7 +154,7 @@ export class Runtime {
    * @returns The plugin that was created or null.
    */
   public addPlugin(directory: string, options: GluegunLoadOptions = {}): Plugin | null {
-    if (!isDirectory(directory)) {
+    if (!filesystem.isDirectory(directory)) {
       if (options.required) {
         throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
       } else {
@@ -185,12 +185,12 @@ export class Runtime {
    * @return This runtime.
    */
   public addPlugins(directory: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Plugin[] {
-    if (isBlank(directory) || !isDirectory(directory)) {
+    if (strings.isBlank(directory) || !filesystem.isDirectory(directory)) {
       return []
     }
 
-    // find matching subdirectories
-    const subdirs = subdirectories(directory, false, options.matching, true)
+    // find matching filesystem.subdirectories
+    const subdirs = filesystem.subdirectories(directory, false, options.matching, true)
 
     // load each one using `this.plugin`
     return subdirs.map(dir => this.addPlugin(dir, dissoc('matching', options)))

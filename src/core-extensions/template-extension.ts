@@ -1,10 +1,32 @@
 import * as ejs from 'ejs'
-import * as jetpack from 'fs-jetpack'
 import { forEach, keys, replace } from 'ramda'
 import { Options } from '../domain/options'
-import { isFile } from '../toolbox/filesystem-tools'
-import * as stringTools from '../toolbox/string-tools'
+import { filesystem } from '../toolbox/filesystem-tools'
+import { strings } from '../toolbox/string-tools'
 import { GluegunToolbox } from '../domain/toolbox'
+
+export interface GluegunTemplate {
+  generate(options: GluegunTemplateGenerateOptions): Promise<string>
+}
+
+export interface GluegunTemplateGenerateOptions {
+  /**
+   * Path to the EJS template relative from the plugin's `template` directory.
+   */
+  template: string
+  /**
+   * Path to create the file relative from the user's working directory.
+   */
+  target?: string
+  /**
+   * Additional props to provide to the EJS template.
+   */
+  props?: { [name: string]: any }
+  /**
+   * An absolute path of where to find the templates (if not default).
+   */
+  directory?: string
+}
 
 /**
  * Builds the code generation feature.
@@ -37,8 +59,8 @@ export default function attach(toolbox: GluegunToolbox): void {
 
     // add our string tools to the filters available.
     forEach(x => {
-      data[x] = stringTools[x]
-    }, keys(stringTools))
+      data[x] = strings[x]
+    }, keys(strings))
 
     // pick a base directory for templates
     const directory = opts.directory ? opts.directory : `${plugin && plugin.directory}/templates`
@@ -46,23 +68,23 @@ export default function attach(toolbox: GluegunToolbox): void {
     const pathToTemplate = `${directory}/${template}`
 
     // bomb if the template doesn't exist
-    if (!isFile(pathToTemplate)) {
+    if (!filesystem.isFile(pathToTemplate)) {
       throw new Error(`template not found ${pathToTemplate}`)
     }
 
     // read the template
-    const templateContent = jetpack.read(pathToTemplate)
+    const templateContent = filesystem.read(pathToTemplate)
 
     // render the template
     const content = ejs.render(templateContent, data)
 
     // save it to the file system
-    if (!stringTools.isBlank(target)) {
+    if (!strings.isBlank(target)) {
       // prep the destination directory
       const dir = replace(/$(\/)*/g, '', target)
-      const dest = jetpack.path(dir)
+      const dest = filesystem.path(dir)
 
-      jetpack.write(dest, content)
+      filesystem.write(dest, content)
     }
 
     // send back the rendered string

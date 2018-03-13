@@ -1,6 +1,5 @@
-import * as print from '../toolbox/print-tools'
 import { GluegunToolbox } from '../domain/toolbox'
-import { GluegunPrint } from '../core-extensions/print-types'
+import { print, GluegunPrint } from '../toolbox/print-tools'
 
 /**
  * Extensions to print to the console.
