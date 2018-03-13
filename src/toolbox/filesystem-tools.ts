@@ -1,6 +1,10 @@
 import * as jetpack from 'fs-jetpack'
 import { complement, concat, map } from 'ramda'
-import { isBlank } from './string-tools'
+import { strings } from './string-tools'
+import * as os from 'os'
+import * as path from 'path'
+
+import { GluegunFilesystem } from './filesystem-types'
 
 /**
  * Is this a file?
@@ -8,7 +12,7 @@ import { isBlank } from './string-tools'
  * @param path The filename to check.
  * @returns `true` if the file exists and is a file, otherwise `false`.
  */
-export function isFile(path: string): boolean {
+function isFile(path: string): boolean {
   return jetpack.exists(path) === 'file'
 }
 
@@ -18,7 +22,7 @@ export function isFile(path: string): boolean {
  * @param path The filename to check
  * @return `true` if the file doesn't exist.
  */
-export const isNotFile = complement(isFile)
+const isNotFile = complement(isFile)
 
 /**
  * Is this a directory?
@@ -26,7 +30,7 @@ export const isNotFile = complement(isFile)
  * @param path The directory to check.
  * @returns True/false -- does the directory exist?
  */
-export function isDirectory(path: string): boolean {
+function isDirectory(path: string): boolean {
   return jetpack.exists(path) === 'dir'
 }
 
@@ -36,7 +40,7 @@ export function isDirectory(path: string): boolean {
  * @param path The directory to check.
  * @return `true` if the directory does not exist, otherwise false.
  */
-export const isNotDirectory = complement(isDirectory)
+const isNotDirectory = complement(isDirectory)
 
 /**
  * Gets the immediate subdirectories.
@@ -47,13 +51,13 @@ export const isNotDirectory = complement(isDirectory)
  * @param symlinks  If true, will include any symlinks along the way.
  * @return A list of directories
  */
-export function subdirectories(
+function subdirectories(
   path: string,
   isRelative: boolean = false,
   matching: string = '*',
   symlinks: boolean = false,
 ): string[] {
-  if (isBlank(path) || !isDirectory(path)) {
+  if (strings.isBlank(path) || !isDirectory(path)) {
     return []
   }
   const dirs = jetpack.cwd(path).find({
@@ -69,3 +73,19 @@ export function subdirectories(
     return map(concat(`${path}/`), dirs)
   }
 }
+
+const filesystem: GluegunFilesystem = Object.assign(
+  {
+    eol: os.EOL, // end of line marker
+    homedir: os.homedir, // get home directory
+    separator: path.sep, // path separator
+    subdirectories, // retrieve subdirectories
+    isFile,
+    isNotFile,
+    isDirectory,
+    isNotDirectory,
+  },
+  jetpack, // jetpack utilities
+)
+
+export { filesystem, GluegunFilesystem }

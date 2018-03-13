@@ -1,8 +1,7 @@
-import * as jetpack from 'fs-jetpack'
 import { head, is, isNil, last, reject, split, takeLast } from 'ramda'
 import { Command, GluegunCommand } from '../domain/command'
-import { isNotFile } from '../toolbox/filesystem-tools'
-import { isBlank } from '../toolbox/string-tools'
+import { filesystem } from '../toolbox/filesystem-tools'
+import { strings } from '../toolbox/string-tools'
 import { loadModule } from './module-loader'
 import { Options } from '../domain/options'
 
@@ -16,19 +15,19 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
   const command = new Command()
 
   // sanity check the input
-  if (isBlank(file)) {
+  if (strings.isBlank(file)) {
     throw new Error(`Error: couldn't load command (file is blank): ${file}`)
   }
 
   // not a file?
-  if (isNotFile(file)) {
+  if (filesystem.isNotFile(file)) {
     throw new Error(`Error: couldn't load command (this isn't a file): ${file}`)
   }
 
   // remember the file
   command.file = file
   // default name is the name without the file extension
-  command.name = head(split('.', jetpack.inspect(file).name))
+  command.name = head(split('.', (filesystem.inspect(file) as any).name))
   // strip the extension from the end of the commandPath
   command.commandPath = (options.commandPath || last(file.split('/commands/')).split('/')).map(
     f => ([`${command.name}.js`, `${command.name}.ts`].includes(f) ? command.name : f),

@@ -16,32 +16,7 @@ import * as trimStart from 'lodash.trimstart'
 import * as upperCase from 'lodash.uppercase'
 import * as upperFirst from 'lodash.upperfirst'
 import * as pluralize from 'pluralize'
-
-export { camelCase }
-export { kebabCase }
-export { lowerCase }
-export { lowerFirst }
-export { pad }
-export { padEnd }
-export { padStart }
-export { repeat }
-export { snakeCase }
-export { startCase }
-export { trim }
-export { trimEnd }
-export { trimStart }
-export { upperCase }
-export { upperFirst }
-
-export { pluralize }
-export const plural = pluralize.plural
-export const singular = pluralize.singular
-export const addPluralRule = pluralize.addPluralRule
-export const addSingularRule = pluralize.addSingularRule
-export const addIrregularRule = pluralize.addIrregularRule
-export const addUncountableRule = pluralize.addUncountableRule
-export const isPlural = pluralize.isPlural
-export const isSingular = pluralize.isSingular
+import { GluegunStrings } from './strings-types'
 
 /**
  * Is this not a string?
@@ -49,7 +24,7 @@ export const isSingular = pluralize.isSingular
  * @param value The value to check
  * @return True if it is not a string, otherwise false
  */
-export function isNotString(value: any): boolean {
+function isNotString(value: any): boolean {
   return !is(String, value)
 }
 
@@ -59,7 +34,7 @@ export function isNotString(value: any): boolean {
  * @param value The value to check.
  * @returns True if it was, otherwise false.
  */
-export function isBlank(value: any): boolean {
+function isBlank(value: any): boolean {
   return isNotString(value) || isEmpty(trim(value))
 }
 
@@ -69,7 +44,7 @@ export function isBlank(value: any): boolean {
  * @param value
  * @returns the value.
  */
-export function identity(value: any): any {
+function identity(value: any): any {
   return value
 }
 
@@ -79,6 +54,39 @@ export function identity(value: any): any {
  * @param value The string to convert
  * @returns PascalCase string.
  */
-export function pascalCase(value: string): string {
+function pascalCase(value: string): string {
   return pipe(camelCase, upperFirst)(value) as string
+}
+
+export { GluegunStrings }
+
+export const strings: GluegunStrings = {
+  isNotString,
+  isBlank,
+  identity,
+  pascalCase,
+  camelCase,
+  kebabCase,
+  lowerCase,
+  lowerFirst,
+  pad,
+  padEnd,
+  padStart,
+  repeat,
+  snakeCase,
+  startCase,
+  trim,
+  trimEnd,
+  trimStart,
+  upperCase,
+  upperFirst,
+  pluralize,
+  plural: pluralize.plural,
+  singular: pluralize.singular,
+  addPluralRule: pluralize.addPluralRule,
+  addSingularRule: pluralize.addSingularRule,
+  addIrregularRule: pluralize.addIrregularRule,
+  addUncountableRule: pluralize.addUncountableRule,
+  isPlural: pluralize.isPlural,
+  isSingular: pluralize.isSingular,
 }

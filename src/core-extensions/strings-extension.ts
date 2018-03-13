@@ -1,4 +1,4 @@
-import * as stringTools from '../toolbox/string-tools'
+import { strings } from '../toolbox/string-tools'
 import { GluegunToolbox } from '../domain/toolbox'
 
 /**
@@ -7,5 +7,5 @@ import { GluegunToolbox } from '../domain/toolbox'
  * @param toolbox The running toolbox.
  */
 export default function attach(toolbox: GluegunToolbox): void {
-  toolbox.strings = stringTools
+  toolbox.strings = strings
 }

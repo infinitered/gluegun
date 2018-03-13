@@ -20,29 +20,20 @@ export { build } from './domain/builder'
 export { GluegunToolbox, GluegunRunContext, GluegunParameters } from './domain/toolbox'
 export { GluegunCommand } from './domain/command'
 
-import { GluegunFilesystem } from './core-extensions/filesystem-types'
-import { GluegunStrings } from './core-extensions/strings-types'
-import { GluegunPrint } from './core-extensions/print-types'
-import { GluegunSystem } from './core-extensions/system-types'
-import { GluegunSemver } from './core-extensions/semver-types'
-import { GluegunHttp } from './core-extensions/http-types'
-import { GluegunPatching, GluegunPatchingPatchOptions } from './core-extensions/patching-types'
-import { GluegunPrompt } from './core-extensions/prompt-types'
-import { GluegunTemplate } from './core-extensions/template-types'
-import { GluegunMeta } from './core-extensions/meta-types'
-export {
-  GluegunFilesystem,
-  GluegunStrings,
-  GluegunPrint,
-  GluegunSystem,
-  GluegunSemver,
-  GluegunHttp,
-  GluegunPatching,
-  GluegunPatchingPatchOptions,
-  GluegunPrompt,
-  GluegunTemplate,
-  GluegunMeta,
-}
+// export the toolbox
+export { filesystem, GluegunFilesystem } from './toolbox/filesystem-tools'
+export { strings, GluegunStrings } from './toolbox/string-tools'
+export { print, GluegunPrint } from './toolbox/print-tools'
+export { system, GluegunSystem } from './toolbox/system-tools'
+export { semver, GluegunSemver } from './toolbox/semver-tools'
+export { http, GluegunHttp } from './toolbox/http-tools'
+export { patching, GluegunPatching, GluegunPatchingPatchOptions } from './toolbox/patching-tools'
+export { prompt, GluegunPrompt } from './toolbox/prompt-tools'
+
+// TODO: can't export these tools directly as they require context to run
+// need ideas on how to handle this
+export { GluegunTemplate } from './core-extensions/template-extension'
+export { GluegunMeta } from './core-extensions/meta-extension'
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!

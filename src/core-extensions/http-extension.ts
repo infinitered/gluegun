@@ -1,5 +1,5 @@
-import { create } from 'apisauce'
 import { GluegunToolbox } from '../domain/toolbox'
+import { http } from '../toolbox/http-tools'
 
 /**
  * An extension to talk to ye olde internet.
@@ -7,5 +7,5 @@ import { GluegunToolbox } from '../domain/toolbox'
  * @param toolbox The running toolbox.
  */
 export default function attach(toolbox: GluegunToolbox): void {
-  toolbox.http = { create }
+  toolbox.http = http
 }

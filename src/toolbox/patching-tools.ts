@@ -1,7 +1,6 @@
-import * as jetpack from 'fs-jetpack'
 import { test, is } from 'ramda'
-import { isFile, isNotFile } from './filesystem-tools'
-import { GluegunPatchingPatchOptions } from '..'
+import { filesystem } from './filesystem-tools'
+import { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
 
 /**
  * Identifies if something exists in a file. Async.
@@ -12,7 +11,7 @@ import { GluegunPatchingPatchOptions } from '..'
  */
 export async function exists(filename: string, findPattern: string | RegExp): Promise<boolean> {
   // sanity check the filename
-  if (!is(String, filename) || isNotFile(filename)) {
+  if (!is(String, filename) || filesystem.isNotFile(filename)) {
     return false
   }
 
@@ -24,7 +23,7 @@ export async function exists(filename: string, findPattern: string | RegExp): Pr
 
   // read from jetpack -- they guard against a lot of the edge
   // cases and return nil if problematic
-  const contents = jetpack.read(filename)
+  const contents = filesystem.read(filename)
 
   // only let the strings pass
   if (!is(String, contents)) {
@@ -52,7 +51,7 @@ export async function update(
 
   // only write if they actually sent back something to write
   if (mutatedContents !== false) {
-    await jetpack.writeAsync(filename, mutatedContents, { atomic: true })
+    await filesystem.writeAsync(filename, mutatedContents, { atomic: true })
   }
 
   return mutatedContents
@@ -112,7 +111,7 @@ export async function patch(filename: string, opts: GluegunPatchingPatchOptions 
 
 export async function readFile(filename: string): Promise<string> {
   // bomb if the file doesn't exist
-  if (!isFile(filename)) {
+  if (!filesystem.isFile(filename)) {
     throw new Error(`file not found ${filename}`)
   }
 
@@ -120,7 +119,7 @@ export async function readFile(filename: string): Promise<string> {
   const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
 
   // read the file
-  return jetpack.readAsync(filename, fileType)
+  return filesystem.readAsync(filename, fileType)
 }
 
 export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}): string | false {
@@ -153,3 +152,7 @@ function insertNextToString(data: string, opts: GluegunPatchingPatchOptions) {
   const newContents = opts.after ? `${findString}${opts.insert || ''}` : `${opts.insert || ''}${findString}`
   return data.replace(findString, newContents)
 }
+
+const patching: GluegunPatching = { update, append, prepend, replace, patch, exists }
+
+export { patching, GluegunPatching, GluegunPatchingPatchOptions }

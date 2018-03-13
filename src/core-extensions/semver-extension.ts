@@ -1,5 +1,5 @@
-import * as semver from 'semver'
 import { GluegunToolbox } from '../domain/toolbox'
+import { semver } from '../toolbox/semver-tools'
 
 /**
  * Extensions to access semver and helpers

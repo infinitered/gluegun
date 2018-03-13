@@ -1,9 +1,5 @@
-import * as jetpack from 'fs-jetpack'
-import * as os from 'os'
-import * as path from 'path'
-import { subdirectories } from '../toolbox/filesystem-tools'
 import { GluegunToolbox } from '../domain/toolbox'
-import { GluegunFilesystem } from './filesystem-types'
+import { filesystem } from '../toolbox/filesystem-tools'
 
 /**
  * Extensions to filesystem.  Brought to you by fs-jetpack.
@@ -11,15 +7,5 @@ import { GluegunFilesystem } from './filesystem-types'
  * @param toolbox The running toolbox.
  */
 export default function attach(toolbox: GluegunToolbox) {
-  const extension: GluegunFilesystem = Object.assign(
-    {
-      eol: os.EOL, // end of line marker
-      homedir: os.homedir, // get home directory
-      separator: path.sep, // path separator
-      subdirectories: subdirectories, // retrieve subdirectories
-    },
-    jetpack, // jetpack utilities
-  )
-
-  toolbox.filesystem = extension
+  toolbox.filesystem = filesystem
 }

@@ -2,8 +2,8 @@ import * as jetpack from 'fs-jetpack'
 import { map } from 'ramda'
 import { Plugin } from '../domain/plugin'
 import { Options } from '../domain/options'
-import { isNotDirectory } from '../toolbox/filesystem-tools'
-import { isBlank } from '../toolbox/string-tools'
+import { filesystem } from '../toolbox/filesystem-tools'
+import { strings } from '../toolbox/string-tools'
 import { loadCommandFromFile, loadCommandFromPreload } from './command-loader'
 import { loadConfig } from './config-loader'
 import { loadExtensionFromFile } from './extension-loader'
@@ -27,19 +27,19 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
 
   plugin.hidden = Boolean(options.hidden)
 
-  if (!isBlank(name)) {
+  if (!strings.isBlank(name)) {
     plugin.name = name
   }
 
   // directory check
-  if (isNotDirectory(directory)) {
+  if (filesystem.isNotDirectory(directory)) {
     throw new Error(`Error: couldn't load plugin (not a directory): ${directory}`)
   }
 
   plugin.directory = directory
 
   // the directory is the default name (unless we were told what it was)
-  if (isBlank(name)) {
+  if (strings.isBlank(name)) {
     plugin.name = jetpack.inspect(directory).name
   }
 
