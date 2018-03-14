@@ -135,7 +135,7 @@ You can also pass in a function or command object here:
     alias: 'helpmeplease',
     hidden: true,
     dashed: true,
-    run: toolbox => toolbox.print.info('No help for you!'))
+    run: toolbox => toolbox.print.info('No help for you!')
   })
 ```
 
