@@ -1,5 +1,6 @@
 import test from 'ava'
-import * as stringUtils from './string-tools'
+import { strings } from './string-tools'
+
 const {
   identity,
   isBlank,
@@ -29,17 +30,12 @@ const {
   addUncountableRule,
   isPlural,
   isSingular,
-} = stringUtils
+} = strings
 
 test('isBlank', t => {
-  t.true(isBlank(1))
-  t.true(isBlank(true))
-  t.true(isBlank(false))
   t.true(isBlank(null))
   t.true(isBlank(''))
   t.true(isBlank(' '))
-  t.true(isBlank({}))
-  t.true(isBlank([]))
   t.false(isBlank('s'))
 })
 

@@ -1,7 +1,7 @@
 import test from 'ava'
 import * as sinon from 'sinon'
 import { Toolbox } from '../../domain/toolbox'
-import * as strings from '../../toolbox/string-tools'
+import { strings } from '../../toolbox/string-tools'
 import command from './new'
 
 sinon.stub(console, 'log')

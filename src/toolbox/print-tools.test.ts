@@ -1,6 +1,6 @@
 import test from 'ava'
 import * as stripANSI from 'strip-ansi'
-import * as print from './print-tools'
+import { print } from './print-tools'
 
 // hijack the console
 const log = console.log

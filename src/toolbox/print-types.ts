@@ -29,9 +29,9 @@ export interface GluegunPrint {
   /* Prints a newline. */
   newline: () => void
   /* Prints a table of data (usually a 2-dimensional array). */
-  table: (data: any, options: any) => void
+  table: (data: any, options?: any) => void
   /* An `ora`-powered spinner. */
-  spin(options: any): any
+  spin(options?: any): any
   /* Print help info for known CLI commands. */
   printCommands(toolbox: GluegunToolbox): void
   /* Prints help info, including version and commands. */

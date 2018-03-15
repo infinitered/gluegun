@@ -144,10 +144,10 @@ Another option is to use the Gluegun _on-demand toolbox_.
 
 ```js
 // hello/greetings/earth.js
-import { print: { info } } from 'gluegun/toolbox'
+import { print } from 'gluegun'
 
 module.exports = {
-  greetEarthling: () => info('Hello, earthling!')
+  greetEarthling: () => print.info('Hello, earthling!'),
 }
 ```
 
