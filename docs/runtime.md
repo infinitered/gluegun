@@ -216,7 +216,7 @@ const cli = build('movie').exclude([
 If you find you need one of these extensions for just _one_ command but don't want to load it for _all_ of your commands, you can always load it separately from the Gluegun toolbox, like this:
 
 ```js
-const { prompt } = require('gluegun/toolbox')
+const { prompt } = require('gluegun')
 ```
 
 For reference, the core extensions that incur the biggest startup performance penalty are (timing varies per machine, but this gives some sense of scale):
