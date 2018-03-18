@@ -1,5 +1,5 @@
 import { GluegunToolbox } from '../domain/toolbox'
-import { print, GluegunPrint } from '../toolbox/print-tools'
+import { print } from '../toolbox/print-tools'
 
 /**
  * Extensions to print to the console.
@@ -8,5 +8,5 @@ import { print, GluegunPrint } from '../toolbox/print-tools'
  */
 export default function attach(toolbox: GluegunToolbox): void {
   // attach the feature set
-  toolbox.print = print as GluegunPrint
+  toolbox.print = print
 }

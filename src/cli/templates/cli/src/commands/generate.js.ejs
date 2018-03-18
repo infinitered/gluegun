@@ -7,8 +7,8 @@ module.exports = {
     const name = parameters.first
 
     await generate({
-      template: 'model.js.ejs',
-      target: `models/${name}-model.js`,
+      template: 'model.<%= props.extension %>.ejs',
+      target: `models/${name}-model.<%= props.extension %>`,
       props: { name }
     })
   }

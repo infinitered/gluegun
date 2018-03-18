@@ -66,6 +66,7 @@ test('name must pass regex', async t => {
 test('generates properly', async t => {
   const name = 'foo'
   const typescript = undefined
+  const extension = 'js'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
 
@@ -76,7 +77,7 @@ test('generates properly', async t => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript }
+  const props = { name, typescript, extension }
 
   // assure that the directory was created
   t.is(dir.firstCall.args[0], name)
@@ -120,7 +121,7 @@ test('generates properly', async t => {
 
   // test package installation
   t.deepEqual(spawn.firstCall.args, [
-    `cd ${props.name} && npm i && npm run format`,
+    `cd ${props.name} && npm install --quiet && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 
@@ -130,6 +131,7 @@ test('generates properly', async t => {
 test('generates with typescript', async t => {
   const name = 'foo'
   const typescript = true
+  const extension = 'ts'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
   toolbox.parameters.options.typescript = true
@@ -141,7 +143,7 @@ test('generates with typescript', async t => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript }
+  const props = { name, typescript, extension }
 
   // assure that the directory was created
   t.is(dir.firstCall.args[0], name)
@@ -185,7 +187,7 @@ test('generates with typescript', async t => {
 
   // test package installation
   t.deepEqual(spawn.firstCall.args, [
-    `cd ${props.name} && npm i && npm run format`,
+    `cd ${props.name} && npm install --quiet && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 

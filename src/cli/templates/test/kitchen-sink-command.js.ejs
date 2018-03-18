@@ -1,0 +1,74 @@
+const {
+  filesystem,
+  semver,
+  http,
+  print,
+  prompt,
+  strings,
+  system,
+  patching
+} = require('gluegun')
+
+module.exports = {
+  name: 'kitchen',
+  run: async (toolbox) => {
+    // smoke test all the things
+    const asyncs = []
+
+    // filesystem smoke test
+    asyncs.push(filesystem.cwd())
+    asyncs.push(filesystem.exists(__filename))
+
+    // semver smoke test
+    semver.valid('1.2.3') // '1.2.3'
+    semver.clean('  =v1.2.3   ') // '1.2.3'
+    semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3') // true
+    semver.lt('1.2.3', '9.8.7') // true
+
+    // http smoke test
+    const api = http.create({
+      baseURL: 'https://api.github.com',
+      headers: { Accept: 'application/vnd.github.v3+json' },
+    })
+    asyncs.push(api.get('/repos/skellock/apisauce/commits'))
+
+    // print smoke test
+    print.info(print.colors.success('Hello. I am a chatty plugin.'))
+    print.spin('Time for fun!').stop()
+    print.printHelp(toolbox)
+    print.table(
+      [
+        ['First Name', 'Last Name', 'Age'],
+        ['Jamon', 'Holmgren', 35],
+        ['Gant', 'Laborde', 36],
+        ['Steve', 'Kellock', 43],
+        ['Gary', 'Busey', 73],
+      ],
+      { format: 'markdown' },
+    )
+
+    // prompt smoke test (not very thorough, just ensuring it's there)
+    if (!prompt.ask) throw new Error('no ask?')
+    if (!prompt.confirm) throw new Error('no confirm?')
+    if (!prompt.separator) throw new Error('no separator?')
+
+    // strings smoke test
+    strings.identity('hello')
+    strings.padEnd('hello', 10, '!')
+    strings.kebabCase('hello there')
+    strings.upperFirst('hello there')
+    strings.isSingular('bugs')
+    strings.addUncountableRule('paper')
+
+    // system smoke test
+    console.log(system.which('npm'))
+    asyncs.push(system.run('node -v', { trim: true }))
+
+    // patching smoke test
+    asyncs.push(patching.exists(__filename, 'Barb'))
+    asyncs.push(patching.replace(__filename, 'SELF REPLACING STRING', 'REPLACED STRING WHOA'))
+
+    // run all the asyncs at once yolo
+    await Promise.all(asyncs)
+  }
+}
