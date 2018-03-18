@@ -10,6 +10,7 @@ export default {
     const props = {
       name: parameters.first,
       typescript: parameters.options.typescript,
+      extension: parameters.options.typescript ? 'ts' : 'js',
     }
 
     if (!props.name || props.name.length === 0) {
@@ -76,7 +77,7 @@ export default {
     const ext = props.typescript ? 'ts' : 'js'
     filesystem.rename(`${props.name}/src/commands/default.${ext}`, `${props.name}.${ext}`)
 
-    await system.spawn(`cd ${props.name} && npm i && npm run format`, {
+    await system.spawn(`cd ${props.name} && npm install --quiet && npm run --quiet format`, {
       shell: true,
       stdio: 'inherit',
       stderr: 'inherit',
