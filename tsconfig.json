@@ -14,7 +14,8 @@
     "declaration": true,
     "declarationDir": "build/types",
     "strict": false,
-    "target": "es5"
+    "target": "es5",
+    "pretty": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["src/fixtures", "src/**/*.test.ts"]
