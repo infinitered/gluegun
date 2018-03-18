@@ -1,6 +1,7 @@
 import test from 'ava'
 import * as sinon from 'sinon'
 import * as uniqueTempDir from 'unique-temp-dir'
+import * as stripANSI from 'strip-ansi'
 import { run as cli } from './cli'
 
 sinon.stub(console, 'log')
@@ -31,11 +32,11 @@ test.serial('can create a new boilerplate cli', async t => {
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo --help`)
-  t.snapshot(runCommand)
+  t.snapshot(stripANSI(runCommand))
 
   // Try running the generate command, see what it does
   const genCommand = await toolbox.system.run(`${tmp}/foo/bin/foo g model test`)
-  t.snapshot(genCommand)
+  t.snapshot(stripANSI(genCommand))
 
   // clean up
   process.chdir(pwd)
@@ -61,11 +62,11 @@ test.serial('can create a new boilerplate TypeScript cli', async t => {
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts --help`)
-  t.snapshot(runCommand)
+  t.snapshot(stripANSI(runCommand))
 
   // Try running the generate command, see what it does
   const genCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts g model test`)
-  t.snapshot(genCommand)
+  t.snapshot(stripANSI(genCommand))
 
   // Add a command that exercises a lot of Gluegun features
   // Incidentally, it verifies that the template tool works
