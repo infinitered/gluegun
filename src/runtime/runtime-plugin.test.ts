@@ -1,34 +1,35 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Runtime } from './runtime'
 
 const BAD_PLUGIN_PATH = `${__dirname}/../fixtures/does-not-exist`
 
-test('load a directory', t => {
+test('load a directory', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/simplest`)
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  t.is(r.plugins.length, 2)
+  expect(r.plugins.length).toBe(2)
 })
 
-test('hides commands', t => {
+test('hides commands', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`, { hidden: true })
-  t.is(r.plugins.length, 1)
-  t.true(r.plugins[0].commands[2].hidden)
+  expect(r.plugins.length).toBe(1)
+  expect(r.plugins[0].commands[2].hidden).toBe(true)
 })
 
-test('silently ignore plugins with broken dirs', async t => {
+test('silently ignore plugins with broken dirs', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
   const error = r.addPlugin(BAD_PLUGIN_PATH)
-  t.is(undefined, error)
+  expect(undefined).toBe(error)
 })
 
-test("throws error if plugin doesn't exist and required: true", async t => {
+test("throws error if plugin doesn't exist and required: true", async () => {
   const r = new Runtime()
   r.addCoreExtensions()
-  const error = await t.throws(() => r.addPlugin(BAD_PLUGIN_PATH, { required: true }), Error)
-  t.is(error.message, `Error: couldn't load plugin (not a directory): ${BAD_PLUGIN_PATH}`)
+  await expect(() => r.addPlugin(BAD_PLUGIN_PATH, { required: true })).toThrowError(
+    `Error: couldn't load plugin (not a directory): ${BAD_PLUGIN_PATH}`,
+  )
 })

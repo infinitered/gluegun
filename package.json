@@ -17,11 +17,13 @@
     "clean-types": "find ./build/types -type f -size 0 -delete && find ./build/types -type d -empty -delete",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
-    "test": "yarn build && ava-ts --fail-fast",
-    "watch": "ava-ts --watch",
-    "snapupdate": "ava-ts --update-snapshots",
-    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text ava-ts",
-    "coveralls": "nyc ava-ts && nyc report --reporter=text-lcov | coveralls",
+    "integration": "yarn build && jest --config=./jest-integration.config.json ",
+    "test": "jest",
+    "watch": "jest --watch",
+    "snapupdate": "jest --updateSnapshot",
+    "ci": "yarn test && yarn integration",
+    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
+    "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
     "shipit": "yarn build && yarn lint && np --yolo"
   },
   "author": {
@@ -85,13 +87,15 @@
   },
   "devDependencies": {
     "@types/cli-table2": "^0.2.1",
+    "@types/jest": "^22.2.0",
     "@types/node": "^9.4.0",
     "@types/pluralize": "^0.0.28",
     "@types/ramda": "^0.25.17",
-    "ava": "^0.25.0",
-    "ava-ts": "^0.24.1",
     "coveralls": "^3.0.0",
+    "expect": "^23.0.0-alpha.0",
     "husky": "^0.14.3",
+    "jest": "^22.4.2",
+    "jest-mock": "^23.0.0-alpha.0",
     "lint-staged": "^6.1.0",
     "np": "^2.19.0",
     "nyc": "^11.2.1",
@@ -99,6 +103,7 @@
     "sinon": "^4.2.2",
     "strip-ansi": "^4.0.0",
     "temp-write": "^3.3.0",
+    "ts-jest": "^22.4.1",
     "ts-node": "^4.0.2",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.7.0",
@@ -106,7 +111,19 @@
     "typescript": "2.7.2",
     "unique-temp-dir": "^1.0.0"
   },
-  "ava": {},
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "(\\.|/)(test)\\.ts$",
+    "moduleFileExtensions": [
+      "ts",
+      "js",
+      "json",
+      "node"
+    ]
+  },
   "prettier": {
     "printWidth": 120,
     "semi": false,

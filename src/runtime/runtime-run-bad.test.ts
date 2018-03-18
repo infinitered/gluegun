@@ -1,14 +1,14 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Runtime } from './runtime'
 
-test('cannot find a command', async t => {
+test('cannot find a command', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
   const toolbox = await r.run('bloo blah')
-  t.falsy(toolbox.result)
+  expect(toolbox.result).toBeFalsy()
 })
 
-test('is fatally wounded by exceptions', async t => {
+test('is fatally wounded by exceptions', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/throws`)
@@ -17,6 +17,6 @@ test('is fatally wounded by exceptions', async t => {
   try {
     await r.run('throw')
   } catch (e) {
-    t.is(e.message, `thrown an error!`)
+    expect(e.message).toBe(`thrown an error!`)
   }
 })

@@ -1,31 +1,31 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Runtime } from './runtime'
 
-test('runs a command explicitly', async t => {
+test('runs a command explicitly', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
-  t.falsy(r.defaultPlugin)
+  expect(r.defaultPlugin).toBeFalsy()
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  t.truthy(r.defaultPlugin)
+  expect(r.defaultPlugin).toBeTruthy()
   const toolbox = await r.run('three')
 
-  t.truthy(toolbox.plugin)
-  t.truthy(toolbox.command)
-  t.is(toolbox.plugin.name, '3pack')
-  t.is(toolbox.command.name, 'three')
-  t.deepEqual(toolbox.result, [1, 2, 3])
+  expect(toolbox.plugin).toBeTruthy()
+  expect(toolbox.command).toBeTruthy()
+  expect(toolbox.plugin.name).toBe('3pack')
+  expect(toolbox.command.name).toBe('three')
+  expect(toolbox.result).toEqual([1, 2, 3])
 })
 
-test('runs a command via passed in args', async t => {
+test('runs a command via passed in args', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
-  t.falsy(r.defaultPlugin)
+  expect(r.defaultPlugin).toBeFalsy()
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  t.truthy(r.defaultPlugin)
+  expect(r.defaultPlugin).toBeTruthy()
   const toolbox = await r.run('three')
-  t.truthy(toolbox.plugin)
-  t.truthy(toolbox.command)
-  t.is(toolbox.plugin.name, '3pack')
-  t.is(toolbox.command.name, 'three')
-  t.deepEqual(toolbox.result, [1, 2, 3])
+  expect(toolbox.plugin).toBeTruthy()
+  expect(toolbox.command).toBeTruthy()
+  expect(toolbox.plugin.name).toBe('3pack')
+  expect(toolbox.command.name).toBe('three')
+  expect(toolbox.result).toEqual([1, 2, 3])
 })

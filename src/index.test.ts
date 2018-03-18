@@ -1,58 +1,58 @@
-import test from 'ava'
+import * as expect from 'expect'
 import * as exported from './index'
 
-test('create', t => {
-  t.truthy(exported)
-  t.is(typeof exported.build, 'function')
+test('create', () => {
+  expect(exported).toBeTruthy()
+  expect(typeof exported.build).toBe('function')
   const { build } = exported
   const runtime = build('test').create()
-  t.is(runtime.brand, 'test')
+  expect(runtime.brand).toBe('test')
   const runtime2 = build()
     .brand('test2')
     .create()
-  t.is(runtime2.brand, 'test2')
+  expect(runtime2.brand).toBe('test2')
 })
 
-test('print', t => {
-  t.is(typeof exported.print.printCommands, 'function')
-  t.is(typeof exported.print.info, 'function')
+test('print', () => {
+  expect(typeof exported.print.printCommands).toBe('function')
+  expect(typeof exported.print.info).toBe('function')
 })
 
-test('strings', t => {
-  t.is(exported.strings.lowerCase('HI'), 'hi')
+test('strings', () => {
+  expect(exported.strings.lowerCase('HI')).toBe('hi')
 })
 
-test('filesystem', t => {
-  t.truthy(exported.filesystem)
-  t.truthy(exported.filesystem.eol)
-  t.truthy(exported.filesystem.separator)
-  t.is(exported.filesystem.cwd(), process.cwd())
+test('filesystem', () => {
+  expect(exported.filesystem).toBeTruthy()
+  expect(exported.filesystem.eol).toBeTruthy()
+  expect(exported.filesystem.separator).toBeTruthy()
+  expect(exported.filesystem.cwd()).toBe(process.cwd())
 })
 
-test('system', t => {
-  t.truthy(exported.system)
-  t.truthy(exported.system.which('node'))
+test('system', () => {
+  expect(exported.system).toBeTruthy()
+  expect(exported.system.which('node')).toBeTruthy()
 })
 
-test('prompt', t => {
-  t.truthy(exported.prompt)
-  t.truthy(typeof exported.prompt.confirm, 'function')
+test('prompt', () => {
+  expect(exported.prompt).toBeTruthy()
+  expect(typeof exported.prompt.confirm).toBeTruthy()
 })
 
-test('http', t => {
-  t.truthy(exported.http)
-  t.truthy(typeof exported.http.create, 'function')
+test('http', () => {
+  expect(exported.http).toBeTruthy()
+  expect(typeof exported.http.create).toBeTruthy()
   const api = exported.http.create({ baseURL: 'https://api.github.com/v3' })
-  t.is(typeof api.get, 'function')
-  t.is(typeof api.post, 'function')
+  expect(typeof api.get).toBe('function')
+  expect(typeof api.post).toBe('function')
 })
 
-test('patching', t => {
-  t.truthy(exported.patching)
-  t.truthy(typeof exported.patching.exists, 'function')
-  t.truthy(typeof exported.patching.update, 'function')
-  t.truthy(typeof exported.patching.append, 'function')
-  t.truthy(typeof exported.patching.prepend, 'function')
-  t.truthy(typeof exported.patching.replace, 'function')
-  t.truthy(typeof exported.patching.patch, 'function')
+test('patching', () => {
+  expect(exported.patching).toBeTruthy()
+  expect(typeof exported.patching.exists).toBeTruthy()
+  expect(typeof exported.patching.update).toBeTruthy()
+  expect(typeof exported.patching.append).toBeTruthy()
+  expect(typeof exported.patching.prepend).toBeTruthy()
+  expect(typeof exported.patching.replace).toBeTruthy()
+  expect(typeof exported.patching.patch).toBeTruthy()
 })

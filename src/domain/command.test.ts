@@ -1,23 +1,23 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Command } from './command'
 
-test('default state', t => {
+test('default state', () => {
   const command = new Command()
-  t.truthy(command)
-  t.falsy(command.name)
-  t.falsy(command.file)
-  t.falsy(command.description)
-  t.falsy(command.run)
-  t.falsy(command.dashed)
-  t.is(command.hidden, false)
+  expect(command).toBeTruthy()
+  expect(command.name).toBeFalsy()
+  expect(command.file).toBeFalsy()
+  expect(command.description).toBeFalsy()
+  expect(command.run).toBeFalsy()
+  expect(command.dashed).toBeFalsy()
+  expect(command.hidden).toBe(false)
 })
 
-test('matchesAlias', t => {
+test('matchesAlias', () => {
   const command = new Command()
   command.name = 'yogurt'
   command.alias = ['yo', 'y']
 
-  t.truthy(command.matchesAlias(['asdf', 'i', 'yo']))
-  t.truthy(command.matchesAlias('yogurt'))
-  t.falsy(command.matchesAlias(['asdf', 'i', 'womp']))
+  expect(command.matchesAlias(['asdf', 'i', 'yo'])).toBeTruthy()
+  expect(command.matchesAlias('yogurt')).toBeTruthy()
+  expect(command.matchesAlias(['asdf', 'i', 'womp'])).toBeFalsy()
 })

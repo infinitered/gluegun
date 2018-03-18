@@ -1,46 +1,46 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { contains } from 'ramda'
 import { filesystem } from './filesystem-tools'
 
-test('isFile', t => {
-  t.true(filesystem.isFile(__filename))
-  t.false(filesystem.isFile(__dirname))
+test('isFile', () => {
+  expect(filesystem.isFile(__filename)).toBe(true)
+  expect(filesystem.isFile(__dirname)).toBe(false)
 })
 
-test('isNotFile', t => {
-  t.false(filesystem.isNotFile(__filename))
-  t.true(filesystem.isNotFile(__dirname))
+test('isNotFile', () => {
+  expect(filesystem.isNotFile(__filename)).toBe(false)
+  expect(filesystem.isNotFile(__dirname)).toBe(true)
 })
 
-test('isDirectory', t => {
-  t.true(filesystem.isDirectory(__dirname))
-  t.false(filesystem.isDirectory(__filename))
+test('isDirectory', () => {
+  expect(filesystem.isDirectory(__dirname)).toBe(true)
+  expect(filesystem.isDirectory(__filename)).toBe(false)
 })
 
-test('isNotDirectory', t => {
-  t.false(filesystem.isNotDirectory(__dirname))
-  t.true(filesystem.isNotDirectory(__filename))
+test('isNotDirectory', () => {
+  expect(filesystem.isNotDirectory(__dirname)).toBe(false)
+  expect(filesystem.isNotDirectory(__filename)).toBe(true)
 })
 
-test('subdirectories', t => {
+test('subdirectories', () => {
   const dirs = filesystem.subdirectories(`${__dirname}/..`)
-  t.is(dirs.length, 8)
-  t.true(contains(`${__dirname}/../toolbox`, dirs))
+  expect(dirs.length).toBe(8)
+  expect(contains(`${__dirname}/../toolbox`, dirs)).toBe(true)
 })
 
-test('blank subdirectories', t => {
-  t.deepEqual(filesystem.subdirectories(''), [])
-  t.deepEqual(filesystem.subdirectories(__filename), [])
+test('blank subdirectories', () => {
+  expect(filesystem.subdirectories('')).toEqual([])
+  expect(filesystem.subdirectories(__filename)).toEqual([])
 })
 
-test('relative subdirectories', t => {
+test('relative subdirectories', () => {
   const dirs = filesystem.subdirectories(`${__dirname}/..`, true)
-  t.is(dirs.length, 8)
-  t.true(contains(`toolbox`, dirs))
+  expect(dirs.length).toBe(8)
+  expect(contains(`toolbox`, dirs)).toBe(true)
 })
 
-test('filtered subdirectories', t => {
+test('filtered subdirectories', () => {
   const dirs = filesystem.subdirectories(`${__dirname}/..`, true, 'to*')
-  t.is(1, dirs.length)
-  t.true(contains(`toolbox`, dirs))
+  expect(1).toBe(dirs.length)
+  expect(contains(`toolbox`, dirs)).toBe(true)
 })

@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import * as sinon from 'sinon'
 import { Toolbox } from '../../domain/toolbox'
 import { strings } from '../../toolbox/string-tools'
@@ -27,43 +27,43 @@ function createFakeToolbox(): Toolbox {
   return fakeContext
 }
 
-test('has the right interface', t => {
-  t.is(command.name, 'new')
-  t.is(command.description, 'Creates a new gluegun cli')
-  t.false(command.hidden)
-  t.deepEqual(command.alias, ['n', 'create'])
-  t.is(typeof command.run, 'function')
+test('has the right interface', () => {
+  expect(command.name).toBe('new')
+  expect(command.description).toBe('Creates a new gluegun cli')
+  expect(command.hidden).toBe(false)
+  expect(command.alias).toEqual(['n', 'create'])
+  expect(typeof command.run).toBe('function')
 })
 
-test('name is required', async t => {
+test('name is required', async () => {
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = null
   await command.run(toolbox)
   const { error } = toolbox.print
-  t.is(error.getCall(0).args[0], 'You must provide a valid CLI name.')
-  t.is(error.getCall(1).args[0], 'Example: gluegun new foo')
+  expect(error.getCall(0).args[0]).toBe('You must provide a valid CLI name.')
+  expect(error.getCall(1).args[0]).toBe('Example: gluegun new foo')
 })
 
-test('name cannot be blank', async t => {
+test('name cannot be blank', async () => {
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = ''
   await command.run(toolbox)
   const { error } = toolbox.print
-  t.deepEqual(error.getCall(0).args, ['You must provide a valid CLI name.'])
-  t.deepEqual(error.getCall(1).args, ['Example: gluegun new foo'])
+  expect(error.getCall(0).args).toEqual(['You must provide a valid CLI name.'])
+  expect(error.getCall(1).args).toEqual(['Example: gluegun new foo'])
 })
 
-test('name must pass regex', async t => {
+test('name must pass regex', async () => {
   const toolbox = createFakeToolbox()
   const name = 'O M G'
   toolbox.parameters.first = name
   await command.run(toolbox)
   const { error } = toolbox.print
-  t.deepEqual(error.getCall(0).args, [`${name} is not a valid name. Use lower-case and dashes only.`])
-  t.deepEqual(error.getCall(1).args, [`Suggested: gluegun new ${strings.kebabCase(name)}`])
+  expect(error.getCall(0).args).toEqual([`${name} is not a valid name. Use lower-case and dashes only.`])
+  expect(error.getCall(1).args).toEqual([`Suggested: gluegun new ${strings.kebabCase(name)}`])
 })
 
-test('generates properly', async t => {
+test('generates properly', async () => {
   const name = 'foo'
   const typescript = undefined
   const extension = 'js'
@@ -80,13 +80,13 @@ test('generates properly', async t => {
   const props = { name, typescript, extension }
 
   // assure that the directory was created
-  t.is(dir.firstCall.args[0], name)
+  expect(dir.firstCall.args[0]).toBe(name)
 
   // tracks the number of files generated
   let i = 0
 
   // the executable file
-  t.deepEqual(generate.getCall(i++).args[0], {
+  expect(generate.getCall(i++).args[0]).toEqual({
     template: `cli/bin/cli-executable.ejs`,
     target: `./${name}/bin/${name}`,
     props,
@@ -109,7 +109,7 @@ test('generates properly', async t => {
 
   // test that each our files get generated
   DEFAULT_FILES.forEach(file => {
-    t.deepEqual(generate.getCall(i++).args[0], {
+    expect(generate.getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,
       props,
@@ -117,18 +117,18 @@ test('generates properly', async t => {
   })
 
   // test permissions
-  t.deepEqual(chmodSync.firstCall.args, [`${name}/bin/${name}`, '755'])
+  expect(chmodSync.firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
 
   // test package installation
-  t.deepEqual(spawn.firstCall.args, [
+  expect(spawn.firstCall.args).toEqual([
     `cd ${props.name} && npm install --quiet && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 
-  t.is(result, `new ${name}`)
+  expect(result).toBe(`new ${name}`)
 })
 
-test('generates with typescript', async t => {
+test('generates with typescript', async () => {
   const name = 'foo'
   const typescript = true
   const extension = 'ts'
@@ -146,13 +146,13 @@ test('generates with typescript', async t => {
   const props = { name, typescript, extension }
 
   // assure that the directory was created
-  t.is(dir.firstCall.args[0], name)
+  expect(dir.firstCall.args[0]).toBe(name)
 
   // tracks the number of files generated
   let i = 0
 
   // the executable file
-  t.deepEqual(generate.getCall(i++).args[0], {
+  expect(generate.getCall(i++).args[0]).toEqual({
     template: `cli/bin/cli-executable.ejs`,
     target: `./${name}/bin/${name}`,
     props,
@@ -175,7 +175,7 @@ test('generates with typescript', async t => {
 
   // test that each our files get generated
   DEFAULT_FILES.forEach(file => {
-    t.deepEqual(generate.getCall(i++).args[0], {
+    expect(generate.getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,
       props,
@@ -183,13 +183,13 @@ test('generates with typescript', async t => {
   })
 
   // test permissions
-  t.deepEqual(chmodSync.firstCall.args, [`${name}/bin/${name}`, '755'])
+  expect(chmodSync.firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
 
   // test package installation
-  t.deepEqual(spawn.firstCall.args, [
+  expect(spawn.firstCall.args).toEqual([
     `cd ${props.name} && npm install --quiet && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 
-  t.is(result, `new ${name}`)
+  expect(result).toBe(`new ${name}`)
 })

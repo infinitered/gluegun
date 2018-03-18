@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can create a new boilerplate TypeScript cli 1`] = `
+"[0mfoo-ts version 0.0.1[0m
+
+  foo-ts         -                         
+  generate (g)   -                         
+  help (h)       -                         
+  version (v)    Output the version number 
+"
+`;
+
+exports[`can create a new boilerplate TypeScript cli 2`] = `""`;
+
+exports[`can create a new boilerplate cli 1`] = `
+"[0mfoo version 0.0.1[0m
+
+  foo            -                         
+  generate (g)   -                         
+  help (h)       -                         
+  version (v)    Output the version number 
+"
+`;
+
+exports[`can create a new boilerplate cli 2`] = `""`;

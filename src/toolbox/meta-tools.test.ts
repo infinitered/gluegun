@@ -1,11 +1,11 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Command } from '../domain/command'
 import { Plugin } from '../domain/plugin'
 import { Toolbox } from '../domain/toolbox'
 import { Runtime } from '../runtime/runtime'
 import { commandInfo } from './meta-tools'
 
-test('commandInfo', t => {
+test('commandInfo', () => {
   const fakeContext = new Toolbox()
   const fakeCommand = new Command()
   const fakePlugin = new Plugin()
@@ -25,5 +25,5 @@ test('commandInfo', t => {
   fakeContext.runtime.commands = [fakeCommand]
 
   const info = commandInfo(fakeContext)
-  t.deepEqual(info, [['foo (f)', 'foo is a command']])
+  expect(info).toEqual([['foo (f)', 'foo is a command']])
 })

@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { startsWith } from 'ramdasauce'
 import { Runtime } from '../runtime/runtime'
 
@@ -9,42 +9,36 @@ const createRuntime = () => {
   return r
 }
 
-test('generates a simple file', async t => {
+test('generates a simple file', async () => {
   const toolbox = await createRuntime().run('simple')
 
-  t.is(toolbox.result, 'simple file\n')
+  expect(toolbox.result).toBe('simple file\n')
 })
 
-test('supports props', async t => {
+test('supports props', async () => {
   const toolbox = await createRuntime().run('props Greetings_and_salutations', {
     stars: 5,
   })
 
-  t.is(
-    toolbox.result,
-    `greetingsAndSalutations world
+  expect(toolbox.result).toBe(`greetingsAndSalutations world
 red
 green
 blue
 *****
-`,
-  )
+`)
 })
 
-test('detects missing templates', async t => {
+test('detects missing templates', async () => {
   try {
     await createRuntime().run('missing')
   } catch (e) {
-    t.true(startsWith('template not found', e.message))
+    expect(startsWith('template not found', e.message)).toBe(true)
   }
 })
 
-test('supports directories', async t => {
+test('supports directories', async () => {
   const toolbox = await createRuntime().run('special location')
 
-  t.is(
-    toolbox.result,
-    `location
-`,
-  )
+  expect(toolbox.result).toBe(`location
+`)
 })

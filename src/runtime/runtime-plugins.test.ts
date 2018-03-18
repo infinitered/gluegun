@@ -1,43 +1,43 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Runtime } from './runtime'
 
-test('loads all sub-directories', t => {
+test('loads all sub-directories', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`)
 
-  t.is(13, r.plugins.length)
+  expect(13).toBe(r.plugins.length)
 })
 
-test('matches sub-directories', t => {
+test('matches sub-directories', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`, { matching: 'blank-*' })
-  t.is(1, r.plugins.length)
+  expect(1).toBe(r.plugins.length)
 })
 
-test('hides commands', t => {
+test('hides commands', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`, {
     matching: 'threepack',
     hidden: true,
   })
-  t.is(r.plugins.length, 1)
-  t.true(r.plugins[0].commands[2].hidden)
+  expect(r.plugins.length).toBe(1)
+  expect(r.plugins[0].commands[2].hidden).toBe(true)
 })
 
-test('addPlugins ignores bad directories', t => {
+test('addPlugins ignores bad directories', () => {
   const r = new Runtime()
   r.addCoreExtensions()
   r.addPlugins(__filename)
   r.addPlugins(null)
   r.addPlugins(undefined)
   r.addPlugins('')
-  t.is(0, r.plugins.length)
+  expect(0).toBe(r.plugins.length)
 })
 
-test('commands and defaultCommand work properly even when multiple plugins are loaded', async t => {
+test('commands and defaultCommand work properly even when multiple plugins are loaded', async () => {
   const r = new Runtime('default-command')
   r.addCoreExtensions()
   r.addDefaultPlugin(`${__dirname}/../fixtures/good-plugins/nested`)
@@ -47,13 +47,13 @@ test('commands and defaultCommand work properly even when multiple plugins are l
   })
   r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
 
-  t.is(2, r.plugins.length)
+  expect(2).toBe(r.plugins.length)
 
   let toolbox = await r.run('')
 
-  t.is(toolbox.command.name, 'default-command')
+  expect(toolbox.command.name).toBe('default-command')
 
   toolbox = await r.run('one')
 
-  t.is(toolbox.command.name, 'one')
+  expect(toolbox.command.name).toBe('one')
 })

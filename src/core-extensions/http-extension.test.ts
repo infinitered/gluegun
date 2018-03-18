@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import * as http from 'http'
 import { Toolbox } from '../domain/toolbox'
 import createExtension from './http-extension'
@@ -30,12 +30,12 @@ const send200 = (res: any, body?: string) => {
   sendResponse(res, 200, body || '<h1>OK</h1>')
 }
 
-test('has the proper interface', t => {
-  t.truthy(ext)
-  t.is(typeof ext.create, 'function')
+test('has the proper interface', () => {
+  expect(ext).toBeTruthy()
+  expect(typeof ext.create).toBe('function')
 })
 
-test('connects to a server', async t => {
+test('connects to a server', async () => {
   const server = http.createServer((req, res) => {
     send200(res, 'hi')
   })
@@ -45,5 +45,5 @@ test('connects to a server', async t => {
     baseURL: `http://127.0.0.1:${port}`,
   })
   const response = await api.get('/')
-  t.is(response.data, 'hi')
+  expect(response.data).toBe('hi')
 })

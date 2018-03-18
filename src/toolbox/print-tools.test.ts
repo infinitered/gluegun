@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import * as stripANSI from 'strip-ansi'
 import { print } from './print-tools'
 
@@ -7,12 +7,12 @@ const log = console.log
 let spyLogger = []
 console.log = (x, y) => spyLogger.push([stripANSI(x), stripANSI(y)])
 
-test.after.always(() => {
+test(() => {
   spyLogger = []
   console.log = log
 })
 
-test('info', t => {
+test('info', () => {
   print.info('info')
   print.warning('warning!')
   print.success('success!!')
@@ -26,21 +26,21 @@ test('info', t => {
   print.table([['liam', '5'], ['matthew', '2']])
   print.table([['liam', '5'], ['matthew', '2']], { format: 'markdown' })
 
-  t.snapshot(spyLogger)
+  expect(spyLogger).toMatchSnapshot()
 })
 
-test('spin', t => {
-  t.is(typeof print.spin, 'function')
+test('spin', () => {
+  expect(typeof print.spin).toBe('function')
   const spinner = print.spin()
-  t.is(typeof spinner.stop, 'function')
+  expect(typeof spinner.stop).toBe('function')
 })
 
-test('colors', t => {
-  t.is(typeof print.colors.highlight, 'function')
-  t.is(typeof print.colors.info, 'function')
-  t.is(typeof print.colors.warning, 'function')
-  t.is(typeof print.colors.success, 'function')
-  t.is(typeof print.colors.error, 'function')
-  t.is(typeof print.colors.line, 'function')
-  t.is(typeof print.colors.muted, 'function')
+test('colors', () => {
+  expect(typeof print.colors.highlight).toBe('function')
+  expect(typeof print.colors.info).toBe('function')
+  expect(typeof print.colors.warning).toBe('function')
+  expect(typeof print.colors.success).toBe('function')
+  expect(typeof print.colors.error).toBe('function')
+  expect(typeof print.colors.line).toBe('function')
+  expect(typeof print.colors.muted).toBe('function')
 })

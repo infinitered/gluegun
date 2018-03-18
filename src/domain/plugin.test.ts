@@ -1,13 +1,13 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Plugin } from './plugin'
 
-test('default state', t => {
+test('default state', () => {
   const plugin = new Plugin()
-  t.truthy(plugin)
-  t.falsy(plugin.directory)
-  t.falsy(plugin.name)
-  t.is(plugin.hidden, false)
-  t.deepEqual(plugin.commands, [])
-  t.deepEqual(plugin.extensions, [])
-  t.deepEqual(plugin.defaults, {})
+  expect(plugin).toBeTruthy()
+  expect(plugin.directory).toBeFalsy()
+  expect(plugin.name).toBeFalsy()
+  expect(plugin.hidden).toBe(false)
+  expect(plugin.commands).toEqual([])
+  expect(plugin.extensions).toEqual([])
+  expect(plugin.defaults).toEqual({})
 })

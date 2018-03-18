@@ -1,9 +1,9 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Toolbox } from './toolbox'
 
-test('initial state', t => {
+test('initial state', () => {
   const ctx = new Toolbox()
-  t.falsy(ctx.result)
-  t.deepEqual(ctx.config, {})
-  t.deepEqual(ctx.parameters, {})
+  expect(ctx.result).toBeFalsy()
+  expect(ctx.config).toEqual({})
+  expect(ctx.parameters).toEqual({})
 })
