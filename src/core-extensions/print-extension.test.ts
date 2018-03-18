@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Toolbox } from '../domain/toolbox'
 import printExtension from './print-extension'
 
@@ -7,44 +7,44 @@ printExtension(toolbox)
 
 const { print } = toolbox
 
-test('info', t => {
-  t.is(typeof print.info, 'function')
+test('info', () => {
+  expect(typeof print.info).toBe('function')
 })
 
-test('warning', t => {
-  t.is(typeof print.warning, 'function')
+test('warning', () => {
+  expect(typeof print.warning).toBe('function')
 })
 
-test('success', t => {
-  t.is(typeof print.success, 'function')
+test('success', () => {
+  expect(typeof print.success).toBe('function')
 })
 
-test('error', t => {
-  t.is(typeof print.error, 'function')
+test('error', () => {
+  expect(typeof print.error).toBe('function')
 })
 
-test('debug', t => {
-  t.is(typeof print.debug, 'function')
+test('debug', () => {
+  expect(typeof print.debug).toBe('function')
 })
 
-test('newline', t => {
-  t.is(typeof print.newline, 'function')
+test('newline', () => {
+  expect(typeof print.newline).toBe('function')
 })
 
-test('table', t => {
-  t.is(typeof print.table, 'function')
+test('table', () => {
+  expect(typeof print.table).toBe('function')
 })
 
-test('spin', t => {
-  t.is(typeof print.spin, 'function')
+test('spin', () => {
+  expect(typeof print.spin).toBe('function')
 })
 
-test('colors', t => {
-  t.is(typeof print.colors.highlight, 'function')
-  t.is(typeof print.colors.info, 'function')
-  t.is(typeof print.colors.warning, 'function')
-  t.is(typeof print.colors.success, 'function')
-  t.is(typeof print.colors.error, 'function')
-  t.is(typeof print.colors.line, 'function')
-  t.is(typeof print.colors.muted, 'function')
+test('colors', () => {
+  expect(typeof print.colors.highlight).toBe('function')
+  expect(typeof print.colors.info).toBe('function')
+  expect(typeof print.colors.warning).toBe('function')
+  expect(typeof print.colors.success).toBe('function')
+  expect(typeof print.colors.error).toBe('function')
+  expect(typeof print.colors.line).toBe('function')
+  expect(typeof print.colors.muted).toBe('function')
 })

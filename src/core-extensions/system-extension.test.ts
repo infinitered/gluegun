@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { Toolbox } from '../domain/toolbox'
 import create from './system-extension'
 
@@ -8,50 +8,50 @@ const toolbox = new Toolbox()
 create(toolbox)
 const system = toolbox.system
 
-test('survives the factory function', t => {
-  t.truthy(system)
-  t.is(typeof system.run, 'function')
+test('survives the factory function', () => {
+  expect(system).toBeTruthy()
+  expect(typeof system.run).toBe('function')
 })
 
-test('captures stdout', async t => {
+test('captures stdout', async () => {
   const stdout = await system.run(`ls ${__filename}`)
-  t.is(stdout, `${__filename}\n`)
+  expect(stdout).toBe(`${__filename}\n`)
 })
 
-test('captures stderr', async t => {
-  t.plan(1)
+test('captures stderr', async () => {
+  expect.assertions(1)
   try {
     await system.run(`omgdontrunlol ${__filename}`)
   } catch (e) {
-    t.true(/not found/.test(e.stderr))
+    expect(/not found/.test(e.stderr)).toBe(true)
   }
 })
 
-test('knows about which', t => {
+test('knows about which', () => {
   const npm = system.which('npm')
-  t.truthy(npm)
+  expect(npm).toBeTruthy()
 })
 
-test('can spawn and capture results', async t => {
+test('can spawn and capture results', async () => {
   const good = await system.spawn('echo hello')
-  t.is(good.status, 0)
-  t.is(good.stdout.toString(), 'hello\n')
+  expect(good.status).toBe(0)
+  expect(good.stdout.toString()).toBe('hello\n')
 })
 
-test('spawn deals with missing programs', async t => {
+test('spawn deals with missing programs', async () => {
   const crap = await system.spawn('dfsjkajfkldasjklfajsd')
-  t.truthy(crap.error)
-  t.falsy(crap.output)
-  t.is(crap.status, null)
+  expect(crap.error).toBeTruthy()
+  expect(crap.output).toBeFalsy()
+  expect(crap.status).toBe(null)
 })
 
-test('spawn deals exit codes', async t => {
+test('spawn deals exit codes', async () => {
   const crap = await system.spawn('npm')
-  t.falsy(crap.error)
-  t.is(crap.status, 1)
+  expect(crap.error).toBeFalsy()
+  expect(crap.status).toBe(1)
 })
 
-test.serial('start timer returns the number of milliseconds', async t => {
+test('start timer returns the number of milliseconds', async () => {
   const WAIT = 10
 
   const elapsed = system.startTimer() // start a timer
@@ -59,5 +59,5 @@ test.serial('start timer returns the number of milliseconds', async t => {
   const duration = elapsed() // how long was that?
 
   // due to rounding this can be before the timeout.
-  t.true(duration >= WAIT - 1)
+  expect(duration >= WAIT - 1).toBe(true)
 })

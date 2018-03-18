@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`info 1`] = `
+Array [
+  Array [
+    "info",
+    undefined,
+  ],
+  Array [
+    "warning!",
+    undefined,
+  ],
+  Array [
+    "success!!",
+    undefined,
+  ],
+  Array [
+    "error...",
+    undefined,
+  ],
+  Array [
+    "vvv -----[ DEBUG ]----- vvv",
+    undefined,
+  ],
+  Array [
+    "debugging...",
+    undefined,
+  ],
+  Array [
+    "^^^ -----[ DEBUG ]----- ^^^",
+    undefined,
+  ],
+  Array [
+    "vvv -----[ there ]----- vvv",
+    undefined,
+  ],
+  Array [
+    "hi",
+    undefined,
+  ],
+  Array [
+    "^^^ -----[ there ]----- ^^^",
+    undefined,
+  ],
+  Array [
+    "fancyyyyy",
+    undefined,
+  ],
+  Array [
+    "---------------------------------------------------------------",
+    undefined,
+  ],
+  Array [
+    "",
+    undefined,
+  ],
+  Array [
+    "  liam      5 
+  matthew   2 ",
+    undefined,
+  ],
+  Array [
+    "| liam    | 5 |
+| ------- | - |
+| matthew | 2 |",
+    undefined,
+  ],
+]
+`;

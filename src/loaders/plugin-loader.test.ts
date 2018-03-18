@@ -1,117 +1,117 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { find, propEq } from 'ramda'
 import { Toolbox } from '../domain/toolbox'
 import { loadPluginFromDirectory } from './plugin-loader'
 
-test('deals with weird input', t => {
-  t.throws(() => loadPluginFromDirectory(`${__dirname}/gonebabygone`))
+test('deals with weird input', () => {
+  expect(() => loadPluginFromDirectory(`${__dirname}/gonebabygone`)).toThrow()
 })
 
-test('missing config files is fine', t => {
+test('missing config files is fine', () => {
   const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/empty`)
-  t.deepEqual(plugin.commands, [])
-  t.deepEqual(plugin.extensions, [])
+  expect(plugin.commands).toEqual([])
+  expect(plugin.extensions).toEqual([])
 })
 
-test('default name', t => {
+test('default name', () => {
   const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/missing-name`)
-  t.is(plugin.name, 'missing-name')
+  expect(plugin.name).toBe('missing-name')
 })
 
-test('sane defaults', t => {
+test('sane defaults', () => {
   const dir = `${__dirname}/../fixtures/good-plugins/simplest`
   const plugin = loadPluginFromDirectory(dir)
 
-  t.is(plugin.name, 'simplest')
-  t.is(plugin.directory, dir)
-  t.deepEqual(plugin.extensions, [])
-  t.deepEqual(plugin.commands, [])
-  t.deepEqual(plugin.defaults, {})
+  expect(plugin.name).toBe('simplest')
+  expect(plugin.directory).toBe(dir)
+  expect(plugin.extensions).toEqual([])
+  expect(plugin.commands).toEqual([])
+  expect(plugin.defaults).toEqual({})
 })
 
-test('loads commands', async t => {
+test('loads commands', async () => {
   const dir = `${__dirname}/../fixtures/good-plugins/threepack`
   const plugin = loadPluginFromDirectory(dir)
 
-  t.is(plugin.name, '3pack')
-  t.is(plugin.directory, dir)
-  t.is(plugin.commands.length, 3)
-  t.deepEqual(plugin.defaults, { numbers: 3 })
+  expect(plugin.name).toBe('3pack')
+  expect(plugin.directory).toBe(dir)
+  expect(plugin.commands.length).toBe(3)
+  expect(plugin.defaults).toEqual({ numbers: 3 })
 
   const two = find(propEq('name', 'two'), plugin.commands)
-  t.is(two.name, 'two')
-  t.is(two.file, `${dir}/commands/two.js`)
-  t.is(typeof two.run, 'function')
-  t.is(await two.run(), 'two')
-  t.falsy(plugin.commands[0].hidden)
-  t.falsy(plugin.commands[1].hidden)
-  t.falsy(plugin.commands[2].hidden)
+  expect(two.name).toBe('two')
+  expect(two.file).toBe(`${dir}/commands/two.js`)
+  expect(typeof two.run).toBe('function')
+  expect(await two.run()).toBe('two')
+  expect(plugin.commands[0].hidden).toBeFalsy()
+  expect(plugin.commands[1].hidden).toBeFalsy()
+  expect(plugin.commands[2].hidden).toBeFalsy()
 })
 
-test('load commands with front matter', async t => {
+test('load commands with front matter', async () => {
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = loadPluginFromDirectory(dir)
 
-  t.is(plugin.commands.length, 1)
+  expect(plugin.commands.length).toBe(1)
 
   // test the command
   const full = find(propEq('name', 'full'), plugin.commands)
-  t.is(full.name, 'full')
-  t.is(full.file, `${dir}/commands/full.js`)
-  t.is(typeof full.run, 'function')
-  t.is(await full.run(), 123)
+  expect(full.name).toBe('full')
+  expect(full.file).toBe(`${dir}/commands/full.js`)
+  expect(typeof full.run).toBe('function')
+  expect(await full.run()).toBe(123)
 })
 
-test('loads extensions with front matter', async t => {
+test('loads extensions with front matter', async () => {
   const toolbox = new Toolbox()
 
   const dir = `${__dirname}/../fixtures/good-plugins/front-matter`
   const plugin = loadPluginFromDirectory(dir)
 
   // test the extension
-  t.is(plugin.extensions.length, 1)
+  expect(plugin.extensions.length).toBe(1)
   const ext = plugin.extensions[0]
-  t.is(ext.name, 'hello')
-  t.is(typeof ext.setup, 'function')
+  expect(ext.name).toBe('hello')
+  expect(typeof ext.setup).toBe('function')
   ext.setup(toolbox)
-  t.truthy(toolbox.hello)
-  t.is(toolbox.hello.very, 'little')
+  expect(toolbox.hello).toBeTruthy()
+  expect(toolbox.hello.very).toBe('little')
 })
 
-test('names default to the filename', async t => {
+test('names default to the filename', async () => {
   const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/auto-detect`)
-  t.is(plugin.commands[0].name, 'detectCommand')
-  t.is(plugin.extensions[0].name, 'detectExtension')
+  expect(plugin.commands[0].name).toBe('detectCommand')
+  expect(plugin.extensions[0].name).toBe('detectExtension')
 })
 
-test('plugin names can be overridden', async t => {
+test('plugin names can be overridden', async () => {
   const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/auto-detect`, {
     name: 'override',
   })
-  t.is(plugin.name, 'override')
+  expect(plugin.name).toBe('override')
 })
 
-test('blank names fallback to directory name', t => {
+test('blank names fallback to directory name', () => {
   const plugin = loadPluginFromDirectory(`${__dirname}/../fixtures/good-plugins/blank-name`)
-  t.is(plugin.name, 'blank-name')
+  expect(plugin.name).toBe('blank-name')
 })
 
-test('supports hidden plugins & commands', t => {
+test('supports hidden plugins & commands', () => {
   const dir = `${__dirname}/../fixtures/good-plugins/threepack`
   const plugin = loadPluginFromDirectory(dir, { hidden: true })
 
-  t.true(plugin.hidden)
-  t.true(plugin.commands[0].hidden)
-  t.true(plugin.commands[1].hidden)
-  t.true(plugin.commands[2].hidden)
+  expect(plugin.hidden).toBe(true)
+  expect(plugin.commands[0].hidden).toBe(true)
+  expect(plugin.commands[1].hidden).toBe(true)
+  expect(plugin.commands[2].hidden).toBe(true)
 })
 
-test('ignores test files', t => {
+test('ignores test files', () => {
   const dir = `${__dirname}/../fixtures/good-plugins/excluded`
   const plugin = loadPluginFromDirectory(dir)
 
-  t.is(plugin.commands.length, 2)
-  t.is(plugin.commands[0].name, 'bar')
-  t.is(plugin.commands[1].name, 'foo')
-  t.is(plugin.extensions.length, 1)
+  expect(plugin.commands.length).toBe(2)
+  expect(plugin.commands[0].name).toBe('bar')
+  expect(plugin.commands[1].name).toBe('foo')
+  expect(plugin.extensions.length).toBe(1)
 })

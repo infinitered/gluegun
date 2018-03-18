@@ -1,8 +1,8 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { build } from './builder'
 import { Toolbox } from './toolbox'
 
-test('the gauntlet', t => {
+test('the gauntlet', () => {
   const builder = build('test')
     // plugins
     .src(`${__dirname}/../fixtures/good-plugins/threepack`)
@@ -17,22 +17,22 @@ test('the gauntlet', t => {
     .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
 
   const runtime = builder.create()
-  t.truthy(runtime)
+  expect(runtime).toBeTruthy()
 
-  t.is(runtime.brand, 'test')
-  t.is(runtime.commands.length, 26)
-  t.is(runtime.extensions.length, 13)
-  t.is(runtime.defaultPlugin.commands.length, 6)
+  expect(runtime.brand).toBe('test')
+  expect(runtime.commands.length).toBe(26)
+  expect(runtime.extensions.length).toBe(13)
+  expect(runtime.defaultPlugin.commands.length).toBe(6)
 
   const { commands } = runtime.defaultPlugin
 
-  t.is(commands[0].name, 'one')
-  t.is(commands[1].name, 'three')
-  t.is(commands[2].name, 'two')
-  t.is(commands[3].name, 'test')
-  t.is(commands[4].name, 'help')
-  t.is(commands[5].name, 'gimmedatversion')
-  t.is(commands[5].run(new Toolbox()), 'it works')
+  expect(commands[0].name).toBe('one')
+  expect(commands[1].name).toBe('three')
+  expect(commands[2].name).toBe('two')
+  expect(commands[3].name).toBe('test')
+  expect(commands[4].name).toBe('help')
+  expect(commands[5].name).toBe('gimmedatversion')
+  expect(commands[5].run(new Toolbox())).toBe('it works')
 
-  t.is(runtime.plugins.length, 15)
+  expect(runtime.plugins.length).toBe(15)
 })

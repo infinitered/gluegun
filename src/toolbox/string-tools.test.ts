@@ -1,4 +1,4 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { strings } from './string-tools'
 
 const {
@@ -32,132 +32,132 @@ const {
   isSingular,
 } = strings
 
-test('isBlank', t => {
-  t.true(isBlank(null))
-  t.true(isBlank(''))
-  t.true(isBlank(' '))
-  t.false(isBlank('s'))
+test('isBlank', () => {
+  expect(isBlank(null)).toBe(true)
+  expect(isBlank('')).toBe(true)
+  expect(isBlank(' ')).toBe(true)
+  expect(isBlank('s')).toBe(false)
 })
 
-test('isNotString', t => {
-  t.false(isNotString(''))
-  t.true(isNotString(2))
-  t.true(isNotString(null))
-  t.true(isNotString(undefined))
-  t.true(isNotString([]))
-  t.true(isNotString({}))
+test('isNotString', () => {
+  expect(isNotString('')).toBe(false)
+  expect(isNotString(2)).toBe(true)
+  expect(isNotString(null)).toBe(true)
+  expect(isNotString(undefined)).toBe(true)
+  expect(isNotString([])).toBe(true)
+  expect(isNotString({})).toBe(true)
 })
 
-test('camelCase', t => {
-  t.is(camelCase('this here'), 'thisHere')
+test('camelCase', () => {
+  expect(camelCase('this here')).toBe('thisHere')
 })
 
-test('kebabCase', t => {
-  t.is(kebabCase('fun times'), 'fun-times')
-  t.is(kebabCase('FunTimes'), 'fun-times')
+test('kebabCase', () => {
+  expect(kebabCase('fun times')).toBe('fun-times')
+  expect(kebabCase('FunTimes')).toBe('fun-times')
 })
 
-test('snakeCase', t => {
-  t.is(snakeCase('a b c'), 'a_b_c')
-  t.is(snakeCase('AlwaysBeClosing'), 'always_be_closing')
+test('snakeCase', () => {
+  expect(snakeCase('a b c')).toBe('a_b_c')
+  expect(snakeCase('AlwaysBeClosing')).toBe('always_be_closing')
 })
 
-test('upperCase', t => {
-  t.is(upperCase('lol'), 'LOL')
+test('upperCase', () => {
+  expect(upperCase('lol')).toBe('LOL')
 })
 
-test('lowerCase', t => {
-  t.is(lowerCase('ROFL'), 'rofl')
+test('lowerCase', () => {
+  expect(lowerCase('ROFL')).toBe('rofl')
 })
 
-test('startCase', t => {
-  t.is(startCase('hello there'), 'Hello There')
+test('startCase', () => {
+  expect(startCase('hello there')).toBe('Hello There')
 })
 
-test('upperFirst', t => {
-  t.is(upperFirst('hello world'), 'Hello world')
+test('upperFirst', () => {
+  expect(upperFirst('hello world')).toBe('Hello world')
 })
 
-test('lowerFirst', t => {
-  t.is(lowerFirst('BOOM'), 'bOOM')
+test('lowerFirst', () => {
+  expect(lowerFirst('BOOM')).toBe('bOOM')
 })
 
-test('pascalCase', t => {
-  t.is(pascalCase('check it out'), 'CheckItOut')
-  t.is(pascalCase('checkIt-out'), 'CheckItOut')
+test('pascalCase', () => {
+  expect(pascalCase('check it out')).toBe('CheckItOut')
+  expect(pascalCase('checkIt-out')).toBe('CheckItOut')
 })
 
-test('pad', t => {
-  t.is(pad('a', 3), ' a ')
+test('pad', () => {
+  expect(pad('a', 3)).toBe(' a ')
 })
 
-test('padStart', t => {
-  t.is(padStart('a', 3), '  a')
+test('padStart', () => {
+  expect(padStart('a', 3)).toBe('  a')
 })
 
-test('padEnd', t => {
-  t.is(padEnd('a', 3), 'a  ')
+test('padEnd', () => {
+  expect(padEnd('a', 3)).toBe('a  ')
 })
 
-test('trim', t => {
-  t.is(trim('   sloppy   '), 'sloppy')
+test('trim', () => {
+  expect(trim('   sloppy   ')).toBe('sloppy')
 })
 
-test('trimStart', t => {
-  t.is(trimStart('   ! '), '! ')
+test('trimStart', () => {
+  expect(trimStart('   ! ')).toBe('! ')
 })
 
-test('trimEnd', t => {
-  t.is(trimEnd('  !  '), '  !')
+test('trimEnd', () => {
+  expect(trimEnd('  !  ')).toBe('  !')
 })
 
-test('repeat', t => {
-  t.is(repeat('a', 4), 'aaaa')
+test('repeat', () => {
+  expect(repeat('a', 4)).toBe('aaaa')
 })
 
-test('identity', t => {
-  t.is(identity('x'), 'x')
+test('identity', () => {
+  expect(identity('x')).toBe('x')
 })
 
-test('pluralize', t => {
-  t.is(pluralize('test', 1, true), '1 test')
-  t.is(pluralize('test', 5, true), '5 tests')
+test('pluralize', () => {
+  expect(pluralize('test', 1, true)).toBe('1 test')
+  expect(pluralize('test', 5, true)).toBe('5 tests')
 })
 
-test('plural', t => {
-  t.is(plural('bug'), 'bugs')
+test('plural', () => {
+  expect(plural('bug')).toBe('bugs')
 })
 
-test('singular', t => {
-  t.is(singular('bugs'), 'bug')
+test('singular', () => {
+  expect(singular('bugs')).toBe('bug')
 })
 
-test('addPluralRule', t => {
+test('addPluralRule', () => {
   addPluralRule(/gex$/i, 'gexii')
-  t.is(plural('regex'), 'regexii')
+  expect(plural('regex')).toBe('regexii')
 })
 
-test('addSingularRule', t => {
+test('addSingularRule', () => {
   addSingularRule(/bugs$/i, 'bugger')
-  t.is(singular('bugs'), 'bugger')
+  expect(singular('bugs')).toBe('bugger')
 })
 
-test('addIrregularRule', t => {
+test('addIrregularRule', () => {
   addIrregularRule('octopus', 'octopodes')
-  t.is(plural('octopus'), 'octopodes')
+  expect(plural('octopus')).toBe('octopodes')
 })
 
-test('addUncountableRule', t => {
+test('addUncountableRule', () => {
   addUncountableRule('paper')
-  t.is(plural('paper'), 'paper')
+  expect(plural('paper')).toBe('paper')
 })
 
-test('isPlural', t => {
-  t.is(isPlural('bug'), false)
-  t.is(isPlural('bugs'), true)
+test('isPlural', () => {
+  expect(isPlural('bug')).toBe(false)
+  expect(isPlural('bugs')).toBe(true)
 })
 
-test('isSingular', t => {
-  t.is(isSingular('bug'), true)
-  t.is(isSingular('bugs'), false)
+test('isSingular', () => {
+  expect(isSingular('bug')).toBe(true)
+  expect(isSingular('bugs')).toBe(false)
 })

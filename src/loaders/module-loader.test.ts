@@ -1,74 +1,74 @@
-import test from 'ava'
+import * as expect from 'expect'
 import { keys } from 'ramda'
 import { loadModule } from './module-loader'
 
-test('handles weird input', t => {
-  t.throws(() => loadModule(''))
-  t.throws(() => loadModule(1))
-  t.throws(() => loadModule(1.1))
-  t.throws(() => loadModule(true))
-  t.throws(() => loadModule(false))
-  t.throws(() => loadModule([]))
-  t.throws(() => loadModule({}))
-  t.throws(() => loadModule(() => null))
+test('handles weird input', () => {
+  expect(() => loadModule('')).toThrow()
+  expect(() => loadModule(1)).toThrow()
+  expect(() => loadModule(1.1)).toThrow()
+  expect(() => loadModule(true)).toThrow()
+  expect(() => loadModule(false)).toThrow()
+  expect(() => loadModule([])).toThrow()
+  expect(() => loadModule({})).toThrow()
+  expect(() => loadModule(() => null)).toThrow()
 })
 
-test('detects missing file', t => {
-  t.throws(() => loadModule(`${__dirname}/../fixtures/bad-modules/missing.js`))
+test('detects missing file', () => {
+  expect(() => loadModule(`${__dirname}/../fixtures/bad-modules/missing.js`)).toThrow()
 })
 
-test('detects directory', t => {
-  t.throws(() => loadModule(`${__dirname}/../fixtures/bad-modules`))
+test('detects directory', () => {
+  expect(() => loadModule(`${__dirname}/../fixtures/bad-modules`)).toThrow()
 })
 
-test('handles blank files', t => {
+test('handles blank files', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/blank.js`)
-  t.is(typeof m, 'object')
-  t.deepEqual(keys(m), [])
+  expect(typeof m).toBe('object')
+  expect(keys(m)).toEqual([])
 })
 
-test('handles files with just a number', t => {
+test('handles files with just a number', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/number.js`)
-  t.is(typeof m, 'number')
-  t.deepEqual(keys(m), [])
+  expect(typeof m).toBe('number')
+  expect(keys(m)).toEqual([])
 })
 
-test('handles files with just text', t => {
-  t.throws(() => loadModule(`${__dirname}/../fixtures/bad-modules/text.js`))
+test('handles files with just text', () => {
+  expect(() => loadModule(`${__dirname}/../fixtures/bad-modules/text.js`)).toThrow()
 })
 
-test('handles files with an object', t => {
+test('handles files with an object', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/object.js`)
-  t.is(typeof m, 'object')
-  t.deepEqual(keys(m), [])
+  expect(typeof m).toBe('object')
+  expect(keys(m)).toEqual([])
 })
 
-test('export default function', t => {
+test('export default function', () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/module-exports-function.js`)
-  t.is(typeof m, 'function')
-  t.is(m(), 'hi')
+  expect(typeof m).toBe('function')
+  expect(m()).toBe('hi')
 })
 
-test('export default {}', async t => {
+test('export default {}', async () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/module-exports-object.js`)
-  t.is(typeof m, 'object')
-  t.is(await m.hi(), 'hi')
+  expect(typeof m).toBe('object')
+  expect(await m.hi()).toBe('hi')
 })
 
-test('module.exports fat arrow function', t => {
+test('module.exports fat arrow function', () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/module-exports-fat-arrow-fn.js`)
-  t.is(typeof m.run, 'function')
-  t.is(m.run(), 'hi')
+  expect(typeof m.run).toBe('function')
+  expect(m.run()).toBe('hi')
 })
 
-test('async function', async t => {
+test('async function', async () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/async-function.js`)
-  t.is(typeof m, 'object')
-  t.is(await m.hi(), 'hi')
+  expect(typeof m).toBe('object')
+  expect(await m.hi()).toBe('hi')
 })
 
-test('deals with dupes', async t => {
+test('deals with dupes', async () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/async-function.js`)
   const n = loadModule(`${__dirname}/../fixtures/good-modules/../good-modules/async-function.js`)
-  t.is(m, n)
+  expect(m).toBe(n)
 })
