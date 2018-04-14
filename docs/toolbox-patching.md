@@ -1,5 +1,7 @@
 Tools to help adjust the contents of text files.
 
+You can access these tools on the Gluegun toolbox, via `const { patching } = require('gluegun')`, or directly via `const { patching } = require('gluegun/patching')`.
+
 ## exists
 
 > This is an **async** function.

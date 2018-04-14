@@ -1,6 +1,8 @@
 A set of functions & values to work with semantic versions. The majority of these functions come
 straight from [semver](https://github.com/npm/node-semver)
 
+You can access these tools on the Gluegun toolbox, via `const { semver } = require('gluegun')`, or directly via `const { semver } = require('gluegun/semver')`.
+
 ## Usage
 
 All your common semver needs are accessible.

@@ -1,4 +1,4 @@
-Features for generating files based on a template.
+Features for generating files based on a template. You can access these tools on the Gluegun toolbox.
 
 ## generate
 

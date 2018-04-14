@@ -52,6 +52,7 @@ In your CLI's `src/extensions` folder, make a new file, called `imdb-extension.t
 
 ```typescript
 // in src/extensions/imdb-extension.ts
+import { prompt } from 'gluegun/prompt'
 import * as imdb from 'imdb-api'
 
 module.exports = toolbox => {
@@ -60,7 +61,7 @@ module.exports = toolbox => {
 
   // get a movie
   async function getMovie(movieName: string): Promise<imdb.Movie | null> {
-    const result = await toolbox.prompt.ask({ type: 'input', name: 'key', message: 'API Key>' })
+    const result = await prompt.ask({ type: 'input', name: 'key', message: 'API Key>' })
 
     if (result.key) {
       return imdb.get(movieName, { apiKey: result.key, timeout: 30000 })
@@ -89,6 +90,8 @@ If they don't provide the movie title, we'll prompt them for it. We'll also prom
 Create a file `src/commands/search.ts` and put the following contents into it:
 
 ```typescript
+import { print, prompt } from 'gluegun'
+
 const API_MESSAGE = `
 Before using the movie CLI, you'll need an API key from OMDB.
 
@@ -102,8 +105,8 @@ module.exports = {
   name: 'search',
   alias: ['s'],
   run: async toolbox => {
-    // retrieve the tools from the toolbox that we will need
-    const { parameters, print, prompt, imdb } = toolbox
+    // retrieve the data and extensions from the toolbox that we will need
+    const { parameters, imdb } = toolbox
 
     // check if there's a name provided on the command line first
     let name = parameters.first
@@ -193,11 +196,10 @@ We also don't want to be asking for user input in our extension. That's the role
 Let's go back to our IMDB extension and add a few tools. Here's the result:
 
 ```typescript
+import { filesystem } from 'gluegun/filesystem'
 import * as imdb from 'imdb-api'
 
 module.exports = toolbox => {
-  const { filesystem } = toolbox
-
   // location of the movie config file
   const MOVIE_CONFIG = `${filesystem.homedir()}/.movie`
 
@@ -246,12 +248,13 @@ module.exports = toolbox => {
 }
 ```
 
-We've added a few functions as well as the `MOVIE_CONFIG` file. We're using the `filesystem` tool from the toolbox.
+We've added a few functions as well as the `MOVIE_CONFIG` file. We're using the `filesystem` tool from Gluegun.
 
 Also update your command to ask for the API key:
 
 ```typescript
-//
+import { print, prompt } from 'gluegun'
+
 const API_MESSAGE = `
 Before using the movie CLI, you'll need an API key from OMDB.
 
@@ -266,7 +269,7 @@ module.exports = {
   alias: ['s'],
   run: async toolbox => {
     // retrieve the tools from the toolbox that we will need
-    const { parameters, print, prompt, imdb } = toolbox
+    const { parameters, imdb } = toolbox
 
     // check if there's a name provided on the command line first
     let name = parameters.first
@@ -317,11 +320,13 @@ Running it again will ask for our API key. Subsequent runs won't ask for it anym
 We want to be able to reset the API key if we need to. Let's create another command for `movie api reset`, located at `src/commands/api/reset.ts`. Add this code:
 
 ```typescript
+import { prompt, print } from 'gluegun'
+
 module.exports = {
   name: 'reset',
   run: async toolbox => {
     // retrieve the tools from the toolbox that we will need
-    const { prompt, imdb, print } = toolbox
+    const { imdb } = toolbox
 
     // confirmation, because this is destructive
     if (await prompt.confirm('Are you sure you want to reset the IMDB API key?')) {

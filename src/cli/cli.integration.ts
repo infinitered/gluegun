@@ -9,7 +9,7 @@ sinon.stub(console, 'log')
 const pwd = process.cwd()
 
 // set jest timeout to very long, because these take a while
-beforeAll(() => jest.setTimeout(60 * 1000))
+beforeAll(() => jest.setTimeout(90 * 1000))
 // reset back
 afterAll(() => jest.setTimeout(5 * 1000))
 
