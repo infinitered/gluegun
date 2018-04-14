@@ -1,6 +1,8 @@
 Provides some helper functions to work with strings. This list is also added to the available filters
 inside your EJS templates.
 
+You can access these tools on the Gluegun toolbox, via `const { strings } = require('gluegun')`, or directly via `const { strings } = require('gluegun/strings')`.
+
 ---
 
 ## **Utility**

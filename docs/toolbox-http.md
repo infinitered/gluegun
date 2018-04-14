@@ -1,6 +1,8 @@
 Gives you the ability to talk to HTTP(s) web and API servers using [apisauce](https://github.com/skellock/apisauce) which
 is a thin wrapper around [axios](https://github.com/mzabriskie/axios).
 
+You can access these tools on the Gluegun toolbox, via `const { http } = require('gluegun')`, or directly via `const { http } = require('gluegun/http')`.
+
 ## create
 
 This creates an `apisauce` client. It takes 1 parameter called `options` which is an object.

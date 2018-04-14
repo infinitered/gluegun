@@ -1,3 +1,4 @@
+// from gluegun
 const {
   filesystem,
   semver,
@@ -9,6 +10,16 @@ const {
   patching
 } = require('gluegun')
 
+// from gluegun/*
+const { filesystem: filesystemDirect } = require('gluegun/filesystem')
+const { semver: semverDirect } = require('gluegun/semver')
+const { http: httpDirect } = require('gluegun/http')
+const { print: printDirect } = require('gluegun/print')
+const { prompt: promptDirect } = require('gluegun/prompt')
+const { strings: stringsDirect } = require('gluegun/strings')
+const { system: systemDirect } = require('gluegun/system')
+const { patching: patchingDirect } = require('gluegun/patching')
+
 module.exports = {
   name: 'kitchen',
   run: async (toolbox) => {
@@ -18,12 +29,14 @@ module.exports = {
     // filesystem smoke test
     asyncs.push(filesystem.cwd())
     asyncs.push(filesystem.exists(__filename))
+    asyncs.push(filesystemDirect.cwd())
 
     // semver smoke test
     semver.valid('1.2.3') // '1.2.3'
     semver.clean('  =v1.2.3   ') // '1.2.3'
     semver.satisfies('1.2.3', '1.x || >=2.5.0 || 5.0.0 - 7.2.3') // true
     semver.lt('1.2.3', '9.8.7') // true
+    semverDirect.valid('1.2.3') // '1.2.3'
 
     // http smoke test
     const api = http.create({
@@ -31,6 +44,12 @@ module.exports = {
       headers: { Accept: 'application/vnd.github.v3+json' },
     })
     asyncs.push(api.get('/repos/skellock/apisauce/commits'))
+
+    const apiDirect = httpDirect.create({
+      baseURL: 'https://api.github.com',
+      headers: { Accept: 'application/vnd.github.v3+json' },
+    })
+    asyncs.push(apiDirect.get('/repos/skellock/apisauce/commits'))
 
     // print smoke test
     print.info(print.colors.success('Hello. I am a chatty plugin.'))
@@ -46,11 +65,13 @@ module.exports = {
       ],
       { format: 'markdown' },
     )
+    printDirect.info(print.colors.success('Hello. I am a chatty plugin.'))
 
     // prompt smoke test (not very thorough, just ensuring it's there)
     if (!prompt.ask) throw new Error('no ask?')
     if (!prompt.confirm) throw new Error('no confirm?')
     if (!prompt.separator) throw new Error('no separator?')
+    if (!promptDirect.ask) throw new Error('no ask?')
 
     // strings smoke test
     strings.identity('hello')
@@ -59,14 +80,17 @@ module.exports = {
     strings.upperFirst('hello there')
     strings.isSingular('bugs')
     strings.addUncountableRule('paper')
+    stringsDirect.addUncountableRule('paper')
 
     // system smoke test
-    console.log(system.which('npm'))
+    system.which('npm')
+    systemDirect.which('npm')
     asyncs.push(system.run('node -v', { trim: true }))
 
     // patching smoke test
     asyncs.push(patching.exists(__filename, 'Barb'))
     asyncs.push(patching.replace(__filename, 'SELF REPLACING STRING', 'REPLACED STRING WHOA'))
+    asyncs.push(patchingDirect.exists(__filename, 'Barb'))
 
     // run all the asyncs at once yolo
     await Promise.all(asyncs)

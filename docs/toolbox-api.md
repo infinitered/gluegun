@@ -54,6 +54,10 @@ You can access almost all of Gluegun's toolbox tools without running a command. 
 
 ```js
 const { print, filesystem, strings } = require('gluegun')
+// or
+const { print } = require('gluegun/print')
+const { filesystem } = require('gluegun/filesystem')
+const { strings } = require('gluegun/strings')
 
 print.info(`Hey, I'm Gluegun!`)
 filesystem.dir('/tmp/jamon')

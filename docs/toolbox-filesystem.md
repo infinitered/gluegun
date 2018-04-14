@@ -2,6 +2,8 @@ A set of functions & values to work with files and directories. The majority of 
 straight from [fs-jetpack](https://github.com/szwacz/fs-jetpack), a fantastic API for working with the
 file system. All jetpack-based functions have an equivalent `*Async` version if you need it.
 
+You can access these tools on the Gluegun toolbox, via `const { filesystem } = require('gluegun')`, or directly via `const { filesystem } = require('gluegun/filesystem')`.
+
 ## separator
 
 This value is the path separator `\` or `/` depending on the OS.

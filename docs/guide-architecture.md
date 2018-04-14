@@ -11,12 +11,14 @@ Commands should be focused on user interaction and not necessarily on implementa
 _Do this_
 
 ```js
+const { prompt } = require('gluegun')
+
 module.exports = {
   name: 'world',
   alias: ['w', 'earth'],
   run: async toolbox => {
     // in this case, `hello` is provided by an extension
-    const { prompt, hello } = toolbox
+    const { hello } = toolbox
 
     // user interaction
     const isEarthling = await prompt.confirm('Are you an earthling?')
@@ -69,7 +71,7 @@ commands
     world.js
 ```
 
-You don't have to have a default command for a folder. Gluegun will pick up on it (as of 2.0.0-beta.6).
+You don't have to have a default command for a folder. Gluegun will pick up on it (as of 2.0.0-beta.7).
 
 ```
 commands
@@ -82,15 +84,17 @@ commands
 Think of extensions as "drawers" full of tools in your Gluegun toolbox. In the above example, the `hello` extension adds two functions, `greetEarthling` and `greetAlien`.
 
 ```js
+const { print } = require('gluegun/print')
+
 module.exports = toolbox => {
   toolbox.hello = {
-    greetEarthling: () => toolbox.print.info('Hello, earthling!'),
-    greetAlien: () => toolbox.print.info('Greetings, alien!'),
+    greetEarthling: () => print.info('Hello, earthling!'),
+    greetAlien: () => print.info('Greetings, alien!'),
   }
 }
 ```
 
-_Hint: In most cases, you probably don't want to use `prompt` in your extensions. They should be tools and not user flows._
+_Hint: In most cases, you probably don't want to use `prompt` in your extensions. They should be more general purpose tools and not specific user flows._
 
 ### Additional Functionality
 
@@ -111,61 +115,27 @@ hello
     venusian.js
 ```
 
-One problem is that these other functions won't have access to the `toolbox`, since they're just JS files, not Gluegun-powered. You can solve this a couple different ways. One way is to use _dependency injection_, like this:
+You can access Gluegun tools by using `require` (or `import` if you're using TypeScript).
 
 ```js
+const { print } = require('gluegun/print')
+
 // hello/greetings/earth.js
-module.exports = toolbox => {
-  const { print: { info } } = toolbox
-  return {
-    greetEarthling: () => info('Hello, earthling!'),
-  }
-}
+module.exports = () => print.info('Hello, earthling!'),
 ```
 
-Then pass in the toolbox:
+Then attach the functions or objects to your toolbox:
 
 ```js
 // extensions/hello-extension.js
-import earthling from '../hello/greetings/earthling'
-import martian from '../hello/greetings/martian'
-import venusian from '../hello/greetings/venusian'
+const earthling = require('../hello/greetings/earthling')
+const martian = require('../hello/greetings/martian')
+const venusian = require('../hello/greetings/venusian')
+
 module.exports = toolbox => {
-  const { greetEarthling } = earthling(toolbox)
-  const { greetMartian } = martian(toolbox)
-  const { greetVenusian } = venusian(toolbox)
-  toolbox.hello = { greetEarthling, greetMartian, greetVenusian }
+  toolbox.hello = { earthling, martian, venusian }
 }
 ```
-
-This has the effect of making these functions easier to test, too, since you can pass in a "fake" toolbox to each of them to capture the side effects of these functions.
-
-Another option is to use the Gluegun _on-demand toolbox_.
-
-```js
-// hello/greetings/earth.js
-import { print } from 'gluegun'
-
-module.exports = {
-  greetEarthling: () => print.info('Hello, earthling!'),
-}
-```
-
-This would result in a somewhat simpler extension:
-
-```js
-/// extensions/hello-extension.js
-import { greetEarthling } from '../hello/greetings/earthling'
-import { greetMartian } from '../hello/greetings/martian'
-import { greetVenusian } from '../hello/greetings/venusian'
-module.exports = toolbox => {
-  toolbox.hello = { greetEarthling, greetMartian, greetVenusian }
-}
-```
-
-The downside is that the on-demand `toolbox` doesn't include runtime properties like `parameters`. It's also harder to mock tests.
-
-We recommend using _dependency injection_ (above) in most cases, but this is a matter of preference.
 
 ## Additional Topics
 

@@ -1,4 +1,4 @@
-Information about how the command was invoked. Check out this example of creating a new Reactotron plugin.
+Information about how the command was invoked. You can access this on the Gluegun toolbox. Check out this example of creating a new Reactotron plugin.
 
 ```sh
 gluegun reactotron plugin MyAwesomePlugin full --comments --lint standard
