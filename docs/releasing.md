@@ -12,9 +12,8 @@
 1. switch to the `master` branch: `git checkout master`
 1. you have all latest updates: `git pull`
 1. you have no changes to push and no staged changes.
-1. nuke your dependencies: `yarn clean`
 1. install fresh dependencies: `yarn`
-1. tests pass: `yarn test`
+1. tests pass: `yarn test && yarn integration`
 
 #### Pushing an alpha
 
@@ -22,10 +21,9 @@ _This will be automated a little nicer later._
 
 1. be on the master branch: `git checkout master`
 1. ensure your working tree is clean and you've pulled: `git pull && git status`
-1. shipit: `yarn run shipit`
+1. shipit: `npm run shipit` (yes, npm here)
 1. push the np version changes up: `git push`
 1. you win.
-
 
 #### Verify
 
@@ -34,7 +32,9 @@ _This will be automated a little nicer later._
 ```sh
 yarn info gluegun dist-tags
 ```
+
 shows:
+
 ```
 yarn info v1.1.0
 { latest: '1.0.0',
