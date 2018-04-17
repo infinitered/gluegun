@@ -24,7 +24,7 @@
     "ci": "yarn test && yarn integration",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
     "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
-    "shipit": "yarn build && yarn lint && np --yolo"
+    "shipit": "yarn build && yarn lint && np --yolo --no-yarn"
   },
   "author": {
     "name": "Infinite Red, Inc.",
