@@ -10,3 +10,4 @@ generated
 dist/**/*
 build/**/*
 .DS_Store
+*.tgz
