@@ -62,3 +62,16 @@ test('properly infers the heirarchy from folder structure', async () => {
   expect(parameters.options.foo).toBe(1)
   expect(parameters.options.force).toBe(true)
 })
+
+test('properly assembles parameters when command and first arg have same name', async () => {
+  const r = new Runtime()
+  r.addCoreExtensions()
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
+  const { command, parameters } = await r.run('one one two')
+
+  expect(command.commandPath).toEqual(['one'])
+  expect(parameters.string).toBe('one two')
+  expect(parameters.command).toBe('one')
+  expect(parameters.first).toBe('one')
+  expect(parameters.second).toBe('two')
+})

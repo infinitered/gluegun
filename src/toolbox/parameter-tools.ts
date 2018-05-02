@@ -39,19 +39,9 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
  */
 export function createParams(params: any): GluegunParameters {
   // make a copy of the args so we can mutate it
-  const array = params.array.slice()
+  const array: string[] = params.array.slice()
 
-  // Remove the first two elements from the array if they're the plugin and command
-  if (array[0] === params.plugin) {
-    array.shift()
-  }
-  if (array[0] === params.command) {
-    array.shift()
-  }
-
-  const first = array[0]
-  const second = array[1]
-  const third = array[2]
+  const [first, second, third] = array
 
   // the string is the rest of the words
   const finalString = array.join(' ')
