@@ -55,7 +55,7 @@
     "app-module-path": "^2.2.0",
     "cli-table2": "^0.2.0",
     "colors": "1.2.4",
-    "cosmiconfig": "^4.0.0",
+    "cosmiconfig": "^5.0.1",
     "cross-spawn": "^6.0.4",
     "ejs": "^2.5.7",
     "enquirer": "^1.0.3",
