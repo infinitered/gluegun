@@ -99,7 +99,7 @@
     "@types/node": "^10.0.4",
     "@types/pluralize": "^0.0.28",
     "@types/ramda": "^0.25.24",
-    "coveralls": "^3.0.0",
+    "coveralls": "^3.0.1",
     "expect": "^23.0.0-alpha.0",
     "husky": "^0.14.3",
     "jest": "^22.4.3",
