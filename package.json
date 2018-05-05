@@ -96,7 +96,7 @@
   "devDependencies": {
     "@types/cli-table2": "^0.2.1",
     "@types/jest": "^22.2.0",
-    "@types/node": "^9.4.0",
+    "@types/node": "^10.0.4",
     "@types/pluralize": "^0.0.28",
     "@types/ramda": "^0.25.17",
     "coveralls": "^3.0.0",
