@@ -81,7 +81,7 @@
     "prompt-autocompletion": "^0.1.1",
     "prompt-checkbox": "^2.2.0",
     "prompt-confirm": "^1.2.0",
-    "prompt-expand": "^1.0.0",
+    "prompt-expand": "^1.0.1",
     "prompt-list": "^3.1.0",
     "prompt-password": "^1.2.0",
     "prompt-question": "^5.0.2",
