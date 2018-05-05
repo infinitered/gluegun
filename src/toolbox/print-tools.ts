@@ -215,7 +215,9 @@ function printCommands(toolbox: Toolbox, commandRoot?: string[]): void {
 }
 
 function printHelp(toolbox: Toolbox): void {
-  const { runtime: { brand } } = toolbox
+  const {
+    runtime: { brand },
+  } = toolbox
   info(`${brand} version ${toolbox.meta.version()}`)
   printCommands(toolbox)
 }

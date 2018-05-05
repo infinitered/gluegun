@@ -4,7 +4,14 @@ export default {
   description: 'Creates a new gluegun cli',
   hidden: false,
   run: async toolbox => {
-    const { parameters, template: { generate }, filesystem, print, strings, system } = toolbox
+    const {
+      parameters,
+      template: { generate },
+      filesystem,
+      print,
+      strings,
+      system,
+    } = toolbox
     const { kebabCase } = strings
 
     const props = {
