@@ -57,7 +57,7 @@
     "colors": "1.2.4",
     "cosmiconfig": "^5.0.1",
     "cross-spawn": "^6.0.5",
-    "ejs": "^2.5.7",
+    "ejs": "^2.6.1",
     "enquirer": "^1.0.3",
     "execa": "^0.9.0",
     "fs-jetpack": "^1.2.0",
