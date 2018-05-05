@@ -98,7 +98,7 @@
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.4",
     "@types/pluralize": "^0.0.28",
-    "@types/ramda": "^0.25.17",
+    "@types/ramda": "^0.25.24",
     "coveralls": "^3.0.0",
     "expect": "^23.0.0-alpha.0",
     "husky": "^0.14.3",
