@@ -76,7 +76,7 @@
     "lodash.trimstart": "^4.5.1",
     "lodash.uppercase": "^4.3.0",
     "lodash.upperfirst": "^4.3.1",
-    "ora": "^1.4.0",
+    "ora": "^2.1.0",
     "pluralize": "^7.0.0",
     "prompt-autocompletion": "^0.1.1",
     "prompt-checkbox": "^2.2.0",
