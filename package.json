@@ -59,7 +59,7 @@
     "cross-spawn": "^6.0.5",
     "ejs": "^2.6.1",
     "enquirer": "^1.0.3",
-    "execa": "^0.9.0",
+    "execa": "^0.10.0",
     "fs-jetpack": "^1.2.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
