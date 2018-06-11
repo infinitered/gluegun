@@ -1,4 +1,4 @@
-import * as CLITable from 'cli-table2'
+import * as CLITable from 'cli-table3'
 import * as importedColors from 'colors'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
