@@ -53,7 +53,7 @@
   "dependencies": {
     "apisauce": "0.14.3",
     "app-module-path": "^2.2.0",
-    "cli-table2": "^0.2.0",
+    "cli-table3": "^0.5.0",
     "colors": "1.2.4",
     "cosmiconfig": "^5.0.1",
     "cross-spawn": "^6.0.5",

@@ -1,5 +1,5 @@
 import { GluegunToolbox } from '../index'
-import * as CLITable from 'cli-table2'
+import * as CLITable from 'cli-table3'
 
 export interface GluegunPrint {
   /* Colors as seen from colors.js. */
