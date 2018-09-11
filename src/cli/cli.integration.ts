@@ -33,7 +33,7 @@ test('can create a new boilerplate cli', async () => {
   expect(Object.keys(pkg.dependencies).includes('gluegun')).toBeTruthy()
 
   // Install local version of gluegun to test
-  await toolbox.system.run(`cd ${tmp}/foo && npm install ${pwd}`)
+  await toolbox.system.run(`cd ${tmp}/foo && yarn add ${pwd}`)
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo --help`)
@@ -63,7 +63,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(Object.keys(pkg.dependencies).includes('gluegun')).toBeTruthy()
 
   // Install local version of gluegun to test
-  await toolbox.system.run(`cd ${tmp}/foo-ts && npm install ${pwd}`)
+  await toolbox.system.run(`cd ${tmp}/foo-ts && yarn add ${pwd}`)
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts --help`)
