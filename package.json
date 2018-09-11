@@ -12,7 +12,7 @@
     "precommit": "lint-staged",
     "format": "prettier --write \"**/*.ts\" --loglevel error && tslint -p . --fix",
     "clean-build": "rm -rf ./build",
-    "compile": "tsc -p . > /dev/null",
+    "compile": "tsc -p .",
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
     "clean-types": "find ./build/types -type f -size 0 -delete && find ./build/types -type d -empty -delete",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
