@@ -1,3 +1,4 @@
+import * as path from 'path'
 import * as jetpack from 'fs-jetpack'
 import { map } from 'ramda'
 import { Plugin } from '../domain/plugin'
@@ -53,7 +54,7 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
     const commands = jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: true })
 
     plugin.commands = plugin.commands.concat(
-      map(file => loadCommandFromFile(`${directory}/commands/${file}`), commands),
+      map(file => loadCommandFromFile(path.join(directory, 'commands', file)), commands),
     )
   }
 

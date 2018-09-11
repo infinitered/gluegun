@@ -23,7 +23,7 @@ test('captures stderr', async () => {
   try {
     await system.run(`omgdontrunlol ${__filename}`)
   } catch (e) {
-    expect(/not found/.test(e.stderr)).toBe(true)
+    expect(/not (found|recognized)/.test(e.stderr)).toBe(true)
   }
 })
 
