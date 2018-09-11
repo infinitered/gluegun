@@ -1,3 +1,4 @@
+import * as path from 'path'
 import * as expect from 'expect'
 import { find, propEq } from 'ramda'
 import { Toolbox } from '../domain/toolbox'
@@ -40,7 +41,7 @@ test('loads commands', async () => {
 
   const two = find(propEq('name', 'two'), plugin.commands)
   expect(two.name).toBe('two')
-  expect(two.file).toBe(`${dir}/commands/two.js`)
+  expect(two.file).toBe(path.join(dir, 'commands', 'two.js'))
   expect(typeof two.run).toBe('function')
   expect(await two.run()).toBe('two')
   expect(plugin.commands[0].hidden).toBeFalsy()
@@ -57,7 +58,7 @@ test('load commands with front matter', async () => {
   // test the command
   const full = find(propEq('name', 'full'), plugin.commands)
   expect(full.name).toBe('full')
-  expect(full.file).toBe(`${dir}/commands/full.js`)
+  expect(full.file).toBe(path.join(dir, 'commands', 'full.js'))
   expect(typeof full.run).toBe('function')
   expect(await full.run()).toBe(123)
 })

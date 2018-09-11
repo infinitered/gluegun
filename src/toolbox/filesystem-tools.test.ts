@@ -1,3 +1,4 @@
+import * as path from 'path'
 import * as expect from 'expect'
 import { contains } from 'ramda'
 import { filesystem } from './filesystem-tools'
@@ -25,7 +26,7 @@ test('isNotDirectory', () => {
 test('subdirectories', () => {
   const dirs = filesystem.subdirectories(`${__dirname}/..`)
   expect(dirs.length).toBe(8)
-  expect(contains(`${__dirname}/../toolbox`, dirs)).toBe(true)
+  expect(contains(path.join(__dirname, '..', 'toolbox'), dirs)).toBe(true)
 })
 
 test('blank subdirectories', () => {

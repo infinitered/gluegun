@@ -1,8 +1,8 @@
 import * as jetpack from 'fs-jetpack'
-import { complement, concat, map } from 'ramda'
+import { complement } from 'ramda'
 import { strings } from './string-tools'
 import * as os from 'os'
-import * as path from 'path'
+import * as pathlib from 'path'
 
 import { GluegunFilesystem } from './filesystem-types'
 
@@ -70,7 +70,7 @@ function subdirectories(
   if (isRelative) {
     return dirs
   } else {
-    return map(concat(`${path}/`), dirs)
+    return dirs.map(dir => pathlib.join(path, dir))
   }
 }
 
@@ -78,7 +78,7 @@ const filesystem: GluegunFilesystem = Object.assign(
   {
     eol: os.EOL, // end of line marker
     homedir: os.homedir, // get home directory
-    separator: path.sep, // path separator
+    separator: pathlib.sep, // path separator
     subdirectories, // retrieve subdirectories
     isFile,
     isNotFile,
