@@ -22,8 +22,9 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
       if (error) {
         error.stderr = stderr
         reject(error)
+      } else {
+        resolve(trimmer(stdout || ''))
       }
-      resolve(trimmer(stdout || ''))
     })
   })
 }
