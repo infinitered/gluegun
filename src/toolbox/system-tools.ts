@@ -76,7 +76,7 @@ async function spawn(commandLine: string, options: Options = {}): Promise<any> {
     })
     spawned.on('error', err => {
       result.error = err
-      reject(result)
+      resolve(result)
     })
   })
 }
