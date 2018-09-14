@@ -22,8 +22,9 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
       if (error) {
         error.stderr = stderr
         reject(error)
+      } else {
+        resolve(trimmer(stdout || ''))
       }
-      resolve(trimmer(stdout || ''))
     })
   })
 }
@@ -63,7 +64,7 @@ async function spawn(commandLine: string, options: Options = {}): Promise<any> {
     if (spawned.stdout) {
       spawned.stdout.on('data', data => {
         if (isNil(result.stdout)) {
-          result.stdout = data
+          result.stdout = '' + data
         } else {
           result.stdout += data
         }

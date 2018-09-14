@@ -35,7 +35,7 @@ test('knows about which', () => {
 test('can spawn and capture results', async () => {
   const good = await system.spawn('echo hello')
   expect(good.status).toBe(0)
-  expect(good.stdout.toString()).toBe('hello\n')
+  expect(good.stdout.toString().replace(/[\t\v\f\r \u00a0\u2000-\u200b\u2028-\u2029\u3000]+/g, '')).toBe('hello\n')
 })
 
 test('spawn deals with missing programs', async () => {
