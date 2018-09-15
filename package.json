@@ -21,7 +21,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "ci": "yarn test --ci --forceExit && yarn integration",
+    "ci": "yarn test --ci --forceExit --runInBand && yarn integration",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
     "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
     "shipit": "yarn build && yarn lint && np --yolo --no-yarn"
