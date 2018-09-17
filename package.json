@@ -18,10 +18,12 @@
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
     "integration": "yarn build && jest --config=./jest-integration.config.json ",
+    "integration:ci": "yarn build && jest --ci --forceExit --runInBand --config=./jest-integration.config.json ",
     "test": "jest",
+    "test:ci": "jest --ci --forceExit --runInBand",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "ci": "yarn test --ci --forceExit --runInBand && yarn integration",
+    "ci": "yarn test:ci && yarn integration:ci",
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
     "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
     "shipit": "yarn build && yarn lint && np --yolo --no-yarn"
