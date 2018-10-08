@@ -55,10 +55,7 @@ function identity(value: any): any {
  * @returns PascalCase string.
  */
 function pascalCase(value: string): string {
-  return pipe(
-    camelCase,
-    upperFirst,
-  )(value) as string
+  return pipe(camelCase, upperFirst)(value) as string
 }
 
 export { GluegunStrings }
