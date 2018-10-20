@@ -109,9 +109,9 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 
 # Who Is Using This?
 
-* [Ignite](https://github.com/infinitered/ignite) - React Native Starter Kit
+* [Ignite CLI](https://github.com/infinitered/ignite) - React Native CLI and starter kit
 * [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
-* AppMachine - closed source for now (still building) - tool for helping code generate apps
+* [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) - A CLI toolchain for simplifying serverless web and mobile development
 
 # What's under the hood?
 
