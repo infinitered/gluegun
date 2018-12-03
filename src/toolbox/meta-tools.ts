@@ -59,10 +59,7 @@ export function commandInfo(toolbox: GluegunToolbox, commandRoot?: string[]): st
     }),
     map(command => {
       const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''
-      return [
-        `${command.commandPath.join(' ')} ${alias}`,
-        replace('$BRAND', toolbox.runtime.brand, command.description || '-'),
-      ]
+      return [`${command.name} ${alias}`, replace('$BRAND', toolbox.runtime.brand, command.description || '-')]
     }),
   )(toolbox.runtime.commands)
 }
