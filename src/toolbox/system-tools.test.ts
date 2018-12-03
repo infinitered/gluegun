@@ -2,7 +2,7 @@ import * as expect from 'expect'
 import { system } from './system-tools'
 
 test('which - existing package', () => {
-  const result = system.which('git')
+  const result = system.which('node')
   expect(result).not.toBe(null)
 })
 
