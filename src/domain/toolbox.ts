@@ -36,6 +36,8 @@ export interface GluegunParameters {
   raw?: any
   /* The original argv value. */
   argv?: any
+  /* The cleaned argv. */
+  arguments?: any
   /* The currently running plugin name. */
   plugin?: string
   /* The currently running command name. */

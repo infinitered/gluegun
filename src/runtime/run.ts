@@ -41,6 +41,7 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
     options: toolbox.parameters.options,
     raw: rawCommand,
     argv: process.argv,
+    arguments: process.argv.slice(3),
   })
 
   // set a few properties
