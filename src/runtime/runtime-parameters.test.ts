@@ -18,6 +18,19 @@ test('can pass arguments', async () => {
   expect(command.commandPath).toEqual(['hello'])
 })
 
+test('can pass the normalized arguments', async () => {
+  const r = new Runtime()
+  const { parameters } = await r.run('test --watch --coverage')
+  const { arguments: argvs } = parameters
+
+  //  { array: [ 'test' ], options: { watch: true, coverage: true } }
+  console.log(parameters)
+
+  expect(argvs.watch).toBe(true)
+  expect(argvs.coverage).toBe(true)
+  expect(argvs.test).toBe(undefined)
+})
+
 test('can pass arguments, even with nested alias', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
