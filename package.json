@@ -24,7 +24,24 @@
     "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
     "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
     "shipit": "yarn build && yarn lint && np --yolo --no-yarn",
-    "ci:test": "yarn test"
+    "ci:test": "yarn test",
+    "ci:publish": "yarn semantic-release",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": "package.json",
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
   },
   "author": {
     "name": "Infinite Red, Inc.",
@@ -94,6 +111,7 @@
     "yargs-parser": "^9.0.2"
   },
   "devDependencies": {
+    "@semantic-release/git": "^7.0.5",
     "@types/cli-table2": "^0.2.1",
     "@types/jest": "^22.2.3",
     "@types/node": "^10.0.4",
@@ -108,6 +126,7 @@
     "np": "^2.20.1",
     "nyc": "^11.7.1",
     "prettier": "^1.12.1",
+    "semantic-release": "^15.12.4",
     "sinon": "^5.0.4",
     "strip-ansi": "^4.0.0",
     "temp-write": "^3.3.0",
