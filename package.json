@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "0.22.1",
+  "version": "2.0.0-beta.13",
   "description": "Build yourself a pluggable CLI.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -24,21 +24,6 @@
     "ci:test": "yarn lint && yarn test && yarn integration",
     "ci:publish": "yarn build && yarn semantic-release",
     "semantic-release": "semantic-release"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/github",
-      [
-        "@semantic-release/git",
-        {
-          "assets": "package.json",
-          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ]
-    ]
   },
   "author": {
     "name": "Infinite Red, Inc.",
@@ -164,6 +149,21 @@
     "*.json": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": "package.json",
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
     ]
   }
 }
