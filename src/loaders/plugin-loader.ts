@@ -84,5 +84,8 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
   // set all commands to reference their parent plugin
   plugin.commands.forEach(c => (c.plugin = plugin))
 
+  // sort plugin commands alphabetically
+  plugin.commands = plugin.commands.sort((a, b) => (a.commandPath.join(' ') < b.commandPath.join(' ') ? -1 : 1))
+
   return plugin
 }
