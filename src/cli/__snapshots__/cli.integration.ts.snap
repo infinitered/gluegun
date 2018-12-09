@@ -4,9 +4,9 @@ exports[`can create a new boilerplate TypeScript cli 1`] = `
 "foo-ts version 0.0.1
 
   foo-ts         -                         
+  version (v)    Output the version number 
   generate (g)   -                         
   help (h)       -                         
-  version (v)    Output the version number 
 "
 `;
 
@@ -16,9 +16,9 @@ exports[`can create a new boilerplate cli 1`] = `
 "foo version 0.0.1
 
   foo            -                         
+  version (v)    Output the version number 
   generate (g)   -                         
   help (h)       -                         
-  version (v)    Output the version number 
 "
 `;
 
