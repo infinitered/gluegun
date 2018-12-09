@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "0.22.1",
+  "version": "2.0.0-beta.13",
   "description": "Build yourself a pluggable CLI.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -21,27 +21,9 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "coverage": "nyc --reporter=lcov --reporter=html --reporter=text jest",
-    "coveralls": "nyc jest && nyc report --reporter=text-lcov | coveralls",
-    "shipit": "yarn build && yarn lint && np --yolo --no-yarn",
-    "ci:test": "yarn test",
-    "ci:publish": "yarn semantic-release",
+    "ci:test": "yarn lint && yarn test && yarn integration",
+    "ci:publish": "yarn build && yarn semantic-release",
     "semantic-release": "semantic-release"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/github",
-      [
-        "@semantic-release/git",
-        {
-          "assets": "package.json",
-          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-        }
-      ]
-    ]
   },
   "author": {
     "name": "Infinite Red, Inc.",
@@ -112,30 +94,27 @@
   },
   "devDependencies": {
     "@semantic-release/git": "^7.0.5",
-    "@types/cli-table2": "^0.2.1",
-    "@types/jest": "^22.2.3",
-    "@types/node": "^10.0.4",
-    "@types/pluralize": "^0.0.28",
-    "@types/ramda": "^0.25.24",
-    "coveralls": "^3.0.1",
+    "@types/cli-table2": "^0.2.2",
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "@types/pluralize": "^0.0.29",
+    "@types/ramda": "^0.25.42",
     "expect": "^22.4.3",
     "husky": "^0.14.3",
-    "jest": "^22.4.3",
-    "jest-mock": "^22.4.3",
+    "jest": "^23.6.0",
+    "jest-mock": "^23.2.0",
     "lint-staged": "^7.0.5",
-    "np": "^2.20.1",
-    "nyc": "^11.7.1",
     "prettier": "^1.12.1",
     "semantic-release": "^15.12.4",
     "sinon": "^5.0.4",
     "strip-ansi": "^4.0.0",
     "temp-write": "^3.3.0",
-    "ts-jest": "^22.4.5",
-    "ts-node": "^6.0.2",
-    "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.12.0",
-    "tslint-config-standard": "^7.0.0",
-    "typescript": "2.8.3",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "3.2.2",
     "unique-temp-dir": "^1.0.0"
   },
   "jest": {
@@ -170,6 +149,21 @@
     "*.json": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": "package.json",
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
     ]
   }
 }

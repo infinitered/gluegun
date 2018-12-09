@@ -40,7 +40,7 @@ test('connects to a server', async () => {
     send200(res, 'hi')
   })
   server.listen()
-  const port = server.address().port
+  const { port } = server.address() as any
   const api = ext.create({
     baseURL: `http://127.0.0.1:${port}`,
   })

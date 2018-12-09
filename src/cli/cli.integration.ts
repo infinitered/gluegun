@@ -37,11 +37,17 @@ test('can create a new boilerplate cli', async () => {
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo --help`)
-  expect(stripANSI(runCommand)).toMatchSnapshot()
+  const cleanCmd = stripANSI(runCommand)
+  expect(cleanCmd).toMatch(/version \(v\)/)
+  expect(cleanCmd).toMatch(/Output the version number/)
+  expect(cleanCmd).toMatch(/generate \(g\)/)
+  expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.run(`${tmp}/foo/bin/foo g model test`)
-  expect(stripANSI(genCommand)).toMatchSnapshot()
+  const genCommand = await toolbox.system.run(`${tmp}/foo/bin/foo g flub`)
+  console.log(genCommand)
+  const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.js`)
+  expect(genFile).toMatch(/name\: \'flub\'/)
 
   // clean up
   process.chdir(pwd)
@@ -50,6 +56,7 @@ test('can create a new boilerplate cli', async () => {
 
 test('can create a new boilerplate TypeScript cli', async () => {
   const tmp = uniqueTempDir({ create: true })
+  console.log(tmp)
   process.chdir(tmp as string)
 
   const toolbox = await cli('new foo-ts --typescript')
@@ -67,25 +74,32 @@ test('can create a new boilerplate TypeScript cli', async () => {
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts --help`)
-  expect(stripANSI(runCommand)).toMatchSnapshot()
+  const cleanCmd = stripANSI(runCommand)
+  expect(cleanCmd).toMatch(/version \(v\)/)
+  expect(cleanCmd).toMatch(/Output the version number/)
+  expect(cleanCmd).toMatch(/generate \(g\)/)
+  expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts g model test`)
-  expect(stripANSI(genCommand)).toMatchSnapshot()
+  const genCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts g flub`)
+  console.log(genCommand)
+  const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.ts`)
+  expect(genFile).toMatch(/name\: \'flub\'/)
 
   // Add a command that exercises a lot of Gluegun features
   // Incidentally, it verifies that the template tool works
   const generateResult = await toolbox.template.generate({
     template: `test/kitchen-sink-command.js.ejs`,
-    target: `${tmp}/foo-ts/commands/kitchen.js`,
+    target: `${tmp}/foo-ts/src/commands/kitchen.js`,
   })
 
   // Verify the result of the generated command
-  expect(generateResult.includes('module.exports = {')).toBe(true)
+  expect(generateResult).toMatch(/module\.exports \= \{/)
 
   // Run that command and check the result
   const kitchenCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts kitchen`)
-  console.log(kitchenCommand)
+  expect(kitchenCommand).toMatch(/Hello. I am a chatty plugin./)
+  expect(kitchenCommand).toMatch(/Busey/)
 
   // clean up
   process.chdir(pwd)
