@@ -7,7 +7,7 @@ const log = console.log
 let spyLogger = []
 console.log = (x, y) => spyLogger.push([stripANSI(x), stripANSI(y)])
 
-test(() => {
+afterAll(() => {
   spyLogger = []
   console.log = log
 })

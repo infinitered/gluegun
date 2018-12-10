@@ -1,4 +1,4 @@
-import { is, isEmpty, pipe } from 'ramda'
+import { is, isEmpty } from 'ramda'
 
 import * as camelCase from 'lodash.camelcase'
 import * as kebabCase from 'lodash.kebabcase'
@@ -55,7 +55,7 @@ function identity(value: any): any {
  * @returns PascalCase string.
  */
 function pascalCase(value: string): string {
-  return pipe(camelCase, upperFirst)(value) as string
+  return upperFirst(camelCase(value))
 }
 
 export { GluegunStrings }
