@@ -21,7 +21,7 @@ Returns the **input** as **output**. Great for functional programming like sorti
 
 ```js
 identity('hello') // hello
-identity(4) // 3
+identity(4) // 4
 identity([1, 'a']) // [1, 'a']
 ```
 
