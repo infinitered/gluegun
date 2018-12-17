@@ -6,7 +6,7 @@ If you have ideas, suggestions, or questions, feel free to [open an issue](https
 
 ## Commands
 
-Commands should be focused on user interaction and not necessarily on implementation details. Don't write your whole app inside a command; instead, parse out user-provided info, then delegate to other functions (provided via extensions, which are described below) to do work.
+Commands should be focused on user interaction and not necessarily on implementation details. Don't write your whole app inside a command; instead, parse out user-provided info, then delegate to other functions (which can be provided via extensions, which are described below) to do work.
 
 _Do this_
 
@@ -18,7 +18,7 @@ module.exports = {
     // in this case, `hello` is provided by an extension
     const { hello, prompt } = toolbox
 
-    // user interaction
+    // user interaction is great in a command
     const isEarthling = await prompt.confirm('Are you an earthling?')
 
     // delegate the actual work to an extension
@@ -141,13 +141,13 @@ If you have many plugins, it's a good idea for performance reasons to "hide" `re
 _Don't do this_
 
 ```js
-const R = require("ramda")
+const R = require('ramda')
 
 module.exports = {
-  name: "mycommand",
+  name: 'mycommand',
   run: async toolbox => {
     // use Ramda
-  }
+  },
 }
 ```
 
@@ -155,11 +155,11 @@ _Do this_
 
 ```js
 module.exports = {
-  name: "mycommand",
+  name: 'mycommand',
   run: async toolbox => {
-    const R = require("ramda")
+    const R = require('ramda')
     // use Ramda
-  }
+  },
 }
 ```
 
@@ -167,6 +167,6 @@ module.exports = {
 
 The topics above will get you very far. Some other things to consider as you dig deeper into your CLI are:
 
-1. Where do I access and store configuration values?
-2. How do consumers of my CLI install and configure [plugins](/plugins)?
-3. How will templates be organized? (Hint: look at the [Gluegun CLI source](https://github.com/infinitered/gluegun/tree/master/src/cli))
+1.  Where do I access and store configuration values?
+2.  How do consumers of my CLI install and configure [plugins](/plugins)?
+3.  How will templates be organized? (Hint: look at the [Gluegun CLI source](https://github.com/infinitered/gluegun/tree/master/src/cli))

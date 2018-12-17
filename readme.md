@@ -7,7 +7,7 @@
 
 # gluegun
 
-`gluegun` is a lightweight toolkit for building command-line interfaces (CLIs),
+`gluegun` is a versatile and lightweight toolkit for building command-line interfaces (CLIs),
 with support for:
 
 🌯 *parameters* - command line arguments and options<br />
@@ -51,7 +51,7 @@ $ movies help
 You should see your new CLI help. Open the folder in your favorite editor and
 start building your CLI!
 
-_Tip: If you want your CLI to use TypeScript, pass in `--typescript`_
+_Tip: If you want your CLI to be configured to use TypeScript, pass in `--typescript`_
 
 # Code
 
@@ -132,4 +132,4 @@ Node [Node.js 7.6+](https://nodejs.org) is required.
 
 ## Sponsors
 
-[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React Native, React, and Elixir. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
+[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!

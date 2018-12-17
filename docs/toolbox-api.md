@@ -1,6 +1,6 @@
 # Inside the Gluegun Toolbox
 
-So you're making a command. Let's get started.
+Let's explore the inside of the famous Gluegun "Toolbox" (or "Context" as it's sometimes called).
 
 ```js
 module.exports = {
@@ -40,7 +40,10 @@ module.exports = {
     toolbox.print.info(toolbox.meta.version())
 
     // or destructure!
-    const { print: { info }, meta: { version } } = toolbox
+    const {
+      print: { info },
+      meta: { version },
+    } = toolbox
     info(version())
   },
 }

@@ -93,6 +93,8 @@ $ mycli hello
 Hello from an extension!
 ```
 
+Note that we sometimes call the `toolbox` the `context` or the `RunContext`. That's just another word for the same thing.
+
 ## Next steps
 
-There are _many_ more tools in the toolbox than just `print.info`. You can generate from a template, manipulate files, hit API endpoints via HTTP, access parameters, run system commands, ask for user input, and much more. Explore the API docs in the sidebar to learn more or follow a tutorial like [Making a Movie CLI](/tutorial-making-a-movie-cli).
+There are _many_ more tools in the toolbox than just `print.info`. You can generate from a template, manipulate files, hit API endpoints via HTTP, access parameters, run system commands, ask for user input, and much more. Explore the [API docs](./toolbox-api.md) in this folder to learn more or follow a tutorial like [Making a Movie CLI](./tutorial-making-a-movie-cli.md).
