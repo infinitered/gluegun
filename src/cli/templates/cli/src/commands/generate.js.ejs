@@ -1,15 +1,18 @@
 module.exports = {
   name: 'generate',
   alias: ['g'],
-  run: async (context) => {
-    const { parameters, template: { generate } } = context
+  run: async toolbox => {
+    const {
+      parameters,
+      template: { generate },
+    } = toolbox
 
     const name = parameters.first
 
     await generate({
       template: 'model.<%= props.extension %>.ejs',
       target: `models/${name}-model.<%= props.extension %>`,
-      props: { name }
+      props: { name },
     })
-  }
+  },
 }

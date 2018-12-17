@@ -1,5 +1,5 @@
-module.exports = function (context) {
-  context.detectExtension = {
-    auto: 'detect'
+module.exports = function(toolbox) {
+  toolbox.detectExtension = {
+    auto: 'detect',
   }
 }

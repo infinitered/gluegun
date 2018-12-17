@@ -30,7 +30,7 @@ export { http, GluegunHttp } from './toolbox/http-tools'
 export { patching, GluegunPatching, GluegunPatchingPatchOptions } from './toolbox/patching-tools'
 export { prompt, GluegunPrompt } from './toolbox/prompt-tools'
 
-// TODO: can't export these tools directly as they require context to run
+// TODO: can't export these tools directly as they require the toolbox to run
 // need ideas on how to handle this
 export { GluegunTemplate } from './core-extensions/template-extension'
 export { GluegunMeta } from './core-extensions/meta-extension'

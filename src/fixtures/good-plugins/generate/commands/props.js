@@ -1,6 +1,6 @@
 const uniqueTempDir = require('unique-temp-dir')
 
-async function command(context) {
+async function command(toolbox) {
   const template = 'props.ejs'
   const dir = uniqueTempDir({ create: true })
   const target = `${dir}/props.txt`
@@ -9,7 +9,7 @@ async function command(context) {
     colors: ['red', 'green', 'blue'],
   }
 
-  return context.template.generate({ template, target, props })
+  return toolbox.template.generate({ template, target, props })
 }
 
 module.exports = { name: 'props', run: command }

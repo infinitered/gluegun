@@ -6,12 +6,12 @@ import { Runtime } from '../runtime/runtime'
 import { commandInfo } from './meta-tools'
 
 test('commandInfo', () => {
-  const fakeContext = new Toolbox()
+  const fakeToolbox = new Toolbox()
   const fakeCommand = new Command()
   const fakePlugin = new Plugin()
 
-  fakeContext.runtime = new Runtime()
-  fakeContext.runtime.addCoreExtensions()
+  fakeToolbox.runtime = new Runtime()
+  fakeToolbox.runtime.addCoreExtensions()
 
   fakeCommand.name = 'foo'
   fakeCommand.description = 'foo is a command'
@@ -21,9 +21,9 @@ test('commandInfo', () => {
 
   fakePlugin.commands = [fakeCommand]
 
-  fakeContext.runtime.plugins = [fakePlugin]
-  fakeContext.runtime.commands = [fakeCommand]
+  fakeToolbox.runtime.plugins = [fakePlugin]
+  fakeToolbox.runtime.commands = [fakeCommand]
 
-  const info = commandInfo(fakeContext)
+  const info = commandInfo(fakeToolbox)
   expect(info).toEqual([['foo (f)', 'foo is a command']])
 })

@@ -1,5 +1,5 @@
-async function hello (context) {
-  const name = context.parameters.string
+async function hello(toolbox) {
+  const name = toolbox.parameters.string
   if (name) {
     return `hi ${name}`
   } else {

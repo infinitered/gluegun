@@ -1,4 +1,4 @@
-async function thrower (context) {
+async function thrower(toolbox) {
   throw new Error('thrown an error!')
 }
 
