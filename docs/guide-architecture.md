@@ -11,14 +11,12 @@ Commands should be focused on user interaction and not necessarily on implementa
 _Do this_
 
 ```js
-const { prompt } = require('gluegun')
-
 module.exports = {
   name: 'world',
   alias: ['w', 'earth'],
   run: async toolbox => {
     // in this case, `hello` is provided by an extension
-    const { hello } = toolbox
+    const { hello, prompt } = toolbox
 
     // user interaction
     const isEarthling = await prompt.confirm('Are you an earthling?')
@@ -84,9 +82,8 @@ commands
 Think of extensions as "drawers" full of tools in your Gluegun toolbox. In the above example, the `hello` extension adds two functions, `greetEarthling` and `greetAlien`.
 
 ```js
-const { print } = require('gluegun/print')
-
 module.exports = toolbox => {
+  const { print } = toolbox
   toolbox.hello = {
     greetEarthling: () => print.info('Hello, earthling!'),
     greetAlien: () => print.info('Greetings, alien!'),
@@ -134,6 +131,35 @@ const venusian = require('../hello/greetings/venusian')
 
 module.exports = toolbox => {
   toolbox.hello = { earthling, martian, venusian }
+}
+```
+
+### Plugins
+
+If you have many plugins, it's a good idea for performance reasons to "hide" `require` statements inside your command `run` functions so only the command that is invoked loads its dependencies. ([Here](https://github.com/aws-amplify/amplify-cli/pull/511) is an example that improved Amazon AWS Amplify CLI performance by nearly 2.5x)
+
+_Don't do this_
+
+```js
+const R = require("ramda")
+
+module.exports = {
+  name: "mycommand",
+  run: async toolbox => {
+    // use Ramda
+  }
+}
+```
+
+_Do this_
+
+```js
+module.exports = {
+  name: "mycommand",
+  run: async toolbox => {
+    const R = require("ramda")
+    // use Ramda
+  }
 }
 ```
 
