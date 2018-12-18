@@ -9,6 +9,7 @@
   "scripts": {
     <% if (props.typescript) { %>
       "format": "prettier --write **/*.{js,ts,tsx,json}",
+      "lint": "tslint -p .",
     <% } else { %>
       "format": "prettier --write **/*.{js,json} && standard --fix",
       "lint": "standard",
@@ -21,6 +22,7 @@
   "files": [
     <% if (props.typescript) { %>
       "tsconfig.json",
+      "tslint.json",
     <% } %>
     "LICENSE",
     "readme.md",
@@ -39,17 +41,32 @@
   "devDependencies": {
     <% if (props.typescript) { %>
       "@types/node": "^10.12.12",
+      "@types/jest": "^23.3.10",
       "ts-jest": "^23.10.5",
+      "tslint": "^5.12.0",
+      "tslint-config-prettier": "^1.17.0",
+      "tslint-config-standard": "^8.0.1",
     <% } else { %>
       "standard": "^12.0.1",
-      "babel-eslint": "^10.0.1",
     <% } %>
     "prettier": "^1.12.1",
     "jest": "^23.6.0"
-  }
-  <% if (!props.typescript) { %>,
-    "standard": {
-      "parser": "babel-eslint"
-    }
+  },
+  "jest": {
+    <% if (props.typescript) { %>
+      "preset": "ts-jest",
+    <% } %>
+    "testEnvironment": "node"
+  },
+  <% if (!props.typescript) { %>
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
   <% } %>
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
 }
