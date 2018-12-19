@@ -31,10 +31,20 @@ Gluegun's source files are mostly in `./src` and are written in [TypeScript](www
 
 ## Running Tests And Linting
 
+On macOS or Linux:
+
 ```sh
 yarn test
 yarn lint
 yarn watch
+yarn integration
+```
+
+On windows:
+
+```sh
+yarn lint
+yarn windows:test
 ```
 
 ## Features & Fixes
@@ -59,10 +69,10 @@ Screenshots of what the feature is 💯. Animated gifs (licecap, Gif Brewery, or
 
 Then submit the pull request.
 
-* It's 👌 to submit an issue before breaking changes or shenanigans to get a sense if it's cool
-* It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to let us know it's a conversation
-* It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR
-* If Github is complaining about conflicts, rebase downstream, merge upstream
+- It's 👌 to submit an issue before breaking changes or shenanigans to get a sense if it's cool
+- It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to let us know it's a conversation
+- It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR
+- If Github is complaining about conflicts, rebase downstream, merge upstream
 
 ## Keeping up to date
 
