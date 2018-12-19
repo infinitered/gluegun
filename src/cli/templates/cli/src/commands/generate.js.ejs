@@ -1,12 +1,12 @@
 module.exports = {
   name: 'generate',
   alias: ['g'],
-  run: async context => {
+  run: async toolbox => {
     const {
       parameters,
       template: { generate },
       print: { info },
-    } = context
+    } = toolbox
 
     const name = parameters.first
 

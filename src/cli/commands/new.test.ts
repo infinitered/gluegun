@@ -7,25 +7,25 @@ import command from './new'
 sinon.stub(console, 'log')
 
 function createFakeToolbox(): Toolbox {
-  const fakeContext = new Toolbox()
-  fakeContext.strings = strings
-  fakeContext.filesystem = {
+  const fakeToolbox = new Toolbox()
+  fakeToolbox.strings = strings
+  fakeToolbox.filesystem = {
     resolve: sinon.stub(),
     dir: sinon.stub(),
     chmodSync: sinon.stub(),
     rename: sinon.stub(),
   }
-  fakeContext.system = {
+  fakeToolbox.system = {
     spawn: sinon.stub(),
     which: sinon.stub(),
   }
-  fakeContext.template = { generate: sinon.stub() }
-  fakeContext.print = {
+  fakeToolbox.template = { generate: sinon.stub() }
+  fakeToolbox.print = {
     info: sinon.stub(),
     error: sinon.stub(),
   }
-  fakeContext.parameters = { first: null, options: {} }
-  return fakeContext
+  fakeToolbox.parameters = { first: null, options: {} }
+  return fakeToolbox
 }
 
 test('has the right interface', () => {
