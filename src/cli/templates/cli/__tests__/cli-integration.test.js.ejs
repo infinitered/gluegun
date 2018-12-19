@@ -3,7 +3,7 @@ const { resolve } = require('path')
 
 const src = resolve(__dirname, '..')
 
-const cli = async cmd => system.run(resolve(src, 'bin', '<%= props.name %>') + ` ${cmd}`)
+const cli = async cmd => system.run('node ' + resolve(src, 'bin', '<%= props.name %>') + ` ${cmd}`)
 
 test('outputs version', async () => {
   const output = await cli('--version')
