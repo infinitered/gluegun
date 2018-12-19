@@ -36,12 +36,8 @@ test('can create a new boilerplate cli', async () => {
   await toolbox.system.run(`cd ${tmp}/foo && yarn add ${pwd}`)
 
   // Run the tests
-  const testResults = await toolbox.system.spawn(`cd ${tmp}/foo && yarn test`)
-  expect(testResults).toEqual({
-    error: null,
-    status: 0,
-    stdout: null,
-  })
+  const testResults = await toolbox.system.run(`cd ${tmp}/foo && yarn test`)
+  expect(testResults).toContain('jest')
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`node ${tmp}/foo/bin/foo --help`)
@@ -81,12 +77,8 @@ test('can create a new boilerplate TypeScript cli', async () => {
   await toolbox.system.run(`cd ${tmp}/foo-ts && yarn add ${pwd}`)
 
   // Run the tests
-  const testResults = await toolbox.system.spawn(`cd ${tmp}/foo-ts && yarn test`)
-  expect(testResults).toEqual({
-    error: null,
-    status: 0,
-    stdout: null,
-  })
+  const testResults = await toolbox.system.run(`cd ${tmp}/foo-ts && yarn test`)
+  expect(testResults).toContain('jest')
 
   // Try running the help command, see what it does
   const runCommand = await toolbox.system.run(`node ${tmp}/foo-ts/bin/foo-ts --help`)
