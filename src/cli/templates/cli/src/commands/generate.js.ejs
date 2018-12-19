@@ -5,6 +5,7 @@ module.exports = {
     const {
       parameters,
       template: { generate },
+      print: { info },
     } = toolbox
 
     const name = parameters.first
@@ -14,5 +15,7 @@ module.exports = {
       target: `models/${name}-model.<%= props.extension %>`,
       props: { name },
     })
+
+    info(`Generated file at models/${name}-model.<%= props.extension %>`)
   },
 }
