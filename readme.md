@@ -5,9 +5,11 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Chat about GlueGun in the IR Community](https://infiniteredcommunity.herokuapp.com/badge.svg)](https://community.infinite.red/)
 
-# gluegun
+# Gluegun
 
-`gluegun` is a versatile and lightweight toolkit for building command-line interfaces (CLIs),
+![gluegun2 0](https://user-images.githubusercontent.com/1479215/50237287-5a23e380-0371-11e9-89ea-85b41cd25217.jpg)
+
+Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs),
 with support for:
 
 🌯 *parameters* - command line arguments and options<br />
@@ -24,16 +26,15 @@ with support for:
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set
 of easy-to-write plugins and extensions.
 
-# Yeah, But Why?
+# Why use Gluegun?
 
-If you want to have **your** CLI...
+You might want to use Gluegun if:
 
-* get built quickly
-* have plugin support
-* but skip the boring parts of developing it
-* and avoid large CLI libraries that want to take over your world
+* You need to build a CLI app
+* You want to have powerful tools at your fingertips
+* And you don't want to give up flexibility at the same time
 
-... welcome!
+If so ... welcome!
 
 # Quick Start
 
