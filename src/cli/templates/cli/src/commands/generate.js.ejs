@@ -1,7 +1,11 @@
+<% if (props.typescript) { %>
+  import { GluegunToolbox } from 'gluegun'
+  <% } %>  
+
 module.exports = {
   name: 'generate',
   alias: ['g'],
-  run: async toolbox => {
+  run: async <%= (props.typescript) ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
     const {
       parameters,
       template: { generate },
