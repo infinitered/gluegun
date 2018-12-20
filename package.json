@@ -136,9 +136,6 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
-  "husky": {
-    "hooks": "lint-staged"
-  },
   "lint-staged": {
     "*.ts": [
       "prettier --write",
@@ -168,5 +165,10 @@
         }
       ]
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
