@@ -31,8 +31,8 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
   command.name = head(split('.', (filesystem.inspect(file) as any).name))
 
   // strip the extension from the end of the commandPath
-  command.commandPath = (options.commandPath || last(file.split('commands' + path.sep)).split(path.sep)).map(
-    f => ([`${command.name}.js`, `${command.name}.ts`].includes(f) ? command.name : f),
+  command.commandPath = (options.commandPath || last(file.split('commands' + path.sep)).split(path.sep)).map(f =>
+    [`${command.name}.js`, `${command.name}.ts`].includes(f) ? command.name : f,
   )
 
   // if the last two elements of the commandPath are the same, remove the last one

@@ -51,7 +51,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "apisauce": "0.14.3",
+    "apisauce": "1.0.1",
     "app-module-path": "^2.2.0",
     "cli-table3": "^0.5.0",
     "colors": "1.2.4",
