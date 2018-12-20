@@ -62,9 +62,11 @@ export class Runtime {
       'patching',
     ]
 
-    coreExtensions.filter(ex => !exclude.includes(ex)).forEach(ex => {
-      this.addExtension(ex, require(`../core-extensions/${ex}-extension`))
-    })
+    coreExtensions
+      .filter(ex => !exclude.includes(ex))
+      .forEach(ex => {
+        this.addExtension(ex, require(`../core-extensions/${ex}-extension`))
+      })
   }
 
   /**
@@ -190,7 +192,7 @@ export class Runtime {
     }
 
     // find matching filesystem.subdirectories
-    const subdirs = filesystem.subdirectories(directory, false, options.matching, true)
+    const subdirs = filesystem.subdirectories(directory, false, options.matching)
 
     // load each one using `this.plugin`
     return subdirs.map(dir => this.addPlugin(dir, dissoc('matching', options)))

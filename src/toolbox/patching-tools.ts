@@ -31,7 +31,7 @@ export async function exists(filename: string, findPattern: string | RegExp): Pr
   }
 
   // do the appropriate check
-  return patternIsString ? contents.includes(findPattern) : test(findPattern as RegExp, contents)
+  return patternIsString ? contents.includes(findPattern as string) : test(findPattern as RegExp, contents)
 }
 
 /**
@@ -116,10 +116,11 @@ export async function readFile(filename: string): Promise<string> {
   }
 
   // check type of file (JSON or not)
-  const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
-
-  // read the file
-  return filesystem.readAsync(filename, fileType)
+  if (filename.endsWith('.json')) {
+    return filesystem.readAsync(filename, 'json')
+  } else {
+    return filesystem.readAsync(filename, 'utf8')
+  }
 }
 
 export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}): string | false {
