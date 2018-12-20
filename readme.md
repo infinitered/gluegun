@@ -129,7 +129,7 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 ⭐️ [pluralize](https://github.com/blakeembrey/pluralize) for manipulating strings</br>
 
-Node [Node.js 7.6+](https://nodejs.org) is required.
+[Node.js 7.6+](https://nodejs.org) is required.
 
 ## Sponsors
 
