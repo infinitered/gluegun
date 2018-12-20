@@ -9,7 +9,6 @@
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
-    "precommit": "lint-staged",
     "format": "prettier --write \"**/*.ts\" --loglevel error && tslint -p . --fix",
     "clean-build": "rm -rf ./build",
     "compile": "tsc -p .",
@@ -136,6 +135,9 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "all"
+  },
+  "husky": {
+    "hooks": "lint-staged"
   },
   "lint-staged": {
     "*.ts": [
