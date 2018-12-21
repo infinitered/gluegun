@@ -12,7 +12,7 @@
     "format": "prettier --write \"**/*.ts\" --loglevel error && tslint -p . --fix",
     "clean-build": "rimraf ./build",
     "compile": "tsc -p .",
-    "copy-templates": "cpy src/cli/templates build/cli --parents",
+    "copy-templates": "cpy --cwd=src/cli templates/**/* ../../build/cli --parents",
     "clean-types": "node buildHelpers/cleanDir.js ./build/types",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
