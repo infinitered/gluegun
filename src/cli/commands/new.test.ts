@@ -14,16 +14,16 @@ function createFakeToolbox(): Toolbox {
     dir: sinon.stub(),
     chmodSync: sinon.stub(),
     rename: sinon.stub(),
-  }
+  } as any
   fakeToolbox.system = {
     spawn: sinon.stub(),
     which: sinon.stub(),
-  }
+  } as any
   fakeToolbox.template = { generate: sinon.stub() }
   fakeToolbox.print = {
     info: sinon.stub(),
     error: sinon.stub(),
-  }
+  } as any
   fakeToolbox.parameters = { first: null, options: {} }
   return fakeToolbox
 }
@@ -41,8 +41,8 @@ test('name is required', async () => {
   toolbox.parameters.first = null
   await command.run(toolbox)
   const { error } = toolbox.print
-  expect(error.getCall(0).args[0]).toBe('You must provide a valid CLI name.')
-  expect(error.getCall(1).args[0]).toBe('Example: gluegun new foo')
+  expect((error as sinon.SinonStub).getCall(0).args[0]).toBe('You must provide a valid CLI name.')
+  expect((error as sinon.SinonStub).getCall(1).args[0]).toBe('Example: gluegun new foo')
 })
 
 test('name cannot be blank', async () => {
@@ -50,8 +50,8 @@ test('name cannot be blank', async () => {
   toolbox.parameters.first = ''
   await command.run(toolbox)
   const { error } = toolbox.print
-  expect(error.getCall(0).args).toEqual(['You must provide a valid CLI name.'])
-  expect(error.getCall(1).args).toEqual(['Example: gluegun new foo'])
+  expect((error as sinon.SinonStub).getCall(0).args).toEqual(['You must provide a valid CLI name.'])
+  expect((error as sinon.SinonStub).getCall(1).args).toEqual(['Example: gluegun new foo'])
 })
 
 test('name must pass regex', async () => {
@@ -60,8 +60,10 @@ test('name must pass regex', async () => {
   toolbox.parameters.first = name
   await command.run(toolbox)
   const { error } = toolbox.print
-  expect(error.getCall(0).args).toEqual([`${name} is not a valid name. Use lower-case and dashes only.`])
-  expect(error.getCall(1).args).toEqual([`Suggested: gluegun new ${strings.kebabCase(name)}`])
+  expect((error as sinon.SinonStub).getCall(0).args).toEqual([
+    `${name} is not a valid name. Use lower-case and dashes only.`,
+  ])
+  expect((error as sinon.SinonStub).getCall(1).args).toEqual([`Suggested: gluegun new ${strings.kebabCase(name)}`])
 })
 
 test('generates properly', async () => {
@@ -81,13 +83,13 @@ test('generates properly', async () => {
   const props = { name, typescript, extension }
 
   // assure that the directory was created
-  expect(dir.firstCall.args[0]).toBe(name)
+  expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)
 
   // tracks the number of files generated
   let i = 0
 
   // the executable file
-  expect(generate.getCall(i++).args[0]).toEqual({
+  expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
     template: `cli/bin/cli-executable.ejs`,
     target: `./${name}/bin/${name}`,
     props,
@@ -110,7 +112,7 @@ test('generates properly', async () => {
 
   // test that each our files get generated
   DEFAULT_FILES.forEach(file => {
-    expect(generate.getCall(i++).args[0]).toEqual({
+    expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,
       props,
@@ -118,10 +120,10 @@ test('generates properly', async () => {
   })
 
   // test permissions
-  expect(chmodSync.firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
+  expect((chmodSync as sinon.SinonStub).firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
 
   // test package installation
-  expect(spawn.firstCall.args).toEqual([
+  expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
     `cd ${props.name} && npm install --silent && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
@@ -147,13 +149,13 @@ test('generates with typescript', async () => {
   const props = { name, typescript, extension }
 
   // assure that the directory was created
-  expect(dir.firstCall.args[0]).toBe(name)
+  expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)
 
   // tracks the number of files generated
   let i = 0
 
   // the executable file
-  expect(generate.getCall(i++).args[0]).toEqual({
+  expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
     template: `cli/bin/cli-executable.ejs`,
     target: `./${name}/bin/${name}`,
     props,
@@ -176,7 +178,7 @@ test('generates with typescript', async () => {
 
   // test that each our files get generated
   DEFAULT_FILES.forEach(file => {
-    expect(generate.getCall(i++).args[0]).toEqual({
+    expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,
       props,
@@ -184,10 +186,10 @@ test('generates with typescript', async () => {
   })
 
   // test permissions
-  expect(chmodSync.firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
+  expect((chmodSync as sinon.SinonStub).firstCall.args).toEqual([`${name}/bin/${name}`, '755'])
 
   // test package installation
-  expect(spawn.firstCall.args).toEqual([
+  expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
     `cd ${props.name} && npm install --silent && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])

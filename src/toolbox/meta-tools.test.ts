@@ -21,8 +21,9 @@ test('commandInfo', () => {
 
   fakePlugin.commands = [fakeCommand]
 
-  fakeToolbox.runtime.plugins = [fakePlugin]
-  fakeToolbox.runtime.commands = [fakeCommand]
+  const runtime = fakeToolbox.runtime as any
+  runtime.plugins = [fakePlugin]
+  runtime.commands = [fakeCommand]
 
   const info = commandInfo(fakeToolbox)
   expect(info).toEqual([['foo (f)', 'foo is a command']])
