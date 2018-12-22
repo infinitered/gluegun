@@ -1,3 +1,3 @@
-module.exports = context => {
-  context.baz = true
+module.exports = toolbox => {
+  toolbox.baz = true
 }

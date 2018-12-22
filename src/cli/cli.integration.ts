@@ -35,8 +35,12 @@ test('can create a new boilerplate cli', async () => {
   // Install local version of gluegun to test
   await toolbox.system.run(`cd ${tmp}/foo && yarn add ${pwd}`)
 
+  // Run the tests
+  const testResults = await toolbox.system.run(`cd ${tmp}/foo && yarn test`)
+  expect(testResults).toContain('jest')
+
   // Try running the help command, see what it does
-  const runCommand = await toolbox.system.run(`${tmp}/foo/bin/foo --help`)
+  const runCommand = await toolbox.system.run(`node ${tmp}/foo/bin/foo --help`)
   const cleanCmd = stripANSI(runCommand)
   expect(cleanCmd).toMatch(/version \(v\)/)
   expect(cleanCmd).toMatch(/Output the version number/)
@@ -44,7 +48,7 @@ test('can create a new boilerplate cli', async () => {
   expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.run(`${tmp}/foo/bin/foo g flub`)
+  const genCommand = await toolbox.system.run(`node ${tmp}/foo/bin/foo g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.js`)
   expect(genFile).toMatch(/name\: \'flub\'/)
@@ -72,8 +76,12 @@ test('can create a new boilerplate TypeScript cli', async () => {
   // Install local version of gluegun to test
   await toolbox.system.run(`cd ${tmp}/foo-ts && yarn add ${pwd}`)
 
+  // Run the tests
+  const testResults = await toolbox.system.run(`cd ${tmp}/foo-ts && yarn test`)
+  expect(testResults).toContain('jest')
+
   // Try running the help command, see what it does
-  const runCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts --help`)
+  const runCommand = await toolbox.system.run(`node ${tmp}/foo-ts/bin/foo-ts --help`)
   const cleanCmd = stripANSI(runCommand)
   expect(cleanCmd).toMatch(/version \(v\)/)
   expect(cleanCmd).toMatch(/Output the version number/)
@@ -81,7 +89,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts g flub`)
+  const genCommand = await toolbox.system.run(`node ${tmp}/foo-ts/bin/foo-ts g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.ts`)
   expect(genFile).toMatch(/name\: \'flub\'/)
@@ -97,7 +105,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(generateResult).toMatch(/module\.exports \= \{/)
 
   // Run that command and check the result
-  const kitchenCommand = await toolbox.system.run(`${tmp}/foo-ts/bin/foo-ts kitchen`)
+  const kitchenCommand = await toolbox.system.run(`node ${tmp}/foo-ts/bin/foo-ts kitchen`)
   expect(kitchenCommand).toMatch(/Hello. I am a chatty plugin./)
   expect(kitchenCommand).toMatch(/Busey/)
 

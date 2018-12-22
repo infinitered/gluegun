@@ -5,9 +5,11 @@
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Chat about GlueGun in the IR Community](https://infiniteredcommunity.herokuapp.com/badge.svg)](https://community.infinite.red/)
 
-# gluegun
+# Gluegun
 
-`gluegun` is a lightweight toolkit for building command-line interfaces (CLIs),
+![gluegun2 0](https://user-images.githubusercontent.com/1479215/50237287-5a23e380-0371-11e9-89ea-85b41cd25217.jpg)
+
+Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs),
 with support for:
 
 🌯 *parameters* - command line arguments and options<br />
@@ -24,16 +26,15 @@ with support for:
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set
 of easy-to-write plugins and extensions.
 
-# Yeah, But Why?
+# Why use Gluegun?
 
-If you want to have **your** CLI...
+You might want to use Gluegun if:
 
-* get built quickly
-* have plugin support
-* but skip the boring parts of developing it
-* and avoid large CLI libraries that want to take over your world
+* You need to build a CLI app
+* You want to have powerful tools at your fingertips
+* And you don't want to give up flexibility at the same time
 
-... welcome!
+If so ... welcome!
 
 # Quick Start
 
@@ -51,7 +52,7 @@ $ movies help
 You should see your new CLI help. Open the folder in your favorite editor and
 start building your CLI!
 
-_Tip: If you want your CLI to use TypeScript, pass in `--typescript`_
+_Tip: If you want your CLI to be configured to use TypeScript, pass in `--typescript`_
 
 # Code
 
@@ -128,8 +129,8 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 ⭐️ [pluralize](https://github.com/blakeembrey/pluralize) for manipulating strings</br>
 
-Node [Node.js 7.6+](https://nodejs.org) is required.
+[Node.js 7.6+](https://nodejs.org) is required.
 
 ## Sponsors
 
-[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React Native, React, and Elixir. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
+[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!

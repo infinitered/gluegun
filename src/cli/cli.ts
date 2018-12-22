@@ -5,7 +5,7 @@ import { build, GluegunToolbox } from '../index'
  */
 export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
   // create a CLI runtime
-  const cli = build('gluegun')
+  const gluegunCLI = build('gluegun')
     .src(__dirname)
     .help()
     .version()
@@ -13,7 +13,7 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
     .create()
 
   // and run it
-  const toolbox = await cli.run(argv)
+  const toolbox = await gluegunCLI.run(argv)
 
   // send it back (for testing, mostly)
   return toolbox

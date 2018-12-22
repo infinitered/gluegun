@@ -7,24 +7,25 @@ import command from './new'
 sinon.stub(console, 'log')
 
 function createFakeToolbox(): Toolbox {
-  const fakeContext = new Toolbox()
-  fakeContext.strings = strings
-  fakeContext.filesystem = {
+  const fakeToolbox = new Toolbox()
+  fakeToolbox.strings = strings
+  fakeToolbox.filesystem = {
     resolve: sinon.stub(),
     dir: sinon.stub(),
     chmodSync: sinon.stub(),
     rename: sinon.stub(),
   }
-  fakeContext.system = {
+  fakeToolbox.system = {
     spawn: sinon.stub(),
+    which: sinon.stub(),
   }
-  fakeContext.template = { generate: sinon.stub() }
-  fakeContext.print = {
+  fakeToolbox.template = { generate: sinon.stub() }
+  fakeToolbox.print = {
     info: sinon.stub(),
     error: sinon.stub(),
   }
-  fakeContext.parameters = { first: null, options: {} }
-  return fakeContext
+  fakeToolbox.parameters = { first: null, options: {} }
+  return fakeToolbox
 }
 
 test('has the right interface', () => {
@@ -93,6 +94,7 @@ test('generates properly', async () => {
   })
 
   const DEFAULT_FILES = [
+    ['__tests__/cli-integration.test.js.ejs', '__tests__/cli-integration.test.js'],
     ['docs/commands.md.ejs', 'docs/commands.md'],
     ['docs/plugins.md.ejs', 'docs/plugins.md'],
     ['src/commands/generate.js.ejs', 'src/commands/generate.js'],
@@ -101,7 +103,6 @@ test('generates properly', async () => {
     ['src/templates/model.js.ejs.ejs', 'src/templates/model.js.ejs'],
     ['src/cli.js.ejs', 'src/cli.js'],
     ['LICENSE.ejs', 'LICENSE'],
-    ['.prettierrc.ejs', '.prettierrc'],
     ['package.json.ejs', 'package.json'],
     ['readme.md.ejs', 'readme.md'],
     ['.gitignore.ejs', '.gitignore'],
@@ -121,7 +122,7 @@ test('generates properly', async () => {
 
   // test package installation
   expect(spawn.firstCall.args).toEqual([
-    `cd ${props.name} && npm install --quiet && npm run --quiet format`,
+    `cd ${props.name} && npm install --silent && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 
@@ -159,6 +160,7 @@ test('generates with typescript', async () => {
   })
 
   const DEFAULT_FILES = [
+    ['__tests__/cli-integration.test.js.ejs', '__tests__/cli-integration.test.ts'],
     ['docs/commands.md.ejs', 'docs/commands.md'],
     ['docs/plugins.md.ejs', 'docs/plugins.md'],
     ['src/commands/generate.js.ejs', 'src/commands/generate.ts'],
@@ -167,7 +169,6 @@ test('generates with typescript', async () => {
     ['src/templates/model.js.ejs.ejs', 'src/templates/model.ts.ejs'],
     ['src/cli.js.ejs', 'src/cli.ts'],
     ['LICENSE.ejs', 'LICENSE'],
-    ['.prettierrc.ejs', '.prettierrc'],
     ['package.json.ejs', 'package.json'],
     ['readme.md.ejs', 'readme.md'],
     ['.gitignore.ejs', '.gitignore'],
@@ -187,7 +188,7 @@ test('generates with typescript', async () => {
 
   // test package installation
   expect(spawn.firstCall.args).toEqual([
-    `cd ${props.name} && npm install --quiet && npm run --quiet format`,
+    `cd ${props.name} && npm install --silent && npm run --quiet format`,
     { shell: true, stdio: 'inherit', stderr: 'inherit' },
   ])
 

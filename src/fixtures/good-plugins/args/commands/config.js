@@ -1,8 +1,8 @@
-function config (context) {
-  return context.config.args.color || 'red'
+function config(toolbox) {
+  return toolbox.config.args.color || 'red'
 }
 
 module.exports = {
   name: 'config',
-  run: config
+  run: config,
 }

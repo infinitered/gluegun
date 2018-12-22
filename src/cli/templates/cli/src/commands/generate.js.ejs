@@ -1,15 +1,25 @@
+<% if (props.typescript) { %>
+  import { GluegunToolbox } from 'gluegun'
+  <% } %>  
+
 module.exports = {
   name: 'generate',
   alias: ['g'],
-  run: async (context) => {
-    const { parameters, template: { generate } } = context
+  run: async <%= (props.typescript) ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
+    const {
+      parameters,
+      template: { generate },
+      print: { info },
+    } = toolbox
 
     const name = parameters.first
 
     await generate({
       template: 'model.<%= props.extension %>.ejs',
       target: `models/${name}-model.<%= props.extension %>`,
-      props: { name }
+      props: { name },
     })
-  }
+
+    info(`Generated file at models/${name}-model.<%= props.extension %>`)
+  },
 }

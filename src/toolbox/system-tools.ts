@@ -87,7 +87,7 @@ async function spawn(commandLine: string, options: Options = {}): Promise<any> {
  * @return The full path or null.
  */
 function which(command: string): string | null {
-  return nodeWhich.sync(command)
+  return nodeWhich.sync(command, { nothrow: true })
 }
 
 /**
