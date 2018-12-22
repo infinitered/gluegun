@@ -2,7 +2,12 @@
 
 <% if (props.typescript) { %>
 // hook into ts-node so we can run typescript on the fly
-require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
+require('ts-node').register({
+  // Enable this if you need `.d.ts` files to be loaded.
+  // Read `ts-node` for more information https://www.npmjs.com/package/ts-node#help-my-types-are-missing
+  // files: true,
+  project: `${__dirname}/../tsconfig.json`
+});
 <% } %>
 
 // run the CLI with the current process arguments
