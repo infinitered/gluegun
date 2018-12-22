@@ -105,7 +105,7 @@ commands
     world.js
 extensions
   hello-extension.js
-hello
+toolbox
   greetings
     earthling.js
     martian.js
@@ -117,7 +117,7 @@ You can access Gluegun tools by using `require` (or `import` if you're using Typ
 ```js
 const { print } = require('gluegun/print')
 
-// hello/greetings/earth.js
+// toolbox/greetings/earth.js
 module.exports = () => print.info('Hello, earthling!'),
 ```
 
@@ -125,18 +125,18 @@ Then attach the functions or objects to your toolbox:
 
 ```js
 // extensions/hello-extension.js
-const earthling = require('../hello/greetings/earthling')
-const martian = require('../hello/greetings/martian')
-const venusian = require('../hello/greetings/venusian')
+const earthling = require('../toolbox/greetings/earthling')
+const martian = require('../toolbox/greetings/martian')
+const venusian = require('../toolbox/greetings/venusian')
 
 module.exports = toolbox => {
   toolbox.hello = { earthling, martian, venusian }
 }
 ```
 
-### Plugins
+### Performance
 
-If you have many plugins, it's a good idea for performance reasons to "hide" `require` statements inside your command `run` functions so only the command that is invoked loads its dependencies. ([Here](https://github.com/aws-amplify/amplify-cli/pull/511) is an example that improved Amazon AWS Amplify CLI performance by nearly 2.5x)
+If you use many NPM packages, it's a good idea for performance reasons to "hide" `require` statements inside your command `run` functions so only the command that is invoked loads its dependencies. ([Here](https://github.com/aws-amplify/amplify-cli/pull/511) is an example that improved Amazon AWS Amplify CLI performance by nearly 2.5x)
 
 _Don't do this_
 
@@ -162,6 +162,8 @@ module.exports = {
   },
 }
 ```
+
+`require` will only load on-demand when the function is run. It will also only load `ramda` once (in the examples given) even if you `require` multiple times. So you can safely `require('ramda')` in as many functions or extensions as you want.
 
 ## Additional Topics
 
