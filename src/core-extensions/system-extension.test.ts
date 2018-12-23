@@ -1,4 +1,5 @@
 import * as expect from 'expect'
+import { platform } from 'os'
 import { Toolbox } from '../domain/toolbox'
 import create from './system-extension'
 
@@ -14,8 +15,8 @@ test('survives the factory function', () => {
 })
 
 test('captures stdout', async () => {
-  const stdout = await system.run(`ls ${__filename}`)
-  expect(stdout).toBe(`${__filename}\n`)
+  const stdout = await system.run(`${platform() === 'win32' ? 'dir /S /B' : 'ls'} ${__filename}`)
+  expect(stdout).toContain(__filename)
 })
 
 test('captures stderr', async () => {
@@ -35,7 +36,7 @@ test('knows about which', () => {
 test('can spawn and capture results', async () => {
   const good = await system.spawn('echo hello')
   expect(good.status).toBe(0)
-  expect(good.stdout.toString()).toBe('hello\n')
+  expect(good.stdout.toString()).toEqual(expect.stringMatching(/\"?hello\"?\w*/))
 })
 
 test('spawn deals with missing programs', async () => {

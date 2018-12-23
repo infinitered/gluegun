@@ -71,16 +71,28 @@ export interface GluegunToolbox {
 }
 
 export class Toolbox implements GluegunToolbox {
-  [key: string]: any
-
+  [x: string]: any
   public result = null
   public config: Options = {}
   public parameters: GluegunParameters = {}
-  public plugin = null
-  public command = null
-  public pluginName = null
-  public commandName = null
-  public runtime = null
+  public plugin?: Plugin = null
+  public command?: Command = null
+  public pluginName?: string = null
+  public commandName?: string = null
+  public runtime?: Runtime = null
+
+  // known extensions
+  filesystem?: GluegunFilesystem
+  http?: GluegunHttp
+  meta?: GluegunMeta
+  patching?: GluegunPatching
+  print?: GluegunPrint
+  prompt?: GluegunPrompt
+  semver?: GluegunSemver
+  strings?: GluegunStrings
+  system?: GluegunSystem
+  template?: GluegunTemplate
+  generate?: any
 }
 
 // Toolbox used to be known as RunContext. This is for backwards compatibility.
