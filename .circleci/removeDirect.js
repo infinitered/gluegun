@@ -4,4 +4,7 @@
 
 const directFiles = ['toolbox', 'filesystem', 'strings', 'print', 'system', 'semver', 'http', 'patching', 'prompt']
 const fs = require('fs')
-directFiles.forEach(f => fs.unlinkSync(__dirname + '/../' + f + '.js'))
+directFiles.forEach(f => {
+  const filename = __dirname + '/../' + f + '.js'
+  if (fs.existsSync(filename)) fs.unlinkSync(filename)
+})

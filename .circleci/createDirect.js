@@ -11,10 +11,20 @@
  * They are .gitignore'd by version control and quickly cleaned up after release.
  */
 
-const directFiles = ['toolbox', 'filesystem', 'strings', 'print', 'system', 'semver', 'http', 'patching', 'prompt']
+const directFiles = ['filesystem', 'strings', 'print', 'system', 'semver', 'http', 'patching', 'prompt']
 
 const fs = require('fs')
 
+// add all the direct access files
 directFiles.forEach(f => {
-  fs.writeFileSync(__dirname + '/..', `module.exports = require('./build/${f}')`)
+  const filename = __dirname + '/../' + f + '.js'
+  fs.writeFileSync(filename, `module.exports = require('./build/${f}')\n`)
 })
+
+// add the toolbox.js file for backwards compatibility
+fs.writeFileSync(
+  __dirname + '/../toolbox.js',
+  `// for backwards compatibility with beta-rc7
+module.exports = require('./build/index')
+`,
+)
