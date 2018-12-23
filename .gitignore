@@ -12,3 +12,14 @@ dist/**/*
 build/**/*
 .DS_Store
 *.tgz
+
+# these are generated at build-time
+toolbox.js
+filesystem.js
+strings.js
+print.js
+system.js
+semver.js
+http.js
+patching.js
+prompt.js
