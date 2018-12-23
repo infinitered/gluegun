@@ -14,4 +14,4 @@ const directFiles = [
   'prompt.js',
 ]
 const fs = require('fs')
-directFiles.forEach(f => fs.unlinkSync(__dirname + '../' + f))
+directFiles.forEach(f => fs.unlinkSync(__dirname + '/../' + f))
