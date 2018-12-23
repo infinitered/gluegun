@@ -9,11 +9,11 @@
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
-    "format": "prettier --write \"**/*.ts\" --loglevel error && tslint -p . --fix",
+    "format": "prettier --write \"**/*.ts\" --loglevel error && prettier --write \".circleci/**/*.js\" && tslint -p . --fix",
     "clean-build": "rimraf ./build",
     "compile": "tsc -p .",
     "copy-templates": "cpy --cwd=src/cli templates/**/* ../../build/cli --parents",
-    "clean-types": "node buildHelpers/cleanDir.js ./build/types",
+    "clean-types": "node .circleci/cleanDir.js ./build/types",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn clean-types",
     "lint": "tslint -p .",
     "integration": "yarn build && jest --config=./jest-integration.config.json",
@@ -21,7 +21,7 @@
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
     "windows:test": "yarn && yarn format && yarn test && yarn clean-build && yarn compile && yarn copy-templates && jest --config=./jest-integration.config.json",
-    "ci:test": "yarn lint && yarn test && yarn integration",
+    "ci:test": "yarn lint && yarn test -- --maxWorkers=2 && yarn integration",
     "ci:publish": "yarn build && yarn semantic-release",
     "semantic-release": "semantic-release"
   },
