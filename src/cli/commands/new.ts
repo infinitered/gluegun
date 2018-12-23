@@ -1,4 +1,6 @@
-export default {
+import { GluegunCommand } from '../../domain/command'
+
+const NewCommand: GluegunCommand = {
   name: 'new',
   alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
@@ -107,3 +109,5 @@ export default {
     return `new ${toolbox.parameters.first}`
   },
 }
+
+export default NewCommand

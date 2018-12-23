@@ -5,7 +5,7 @@ import createExtension from './prompt-extension'
 test('has the proper interface', () => {
   const toolbox = new Toolbox()
   createExtension(toolbox)
-  const ext = toolbox.prompt
+  const ext = toolbox.prompt as any
   expect(ext).toBeTruthy()
   expect(typeof ext.ask).toBe('function')
   expect(typeof ext.separator).toBe('function')
