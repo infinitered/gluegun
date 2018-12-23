@@ -75,7 +75,9 @@ export class Toolbox implements GluegunToolbox {
 
   public result = null
   public config: Options = {}
-  public parameters: GluegunParameters = {}
+  public parameters: GluegunParameters = {
+    options: {},
+  }
   public plugin = null
   public command = null
   public pluginName = null
