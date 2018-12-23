@@ -1,4 +1,6 @@
-export default {
+import { GluegunCommand } from '../../domain/command'
+
+const NewCommand: GluegunCommand = {
   name: 'new',
   alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
@@ -45,6 +47,7 @@ export default {
     )
 
     const files = [
+      '__tests__/cli-integration.test.js.ejs',
       'docs/commands.md.ejs',
       'docs/plugins.md.ejs',
       'src/commands/generate.js.ejs',
@@ -53,7 +56,6 @@ export default {
       'src/templates/model.js.ejs.ejs',
       'src/cli.js.ejs',
       'LICENSE.ejs',
-      '.prettierrc.ejs',
       'package.json.ejs',
       'readme.md.ejs',
       '.gitignore.ejs',
@@ -61,6 +63,7 @@ export default {
 
     if (props.typescript) {
       files.push('tsconfig.json.ejs')
+      files.push('tslint.json.ejs')
     }
 
     active = files.reduce((prev, file) => {
@@ -84,7 +87,10 @@ export default {
     const ext = props.typescript ? 'ts' : 'js'
     filesystem.rename(`${props.name}/src/commands/default.${ext}`, `${props.name}.${ext}`)
 
-    await system.spawn(`cd ${props.name} && npm install --quiet && npm run --quiet format`, {
+    // install with yarn or npm i
+    const yarnOrNpm = system.which('yarn') ? 'yarn' : 'npm'
+
+    await system.spawn(`cd ${props.name} && ${yarnOrNpm} install --silent && ${yarnOrNpm} run --quiet format`, {
       shell: true,
       stdio: 'inherit',
       stderr: 'inherit',
@@ -94,7 +100,8 @@ export default {
     print.info(``)
     print.info(`Next:`)
     print.info(`  $ cd ${props.name}`)
-    print.info(`  $ npm link`)
+    print.info(`  $ ${yarnOrNpm} test`)
+    print.info(`  $ ${yarnOrNpm} link`)
     print.info(`  $ ${props.name}`)
     print.info(``)
 
@@ -102,3 +109,5 @@ export default {
     return `new ${toolbox.parameters.first}`
   },
 }
+
+export default NewCommand

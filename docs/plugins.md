@@ -4,13 +4,13 @@ Functionality is added to the `CLI runtime` with plugins. Plugins can be yours o
 
 A plugin is directory that contains 3 optional sub-directories:
 
-* `commands`
-* `templates`
-* `extensions`
+- `commands`
+- `templates`
+- `extensions`
 
 And 1 optional file, which can be `<brand>.config.js`, `.<brand>rc.json`, or `.<brand>rc.yaml`. Replace `<brand>` with the name of your CLI.
 
-Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory.
+Other than the 3 directories listed, you're welcome to put any other files or sub-directories in the plugin directory. For example, we include a `plugin.js` file in the root of plugins for [Ignite CLI](https://github.com/infinitered/ignite) to help us load it effectively.
 
 Since multiple plugins can be loaded, they must have unique names. The names are indicated by reading the `name` property of the configuration (more on this below), or the plugin directory name itself.
 
@@ -22,7 +22,7 @@ Commands are run from the command line (CLI).
 movies actor
 ```
 
-Here, the `actor` command is run. It is a JS file (`commands/actor.js`) that exports a structure that looks something like this:
+Here, the `actor` command is run. It is a JS file (`src/commands/actor.js`) that exports a structure that looks something like this:
 
 ```js
 module.exports = {
@@ -51,9 +51,7 @@ The `run` property should be a function (async or not) that does whatever you wa
 
 ## templates
 
-Templates are [ejs](http://www.embeddedjs.com/) files that get translated by a command into a source code file or similar.
-
-TODO: Add more info, including examples.
+Templates are [ejs](http://www.embeddedjs.com/) files that get translated by a command into a source code file or similar. For an example, check out the [Gluegun CLI](https://github.com/infinitered/gluegun/tree/master/src/cli) itself.
 
 ## extensions
 
@@ -89,17 +87,17 @@ run: async toolbox => {
 
 Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be:
 
-* an object under the `<brand>` key in the `package.json`
-* a `.<brand>rc` file (containing either yaml or json)
-* `.<brand>rc.json` file
-* `.<brand>rc.yaml` file
-* `<brand>.config.js` JS file that exports an object
+- an object under the `<brand>` key in the `package.json`
+- a `.<brand>rc` file (containing either yaml or json)
+- `.<brand>rc.json` file
+- `.<brand>rc.yaml` file
+- `<brand>.config.js` JS file that exports an object
 
 In this configuration, you can configure your plugin's name and also set up certain user-overridable defaults.
 
 ## name
 
-The name of your plugin. This is also used to prefix your plugin's commands.
+The name of your plugin. If `name` does not exist, the default will be the name of the directory.
 
 ```json
 {
@@ -111,11 +109,9 @@ Since many plugins can be installed, we recommend namespacing them with your CLI
 
 A name:
 
-* can contain **numbers & letters**
-* should be **lowercase**
-* spaces-should-have-**dashes**-if-you-need-them
-
-If `name` does not exist, the default will be the name of the directory.
+- can contain **numbers & letters**
+- should be **lowercase**
+- spaces-should-have-**dashes**-if-you-need-them
 
 ## defaults
 
