@@ -46,8 +46,9 @@ test('command name on nested command with name', () => {
 
   fakePlugin.commands = [fakeCommand]
 
-  fakeContext.runtime.plugins = [fakePlugin]
-  fakeContext.runtime.commands = [fakeCommand]
+  const fakeRuntime = fakeContext.runtime as any
+  fakeRuntime.plugins = [fakePlugin]
+  fakeRuntime.commands = [fakeCommand]
 
   const info = commandInfo(fakeContext)
   expect(info).toEqual([['foo bar ubi (u)', commandDescription]])
@@ -69,8 +70,9 @@ test('command name on nested command without name', () => {
 
   fakePlugin.commands = [fakeCommand]
 
-  fakeContext.runtime.plugins = [fakePlugin]
-  fakeContext.runtime.commands = [fakeCommand]
+  const fakeRuntime = fakeContext.runtime as any
+  fakeRuntime.plugins = [fakePlugin]
+  fakeRuntime.commands = [fakeCommand]
 
   const info = commandInfo(fakeContext)
   expect(info).toEqual([['foo bar baz (u)', commandDescription]])

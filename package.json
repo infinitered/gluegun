@@ -22,7 +22,7 @@
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
     "windows:test": "yarn && yarn format && yarn test && yarn clean-build && yarn compile && yarn copy-templates && jest --config=./jest-integration.config.json",
-    "ci:test": "yarn lint && yarn test -- --maxWorkers=2 && yarn integration",
+    "ci:test": "yarn lint && yarn test --maxWorkers=2 && yarn integration",
     "ci:publish": "yarn build && yarn semantic-release",
     "semantic-release": "semantic-release"
   },
