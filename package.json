@@ -15,7 +15,7 @@
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
     "create-direct": "node ./.circleci/createDirect.js",
     "clean-types": "find ./build/types -type f -size 0 -delete && find ./build/types -type d -empty -delete",
-    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn create-direct && yarn clean-types",
+    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn create-direct && yarn clean-types && echo 'Run yarn clean-build to remove build artifacts.'",
     "lint": "tslint -p .",
     "integration": "yarn build && jest --config=./jest-integration.config.json",
     "test": "jest",
