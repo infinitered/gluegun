@@ -9,7 +9,7 @@
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
-    "format": "prettier --write \"**/*.ts\" --loglevel error && prettier --write \".circleci/**/*.js\" && tslint -p . --fix",
+    "format": "prettier --write \"{**/*.ts,.circleci/**/*.js}\" --loglevel error && tslint -p . --fix",
     "clean-build": "rimraf ./build",
     "compile": "tsc -p .",
     "copy-templates": "cpy --cwd=src/cli templates/**/* ../../build/cli --parents",
