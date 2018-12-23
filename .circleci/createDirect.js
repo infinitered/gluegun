@@ -11,14 +11,10 @@
  * They are .gitignore'd by version control and quickly cleaned up after release.
  */
 
-const directFiles = [
-  'toolbox.js',
-  'filesystem.js',
-  'strings.js',
-  'print.js',
-  'system.js',
-  'semver.js',
-  'http.js',
-  'patching.js',
-  'prompt.js',
-]
+const directFiles = ['toolbox', 'filesystem', 'strings', 'print', 'system', 'semver', 'http', 'patching', 'prompt']
+
+const fs = require('fs')
+
+directFiles.forEach(f => {
+  fs.writeFileSync(__dirname + '/..', `module.exports = require('./build/${f}')`)
+})
