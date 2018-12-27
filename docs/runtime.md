@@ -283,7 +283,7 @@ $ movie producers "Planes, Trains, & Automobiles" --sort age
 await cli.run('quote random "*johnny"', {
   funny: true,
   genre: 'Horror',
-  weapon: 'axe'
+  weapon: 'axe',
 })
 ```
 

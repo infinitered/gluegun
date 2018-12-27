@@ -4,9 +4,9 @@ Functionality is added to the `CLI runtime` with plugins. Plugins can be yours o
 
 A plugin is directory that contains 3 optional sub-directories:
 
-* `commands`
-* `templates`
-* `extensions`
+- `commands`
+- `templates`
+- `extensions`
 
 And 1 optional file, which can be `<brand>.config.js`, `.<brand>rc.json`, or `.<brand>rc.yaml`. Replace `<brand>` with the name of your CLI.
 
@@ -87,11 +87,11 @@ run: async toolbox => {
 
 Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be:
 
-* an object under the `<brand>` key in the `package.json`
-* a `.<brand>rc` file (containing either yaml or json)
-* `.<brand>rc.json` file
-* `.<brand>rc.yaml` file
-* `<brand>.config.js` JS file that exports an object
+- an object under the `<brand>` key in the `package.json`
+- a `.<brand>rc` file (containing either yaml or json)
+- `.<brand>rc.json` file
+- `.<brand>rc.yaml` file
+- `<brand>.config.js` JS file that exports an object
 
 In this configuration, you can configure your plugin's name and also set up certain user-overridable defaults.
 
@@ -109,9 +109,9 @@ Since many plugins can be installed, we recommend namespacing them with your CLI
 
 A name:
 
-* can contain **numbers & letters**
-* should be **lowercase**
-* spaces-should-have-**dashes**-if-you-need-them
+- can contain **numbers & letters**
+- should be **lowercase**
+- spaces-should-have-**dashes**-if-you-need-them
 
 ## defaults
 
