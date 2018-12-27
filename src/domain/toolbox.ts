@@ -73,7 +73,7 @@ export interface GluegunToolbox {
 export class Toolbox implements GluegunToolbox {
   [x: string]: any
   public result = null
-  public config: Options = {}
+  public config: Options & { loadConfig?: (name: string, src: string) => Options } = {}
   public parameters: GluegunParameters = {}
   public plugin?: Plugin = null
   public command?: Command = null

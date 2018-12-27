@@ -1,6 +1,7 @@
 import * as jetpack from 'fs-jetpack'
 import { equals, map, pipe, propEq, reject, replace } from 'ramda'
 import { GluegunToolbox } from '../domain/toolbox'
+
 /**
  * Finds the version for the currently running CLI.
  *
