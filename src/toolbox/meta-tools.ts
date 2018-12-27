@@ -8,7 +8,7 @@ import { GluegunToolbox } from '../domain/toolbox'
  * @returns Version as a string.
  */
 export function getVersion(toolbox: GluegunToolbox): string {
-  let directory = toolbox.runtime.defaultPlugin && toolbox.runtime.defaultPlugin.directory
+  let directory = toolbox.meta.src
   if (!directory) {
     throw new Error('getVersion: Unknown CLI version (no src folder found)')
   }
