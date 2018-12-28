@@ -1,6 +1,6 @@
 // helpers
 import { resolve } from 'path'
-import { dissoc, is } from 'ramda'
+import { is } from '../toolbox/utils'
 
 // domains
 import { Command, GluegunCommand } from '../domain/command'
@@ -141,9 +141,10 @@ export class Runtime {
     this.defaultPlugin = this.addPlugin(directory, { required: true, name: this.brand, ...options })
 
     // load config and set defaults
-    const config = loadConfig(this.brand, directory) || {}
-    this.defaults = config.defaults
-    this.config = dissoc('defaults', config)
+    const loadedConfig = loadConfig(this.brand, directory) || {}
+    const { defaults, ...config } = loadedConfig
+    this.defaults = defaults
+    this.config = config
 
     return this
   }
@@ -195,6 +196,7 @@ export class Runtime {
     const subdirs = filesystem.subdirectories(directory, false, options.matching, true)
 
     // load each one using `this.plugin`
-    return subdirs.map(dir => this.addPlugin(dir, dissoc('matching', options)))
+    const { matching, ...otherOptions } = options // remove "matching"
+    return subdirs.map(dir => this.addPlugin(dir, otherOptions))
   }
 }

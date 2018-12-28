@@ -1,4 +1,4 @@
-import { clone, isNil, merge } from 'ramda'
+import { isNil } from '../toolbox/utils'
 import { Toolbox } from '../domain/toolbox'
 import { createParams, parseParams } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
@@ -50,11 +50,11 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
   toolbox.commandName = command.name
 
   // setup the config
-  toolbox.config = clone(this.config)
-  toolbox.config[toolbox.plugin.name] = merge(
-    toolbox.plugin.defaults,
-    (this.defaults && this.defaults[toolbox.plugin.name]) || {},
-  )
+  toolbox.config = { ...this.config }
+  toolbox.config[toolbox.plugin.name] = {
+    ...toolbox.plugin.defaults,
+    ...((this.defaults && this.defaults[toolbox.plugin.name]) || {}),
+  }
 
   // kick it off
   if (toolbox.command.run) {

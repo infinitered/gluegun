@@ -3,7 +3,7 @@ import * as importedColors from 'colors'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import * as ora from 'ora'
-import { times, flip, prop } from 'ramda'
+import { times } from './utils'
 
 // wtf typescript
 const colors: any = importedColors
@@ -11,8 +11,8 @@ const colors: any = importedColors
 import { GluegunPrint } from './print-types'
 
 // Generate array of arrays of the data rows for length checking
-// @ts-ignore
-const getRows = t => times(flip(prop)(t), t.length)
+// const getRows = t => times(flip(prop)(t), t.length)
+const getRows = t => times(i => t[i], t.length)
 
 const CLI_TABLE_COMPACT = {
   top: '',

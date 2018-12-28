@@ -1,5 +1,5 @@
 import * as ejs from 'ejs'
-import { forEach, keys, replace } from 'ramda'
+import { forEach, keys, replace } from '../toolbox/utils'
 import { Options } from '../domain/options'
 import { filesystem } from '../toolbox/filesystem-tools'
 import { strings } from '../toolbox/string-tools'

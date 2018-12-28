@@ -25,7 +25,7 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   }
 
   // default is the name of the file without the extension
-  extension.name = (filesystem.inspect(file) as any).split('.').name[0]
+  extension.name = (filesystem.inspect(file) as any).name.split('.')[0]
 
   // require in the module -- best chance to bomb is here
   let extensionModule = loadModule(file)

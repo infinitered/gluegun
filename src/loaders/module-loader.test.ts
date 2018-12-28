@@ -23,13 +23,13 @@ test('detects directory', () => {
 test('handles blank files', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/blank.js`)
   expect(typeof m).toBe('object')
-  expect(m.keys()).toEqual([])
+  expect(Object.keys(m)).toEqual([])
 })
 
 test('handles files with just a number', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/number.js`)
   expect(typeof m).toBe('number')
-  expect(m.keys()).toEqual([])
+  expect(Object.keys(m)).toEqual([])
 })
 
 test('handles files with just text', () => {
@@ -39,7 +39,7 @@ test('handles files with just text', () => {
 test('handles files with an object', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/object.js`)
   expect(typeof m).toBe('object')
-  expect(m.keys()).toEqual([])
+  expect(Object.keys(m)).toEqual([])
 })
 
 test('export default function', () => {

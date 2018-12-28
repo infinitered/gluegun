@@ -1,5 +1,4 @@
 import * as jetpack from 'fs-jetpack'
-import { complement } from 'ramda'
 import { strings } from './string-tools'
 import * as os from 'os'
 import * as pathlib from 'path'
@@ -22,7 +21,7 @@ function isFile(path: string): boolean {
  * @param path The filename to check
  * @return `true` if the file doesn't exist.
  */
-const isNotFile = complement(isFile)
+const isNotFile = (path: string): boolean => !isFile(path)
 
 /**
  * Is this a directory?
@@ -40,7 +39,7 @@ function isDirectory(path: string): boolean {
  * @param path The directory to check.
  * @return `true` if the directory does not exist, otherwise false.
  */
-const isNotDirectory = complement(isDirectory)
+const isNotDirectory = (path: string): boolean => !isDirectory(path)
 
 /**
  * Gets the immediate subdirectories.

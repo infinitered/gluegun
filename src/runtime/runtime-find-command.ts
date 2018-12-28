@@ -1,9 +1,7 @@
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
 import { GluegunParameters } from '../domain/toolbox'
-
-// quick and dirty array comparison
-const isEqual = (a, b) => a.length === b.length && a.every((v, i) => v === b[i])
+import { equals } from '../toolbox/utils'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given
@@ -47,7 +45,7 @@ export function findCommand(runtime: Runtime, parameters: GluegunParameters) {
     let segmentCommand = runtime.commands
       .slice() // dup so we keep the original order
       .sort(sortCommands)
-      .find(command => isEqual(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
+      .find(command => equals(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
 
     if (segmentCommand) {
       // found another candidate as the "endpoint" command
