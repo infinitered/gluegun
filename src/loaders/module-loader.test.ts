@@ -1,5 +1,4 @@
 import * as expect from 'expect'
-import { keys } from 'ramda'
 import { loadModule } from './module-loader'
 
 test('handles weird input', () => {
@@ -24,13 +23,13 @@ test('detects directory', () => {
 test('handles blank files', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/blank.js`)
   expect(typeof m).toBe('object')
-  expect(keys(m)).toEqual([])
+  expect(m.keys()).toEqual([])
 })
 
 test('handles files with just a number', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/number.js`)
   expect(typeof m).toBe('number')
-  expect(keys(m)).toEqual([])
+  expect(m.keys()).toEqual([])
 })
 
 test('handles files with just text', () => {
@@ -40,7 +39,7 @@ test('handles files with just text', () => {
 test('handles files with an object', () => {
   const m = loadModule(`${__dirname}/../fixtures/bad-modules/object.js`)
   expect(typeof m).toBe('object')
-  expect(keys(m)).toEqual([])
+  expect(m.keys()).toEqual([])
 })
 
 test('export default function', () => {

@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { head, is, isNil, last, reject, split, takeLast } from 'ramda'
+import { isNil, last, reject, is, takeLast } from 'ramda'
 import { Command, GluegunCommand } from '../domain/command'
 import { filesystem } from '../toolbox/filesystem-tools'
 import { strings } from '../toolbox/string-tools'
@@ -28,7 +28,7 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
   // remember the file
   command.file = file
   // default name is the name without the file extension
-  command.name = head(split('.', (filesystem.inspect(file) as any).name))
+  command.name = (filesystem.inspect(file) as any).split('.').name[0]
 
   // strip the extension from the end of the commandPath
   command.commandPath = (options.commandPath || last(file.split('commands' + path.sep)).split(path.sep)).map(f =>
