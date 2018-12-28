@@ -54,9 +54,7 @@ export class Command implements GluegunCommand<Toolbox> {
    * @returns list of aliases.
    */
   get aliases(): string[] {
-    if (!this.alias) {
-      return []
-    }
+    if (!this.alias) return []
     return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 
