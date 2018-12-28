@@ -1,5 +1,4 @@
-import * as jetpack from 'fs-jetpack'
-import { equals, map, pipe, propEq, reject, replace } from 'ramda'
+import { equals, map, pipe, reject, replace } from 'ramda'
 import { GluegunToolbox } from '../domain/toolbox'
 /**
  * Finds the version for the currently running CLI.
@@ -8,6 +7,8 @@ import { GluegunToolbox } from '../domain/toolbox'
  * @returns Version as a string.
  */
 export function getVersion(toolbox: GluegunToolbox): string {
+  const { filesystem } = toolbox
+
   let directory = toolbox.runtime.defaultPlugin && toolbox.runtime.defaultPlugin.directory
   if (!directory) {
     throw new Error('getVersion: Unknown CLI version (no src folder found)')
@@ -15,22 +16,22 @@ export function getVersion(toolbox: GluegunToolbox): string {
 
   // go at most 5 directories up to find the package.json
   for (let i = 0; i < 5; i += 1) {
-    const pkg = jetpack.path(directory, 'package.json')
+    const pkg = filesystem.path(directory, 'package.json')
 
     // if we find a package.json, we're done -- read the version and return it
-    if (jetpack.exists(pkg) === 'file') {
-      return jetpack.read(pkg, 'json').version
+    if (filesystem.exists(pkg) === 'file') {
+      return filesystem.read(pkg, 'json').version
     }
 
     // if we reach the git repo or root, we can't determine the version -- this is where we bail
-    const git = jetpack.path(directory, '.git')
-    const root = jetpack.path('/')
-    if (directory === root || jetpack.exists(git) === 'dir') {
+    const git = filesystem.path(directory, '.git')
+    const root = filesystem.path('/')
+    if (directory === root || filesystem.exists(git) === 'dir') {
       break
     }
 
     // go up another directory
-    directory = jetpack.path(directory, '..')
+    directory = filesystem.path(directory, '..')
   }
   throw new Error(`getVersion: Unknown CLI version (no package.json found in ${directory}`)
 }
@@ -38,7 +39,7 @@ export function getVersion(toolbox: GluegunToolbox): string {
 /**
  * Is this a hidden command?
  */
-const isHidden = propEq('hidden', true)
+const isHidden = ob => Boolean(ob.hidden)
 
 /**
  * Gets the list of plugins.

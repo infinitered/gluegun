@@ -1,4 +1,3 @@
-import * as ejs from 'ejs'
 import { forEach, keys, replace } from 'ramda'
 import { Options } from '../domain/options'
 import { filesystem } from '../toolbox/filesystem-tools'
@@ -15,6 +14,7 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
    * @return The generated string.
    */
   async function generate(opts: Options = {}): Promise<string> {
+    const ejs = require('ejs')
     // required
     const template = opts.template
 

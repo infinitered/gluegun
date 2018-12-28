@@ -1,10 +1,6 @@
-import { exec as nodeExec } from 'child_process'
-import * as crossSpawn from 'cross-spawn'
-import * as execa from 'execa'
-import { dissoc, head, identity, isNil, split, tail, trim } from 'ramda'
-import * as nodeWhich from 'which'
 import { Options } from '../domain/options'
 import { GluegunSystem } from './system-types'
+import { dissoc, identity, trim, head, tail, isNil } from 'ramda'
 
 /**
  * Executes a commandline program asynchronously.
@@ -18,7 +14,8 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
   const nodeOptions = dissoc('trim', options)
 
   return new Promise((resolve, reject) => {
-    nodeExec(commandLine, nodeOptions, (error: any, stdout: string, stderr: string) => {
+    const { exec } = require('child_process')
+    exec(commandLine, nodeOptions, (error: any, stdout: string, stderr: string) => {
       if (error) {
         error.stderr = stderr
         reject(error)
@@ -37,8 +34,8 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
  */
 async function exec(commandLine: string, options: Options = {}): Promise<any> {
   return new Promise((resolve, reject) => {
-    const args = split(' ', commandLine)
-    execa(head(args), tail(args), options)
+    const args = commandLine.split(' ')
+    require('execa')(head(args), tail(args), options)
       .then(result => resolve(result.stdout))
       .catch(error => reject(error))
   })
@@ -53,8 +50,8 @@ async function exec(commandLine: string, options: Options = {}): Promise<any> {
  */
 async function spawn(commandLine: string, options: Options = {}): Promise<any> {
   return new Promise((resolve, reject) => {
-    const args = split(' ', commandLine)
-    const spawned = crossSpawn(head(args), tail(args), options)
+    const args = commandLine.split(' ')
+    const spawned = require('cross-spawn')(head(args), tail(args), options)
     const result = {
       stdout: null,
       status: null,
@@ -87,7 +84,7 @@ async function spawn(commandLine: string, options: Options = {}): Promise<any> {
  * @return The full path or null.
  */
 function which(command: string): string | null {
-  return nodeWhich.sync(command, { nothrow: true })
+  return require('which').sync(command, { nothrow: true })
 }
 
 /**
