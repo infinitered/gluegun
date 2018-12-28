@@ -1,7 +1,6 @@
-import * as jetpack from 'fs-jetpack'
-import { strings } from './string-tools'
 import * as os from 'os'
 import * as pathlib from 'path'
+import * as jetpack from 'fs-jetpack'
 
 import { GluegunFilesystem } from './filesystem-types'
 
@@ -56,6 +55,7 @@ function subdirectories(
   matching: string = '*',
   symlinks: boolean = false,
 ): string[] {
+  const { strings } = require('./string-tools')
   if (strings.isBlank(path) || !isDirectory(path)) {
     return []
   }
@@ -73,18 +73,18 @@ function subdirectories(
   }
 }
 
-const filesystem: GluegunFilesystem = Object.assign(
-  {
-    eol: os.EOL, // end of line marker
-    homedir: os.homedir, // get home directory
-    separator: pathlib.sep, // path separator
-    subdirectories, // retrieve subdirectories
-    isFile,
-    isNotFile,
-    isDirectory,
-    isNotDirectory,
-  },
-  jetpack, // jetpack utilities
-)
+const filesystem: GluegunFilesystem = {
+  eol: os.EOL, // end of line marker
+  homedir: os.homedir, // get home directory
+  separator: pathlib.sep, // path separator
+  subdirectories, // retrieve subdirectories
+  isFile,
+  isNotFile,
+  isDirectory,
+  isNotDirectory,
+
+  // and everything else in jetpack
+  ...jetpack,
+}
 
 export { filesystem, GluegunFilesystem }

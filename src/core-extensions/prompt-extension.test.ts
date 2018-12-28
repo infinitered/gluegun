@@ -9,5 +9,4 @@ test('has the proper interface', () => {
   expect(ext).toBeTruthy()
   expect(typeof ext.ask).toBe('function')
   expect(typeof ext.separator).toBe('function')
-  expect(typeof ext.question).toBe('function')
 })
