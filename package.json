@@ -87,7 +87,6 @@
     "prompt-question": "^5.0.2",
     "prompt-radio": "^1.2.1",
     "prompt-rawlist": "^2.0.1",
-    "ramda": "~0.26.1",
     "ramdasauce": "^2.1.0",
     "semver": "^5.5.0",
     "which": "^1.2.14",

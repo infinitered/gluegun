@@ -1,4 +1,3 @@
-import { head, split } from 'ramda'
 import { Extension } from '../domain/extension'
 import { filesystem } from '../toolbox/filesystem-tools'
 import { strings } from '../toolbox/string-tools'
@@ -26,7 +25,7 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   }
 
   // default is the name of the file without the extension
-  extension.name = head(split('.', (filesystem.inspect(file) as any).name))
+  extension.name = (filesystem.inspect(file) as any).name.split('.')[0]
 
   // require in the module -- best chance to bomb is here
   let extensionModule = loadModule(file)

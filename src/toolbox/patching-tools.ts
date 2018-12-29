@@ -1,4 +1,4 @@
-import { test, is } from 'ramda'
+import { is } from './utils'
 import { filesystem } from './filesystem-tools'
 import { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
 
@@ -25,7 +25,7 @@ export async function exists(filename: string, findPattern: string | RegExp): Pr
   if (!is(String, contents)) return false
 
   // do the appropriate check
-  return patternIsString ? contents.includes(findPattern) : test(findPattern as RegExp, contents)
+  return patternIsString ? contents.includes(findPattern) : (findPattern as RegExp).test(contents)
 }
 
 /**

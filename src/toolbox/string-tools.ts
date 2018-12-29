@@ -1,4 +1,4 @@
-import { is, isEmpty } from 'ramda'
+import { is } from './utils'
 
 import * as camelCase from 'lodash.camelcase'
 import * as kebabCase from 'lodash.kebabcase'
@@ -35,7 +35,7 @@ function isNotString(value: any): boolean {
  * @returns True if it was, otherwise false.
  */
 function isBlank(value: any): boolean {
-  return isNotString(value) || isEmpty(trim(value))
+  return isNotString(value) || trim(value) === ''
 }
 
 /**

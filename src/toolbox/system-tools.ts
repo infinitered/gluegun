@@ -1,7 +1,7 @@
 import { exec as nodeExec } from 'child_process'
 import * as crossSpawn from 'cross-spawn'
 import * as execa from 'execa'
-import { dissoc, head, identity, isNil, split, tail, trim } from 'ramda'
+import { head, isNil, split, tail } from './utils'
 import * as nodeWhich from 'which'
 import { Options } from '../domain/options'
 import { GluegunSystem } from './system-types'
@@ -14,8 +14,8 @@ import { GluegunSystem } from './system-types'
  * @returns Promise with result.
  */
 async function run(commandLine: string, options: Options = {}): Promise<any> {
-  const trimmer = options && options.trim ? trim : identity
-  const nodeOptions = dissoc('trim', options)
+  const trimmer = options && options.trim ? s => s.trim() : s => s
+  const { trim, ...nodeOptions } = options
 
   return new Promise((resolve, reject) => {
     nodeExec(commandLine, nodeOptions, (error: any, stdout: string, stderr: string) => {

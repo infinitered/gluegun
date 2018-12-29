@@ -1,4 +1,4 @@
-import { equals, is, merge } from 'ramda'
+import { equals, is } from './utils'
 import * as yargsParse from 'yargs-parser'
 import { GluegunParameters } from '../domain/toolbox'
 import { Options } from '../domain/options'
@@ -27,7 +27,7 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
   const parsed = yargsParse(commandArray)
   const array = parsed._.slice()
   delete parsed._
-  const options = merge(parsed, extraOpts)
+  const options = { ...parsed, ...extraOpts }
   return { array, options }
 }
 

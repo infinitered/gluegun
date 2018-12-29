@@ -1,5 +1,5 @@
 import * as jetpack from 'fs-jetpack'
-import { equals, map, pipe, propEq, reject, replace } from 'ramda'
+import { equals, replace } from './utils'
 import { GluegunToolbox } from '../domain/toolbox'
 /**
  * Finds the version for the currently running CLI.
@@ -30,11 +30,6 @@ export function getVersion(toolbox: GluegunToolbox): string {
 }
 
 /**
- * Is this a hidden command?
- */
-const isHidden = propEq('hidden', true)
-
-/**
  * Gets the list of plugins.
  *
  * @param toolbox The toolbox
@@ -43,19 +38,13 @@ const isHidden = propEq('hidden', true)
  * @return List of plugins.
  */
 export function commandInfo(toolbox: GluegunToolbox, commandRoot?: string[]): string[][] {
-  return pipe(
-    reject(isHidden),
-    reject(command => {
-      if (!commandRoot) {
-        return false
-      }
-      return !equals(command.commandPath.slice(0, commandRoot.length), commandRoot)
-    }),
-    map(command => {
+  return toolbox.runtime.commands
+    .filter(c => !c.hidden)
+    .filter(c => !commandRoot || equals(c.commandPath.slice(0, commandRoot.length), commandRoot))
+    .map(command => {
       const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''
       const commandPath = command.name ? command.commandPath.slice(0, -1).concat(command.name) : command.commandPath
 
       return [`${commandPath.join(' ')} ${alias}`, replace('$BRAND', toolbox.runtime.brand, command.description || '-')]
-    }),
-  )(toolbox.runtime.commands)
+    })
 }

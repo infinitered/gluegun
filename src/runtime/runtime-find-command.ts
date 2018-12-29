@@ -1,8 +1,7 @@
-import { equals } from 'ramda'
-
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
 import { GluegunParameters } from '../domain/toolbox'
+import { equals } from '../toolbox/utils'
 
 /**
  * This function performs some somewhat complex logic to find a command for a given
