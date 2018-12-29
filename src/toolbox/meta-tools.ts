@@ -10,25 +10,19 @@ export function getVersion(toolbox: GluegunToolbox): string {
   const { filesystem } = toolbox
 
   let directory = toolbox.runtime.defaultPlugin && toolbox.runtime.defaultPlugin.directory
-  if (!directory) {
-    throw new Error('getVersion: Unknown CLI version (no src folder found)')
-  }
+  if (!directory) throw new Error('getVersion: Unknown CLI version (no src folder found)')
 
   // go at most 5 directories up to find the package.json
   for (let i = 0; i < 5; i += 1) {
     const pkg = filesystem.path(directory, 'package.json')
 
     // if we find a package.json, we're done -- read the version and return it
-    if (filesystem.exists(pkg) === 'file') {
-      return filesystem.read(pkg, 'json').version
-    }
+    if (filesystem.exists(pkg) === 'file') return filesystem.read(pkg, 'json').version
 
     // if we reach the git repo or root, we can't determine the version -- this is where we bail
     const git = filesystem.path(directory, '.git')
     const root = filesystem.path('/')
-    if (directory === root || filesystem.exists(git) === 'dir') {
-      break
-    }
+    if (directory === root || filesystem.exists(git) === 'dir') break
 
     // go up another directory
     directory = filesystem.path(directory, '..')

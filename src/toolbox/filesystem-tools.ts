@@ -56,9 +56,8 @@ function subdirectories(
   symlinks: boolean = false,
 ): string[] {
   const { strings } = require('./string-tools')
-  if (strings.isBlank(path) || !isDirectory(path)) {
-    return []
-  }
+  if (strings.isBlank(path) || !isDirectory(path)) return []
+
   const dirs = jetpack.cwd(path).find({
     matching,
     directories: true,
