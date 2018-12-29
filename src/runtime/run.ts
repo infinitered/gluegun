@@ -29,9 +29,7 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
   const { command, array } = findCommand(this, toolbox.parameters)
 
   // jet if we have no command
-  if (isNil(command)) {
-    return toolbox
-  }
+  if (isNil(command)) return toolbox
 
   // rebuild the parameters, now that we know the plugin and command
   toolbox.parameters = createParams({
