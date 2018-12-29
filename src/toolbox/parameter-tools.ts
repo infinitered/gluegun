@@ -1,7 +1,6 @@
-import { equals, is } from './utils'
-import * as yargsParse from 'yargs-parser'
 import { GluegunParameters } from '../domain/toolbox'
 import { Options } from '../domain/options'
+import { equals, is } from './utils'
 
 const COMMAND_DELIMITER = ' '
 
@@ -13,6 +12,8 @@ const COMMAND_DELIMITER = ' '
  * @returns Normalized parameters.
  */
 export function parseParams(commandArray: string | string[], extraOpts: Options = {}): GluegunParameters {
+  const yargsParse = require('yargs-parser')
+
   // use the command line args if not passed in
   if (is(String, commandArray)) {
     commandArray = (commandArray as string).split(COMMAND_DELIMITER)

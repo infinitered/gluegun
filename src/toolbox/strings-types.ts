@@ -92,12 +92,12 @@ export interface GluegunStrings {
   /**
    * Add a pluralization rule to the collection.
    */
-  addPluralRule(rule: string | RegExp, replacemant: string): void
+  addPluralRule(rule: string | RegExp, replacement: string): void
 
   /**
    * Add a singularization rule to the collection.
    */
-  addSingularRule(rule: string | RegExp, replacemant: string): void
+  addSingularRule(rule: string | RegExp, replacement: string): void
 
   /**
    * Add an irregular word definition.

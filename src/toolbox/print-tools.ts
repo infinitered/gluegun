@@ -2,13 +2,20 @@ import * as CLITable from 'cli-table3'
 import * as importedColors from 'colors'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
-import * as ora from 'ora'
 import { times } from './utils'
+import { GluegunPrint, GluegunPrintColors } from './print-types'
 
-// wtf typescript
-const colors: any = importedColors
-
-import { GluegunPrint } from './print-types'
+// We're extending `colors` with a few more attributes
+const colors = importedColors as GluegunPrintColors
+colors.setTheme({
+  highlight: 'cyan',
+  info: 'reset',
+  warning: 'yellow',
+  success: 'green',
+  error: 'red',
+  line: 'grey',
+  muted: 'grey',
+})
 
 // Generate array of arrays of the data rows for length checking
 // const getRows = t => times(flip(prop)(t), t.length)
@@ -38,19 +45,6 @@ const CLI_TABLE_MARKDOWN = {
   right: '|',
   middle: '|',
 }
-
-/**
- * Sets the color scheme.
- */
-colors.setTheme({
-  highlight: 'cyan',
-  info: 'reset',
-  warning: 'yellow',
-  success: 'green',
-  error: 'red',
-  line: 'grey',
-  muted: 'grey',
-})
 
 /**
  * Print a blank line.
@@ -198,7 +192,7 @@ function success(message: string): void {
  * @returns The spinner.
  */
 function spin(config?: string | object): any {
-  return ora(config || '').start()
+  return require('ora')(config || '').start()
 }
 
 /**

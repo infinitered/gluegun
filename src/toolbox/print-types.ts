@@ -1,9 +1,20 @@
 import { GluegunToolbox } from '../index'
 import * as CLITable from 'cli-table3'
+import * as importedColors from 'colors'
+
+export type GluegunPrintColors = typeof importedColors & {
+  highlight: (t: string) => string
+  info: (t: string) => string
+  warning: (t: string) => string
+  success: (t: string) => string
+  error: (t: string) => string
+  line: (t: string) => string
+  muted: (t: string) => string
+}
 
 export interface GluegunPrint {
   /* Colors as seen from colors.js. */
-  colors: any
+  colors: GluegunPrintColors
   /* A green checkmark. */
   checkmark: string
   /* A red X marks the spot. */
