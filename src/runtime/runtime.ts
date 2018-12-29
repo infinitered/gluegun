@@ -187,9 +187,7 @@ export class Runtime {
    * @return This runtime.
    */
   public addPlugins(directory: string, options: GluegunLoadOptions & GluegunMultiLoadOptions = {}): Plugin[] {
-    if (strings.isBlank(directory) || !filesystem.isDirectory(directory)) {
-      return []
-    }
+    if (strings.isBlank(directory) || !filesystem.isDirectory(directory)) return []
 
     // find matching filesystem.subdirectories
     const subdirs = filesystem.subdirectories(directory, false, options.matching, true)

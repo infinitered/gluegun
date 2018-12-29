@@ -13,11 +13,11 @@ Returns the **input** as **output**. Great for functional programming like sorti
 
 ** arguments **
 
-* `value` can be `any` type which becomes the return value of this function.
+- `value` can be `any` type which becomes the return value of this function.
 
 ** returns **
 
-* the `value` that was passed in
+- the `value` that was passed in
 
 ```js
 identity('hello') // hello

@@ -67,11 +67,7 @@ module.exports = (toolbox: GluegunToolbox) => {
       message: 'API Key>',
     })
 
-    if (result.key) {
-      return imdb.get({ name }, { apiKey: result.key, timeout: 30000 })
-    } else {
-      return
-    }
+    if (result.key) return imdb.get({ name }, { apiKey: result.key, timeout: 30000 })
   }
 
   // attach our tools to the toolbox
@@ -233,11 +229,7 @@ module.exports = (toolbox: GluegunToolbox) => {
   // get a movie
   async function getMovie(name: string): Promise<imdb.Movie | null> {
     const key = await getApiKey()
-    if (key) {
-      return imdb.get({ name }, { apiKey: key, timeout: 30000 })
-    } else {
-      return
-    }
+    if (key) return imdb.get({ name }, { apiKey: key, timeout: 30000 })
   }
 
   // attach our tools to the toolbox

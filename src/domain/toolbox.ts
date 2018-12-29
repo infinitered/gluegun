@@ -23,7 +23,7 @@ export interface GluegunParameters {
    * Any optional parameters. Typically coming from command-line
    * arguments like this: `--force -p tsconfig.json`.
    */
-  options?: Options
+  options: Options
   /* Just the first argument. */
   first?: string
   /* Just the 2nd argument. */
@@ -74,7 +74,9 @@ export class Toolbox implements GluegunToolbox {
   [x: string]: any
   public result = null
   public config: Options = {}
-  public parameters: GluegunParameters = {}
+  public parameters: GluegunParameters = {
+    options: {},
+  }
   public plugin?: Plugin = null
   public command?: Command = null
   public pluginName?: string = null
