@@ -75,7 +75,7 @@ module.exports = (toolbox: GluegunToolbox) => {
 }
 ```
 
-The source is commented, so read through it. We define the `getMovie` funciton in the extension and then attach a new object to the toolbox that will contain the function (and any future ones we make). This will be available to any commands we make.
+The source is commented, so read through it. We define the `getMovie` function in the extension and then attach a new object to the toolbox that will contain the function (and any future ones we make). This will be available to any commands we make.
 
 ## Create a command
 
