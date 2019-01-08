@@ -2,6 +2,7 @@ import { Extension } from '../domain/extension'
 import { filesystem } from '../toolbox/filesystem-tools'
 import { strings } from '../toolbox/string-tools'
 import { loadModule } from './module-loader'
+import { EmptyToolbox, Toolbox } from '../domain/toolbox'
 
 /**
  * Loads the extension from a file.
@@ -37,7 +38,7 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   const valid = extensionModule && typeof extensionModule === 'function'
 
   if (valid) {
-    extension.setup = extensionModule
+    extension.setup = (toolbox: EmptyToolbox) => void extensionModule(toolbox as Toolbox)
   } else {
     throw new Error(`Error: couldn't load ${extension.name}. Expected a function, got ${extensionModule}.`)
   }

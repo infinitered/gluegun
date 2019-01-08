@@ -1,5 +1,4 @@
-import { isNil } from '../toolbox/utils'
-import { Toolbox } from '../domain/toolbox'
+import { EmptyToolbox, GluegunToolbox } from '../domain/toolbox'
 import { createParams, parseParams } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
@@ -12,12 +11,16 @@ import { Options } from '../domain/options'
  * @param extraOptions Additional options use to execute a command.
  * @return The Toolbox object indicating what happened.
  */
-export async function run(this: Runtime, rawCommand?: string | string[], extraOptions: Options = {}): Promise<Toolbox> {
+export async function run(
+  this: Runtime,
+  rawCommand?: string | string[],
+  extraOptions: Options = {},
+): Promise<GluegunToolbox> {
   // use provided rawCommand or process arguments if none given
   rawCommand = rawCommand || process.argv
 
   // prepare the run toolbox
-  const toolbox = new Toolbox()
+  let toolbox = new EmptyToolbox()
 
   // attach the runtime
   toolbox.runtime = this
@@ -28,12 +31,9 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
   // find the command, and parse out aliases
   const { command, array } = findCommand(this, toolbox.parameters)
 
-  // jet if we have no command
-  if (isNil(command)) return toolbox
-
   // rebuild the parameters, now that we know the plugin and command
   toolbox.parameters = createParams({
-    plugin: command.plugin.name,
+    plugin: command.plugin && command.plugin.name,
     command: command.name,
     array,
     options: toolbox.parameters.options,
@@ -44,24 +44,29 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
   // set a few properties
   toolbox.plugin = command.plugin || this.defaultPlugin
   toolbox.command = command
-  toolbox.pluginName = toolbox.plugin.name
+  toolbox.pluginName = toolbox.plugin && toolbox.plugin.name
   toolbox.commandName = command.name
 
   // setup the config
   toolbox.config = { ...this.config }
-  toolbox.config[toolbox.plugin.name] = {
-    ...toolbox.plugin.defaults,
-    ...((this.defaults && this.defaults[toolbox.plugin.name]) || {}),
+  if (toolbox.pluginName) {
+    toolbox.config[toolbox.pluginName] = {
+      ...toolbox.plugin.defaults,
+      ...((this.defaults && this.defaults[toolbox.pluginName]) || {}),
+    }
   }
+
+  // allow extensions to attach themselves to the toolbox
+  this.extensions.forEach(extension => extension.setup(toolbox))
 
   // kick it off
   if (toolbox.command.run) {
-    // allow extensions to attach themselves to the toolbox
-    this.extensions.forEach(extension => extension.setup(toolbox))
-
     // run the command
-    toolbox.result = await toolbox.command.run(toolbox)
+    toolbox.result = await toolbox.command.run(toolbox as GluegunToolbox)
   }
 
-  return toolbox
+  // recast it
+  const finalToolbox = toolbox as GluegunToolbox
+
+  return finalToolbox
 }

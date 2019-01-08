@@ -1,6 +1,6 @@
 import { Command } from '../domain/command'
 import { Runtime } from './runtime'
-import { GluegunParameters } from '../domain/toolbox'
+import { GluegunParameters, GluegunToolbox } from '../domain/toolbox'
 import { equals } from '../toolbox/utils'
 
 /**
@@ -11,7 +11,7 @@ import { equals } from '../toolbox/utils'
  * @param parameters The parameters passed in
  * @returns object with plugin, command, and array
  */
-export function findCommand(runtime: Runtime, parameters: GluegunParameters) {
+export function findCommand(runtime: Runtime, parameters: GluegunParameters): { command: Command; array: string[] } {
   // the commandPath, which could be something like:
   // > movie list actors 2015
   // [ 'list', 'actors', '2015' ]
@@ -23,9 +23,16 @@ export function findCommand(runtime: Runtime, parameters: GluegunParameters) {
   let tempPathRest = commandPath
   let commandPathRest = tempPathRest
 
+  // a fallback command
+  const commandNotFound = new Command({
+    run: (toolbox: GluegunToolbox) => {
+      throw new Error(`Couldn't find that command, and no default command set.`)
+    },
+  })
+
   // the resolved command will live here
   // start by setting it to the default command, in case we don't find one
-  let targetCommand: Command = runtime.defaultCommand
+  let targetCommand: Command = runtime.defaultCommand || commandNotFound
 
   // if the commandPath is empty, it could be a dashed command, like --help
   if (commandPath.length === 0) {
