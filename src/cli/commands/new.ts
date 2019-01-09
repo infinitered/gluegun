@@ -104,6 +104,15 @@ const NewCommand: GluegunCommand = {
     print.info(`  $ ${yarnOrNpm} link`)
     print.info(`  $ ${props.name}`)
     print.info(``)
+    if (props.typescript) {
+      print.info(`Since you generated a TypeScript project, we've included a build script.`)
+      print.info(`When you link and run the project, it will use ts-node locally to test.`)
+      print.info(`However, you can test the generated JavaScript locally like this:`)
+      print.info(``)
+      print.info(`  $ ${yarnOrNpm} build`)
+      print.info(`  $ ${yarnOrNpm} --compiled-build`)
+      print.info(``)
+    }
 
     // for tests
     return `new ${toolbox.parameters.first}`
