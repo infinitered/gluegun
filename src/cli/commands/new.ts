@@ -13,8 +13,10 @@ const NewCommand: GluegunCommand = {
       print,
       strings,
       system,
+      meta,
     } = toolbox
     const { kebabCase } = strings
+    const { colors } = print
 
     const props = {
       name: parameters.first,
@@ -96,7 +98,7 @@ const NewCommand: GluegunCommand = {
       stderr: 'inherit',
     })
 
-    print.info(`Generated ${props.name} CLI.`)
+    print.info(colors.green(`Generated ${props.name} CLI with Gluegun ${meta.version()}.`))
     print.info(``)
     print.info(`Next:`)
     print.info(`  $ cd ${props.name}`)
@@ -105,12 +107,12 @@ const NewCommand: GluegunCommand = {
     print.info(`  $ ${props.name}`)
     print.info(``)
     if (props.typescript) {
-      print.info(`Since you generated a TypeScript project, we've included a build script.`)
-      print.info(`When you link and run the project, it will use ts-node locally to test.`)
-      print.info(`However, you can test the generated JavaScript locally like this:`)
+      print.info(colors.gray(`Since you generated a TypeScript project, we've included a build script.`))
+      print.info(colors.gray(`When you link and run the project, it will use ts-node locally to test.`))
+      print.info(colors.gray(`However, you can test the generated JavaScript locally like this:`))
       print.info(``)
       print.info(`  $ ${yarnOrNpm} build`)
-      print.info(`  $ ${yarnOrNpm} --compiled-build`)
+      print.info(`  $ ${props.name} --compiled-build`)
       print.info(``)
     }
 
