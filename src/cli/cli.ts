@@ -9,6 +9,14 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
     .src(__dirname)
     .help()
     .version()
+    .defaultCommand({
+      run: async (toolbox: GluegunToolbox) => {
+        const { print, meta } = toolbox
+        print.info(`Gluegun version ${meta.version()}`)
+        print.info(``)
+        print.info(`  Type gluegun --help for more info`)
+      },
+    })
     .exclude(['semver', 'prompt', 'http', 'patching'])
     .create()
 
