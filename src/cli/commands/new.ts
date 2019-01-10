@@ -1,11 +1,12 @@
 import { GluegunCommand } from '../../domain/command'
+import { GluegunToolbox } from '../../domain/toolbox'
 
 const NewCommand: GluegunCommand = {
   name: 'new',
   alias: ['n', 'create'],
   description: 'Creates a new gluegun cli',
   hidden: false,
-  run: async toolbox => {
+  run: async (toolbox: GluegunToolbox) => {
     const {
       parameters,
       template: { generate },
