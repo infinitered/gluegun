@@ -8,4 +8,12 @@ module.exports = <%= (props.typescript) ? "(toolbox: GluegunToolbox)" : "toolbox
   toolbox.foo = () => {
     toolbox.print.info('called foo extension')
   }
+
+  // enable this if you want to read configuration in from
+  // the current folder's package.json (in a "<%= props.name %>" property),
+  // <%= props.name %>.config.json, etc.
+  // toolbox.config = {
+  //   ...toolbox.config,
+  //   ...toolbox.config.loadConfig(process.cwd(), "<%= props.name %>")
+  // }
 }

@@ -3,6 +3,7 @@ import { createParams, parseParams } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
 import { Options } from '../domain/options'
+import { loadConfig } from '../loaders/config-loader'
 
 /**
  * Runs a command.
@@ -55,6 +56,9 @@ export async function run(
       ...((this.defaults && this.defaults[toolbox.pluginName]) || {}),
     }
   }
+
+  // expose cosmiconfig
+  toolbox.config.loadConfig = loadConfig
 
   // allow extensions to attach themselves to the toolbox
   this.extensions.forEach(extension => extension.setup(toolbox))
