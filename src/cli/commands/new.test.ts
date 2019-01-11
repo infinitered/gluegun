@@ -10,6 +10,7 @@ function createFakeToolbox(): Toolbox {
   const fakeToolbox = new Toolbox()
   fakeToolbox.strings = strings
   fakeToolbox.meta = {
+    src: '',
     version: sinon.stub(),
     commandInfo: sinon.stub(),
   }
