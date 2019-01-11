@@ -4,6 +4,7 @@ import { createParams, parseParams } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
 import { Options } from '../domain/options'
+import { loadConfig } from '../loaders/config-loader'
 
 /**
  * Runs a command.
@@ -53,6 +54,9 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
     ...toolbox.plugin.defaults,
     ...((this.defaults && this.defaults[toolbox.plugin.name]) || {}),
   }
+
+  // expose cosmiconfig
+  toolbox.config.loadConfig = loadConfig
 
   // kick it off
   if (toolbox.command.run) {
