@@ -4,7 +4,7 @@ You can access these tools on the Gluegun toolbox, via `const { prompt } = requi
 
 ## ask
 
-This is the lovely and talented [enquirer](https://github.com/enquirer/enquirer).
+This is powered by [enquirer](https://github.com/enquirer/enquirer/tree/1.0.0) (1.x). (Note that we intend to upgrade to 2.x but it is [non-trivial](https://github.com/infinitered/gluegun/issues/441#issuecomment-450985457))
 
 > This is an **async** function.
 
