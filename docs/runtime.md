@@ -232,6 +232,27 @@ http +30ms
 system +10ms
 ```
 
+_Note about TypeScript and `exclude`:_ Please note that the TypeScript type `GluegunToolbox` (as of Gluegun 2.1.x) always assumes that core extensions are included, even if you excluded them in the builder. In this case, it's recommended that you create your own `FooToolbox` (or similar) and update the interface to match your preferred configuration. Example:
+
+```typescript
+// wherever your types are, say, `./src/types.ts`
+import { GluegunToolbox } from 'gluegun'
+export interface FooToolbox extends GluegunToolbox {
+  prompt: null
+  print: null
+  http: null
+  system: null
+}
+
+// in a command
+import { FooToolbox } from '../types'
+module.exports = {
+  run: async (toolbox: FooToolbox) => {
+    // ... use toolbox with your excluded extensions
+  },
+}
+```
+
 ## create
 
 At this point, we've been configuring our CLI. When we're ready, we call `create()`:

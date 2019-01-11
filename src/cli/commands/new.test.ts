@@ -9,6 +9,11 @@ sinon.stub(console, 'log')
 function createFakeToolbox(): Toolbox {
   const fakeToolbox = new Toolbox()
   fakeToolbox.strings = strings
+  fakeToolbox.meta = {
+    src: '',
+    version: sinon.stub(),
+    commandInfo: sinon.stub(),
+  }
   fakeToolbox.filesystem = {
     resolve: sinon.stub(),
     dir: sinon.stub(),
@@ -21,6 +26,10 @@ function createFakeToolbox(): Toolbox {
   } as any
   fakeToolbox.template = { generate: sinon.stub() }
   fakeToolbox.print = {
+    colors: {
+      green: sinon.stub(),
+      gray: sinon.stub(),
+    },
     info: sinon.stub(),
     error: sinon.stub(),
   } as any
