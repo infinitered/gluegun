@@ -2,6 +2,7 @@ import { commandInfo, getVersion } from '../toolbox/meta-tools'
 import { GluegunToolbox } from '../domain/toolbox'
 
 export interface GluegunMeta {
+  src: string | void
   version: () => string
   commandInfo: () => string[][]
 }
@@ -13,6 +14,7 @@ export interface GluegunMeta {
  */
 export default function attach(toolbox: GluegunToolbox): void {
   const meta: GluegunMeta = {
+    src: toolbox.runtime && toolbox.runtime.defaultPlugin && toolbox.runtime.defaultPlugin.directory,
     version: () => getVersion(toolbox),
     commandInfo: () => commandInfo(toolbox),
   }
