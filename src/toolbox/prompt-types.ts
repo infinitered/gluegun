@@ -2,7 +2,7 @@ export interface GluegunPrompt {
   /* Prompts with a confirm message. */
   confirm(message: string): Promise<boolean>
   /* Prompts with a set of questions. */
-  ask(questions: QuestionType): AskResponse
+  ask(questions: QuestionType|QuestionType[]): AskResponse
   /* Returns a separator. */
   separator(): string
 }
