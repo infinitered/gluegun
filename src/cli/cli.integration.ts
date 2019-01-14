@@ -18,11 +18,11 @@ test('can start the cli', async () => {
   expect(c).toBeTruthy()
 })
 
-test('can create a new boilerplate cli', async () => {
+test('can create a new boilerplate JavaScript cli', async () => {
   const tmp = uniqueTempDir({ create: true })
   process.chdir(tmp as string)
 
-  const toolbox = await cli('new foo')
+  const toolbox = await cli('new foo --javascript')
   expect(toolbox.command.name).toBe('new')
 
   const pkg = toolbox.filesystem.read(`${tmp}/foo/package.json`, 'json')
