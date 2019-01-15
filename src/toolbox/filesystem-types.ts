@@ -35,6 +35,20 @@ export interface GluegunFilesystem {
   /** Copies given file or directory (with everything inside). */
   copy: (from: string, to: string, options?: GluegunFilesystemCopyOptions) => void
 
+  /**
+   * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
+   *
+   * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
+   *
+   * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
+   * until an absolute path is found. If after using all {from} paths still no absolute path is found,
+   * the current working directory is used as well. The resulting path is normalized,
+   * and trailing slashes are removed unless the path gets resolved to the root directory.
+   *
+   * @param pathSegments string paths to join.  Non-string arguments are ignored.
+   */
+  chmodSync: typeof import('fs').chmodSync
+
   /** Copies given file or directory (with everything inside). */
   copyAsync: (from: string, to: string, options?: GluegunFilesystemCopyOptions) => Promise<void>
 
@@ -183,6 +197,20 @@ export interface GluegunFilesystem {
    * Renames a file or directory. The `to` is just the file name as this only renames in the same directory.
    */
   renameAsync(from: string, to: string): Promise<void>
+
+  /**
+   * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
+   *
+   * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
+   *
+   * If {to} isn't already absolute, {from} arguments are prepended in right to left order,
+   * until an absolute path is found. If after using all {from} paths still no absolute path is found,
+   * the current working directory is used as well. The resulting path is normalized,
+   * and trailing slashes are removed unless the path gets resolved to the root directory.
+   *
+   * @param pathSegments string paths to join.  Non-string arguments are ignored.
+   */
+  resolve: typeof import('path').resolve
 
   /**
    * Creates a symlink.

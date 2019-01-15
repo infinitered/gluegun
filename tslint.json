@@ -2,5 +2,8 @@
   "extends": ["tslint-config-standard", "tslint-config-prettier"],
   "rules": {
     "strict-type-predicates": false
+  },
+  "linterOptions": {
+    "exclude": ["src/cli/templates/LICENSE.ejs", "src/cli/templates/.gitignore.ejs"]
   }
 }

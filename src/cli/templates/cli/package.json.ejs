@@ -10,6 +10,8 @@
     <% if (props.typescript) { %>
       "format": "prettier --write **/*.{js,ts,tsx,json}",
       "lint": "tslint -p .",
+      "compile": "tsc -p .",
+      "build": "yarn format && yarn lint && yarn compile",
     <% } else { %>
       "format": "prettier --write **/*.{js,json} && standard --fix",
       "lint": "standard",
@@ -23,12 +25,14 @@
     <% if (props.typescript) { %>
       "tsconfig.json",
       "tslint.json",
+      "build",
+    <% } else { %>
+      "src",
     <% } %>
     "LICENSE",
     "readme.md",
     "docs",
-    "bin",
-    "src"
+    "bin"
   ],
   "license": "MIT",
   "dependencies": {

@@ -1,22 +1,34 @@
-import { is, isEmpty } from 'ramda'
-
-import * as camelCase from 'lodash.camelcase'
-import * as kebabCase from 'lodash.kebabcase'
-import * as lowerCase from 'lodash.lowercase'
-import * as lowerFirst from 'lodash.lowerfirst'
-import * as pad from 'lodash.pad'
-import * as padEnd from 'lodash.padend'
-import * as padStart from 'lodash.padstart'
-import * as repeat from 'lodash.repeat'
-import * as snakeCase from 'lodash.snakecase'
-import * as startCase from 'lodash.startcase'
-import * as trim from 'lodash.trim'
-import * as trimEnd from 'lodash.trimend'
-import * as trimStart from 'lodash.trimstart'
-import * as upperCase from 'lodash.uppercase'
-import * as upperFirst from 'lodash.upperfirst'
-import * as pluralize from 'pluralize'
 import { GluegunStrings } from './strings-types'
+import { is } from './utils'
+
+const camelCase = (...args) => require('lodash.camelcase')(...args)
+const kebabCase = (...args) => require('lodash.kebabcase')(...args)
+const lowerCase = (...args) => require('lodash.lowercase')(...args)
+const lowerFirst = (...args) => require('lodash.lowerfirst')(...args)
+const pad = (...args) => require('lodash.pad')(...args)
+const padEnd = (...args) => require('lodash.padend')(...args)
+const padStart = (...args) => require('lodash.padstart')(...args)
+const repeat = (...args) => require('lodash.repeat')(...args)
+const snakeCase = (...args) => require('lodash.snakecase')(...args)
+const startCase = (...args) => require('lodash.startcase')(...args)
+const trim = (...args) => require('lodash.trim')(...args)
+const trimEnd = (...args) => require('lodash.trimend')(...args)
+const trimStart = (...args) => require('lodash.trimstart')(...args)
+const upperCase = (...args) => require('lodash.uppercase')(...args)
+const upperFirst = (...args) => require('lodash.upperfirst')(...args)
+
+const pluralize = (word: string, count?: number, inclusive?: boolean) => require('pluralize')(word, count, inclusive)
+pluralize.plural = (word: string) => require('pluralize').plural(word)
+pluralize.singular = (word: string) => require('pluralize').singular(word)
+pluralize.addPluralRule = (rule: string | RegExp, replacement: string) =>
+  require('pluralize').addPluralRule(rule, replacement)
+pluralize.addSingularRule = (rule: string | RegExp, replacement: string) =>
+  require('pluralize').addSingularRule(rule, replacement)
+
+pluralize.addIrregularRule = (single: string, plural: string) => require('pluralize').addIrregularRule(single, plural)
+pluralize.addUncountableRule = (word: string | RegExp) => require('pluralize').addUncountableRule(word)
+pluralize.isPlural = (word: string) => require('pluralize').isPlural(word)
+pluralize.isSingular = (word: string) => require('pluralize').isSingular(word)
 
 /**
  * Is this not a string?
@@ -35,7 +47,7 @@ function isNotString(value: any): boolean {
  * @returns True if it was, otherwise false.
  */
 function isBlank(value: any): boolean {
-  return isNotString(value) || isEmpty(trim(value))
+  return isNotString(value) || trim(value) === ''
 }
 
 /**
