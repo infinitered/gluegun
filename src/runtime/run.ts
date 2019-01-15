@@ -59,8 +59,9 @@ export async function run(this: Runtime, rawCommand?: string | string[], extraOp
   // kick it off
   if (toolbox.command.run) {
     // allow extensions to attach themselves to the toolbox
-    this.extensions.forEach(extension => extension.setup(toolbox))
-
+    const extensions = this.extensions.map(extension => Promise.resolve(extension.setup(toolbox)))
+    await Promise.all(extensions)
+    
     // run the command
     toolbox.result = await toolbox.command.run(toolbox)
   }
