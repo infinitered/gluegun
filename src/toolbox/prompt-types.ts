@@ -2,12 +2,12 @@ export interface GluegunPrompt {
   /* Prompts with a confirm message. */
   confirm(message: string): Promise<boolean>
   /* Prompts with a set of questions. */
-  ask(questions: QuestionType|QuestionType[]): AskResponse
+  ask(questions: GluegunQuestionType|GluegunQuestionType[]): GluegunAskResponse
   /* Returns a separator. */
   separator(): string
 }
 
-interface QuestionType {
+interface GluegunQuestionType {
   type: string
   name: string
   message: string
@@ -15,6 +15,6 @@ interface QuestionType {
   default?: string
 }
 
-interface AskResponse {
+interface GluegunAskResponse {
   [key: string]: string
 }
