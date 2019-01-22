@@ -36,7 +36,7 @@ export class Command implements GluegunCommand<Toolbox> {
   public dashed
   public plugin
 
-  constructor() {
+  constructor(props?: GluegunCommand) {
     this.name = null
     this.description = null
     this.file = null
@@ -46,6 +46,7 @@ export class Command implements GluegunCommand<Toolbox> {
     this.alias = []
     this.dashed = false
     this.plugin = null
+    if (props) Object.assign(this, props)
   }
 
   /**
@@ -54,9 +55,7 @@ export class Command implements GluegunCommand<Toolbox> {
    * @returns list of aliases.
    */
   get aliases(): string[] {
-    if (!this.alias) {
-      return []
-    }
+    if (!this.alias) return []
     return Array.isArray(this.alias) ? this.alias : [this.alias]
   }
 

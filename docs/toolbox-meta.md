@@ -1,5 +1,13 @@
 Provides functions for accessing information about the currently running CLI. You can access this on the Gluegun toolbox.
 
+## src
+
+The currently running CLI's source folder.
+
+```js
+toolbox.meta.src // "/Users/jh/Code/gluegun"
+```
+
 ## version
 
 Retrieves the currently running CLI's version.

@@ -23,7 +23,7 @@ export interface GluegunParameters {
    * Any optional parameters. Typically coming from command-line
    * arguments like this: `--force -p tsconfig.json`.
    */
-  options?: Options
+  options: Options
   /* Just the first argument. */
   first?: string
   /* Just the 2nd argument. */
@@ -42,7 +42,13 @@ export interface GluegunParameters {
   command?: string
 }
 
-export interface GluegunToolbox {
+// Temporary toolbox while building
+export interface GluegunEmptyToolbox {
+  [key: string]: any
+}
+
+// Final toolbox
+export interface GluegunToolbox extends GluegunEmptyToolbox {
   // known properties
   result?: any
   config?: Options
@@ -54,6 +60,30 @@ export interface GluegunToolbox {
   runtime?: Runtime
 
   // known extensions
+  filesystem: GluegunFilesystem
+  http: GluegunHttp
+  meta: GluegunMeta
+  patching: GluegunPatching
+  print: GluegunPrint
+  prompt: GluegunPrompt
+  semver: GluegunSemver
+  strings: GluegunStrings
+  system: GluegunSystem
+  template: GluegunTemplate
+  generate: any
+}
+
+export class EmptyToolbox implements GluegunEmptyToolbox {
+  [x: string]: any
+  public result?: any = null
+  public config?: Options & { loadConfig?: (name: string, src: string) => Options } = {}
+  public parameters?: GluegunParameters = { options: {} }
+  public plugin?: Plugin = null
+  public command?: Command = null
+  public pluginName?: string = null
+  public commandName?: string = null
+  public runtime?: Runtime = null
+
   filesystem?: GluegunFilesystem
   http?: GluegunHttp
   meta?: GluegunMeta
@@ -65,22 +95,24 @@ export interface GluegunToolbox {
   system?: GluegunSystem
   template?: GluegunTemplate
   generate?: any
-
-  // our catch-all! since we can add whatever to this object
-  [key: string]: any
 }
 
-export class Toolbox implements GluegunToolbox {
-  [key: string]: any
-
-  public result = null
+export class Toolbox extends EmptyToolbox implements GluegunToolbox {
   public config: Options = {}
-  public parameters: GluegunParameters = {}
-  public plugin = null
-  public command = null
-  public pluginName = null
-  public commandName = null
-  public runtime = null
+  public parameters: GluegunParameters = { options: {} }
+
+  // known extensions
+  filesystem: GluegunFilesystem
+  http: GluegunHttp
+  meta: GluegunMeta
+  patching: GluegunPatching
+  print: GluegunPrint
+  prompt: GluegunPrompt
+  semver: GluegunSemver
+  strings: GluegunStrings
+  system: GluegunSystem
+  template: GluegunTemplate
+  generate: any
 }
 
 // Toolbox used to be known as RunContext. This is for backwards compatibility.

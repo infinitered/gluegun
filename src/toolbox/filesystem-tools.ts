@@ -1,8 +1,6 @@
-import * as jetpack from 'fs-jetpack'
-import { complement } from 'ramda'
-import { strings } from './string-tools'
 import * as os from 'os'
 import * as pathlib from 'path'
+import * as jetpack from 'fs-jetpack'
 
 import { GluegunFilesystem } from './filesystem-types'
 
@@ -22,7 +20,7 @@ function isFile(path: string): boolean {
  * @param path The filename to check
  * @return `true` if the file doesn't exist.
  */
-const isNotFile = complement(isFile)
+const isNotFile = (path: string): boolean => !isFile(path)
 
 /**
  * Is this a directory?
@@ -40,7 +38,7 @@ function isDirectory(path: string): boolean {
  * @param path The directory to check.
  * @return `true` if the directory does not exist, otherwise false.
  */
-const isNotDirectory = complement(isDirectory)
+const isNotDirectory = (path: string): boolean => !isDirectory(path)
 
 /**
  * Gets the immediate subdirectories.
@@ -50,10 +48,15 @@ const isNotDirectory = complement(isDirectory)
  * @param matching   A jetpack matching filter
  * @return A list of directories
  */
-function subdirectories(path: string, isRelative: boolean = false, matching: string = '*'): string[] {
-  if (strings.isBlank(path) || !isDirectory(path)) {
-    return []
-  }
+function subdirectories(
+  path: string,
+  isRelative: boolean = false,
+  matching: string = '*',
+  symlinks: boolean = false,
+): string[] {
+  const { strings } = require('./string-tools')
+  if (strings.isBlank(path) || !isDirectory(path)) return []
+
   const dirs = jetpack.cwd(path).find({
     matching,
     directories: true,
@@ -67,18 +70,18 @@ function subdirectories(path: string, isRelative: boolean = false, matching: str
   }
 }
 
-const filesystem: GluegunFilesystem = Object.assign(
-  {
-    eol: os.EOL, // end of line marker
-    homedir: os.homedir, // get home directory
-    separator: pathlib.sep, // path separator
-    subdirectories, // retrieve subdirectories
-    isFile,
-    isNotFile,
-    isDirectory,
-    isNotDirectory,
-  },
-  jetpack, // jetpack utilities
-)
+const filesystem: GluegunFilesystem = {
+  eol: os.EOL, // end of line marker
+  homedir: os.homedir, // get home directory
+  separator: pathlib.sep, // path separator
+  subdirectories, // retrieve subdirectories
+  isFile,
+  isNotFile,
+  isDirectory,
+  isNotDirectory,
+
+  // and everything else in jetpack
+  ...jetpack,
+}
 
 export { filesystem, GluegunFilesystem }

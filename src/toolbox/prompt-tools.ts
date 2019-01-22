@@ -1,45 +1,48 @@
-import * as Enquirer from 'enquirer'
-import * as promptList from 'prompt-list'
-import * as promptRawlist from 'prompt-rawlist'
-import * as promptConfirm from 'prompt-confirm'
-import * as promptExpand from 'prompt-expand'
-import * as promptCheckbox from 'prompt-checkbox'
-import * as promptRadio from 'prompt-radio'
-import * as promptPassword from 'prompt-password'
-import * as promptQuestion from 'prompt-question'
-import * as promptAutocompletion from 'prompt-autocompletion'
-
 import { GluegunPrompt } from './prompt-types'
 
-const enquirer = new Enquirer()
-enquirer.register('list', promptList)
-enquirer.register('rawlist', promptRawlist)
-enquirer.register('confirm', promptConfirm)
-enquirer.register('expand', promptExpand)
-enquirer.register('checkbox', promptCheckbox)
-enquirer.register('radio', promptRadio)
-enquirer.register('password', promptPassword)
-enquirer.register('question', promptQuestion)
-enquirer.register('autocomplete', promptAutocompletion)
+let enquirer = null
+function getEnquirer() {
+  if (enquirer) return enquirer
 
-/**
- * A yes/no question.
- *
- * @param message The message to display to the user.
- * @returns The true/false answer.
- */
-const confirm = async (message: string): Promise<boolean> => {
-  const answers = await enquirer.ask({
-    name: 'yesno',
-    type: 'confirm',
-    message,
-  })
-  return answers.yesno
+  const Enquirer = require('enquirer')
+  enquirer = new Enquirer()
+  enquirer.register('list', require('prompt-list'))
+  enquirer.register('rawlist', require('prompt-rawlist'))
+  enquirer.register('confirm', require('prompt-confirm'))
+  enquirer.register('expand', require('prompt-expand'))
+  enquirer.register('checkbox', require('prompt-checkbox'))
+  enquirer.register('radio', require('prompt-radio'))
+  enquirer.register('password', require('prompt-password'))
+  enquirer.register('question', require('prompt-question'))
+  enquirer.register('autocomplete', require('prompt-autocompletion'))
+
+  /**
+   * A yes/no question.
+   *
+   * @param message The message to display to the user.
+   * @returns The true/false answer.
+   */
+  enquirer.confirm = async (message: string): Promise<boolean> => {
+    const answers = await getEnquirer().ask({
+      name: 'yesno',
+      type: 'confirm',
+      message,
+    })
+    return answers.yesno
+  }
+
+  return enquirer
 }
 
-// attach our helpers
-enquirer.confirm = confirm
-
-const prompt: GluegunPrompt = enquirer
+/**
+ * We're replicating the interface of Enquirer in order to
+ * "lazy load" the package only if and when we actually are asked for it.
+ * This results in a significant speed increase.
+ */
+const prompt: GluegunPrompt = {
+  confirm: (message: string) => getEnquirer().confirm(message),
+  ask: (questions: any) => getEnquirer().ask(questions),
+  separator: () => getEnquirer().separator(),
+}
 
 export { prompt, GluegunPrompt }

@@ -4,8 +4,7 @@ import { Runtime } from './runtime'
 test('cannot find a command', async () => {
   const r = new Runtime()
   r.addCoreExtensions()
-  const toolbox = await r.run('bloo blah')
-  expect(toolbox.result).toBeFalsy()
+  await expect(r.run('bloo blah')).rejects.toThrow(`Couldn't find that command, and no default command set.`)
 })
 
 test('is fatally wounded by exceptions', async () => {

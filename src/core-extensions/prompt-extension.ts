@@ -6,6 +6,6 @@ import { prompt } from '../toolbox/prompt-tools'
  *
  * @param toolbox The running toolbox.
  */
-export default function attach(toolbox: GluegunToolbox): void {
+export default function attach(toolbox: GluegunToolbox) {
   toolbox.prompt = prompt
 }
