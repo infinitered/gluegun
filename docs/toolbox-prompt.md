@@ -29,6 +29,10 @@ const { age, shoe } = await toolbox.prompt.ask(questions)
 
 _Note: to see a full list of examples, scroll to the bottom._
 
+**Important: in order to preserve backwards compatibility with Enquirer 1.x, we
+translate `type: 'list'` to `type: 'select'`. If you want to use the new `list`
+behavior, please use `enquirer` directly and not through Gluegun.**
+
 ## confirm
 
 > This is an **async** function.
