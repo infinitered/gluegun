@@ -1,5 +1,3 @@
-import { prompt } from './prompt-tools'
-
 export interface GluegunPrompt {
   /* Prompts with a confirm message. */
   confirm(message: string): Promise<boolean>
