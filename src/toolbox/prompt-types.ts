@@ -1,3 +1,5 @@
+import { prompt } from './prompt-tools'
+
 export interface GluegunPrompt {
   /* Prompts with a confirm message. */
   confirm(message: string): Promise<boolean>
@@ -7,14 +9,30 @@ export interface GluegunPrompt {
   separator(): string
 }
 
-interface GluegunQuestionType {
+export interface GluegunQuestionChoices {
+  key: string
+  name: string
+  value?: string
+}
+
+export interface GluegunQuestionType {
   type: string
   name: string
   message: string
-  choices?: string[]
+  // optional
+  suggest?: Function
+  limit?: number
+  highlight?: Function
+  multiple?: boolean
+  choices?: string[] | GluegunQuestionChoices[]
   default?: string
+  skip?: boolean | Function
+  initial?: string | Function
+  format?: Function
+  result?: Function
+  validate?: Function
 }
 
-interface GluegunAskResponse {
+export interface GluegunAskResponse {
   [key: string]: string
 }

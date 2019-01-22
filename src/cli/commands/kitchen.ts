@@ -64,6 +64,18 @@ module.exports = {
         name: 'exinput',
         message: 'What is your middle name?',
       },
+      {
+        type: 'autocomplete',
+        name: 'exautocomplete',
+        message: 'State?',
+        choices: ['Oregon', 'Washington', 'California'],
+        // You can leave this off unless you want to customize behavior
+        suggest: (s: string, choices: any[]) => {
+          return choices.filter(choice => {
+            return choice.message.toLowerCase().startsWith(s.toLowerCase())
+          })
+        },
+      },
     ])
 
     print.debug(result)

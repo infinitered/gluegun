@@ -32,7 +32,6 @@ test('works as expected', async done => {
   const sendKeystrokes = async () => {
     // list
     io.send(keys.down)
-    io.send(keys.down)
     io.send(keys.enter)
     await timeout(10)
 
@@ -77,9 +76,9 @@ test('works as expected', async done => {
     await timeout(10)
 
     // autocomplete
-    // io.send('Wash')
-    // io.send(keys.enter)
-    // await timeout(10)
+    io.send('Wash')
+    io.send(keys.enter)
+    await timeout(10)
   }
   setTimeout(() => sendKeystrokes().then(), 5)
 
@@ -140,13 +139,18 @@ test('works as expected', async done => {
       name: 'exinput',
       message: 'What is your middle name?',
     },
-    // Autocomplete seems broken -- not on our end
-    // {
-    //   type: 'autocomplete',
-    //   name: 'exautocomplete',
-    //   message: 'State?',
-    //   source: (s: string) => ['Oregon', 'Washington', 'California'].find(v => v.includes(s)),
-    // },
+    {
+      type: 'autocomplete',
+      name: 'exautocomplete',
+      message: 'State?',
+      choices: ['Oregon', 'Washington', 'California'],
+      // You can leave this off unless you want to customize behavior
+      suggest: (s: string, choices: any[]) => {
+        return choices.filter(choice => {
+          return choice.message.toLowerCase().startsWith(s.toLowerCase())
+        })
+      },
+    },
   ])
 
   expect(result).toEqual({
@@ -158,7 +162,7 @@ test('works as expected', async done => {
     exradio: 'Trail Blazers',
     expassword: 'hunter2',
     exinput: 'Alexander',
-    // exautocomplete: 'Washington',
+    exautocomplete: 'Washington',
   })
 
   await timeout(2)
