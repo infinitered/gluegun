@@ -38,7 +38,7 @@ export function loadExtensionFromFile(file: string, options = {}): Extension {
   const valid = extensionModule && typeof extensionModule === 'function'
 
   if (valid) {
-    extension.setup = (toolbox: EmptyToolbox) => void extensionModule(toolbox as Toolbox)
+    extension.setup = (toolbox: EmptyToolbox) => extensionModule(toolbox as Toolbox)
   } else {
     throw new Error(`Error: couldn't load ${extension.name}. Expected a function, got ${extensionModule}.`)
   }

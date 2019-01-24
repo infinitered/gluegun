@@ -4,6 +4,13 @@ import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
 import { Options } from '../domain/options'
 import { loadConfig } from '../loaders/config-loader'
+import { Extension } from '../domain/extension'
+
+let DEFAULTS = {
+  extensionTimeout: 10000 /* 10 Seconds */,
+}
+
+export { DEFAULTS }
 
 /**
  * Runs a command.
@@ -61,8 +68,24 @@ export async function run(
   toolbox.config.loadConfig = loadConfig
 
   // allow extensions to attach themselves to the toolbox
-  const extensions = this.extensions.map(extension => Promise.resolve(extension.setup(toolbox)))
-  await Promise.all(extensions)
+  const nullPromise = Promise.resolve(null)
+  const runExtensionSetupWithTimeout = (extension: Extension) => {
+    const extensionResult = extension.setup(toolbox)
+    if (extensionResult === void 0) return nullPromise
+
+    let timeoutId: NodeJS.Timeout
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(
+        () => reject(Error(`The extension '${extension.name}' took too long to run`)),
+        DEFAULTS.extensionTimeout,
+      )
+    })
+    return Promise.race([Promise.resolve(extensionResult), timeoutPromise]).then(() => {
+      clearTimeout(timeoutId)
+    })
+  }
+  const extensionSetupPromises = this.extensions.map(runExtensionSetupWithTimeout)
+  await Promise.all(extensionSetupPromises)
 
   // kick it off
   if (toolbox.command.run) {
