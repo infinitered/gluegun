@@ -1,4 +1,4 @@
 module.exports = {
   name: 'args',
-  defaults: { color: 'blue' }
+  defaults: { color: 'blue' },
 }

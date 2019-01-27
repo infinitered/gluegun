@@ -3,7 +3,7 @@
 /* tslint:disable */
 
 // speed up `gluegun --version` et al
-if (['-v', '--v', '-version', '--version'].includes(process.argv[2])) {
+if (['v', 'version', '-v', '--v', '-version', '--version'].includes(process.argv[2])) {
   var contents = require('fs').readFileSync(__dirname + '/../package.json')
   var package = JSON.parse(contents)
   console.log(package.version)

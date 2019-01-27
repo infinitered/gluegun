@@ -17,12 +17,12 @@ function getEnquirer() {
  * @returns The true/false answer.
  */
 const confirm = async (message: string): Promise<boolean> => {
-  const answers = await getEnquirer().ask({
+  const { yesno } = await getEnquirer().prompt({
     name: 'yesno',
     type: 'confirm',
     message,
   })
-  return answers.yesno
+  return yesno
 }
 
 /**

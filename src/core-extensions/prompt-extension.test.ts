@@ -12,7 +12,7 @@ beforeAll(() => (io = stdin()))
 afterAll(() => io.restore())
 
 // helper function for timing
-const timeout = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 test('has the proper interface', () => {
   const toolbox = new Toolbox()
@@ -33,23 +33,23 @@ test('works as expected', async done => {
     // list
     io.send(keys.down)
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // rawlist
     io.send(keys.down)
     io.send(keys.down)
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // confirm
     io.send('Y')
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // expand
     io.send('a')
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // checkbox
     io.send(keys.space)
@@ -57,28 +57,28 @@ test('works as expected', async done => {
     io.send(keys.down)
     io.send(keys.space)
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // radio
     io.send(keys.down)
     io.send(keys.space)
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // password
     io.send('hunter2')
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // input
     io.send('Alexander')
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
 
     // autocomplete
     io.send('Wash')
     io.send(keys.enter)
-    await timeout(10)
+    await delay(10)
   }
   setTimeout(() => sendKeystrokes().then(), 5)
 
@@ -165,6 +165,6 @@ test('works as expected', async done => {
     exautocomplete: 'Washington',
   })
 
-  await timeout(2)
+  await delay(2)
   done()
 })

@@ -1,4 +1,4 @@
 module.exports = {
   name: 'bar',
-  run: () => {}
+  run: () => {},
 }
