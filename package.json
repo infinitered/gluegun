@@ -97,6 +97,7 @@
     "@types/cli-table2": "~0.2.2",
     "@types/jest": "^23.3.10",
     "@types/node": "^10.12.12",
+    "@types/ora": "^3.0.0",
     "@types/pluralize": "~0.0.29",
     "@types/ramda": "~0.25.42",
     "@types/sinon": "^7.0.2",
