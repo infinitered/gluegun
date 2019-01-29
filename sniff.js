@@ -7,11 +7,15 @@ const isNewEnough = ver[0] > 7 || (ver[0] >= 7 && ver[1] >= 6)
 let hasAsyncAwait = false
 let ok = false
 
-// check for async/await features
-try {
-  require('./sniff-async')
+// check for async/await features, but only if below Node 8
+if (ver[0] >= 8) {
   hasAsyncAwait = true
-} catch (e) {}
+} else {
+  try {
+    require('./sniff-async')
+    hasAsyncAwait = true
+  } catch (e) {}
+}
 
 ok = hasAsyncAwait && isNewEnough
 

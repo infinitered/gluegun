@@ -3,7 +3,7 @@
 /* tslint:disable */
 
 // speed up `gluegun --version` et al
-if (['-v', '--v', '-version', '--version'].includes(process.argv[2])) {
+if (['v', 'version', '-v', '--v', '-version', '--version'].includes(process.argv[2])) {
   var contents = require('fs').readFileSync(__dirname + '/../package.json')
   var package = JSON.parse(contents)
   console.log(package.version)
@@ -16,7 +16,10 @@ var wantsCompiled = process.argv.indexOf('--compiled-gluegun') >= 0
 
 if (devMode && !wantsCompiled) {
   // hook into ts-node so we can run typescript on the fly
-  require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
+  require('ts-node').register({
+    project: `${__dirname}/../tsconfig.json`,
+    compiler: require.resolve('typescript', { paths: [__dirname] }),
+  })
   // kick off gluegun
   require(`${__dirname}/../src/cli/cli`).run(process.argv)
 } else {

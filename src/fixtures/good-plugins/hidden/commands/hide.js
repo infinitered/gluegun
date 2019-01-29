@@ -1,4 +1,4 @@
-async function hide () {
+async function hide() {
   return 1
 }
 
