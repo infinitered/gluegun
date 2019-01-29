@@ -7,8 +7,7 @@
 
 ![gluegun2 0](https://user-images.githubusercontent.com/1479215/50237287-5a23e380-0371-11e9-89ea-85b41cd25217.jpg)
 
-Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs),
-with support for:
+Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs) in TypeScript or modern JavaScript, with support for:
 
 🌯 *parameters* - command line arguments and options<br />
 🎛 *template* - generating files from templates<br />
@@ -39,25 +38,23 @@ If so ... welcome!
 Just run the `gluegun` CLI like this:
 
 ```
-$ npm install -g gluegun@next
+$ yarn global add gluegun
 $ gluegun new movies
+(choose TypeScript or Modern JavaScript)
 $ cd movies
-$ npm install
-$ npm link
+$ yarn link
 $ movies help
 ```
 
 You should see your new CLI help. Open the folder in your favorite editor and
 start building your CLI!
 
-_Tip: If you want your CLI to be configured to use TypeScript, pass in `--typescript`_
-
 # Code
 
 Let's start with what a `gluegun` CLI looks like.
 
 ```js
-// in movie/src/cli.js...
+// in movie/src/cli.[js|ts]...
 
 // ready
 const { build } = require('gluegun')
