@@ -36,7 +36,7 @@ const NewCommand: GluegunCommand = {
       return undefined
     }
 
-    await filesystem.dir(props.name)
+    filesystem.dir(props.name)
 
     let active = []
 
