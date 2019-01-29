@@ -63,7 +63,7 @@ Returns a separator you can use in your multiple choice prompts. It will draw a 
 
 #### returns
 
-A value only relevant for a use a multiple choice prompt.
+A value only relevant for use in a multiple choice prompt.
 
 #### example
 

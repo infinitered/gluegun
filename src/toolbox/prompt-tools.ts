@@ -34,6 +34,8 @@ const prompt: GluegunPrompt = {
   confirm,
   ask: async (questions: GluegunQuestionType | GluegunQuestionType[]): Promise<GluegunAskResponse> => {
     if (Array.isArray(questions)) {
+      // Because Enquirer 2 breaks backwards compatility (and we don't want to)
+      // we are translating the previous API to the current equivalent.
       questions = questions.map(q => {
         if (q.type === 'rawlist' || q.type === 'list') q.type = 'select'
         if (q.type === 'expand') q.type = 'autocomplete'
