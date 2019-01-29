@@ -26,7 +26,7 @@ function createFakeToolbox(): Toolbox {
     which: sinon.stub(),
   } as any
   fakeToolbox.prompt = {
-    ask: () => ({ answer: undefined }),
+    ask: async () => ({ answer: undefined }),
     confirm: sinon.stub(),
     separator: sinon.stub(),
   }
