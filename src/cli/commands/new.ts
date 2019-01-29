@@ -73,7 +73,7 @@ const NewCommand: GluegunCommand = {
     props.javascript = !props.typescript
 
     // create the directory
-    await filesystem.dir(props.name)
+    filesystem.dir(props.name)
 
     // active generators, for parallel generation
     let active = []

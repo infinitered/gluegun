@@ -209,10 +209,17 @@
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.10.tgz#4897974cc317bf99d4fe6af1efa15957fa9c94de"
   integrity sha512-DC8xTuW/6TYgvEg3HEXS7cu9OijFqprVDXXiOcdOKZCU/5PJNLZU37VVvmZHdtMiGOa8wAA/We+JzbdxFzQTRQ==
 
-"@types/node@^10.12.12":
+"@types/node@*", "@types/node@^10.12.12":
   version "10.12.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
   integrity sha512-fh+pAqt4xRzPfqA6eh3Z2y6fyZavRIumvjhaCL753+TVkGKGhpPeyrJG2JftD0T9q4GF00KjefsQ+PQNDdWQaQ==
+
+"@types/ora@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ora/-/ora-3.0.0.tgz#fd30d5414e00fc4608cc7e18b565dceb57f4f66c"
+  integrity sha512-AOY050qkT67vf17bQFyHSjF615vs1yAeiHrpwh55BQCnpHi70LGJaLdrrl8YlvtAzDdXTWyYLs4kb6uQXiuHIg==
+  dependencies:
+    "@types/node" "*"
 
 "@types/pluralize@~0.0.29":
   version "0.0.29"
@@ -2516,10 +2523,10 @@ fs-extra@^7.0.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-jetpack@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-1.3.1.tgz#77c8ed2e361b062b60eca38c4061b972ff03d324"
-  integrity sha512-oCrJI4kSredslsM3iZoZ19RKUt78XyyOSJuwzg/JGIxCBmjaoqPpvqAy5ZaUNI/QHJPL0UkKeX/yarAd39vP/Q==
+fs-jetpack@^2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-2.2.1.tgz#633821ac9c4d3e57f07f9ca9fb56be8dd6c663ca"
+  integrity sha512-pbRcz1OqtcmP100mkTuPXuMCx6LvmsZYGt/F2dDNKMeSH+FX+mA1vgRSLUKSQWAJSD8mWWYC8US+1U4LHR1Fmw==
   dependencies:
     minimatch "^3.0.2"
 
