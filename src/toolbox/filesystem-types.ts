@@ -31,11 +31,6 @@ export interface GluegunFilesystem extends FSJetpack {
   chmodSync: typeof import('fs').chmodSync
 
   /**
-   * Resolves an absolute path.
-   */
-  path(...strings): any
-
-  /**
    * The right-most parameter is considered {to}.  Other parameters are considered an array of {from}.
    *
    * Starting from leftmost {from} parameter, resolves {to} to an absolute path.
