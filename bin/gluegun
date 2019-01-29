@@ -16,7 +16,10 @@ var wantsCompiled = process.argv.indexOf('--compiled-gluegun') >= 0
 
 if (devMode && !wantsCompiled) {
   // hook into ts-node so we can run typescript on the fly
-  require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
+  require('ts-node').register({
+    project: `${__dirname}/../tsconfig.json`,
+    compiler: require.resolve('typescript', { paths: [__dirname] }),
+  })
   // kick off gluegun
   require(`${__dirname}/../src/cli/cli`).run(process.argv)
 } else {
