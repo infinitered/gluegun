@@ -1,6 +1,7 @@
 import * as os from 'os'
 import * as pathlib from 'path'
 import * as jetpack from 'fs-jetpack'
+import { chmodSync } from 'fs'
 
 import { GluegunFilesystem } from './filesystem-types'
 
@@ -71,6 +72,7 @@ function subdirectories(
 }
 
 const filesystem: GluegunFilesystem = {
+  chmodSync,
   eol: os.EOL, // end of line marker
   homedir: os.homedir, // get home directory
   separator: pathlib.sep, // path separator
@@ -79,7 +81,7 @@ const filesystem: GluegunFilesystem = {
   isNotFile,
   isDirectory,
   isNotDirectory,
-
+  resolve: pathlib.resolve,
   // and everything else in jetpack
   ...jetpack,
 }
