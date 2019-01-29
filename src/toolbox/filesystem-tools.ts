@@ -1,6 +1,7 @@
 import * as os from 'os'
 import * as pathlib from 'path'
 import * as jetpack from 'fs-jetpack'
+import { chmodSync } from 'fs'
 
 import { GluegunFilesystem } from './filesystem-types'
 
@@ -46,7 +47,6 @@ const isNotDirectory = (path: string): boolean => !isDirectory(path)
  * @param path Path to a directory to check.
  * @param isRelative Return back the relative directory?
  * @param matching   A jetpack matching filter
- * @param symlinks  If true, will include any symlinks along the way.
  * @return A list of directories
  */
 function subdirectories(
@@ -63,7 +63,6 @@ function subdirectories(
     directories: true,
     recursive: false,
     files: false,
-    symlinks,
   })
   if (isRelative) {
     return dirs
@@ -73,6 +72,7 @@ function subdirectories(
 }
 
 const filesystem: GluegunFilesystem = {
+  chmodSync,
   eol: os.EOL, // end of line marker
   homedir: os.homedir, // get home directory
   separator: pathlib.sep, // path separator
@@ -81,7 +81,7 @@ const filesystem: GluegunFilesystem = {
   isNotFile,
   isDirectory,
   isNotDirectory,
-
+  resolve: pathlib.resolve,
   // and everything else in jetpack
   ...jetpack,
 }

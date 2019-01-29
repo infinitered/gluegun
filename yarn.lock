@@ -2210,10 +2210,10 @@ fs-extra@^7.0.0:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-jetpack@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-1.3.1.tgz#77c8ed2e361b062b60eca38c4061b972ff03d324"
-  integrity sha512-oCrJI4kSredslsM3iZoZ19RKUt78XyyOSJuwzg/JGIxCBmjaoqPpvqAy5ZaUNI/QHJPL0UkKeX/yarAd39vP/Q==
+fs-jetpack@^2.2.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/fs-jetpack/-/fs-jetpack-2.2.1.tgz#633821ac9c4d3e57f07f9ca9fb56be8dd6c663ca"
+  integrity sha512-pbRcz1OqtcmP100mkTuPXuMCx6LvmsZYGt/F2dDNKMeSH+FX+mA1vgRSLUKSQWAJSD8mWWYC8US+1U4LHR1Fmw==
   dependencies:
     minimatch "^3.0.2"
 
