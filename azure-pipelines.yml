@@ -16,5 +16,5 @@ steps:
   displayName: 'yarn install'
 
 - bash: |
-    yarn ci
-  displayName: 'yarn ci'
+    yarn ci:test
+  displayName: 'yarn ci:test'
