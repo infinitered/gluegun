@@ -1,6 +1,5 @@
 import * as path from 'path'
 import * as jetpack from 'fs-jetpack'
-import { map } from 'ramda'
 import { Plugin } from '../domain/plugin'
 import { Options } from '../domain/options'
 import { filesystem } from '../toolbox/filesystem-tools'
@@ -47,14 +46,14 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
   const jetpackPlugin = jetpack.cwd(plugin.directory)
 
   // load any default commands passed in
-  plugin.commands = map(loadCommandFromPreload, options.preloadedCommands || [])
+  plugin.commands = (options.preloadedCommands || []).map(loadCommandFromPreload)
 
   // load the commands found in the commands sub-directory
   if (jetpackPlugin.exists('commands') === 'dir') {
     const commands = jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: true })
 
     plugin.commands = plugin.commands.concat(
-      map(file => loadCommandFromFile(path.join(directory, 'commands', file)), commands),
+      commands.map(file => loadCommandFromFile(path.join(directory, 'commands', file))),
     )
   }
 
@@ -62,7 +61,7 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
   if (jetpackPlugin.exists('extensions') === 'dir') {
     const extensions = jetpackPlugin.cwd('extensions').find({ matching: extensionFilePattern, recursive: false })
 
-    plugin.extensions = map(file => loadExtensionFromFile(`${directory}/extensions/${file}`), extensions)
+    plugin.extensions = extensions.map(file => loadExtensionFromFile(`${directory}/extensions/${file}`))
   } else {
     plugin.extensions = []
   }
@@ -83,6 +82,9 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
 
   // set all commands to reference their parent plugin
   plugin.commands.forEach(c => (c.plugin = plugin))
+
+  // sort plugin commands alphabetically
+  plugin.commands = plugin.commands.sort((a, b) => (a.commandPath.join(' ') < b.commandPath.join(' ') ? -1 : 1))
 
   return plugin
 }

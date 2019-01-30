@@ -1,11 +1,11 @@
 const uniqueTempDir = require('unique-temp-dir')
 
-async function simple(context) {
+async function simple(toolbox) {
   const template = 'simple.ejs'
   const dir = uniqueTempDir({ create: true })
   const target = `${dir}/simple.txt`
 
-  const result = await context.template.generate({ template, target })
+  const result = await toolbox.template.generate({ template, target })
   return result
 }
 

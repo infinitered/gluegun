@@ -1,4 +1,4 @@
-async function omgTwo (context) {
+async function omgTwo(toolbox) {
   return 'two'
 }
 

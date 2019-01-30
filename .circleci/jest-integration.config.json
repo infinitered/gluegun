@@ -4,5 +4,6 @@
     "^.+\\.ts$": "ts-jest"
   },
   "testRegex": "(\\.|/)integration\\.ts$",
-  "moduleFileExtensions": ["ts", "js", "json", "node"]
+  "moduleFileExtensions": ["ts", "js", "json", "node"],
+  "roots": ["<rootDir>/.."]
 }

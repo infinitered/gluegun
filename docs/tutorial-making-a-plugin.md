@@ -12,7 +12,7 @@ We're building out a CLI that prints out system information, called `intern`. Le
 
 ```bash
 $ yarn global add gluegun
-$ gluegun new intern
+$ gluegun new intern --javascript
 $ cd intern
 $ yarn
 $ yarn link

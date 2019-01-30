@@ -1,4 +1,4 @@
-import { test, is } from 'ramda'
+import { is } from './utils'
 import { filesystem } from './filesystem-tools'
 import { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
 
@@ -11,27 +11,21 @@ import { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
  */
 export async function exists(filename: string, findPattern: string | RegExp): Promise<boolean> {
   // sanity check the filename
-  if (!is(String, filename) || filesystem.isNotFile(filename)) {
-    return false
-  }
+  if (!is(String, filename) || filesystem.isNotFile(filename)) return false
 
   // sanity check the findPattern
   const patternIsString = typeof findPattern === 'string'
-  if (!(findPattern instanceof RegExp) && !patternIsString) {
-    return false
-  }
+  if (!(findPattern instanceof RegExp) && !patternIsString) return false
 
   // read from jetpack -- they guard against a lot of the edge
   // cases and return nil if problematic
   const contents = filesystem.read(filename)
 
   // only let the strings pass
-  if (!is(String, contents)) {
-    return false
-  }
+  if (!is(String, contents)) return false
 
   // do the appropriate check
-  return patternIsString ? contents.includes(findPattern) : test(findPattern as RegExp, contents)
+  return patternIsString ? contents.includes(findPattern as string) : (findPattern as RegExp).test(contents)
 }
 
 /**
@@ -111,30 +105,26 @@ export async function patch(filename: string, opts: GluegunPatchingPatchOptions 
 
 export async function readFile(filename: string): Promise<string> {
   // bomb if the file doesn't exist
-  if (!filesystem.isFile(filename)) {
-    throw new Error(`file not found ${filename}`)
-  }
+  if (!filesystem.isFile(filename)) throw new Error(`file not found ${filename}`)
 
   // check type of file (JSON or not)
-  const fileType = filename.endsWith('.json') ? 'json' : 'utf8'
-
-  // read the file
-  return filesystem.readAsync(filename, fileType)
+  if (filename.endsWith('.json')) {
+    return filesystem.readAsync(filename, 'json')
+  } else {
+    return filesystem.readAsync(filename, 'utf8')
+  }
 }
 
 export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}): string | false {
   // Already includes string, and not forcing it
-  if (data.includes(opts.insert) && !opts.force) {
-    return false
-  }
+  if (data.includes(opts.insert) && !opts.force) return false
 
   // delete <string> is the same as replace <string> + insert ''
   const replaceString = opts.delete || opts.replace
 
   if (replaceString) {
-    if (!data.includes(replaceString)) {
-      return false
-    }
+    if (!data.includes(replaceString)) return false
+
     // Replace matching string with new string or nothing if nothing provided
     return data.replace(replaceString, `${opts.insert || ''}`)
   } else {
@@ -145,9 +135,7 @@ export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}
 function insertNextToString(data: string, opts: GluegunPatchingPatchOptions) {
   // Insert before/after a particular string
   const findString = opts.before || opts.after
-  if (!data.includes(findString)) {
-    return false
-  }
+  if (!data.includes(findString)) return false
 
   const newContents = opts.after ? `${findString}${opts.insert || ''}` : `${opts.insert || ''}${findString}`
   return data.replace(findString, newContents)

@@ -3,7 +3,6 @@ npm-debug.log*
 npm-debug.log
 yarn-error.log
 .vscode
-yarn.lock
 package-lock.json
 coverage
 .nyc_output
@@ -12,3 +11,14 @@ dist/**/*
 build/**/*
 .DS_Store
 *.tgz
+
+# these are generated at build-time
+toolbox.js
+filesystem.js
+strings.js
+print.js
+system.js
+semver.js
+http.js
+patching.js
+prompt.js

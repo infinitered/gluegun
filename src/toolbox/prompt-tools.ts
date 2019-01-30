@@ -1,26 +1,14 @@
-import * as Enquirer from 'enquirer'
-import * as promptList from 'prompt-list'
-import * as promptRawlist from 'prompt-rawlist'
-import * as promptConfirm from 'prompt-confirm'
-import * as promptExpand from 'prompt-expand'
-import * as promptCheckbox from 'prompt-checkbox'
-import * as promptRadio from 'prompt-radio'
-import * as promptPassword from 'prompt-password'
-import * as promptQuestion from 'prompt-question'
-import * as promptAutocompletion from 'prompt-autocompletion'
+import { GluegunPrompt, GluegunQuestionType, GluegunAskResponse } from './prompt-types'
 
-import { GluegunPrompt } from './prompt-types'
+let enquirer = null
+function getEnquirer() {
+  if (enquirer) return enquirer
 
-const enquirer = new Enquirer()
-enquirer.register('list', promptList)
-enquirer.register('rawlist', promptRawlist)
-enquirer.register('confirm', promptConfirm)
-enquirer.register('expand', promptExpand)
-enquirer.register('checkbox', promptCheckbox)
-enquirer.register('radio', promptRadio)
-enquirer.register('password', promptPassword)
-enquirer.register('question', promptQuestion)
-enquirer.register('autocomplete', promptAutocompletion)
+  const Enquirer = require('enquirer')
+  enquirer = new Enquirer()
+
+  return enquirer
+}
 
 /**
  * A yes/no question.
@@ -29,17 +17,37 @@ enquirer.register('autocomplete', promptAutocompletion)
  * @returns The true/false answer.
  */
 const confirm = async (message: string): Promise<boolean> => {
-  const answers = await enquirer.ask({
+  const { yesno } = await getEnquirer().prompt({
     name: 'yesno',
     type: 'confirm',
     message,
   })
-  return answers.yesno
+  return yesno
 }
 
-// attach our helpers
-enquirer.confirm = confirm
-
-const prompt: GluegunPrompt = enquirer
+/**
+ * We're replicating the interface of Enquirer in order to
+ * "lazy load" the package only if and when we actually are asked for it.
+ * This results in a significant speed increase.
+ */
+const prompt: GluegunPrompt = {
+  confirm,
+  ask: async (questions: GluegunQuestionType | GluegunQuestionType[]): Promise<GluegunAskResponse> => {
+    if (Array.isArray(questions)) {
+      // Because Enquirer 2 breaks backwards compatility (and we don't want to)
+      // we are translating the previous API to the current equivalent.
+      questions = questions.map(q => {
+        if (q.type === 'rawlist' || q.type === 'list') q.type = 'select'
+        if (q.type === 'expand') q.type = 'autocomplete'
+        if (q.type === 'checkbox') q.type = 'multiselect'
+        if (q.type === 'radio') q.type = 'select'
+        if (q.type === 'question') q.type = 'input'
+        return q
+      })
+    }
+    return getEnquirer().prompt(questions)
+  },
+  separator: () => getEnquirer().separator(),
+}
 
 export { prompt, GluegunPrompt }

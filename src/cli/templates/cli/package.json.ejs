@@ -9,46 +9,68 @@
   "scripts": {
     <% if (props.typescript) { %>
       "format": "prettier --write **/*.{js,ts,tsx,json}",
+      "lint": "tslint -p .",
+      "compile": "tsc -p .",
+      "build": "yarn format && yarn lint && yarn compile",
     <% } else { %>
       "format": "prettier --write **/*.{js,json} && standard --fix",
       "lint": "standard",
     <% } %>
-    "test": "ava",
-    "watch": "ava --watch",
-    "coverage": "nyc ava"
+    "test": "jest",
+    "watch": "jest --watch",
+    "snapupdate": "jest --updateSnapshot",
+    "coverage": "jest --coverage"
   },
   "files": [
     <% if (props.typescript) { %>
       "tsconfig.json",
+      "tslint.json",
+      "build",
+    <% } else { %>
+      "src",
     <% } %>
     "LICENSE",
     "readme.md",
     "docs",
-    "bin",
-    "src"
+    "bin"
   ],
   "license": "MIT",
   "dependencies": {
     <% if (props.typescript) { %>
-      "typescript": "^2.5.3",
-      "ts-node": "^3.3.0",
+      "typescript": "3.2.2",
+      "ts-node": "^7.0.1",
     <% } -%>
-    "gluegun": "next"
+    "gluegun": "^2.1.0"
   },
   "devDependencies": {
     <% if (props.typescript) { %>
-      "@types/node": "^8.0.47",
+      "@types/node": "^10.12.12",
+      "@types/jest": "^23.3.10",
+      "ts-jest": "^23.10.5",
+      "tslint": "^5.12.0",
+      "tslint-config-prettier": "^1.17.0",
+      "tslint-config-standard": "^8.0.1",
     <% } else { %>
-      "standard": "^10.0.0",
-      "babel-eslint": "^8.0.1",
+      "standard": "^12.0.1",
     <% } %>
-    "prettier": "^1.7.4",
-    "ava": "^0.22.0",
-    "nyc": "^11.2.1"
-  }
-  <% if (!props.typescript) { %>,
-    "standard": {
-      "parser": "babel-eslint"
-    }
+    "prettier": "^1.12.1",
+    "jest": "^23.6.0"
+  },
+  "jest": {
+    <% if (props.typescript) { %>
+      "preset": "ts-jest",
+    <% } %>
+    "testEnvironment": "node"
+  },
+  <% if (!props.typescript) { %>
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
   <% } %>
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
 }

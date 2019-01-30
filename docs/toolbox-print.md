@@ -59,7 +59,7 @@ Some available functions include:
 | ------------------ | ---------------------------------------- |
 | `colors.success()` | the user to smile                        |
 | `colors.error()`   | to say something has failed              |
-| `colors.warn()`    | to point out that something might be off |
+| `colors.warning()` | to point out that something might be off |
 | `colors.info()`    | to say something informational           |
 | `colors.muted()`   | you need to say something secondary      |
 

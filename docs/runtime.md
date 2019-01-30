@@ -1,6 +1,6 @@
-With the gluegun API, you're able to load & execute commands.
+Gluegun provides a builder that lets you initialize and configure Gluegun to work with your CLI. It lets you load & execute commands, extensions, and plugins.
 
-Check out the [sniff](./sniff.md) module for detecting if your environment is able to run.
+_Note: Check out the [sniff](./sniff.md) module for detecting if your environment is able to run._
 
 Here's a kitchen sink version, which we're about to cover.
 
@@ -66,7 +66,9 @@ $ movie producers "Planes, Trains, & Automobiles" --sort age
 
 Additional functionality can be added to the `gluegun` object with [plugins](./plugins.md). Plugins can be yours or your users.
 
-A plugin is a folder (or NPM package) that contains a structure - something like this:
+_Hint: `src` and `plugin` are almost identical under the hood. The only thing they do differently is `src` will be loaded first and be the "default plugin"._
+
+A plugin is a folder (or, more often, an NPM package) that contains a structure - something like this:
 
 ```
 movie-credits
@@ -176,7 +178,7 @@ you prefer more control.
 
 ## command
 
-If you want to pass in arbitrary commands, you can do that with `.command()`.
+If you want to pass in commands directly to the runtime builder, you can do that with `.command()`.
 
 ```js
 const cli = build('movie')
@@ -217,6 +219,8 @@ If you find you need one of these extensions for just _one_ command but don't wa
 
 ```js
 const { prompt } = require('gluegun')
+// or
+const { prompt } = require('gluegun/prompt')
 ```
 
 For reference, the core extensions that incur the biggest startup performance penalty are (timing varies per machine, but this gives some sense of scale):
@@ -226,6 +230,27 @@ prompt +100ms
 print +45ms
 http +30ms
 system +10ms
+```
+
+_Note about TypeScript and `exclude`:_ Please note that the TypeScript type `GluegunToolbox` (as of Gluegun 2.1.x) always assumes that core extensions are included, even if you excluded them in the builder. In this case, it's recommended that you create your own `FooToolbox` (or similar) and update the interface to match your preferred configuration. Example:
+
+```typescript
+// wherever your types are, say, `./src/types.ts`
+import { GluegunToolbox } from 'gluegun'
+export interface FooToolbox extends GluegunToolbox {
+  prompt: null
+  print: null
+  http: null
+  system: null
+}
+
+// in a command
+import { FooToolbox } from '../types'
+module.exports = {
+  run: async (toolbox: FooToolbox) => {
+    // ... use toolbox with your excluded extensions
+  },
+}
 ```
 
 ## create
@@ -279,16 +304,16 @@ $ movie producers "Planes, Trains, & Automobiles" --sort age
 await cli.run('quote random "*johnny"', {
   funny: true,
   genre: 'Horror',
-  weapon: 'axe'
+  weapon: 'axe',
 })
 ```
 
 There's a few situations that make this useful.
 
-1. Maybe you like to use `meow` or `commander` to parse the command line.
-2. Maybe your interface isn't a CLI.
-3. Maybe you want to run several commands in a row.
-4. Maybe this is your program and you don't like strangers telling you how to code.
+1.  Maybe you like to use `meow` or `commander` to parse the command line.
+2.  Maybe your interface isn't a CLI.
+3.  Maybe you want to run several commands in a row.
+4.  Maybe this is your program and you don't like strangers telling you how to code.
 
 Bottom line is, you get to pick. It's yours. `gluegun` is just glue.
 

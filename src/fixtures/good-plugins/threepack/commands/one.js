@@ -1,4 +1,4 @@
-async function one () {
+async function one() {
   return 1
 }
 

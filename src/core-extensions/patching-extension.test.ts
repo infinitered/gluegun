@@ -42,14 +42,14 @@ test('exists - checks a TEXT file for a RegExp', async () => {
 
 test('update - updates a JSON file', async () => {
   const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const updated = await patching.update(configFile, contents => {
+  const updated = (await patching.update(configFile, contents => {
     expect(typeof contents).toBe('object')
     expect(contents.test).toBe('what???')
     expect(contents.test2).toBe('never')
 
     contents.mutated = true
     return contents
-  })
+  })) as { [key: string]: any }
 
   // returned the updated object
   expect(updated).toBeTruthy()

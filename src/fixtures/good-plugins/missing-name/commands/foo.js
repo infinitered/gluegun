@@ -1,3 +1,3 @@
 module.exports = {
-  run: () => true
+  run: () => true,
 }
