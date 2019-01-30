@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`timeouts long async extensions 1`] = `"The extension 'longAsyncExtension' took too long to run"`;

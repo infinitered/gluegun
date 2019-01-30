@@ -1,6 +1,5 @@
 import * as expect from 'expect'
 import { Runtime } from './runtime'
-import { DEFAULTS } from './run'
 
 test('loads the core extensions in the right order', () => {
   const r = new Runtime()
@@ -19,14 +18,3 @@ test('loads async extensions correctly', async () => {
   expect(toolbox['asyncData']).toBeDefined()
   expect(toolbox['asyncData'].a).toEqual(1)
 })
-
-afterEach(() => (DEFAULTS.extensionTimeout = 10000))
-
-test('timeouts long async extensions', async () => {
-  const r = new Runtime()
-  r.addPlugin(`${__dirname}/../fixtures/bad-plugins/long-async`)
-  r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
-  DEFAULTS.extensionTimeout = 1000
-
-  await expect(r.run('three')).rejects.toThrowErrorMatchingSnapshot()
-}, 1500)
