@@ -1,5 +1,5 @@
 module.exports = {
-  hi: function hi () {
+  hi: function hi() {
     return 'hi'
-  }
+  },
 }

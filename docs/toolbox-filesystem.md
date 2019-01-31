@@ -40,6 +40,10 @@ toolbox.filesystem.subdirectories(`~/Desktop`) // []
 
 [Appends](https://github.com/szwacz/fs-jetpack#appendpath-data-options) data to the end of a file.
 
+## chmodSync
+
+Changes directory ownership. See more in the [fs documentation](https://nodejs.org/api/fs.html#fs_fs_chmodsync_path_mode).
+
 ## copy
 
 [Copies](https://github.com/szwacz/fs-jetpack#copyfrom-to-options) a file or a directory.
@@ -96,6 +100,10 @@ Checks to see if file or directory [exists](https://github.com/szwacz/fs-jetpack
 ## rename
 
 [Renames](https://github.com/szwacz/fs-jetpack#renamepath-newname) a file or directory.
+
+## resolve
+
+[Resolves](https://nodejs.org/docs/latest/api/path.html#path_path_resolve_paths) a sequence of paths or path segments into an absolute path.
 
 ## symlink
 

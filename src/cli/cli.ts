@@ -17,7 +17,7 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
         print.info(`  Type gluegun --help for more info`)
       },
     })
-    .exclude(['semver', 'prompt', 'http', 'patching'])
+    .exclude(['semver', 'http', 'patching'])
     .create()
 
   // and run it

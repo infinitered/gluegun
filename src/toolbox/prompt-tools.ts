@@ -1,4 +1,4 @@
-import { GluegunPrompt } from './prompt-types'
+import { GluegunPrompt, GluegunQuestionType, GluegunAskResponse } from './prompt-types'
 
 let enquirer = null
 function getEnquirer() {
@@ -6,32 +6,23 @@ function getEnquirer() {
 
   const Enquirer = require('enquirer')
   enquirer = new Enquirer()
-  enquirer.register('list', require('prompt-list'))
-  enquirer.register('rawlist', require('prompt-rawlist'))
-  enquirer.register('confirm', require('prompt-confirm'))
-  enquirer.register('expand', require('prompt-expand'))
-  enquirer.register('checkbox', require('prompt-checkbox'))
-  enquirer.register('radio', require('prompt-radio'))
-  enquirer.register('password', require('prompt-password'))
-  enquirer.register('question', require('prompt-question'))
-  enquirer.register('autocomplete', require('prompt-autocompletion'))
-
-  /**
-   * A yes/no question.
-   *
-   * @param message The message to display to the user.
-   * @returns The true/false answer.
-   */
-  enquirer.confirm = async (message: string): Promise<boolean> => {
-    const answers = await getEnquirer().ask({
-      name: 'yesno',
-      type: 'confirm',
-      message,
-    })
-    return answers.yesno
-  }
 
   return enquirer
+}
+
+/**
+ * A yes/no question.
+ *
+ * @param message The message to display to the user.
+ * @returns The true/false answer.
+ */
+const confirm = async (message: string): Promise<boolean> => {
+  const { yesno } = await getEnquirer().prompt({
+    name: 'yesno',
+    type: 'confirm',
+    message,
+  })
+  return yesno
 }
 
 /**
@@ -40,8 +31,22 @@ function getEnquirer() {
  * This results in a significant speed increase.
  */
 const prompt: GluegunPrompt = {
-  confirm: (message: string) => getEnquirer().confirm(message),
-  ask: (questions: any) => getEnquirer().ask(questions),
+  confirm,
+  ask: async (questions: GluegunQuestionType | GluegunQuestionType[]): Promise<GluegunAskResponse> => {
+    if (Array.isArray(questions)) {
+      // Because Enquirer 2 breaks backwards compatility (and we don't want to)
+      // we are translating the previous API to the current equivalent.
+      questions = questions.map(q => {
+        if (q.type === 'rawlist' || q.type === 'list') q.type = 'select'
+        if (q.type === 'expand') q.type = 'autocomplete'
+        if (q.type === 'checkbox') q.type = 'multiselect'
+        if (q.type === 'radio') q.type = 'select'
+        if (q.type === 'question') q.type = 'input'
+        return q
+      })
+    }
+    return getEnquirer().prompt(questions)
+  },
   separator: () => getEnquirer().separator(),
 }
 

@@ -191,7 +191,7 @@ export class Runtime {
     if (strings.isBlank(directory) || !filesystem.isDirectory(directory)) return []
 
     // find matching filesystem.subdirectories
-    const subdirs = filesystem.subdirectories(directory, false, options.matching, true)
+    const subdirs = filesystem.subdirectories(directory, false, options.matching)
 
     // load each one using `this.plugin`
     const { matching, ...otherOptions } = options // remove "matching"

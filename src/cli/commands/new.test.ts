@@ -19,11 +19,17 @@ function createFakeToolbox(): Toolbox {
     dir: sinon.stub(),
     chmodSync: sinon.stub(),
     rename: sinon.stub(),
+    exists: sinon.stub(),
   } as any
   fakeToolbox.system = {
     spawn: sinon.stub(),
     which: sinon.stub(),
   } as any
+  fakeToolbox.prompt = {
+    ask: async () => ({ answer: undefined }),
+    confirm: sinon.stub(),
+    separator: sinon.stub(),
+  }
   fakeToolbox.template = { generate: sinon.stub() }
   fakeToolbox.print = {
     colors: {
@@ -51,7 +57,7 @@ test('name is required', async () => {
   await command.run(toolbox)
   const { error } = toolbox.print
   expect((error as sinon.SinonStub).getCall(0).args[0]).toBe('You must provide a valid CLI name.')
-  expect((error as sinon.SinonStub).getCall(1).args[0]).toBe('Example: gluegun new foo')
+  expect((error as sinon.SinonStub).getCall(1).args[0]).toBe('Example: gluegun new movies')
 })
 
 test('name cannot be blank', async () => {
@@ -60,7 +66,7 @@ test('name cannot be blank', async () => {
   await command.run(toolbox)
   const { error } = toolbox.print
   expect((error as sinon.SinonStub).getCall(0).args).toEqual(['You must provide a valid CLI name.'])
-  expect((error as sinon.SinonStub).getCall(1).args).toEqual(['Example: gluegun new foo'])
+  expect((error as sinon.SinonStub).getCall(1).args).toEqual(['Example: gluegun new movies'])
 })
 
 test('name must pass regex', async () => {
@@ -77,10 +83,12 @@ test('name must pass regex', async () => {
 
 test('generates properly', async () => {
   const name = 'foo'
-  const typescript = undefined
+  const typescript = false
+  const javascript = true
   const extension = 'js'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
+  toolbox.parameters.options.javascript = true
 
   // here we run the command
   const result = await command.run(toolbox)
@@ -89,7 +97,7 @@ test('generates properly', async () => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript, extension }
+  const props = { name, typescript, javascript, extension }
 
   // assure that the directory was created
   expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)
@@ -143,6 +151,7 @@ test('generates properly', async () => {
 test('generates with typescript', async () => {
   const name = 'foo'
   const typescript = true
+  const javascript = false
   const extension = 'ts'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
@@ -155,7 +164,7 @@ test('generates with typescript', async () => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript, extension }
+  const props = { name, typescript, javascript, extension }
 
   // assure that the directory was created
   expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)

@@ -44,3 +44,9 @@ test('filtered subdirectories', () => {
   expect(1).toBe(dirs.length)
   expect(dirs).toContain(`toolbox`)
 })
+
+test('path separator', () => {
+  const sep = filesystem.separator
+  expect(sep).toBe(require('path').sep)
+  expect(['/', '\\']).toContain(sep)
+})

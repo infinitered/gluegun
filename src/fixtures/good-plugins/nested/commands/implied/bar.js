@@ -1,3 +1,3 @@
 module.exports = {
-  run: () => 'implied'
+  run: () => 'implied',
 }

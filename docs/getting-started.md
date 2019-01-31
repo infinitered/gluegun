@@ -24,13 +24,22 @@ Next, navigate to the folder you'd like to create your CLI in and generate it.
 $ gluegun new mycli
 ```
 
-If you want TypeScript, use `--typescript`:
+Gluegun will ask if you want to use TypeScript or modern JavaScript:
 
 ```
-$ gluegun new mycli --typescript
+? Which language would you like to use? (Use arrow keys)
+  TypeScript - Gives you a build pipeline out of the box (default)
+  Modern JavaScript - Node 8.2+ and ES2016+ (https://node.green/)
 ```
 
-_Note: We recommend TypeScript, but you don't have to use it!_
+You can also pass in `--typescript` or `--javascript` (or `-t` or `-j` for short) to bypass the prompt:
+
+```
+$ gluegun new mycli -t
+$ gluegun new mycli -j
+```
+
+_Note: We recommend TypeScript, but you don't have to use it! Gluegun works great with modern JavaScript._
 
 ## Linking your CLI so you can access it
 
