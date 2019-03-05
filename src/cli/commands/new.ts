@@ -65,8 +65,8 @@ const NewCommand: GluegunCommand = {
       })
 
       // we default to TypeScript if they just press "enter"
-      props.typescript = !answer || answer.includes('TypeScript')
-      info(``)
+      props.typescript = !answer || answer.toLowerCase().includes('typescript')
+      info(`Language used: ${props.typescript ? 'TypeScript' : 'Modern JavaScript'}`)
     }
 
     // normalize, so they can't pass both --typescript and --javascript
