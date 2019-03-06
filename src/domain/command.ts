@@ -20,6 +20,8 @@ export interface GluegunCommand<TContext extends Toolbox = Toolbox> {
   file?: string
   /** A reference to the plugin that contains this command. */
   plugin?: Plugin
+  /** Hints for parsing options with yargs-parser */
+  options?: object
 }
 
 /**
@@ -35,6 +37,7 @@ export class Command implements GluegunCommand<Toolbox> {
   public alias
   public dashed
   public plugin
+  public options
 
   constructor(props?: GluegunCommand) {
     this.name = null
@@ -46,6 +49,7 @@ export class Command implements GluegunCommand<Toolbox> {
     this.alias = []
     this.dashed = false
     this.plugin = null
+    this.options = null
     if (props) Object.assign(this, props)
   }
 

@@ -36,6 +36,9 @@ test('load command from preload', async () => {
     alias: ['z'],
     dashed: true,
     run: toolbox => 'ran!',
+    options: {
+      alias: { foo: 'f' },
+    },
   })
 
   expect(command.name).toBe('hello')
@@ -46,4 +49,5 @@ test('load command from preload', async () => {
   expect(command.file).toBe(null)
   expect(command.dashed).toBe(true)
   expect(command.commandPath).toEqual(['hello'])
+  expect(command.options).toEqual({ alias: { foo: 'f' } })
 })
