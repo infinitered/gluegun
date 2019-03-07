@@ -55,7 +55,7 @@ const NewCommand: GluegunCommand = {
     if (!props.typescript && !props.javascript) {
       info(``)
       const { answer } = await prompt.ask({
-        type: 'list',
+        type: 'select',
         name: 'answer',
         message: 'Which language would you like to use?',
         choices: [
