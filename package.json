@@ -88,7 +88,7 @@
     "@types/cli-table2": "0.2.2",
     "@types/jest": "23.3.14",
     "@types/node": "10.12.30",
-    "@types/ora": "3.0.0",
+    "@types/ora": "3.1.0",
     "@types/pluralize": "0.0.29",
     "@types/sinon": "7.0.5",
     "cpy-cli": "2.0.0",
