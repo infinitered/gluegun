@@ -30,12 +30,12 @@ If the file ends in `.json`, it'll be read in as an object. Return the updated o
 If the file doesn't end in `.json`, you'll receive a string. Return an updated string to write back to the file.
 
 ```js
-await toolbox.patching.update('config.json', (config) => {
+await toolbox.patching.update('config.json', config => {
   config.key = 'new value'
   return config
 })
 
-await toolbox.patching.update('config.txt', (data) => {
+await toolbox.patching.update('config.txt', data => {
   return data.replace('Jamon', 'Boss')
 })
 ```
@@ -74,7 +74,7 @@ await toolbox.patching.replace('config.txt', 'Remove this string\n', 'Replace wi
 
 > This is an **async** function.
 
-Allows inserting next to, deleting, and replacing strings in a given file. If `insert` is already present in the file, it won't change the file, unless you also pass through `force: true`.
+Allows inserting next to, deleting, and replacing strings or regular expression in a given file. If `insert` is already present in the file, it won't change the file, unless you also pass through `force: true`.
 
 ```js
 await toolbox.patching.patch('config.txt', { insert: 'Jamon', before: 'Something else' })
@@ -82,4 +82,5 @@ await toolbox.patching.patch('config.txt', { insert: 'Jamon', after: 'Something 
 await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else' })
 await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else', force: true })
 await toolbox.patching.patch('config.txt', { delete: 'Something' })
+await toolbox.patching.patch('config.txt', { insert: 'Jamon', after: new RegExp('some regexp') })
 ```
