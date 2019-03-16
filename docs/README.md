@@ -86,7 +86,7 @@ module.exports = {
     const { system, print, filesystem, strings } = toolbox
 
     // ...and be the CLI you wish to see in the world
-    const awesome = strings.trim(system.run('whoami'))
+    const awesome = strings.trim(await system.run('whoami'))
     const moreAwesome = strings.kebabCase(`${awesome} and a keyboard`)
     const contents = `🚨 Warning! ${moreAwesome} coming thru! 🚨`
     const home = process.env['HOME']
