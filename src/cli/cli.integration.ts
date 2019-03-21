@@ -1,8 +1,9 @@
 import * as expect from 'expect'
 import * as sinon from 'sinon'
 import * as uniqueTempDir from 'unique-temp-dir'
-import * as stripANSI from 'strip-ansi'
 import { run as cli } from './cli'
+
+const stripANSI = require('strip-ansi')
 
 sinon.stub(console, 'log')
 
