@@ -102,7 +102,7 @@
     "rimraf": "2.6.3",
     "semantic-release": "15.13.3",
     "sinon": "7.2.7",
-    "strip-ansi": "5.1.0",
+    "strip-ansi": "5.2.0",
     "temp-write": "3.4.0",
     "ts-jest": "24.0.0",
     "ts-node": "8.0.3",
