@@ -1,6 +1,6 @@
 import * as expect from 'expect'
-import * as stripANSI from 'strip-ansi'
 import { print } from './print-tools'
+const stripANSI = require('strip-ansi')
 
 // hijack the console
 const log = console.log

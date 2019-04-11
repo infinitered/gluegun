@@ -188,3 +188,47 @@ test('patch - deletes text in a text file', async () => {
   const expectedContents = `These are .\n\nThey're very amazing.\n`
   expect(newContents).toBe(expectedContents)
 })
+
+test('patch - able to patch with regex as the value', async () => {
+  const updated = await patching.patch(t.context.textFile, {
+    after: new RegExp('some words'),
+    insert: ' patched info',
+  })
+
+  // returned the updated object
+  expect(updated).toBe(`These are some words patched info.\n\nThey're very amazing.\n`)
+
+  // file was actually written to with the right contents
+  const newContents = await jetpack.read(t.context.textFile, 'utf8')
+  const expectedContents = `These are some words patched info.\n\nThey're very amazing.\n`
+  expect(newContents).toBe(expectedContents)
+})
+
+test('patch - replaces text in a text file with regex as insert value', async () => {
+  const updated = await patching.patch(t.context.textFile, {
+    replace: new RegExp('very amazing'),
+    insert: 'patched info',
+  })
+
+  // returned the updated object
+  expect(updated).toBe(`These are some words.\n\nThey're patched info.\n`)
+
+  // file was actually written to with the right contents
+  const newContents = await jetpack.read(t.context.textFile, 'utf8')
+  const expectedContents = `These are some words.\n\nThey're patched info.\n`
+  expect(newContents).toBe(expectedContents)
+})
+
+test('patch - able to delete text in a text file with regex as delete value', async () => {
+  const updated = await patching.patch(t.context.textFile, {
+    delete: new RegExp('some words'),
+  })
+
+  // returned the updated object
+  expect(updated).toBe(`These are .\n\nThey're very amazing.\n`)
+
+  // file was actually written to with the right contents
+  const newContents = await jetpack.read(t.context.textFile, 'utf8')
+  const expectedContents = `These are .\n\nThey're very amazing.\n`
+  expect(newContents).toBe(expectedContents)
+})

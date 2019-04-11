@@ -86,7 +86,7 @@ module.exports = {
     const { system, print, filesystem, strings } = toolbox
 
     // ...and be the CLI you wish to see in the world
-    const awesome = strings.trim(system.run('whoami'))
+    const awesome = strings.trim(await system.run('whoami'))
     const moreAwesome = strings.kebabCase(`${awesome} and a keyboard`)
     const contents = `🚨 Warning! ${moreAwesome} coming thru! 🚨`
     const home = process.env['HOME']
@@ -99,9 +99,9 @@ module.exports = {
 }
 ```
 
-See the [toolbox api docs](./docs/toolbox-api.md) for more details on what you can do.
+See the [toolbox api docs](toolbox-api.md) for more details on what you can do.
 
-See the [runtime docs](./docs/runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
+See the [runtime docs](runtime.md) for more details on building your own CLI and join us in the #gluegun channel of the Infinite Red Community Slack ([community.infinite.red](http://community.infinite.red)) to get friendly help!
 
 # Who Is Using This?
 

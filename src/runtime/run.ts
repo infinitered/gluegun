@@ -61,7 +61,11 @@ export async function run(
   toolbox.config.loadConfig = loadConfig
 
   // allow extensions to attach themselves to the toolbox
-  this.extensions.forEach(extension => extension.setup(toolbox))
+  const extensionSetupPromises = this.extensions.map(extension => {
+    const setupResult = extension.setup(toolbox)
+    return setupResult === void 0 ? Promise.resolve(null) : Promise.resolve(setupResult)
+  })
+  await Promise.all(extensionSetupPromises)
 
   // kick it off
   if (toolbox.command.run) {

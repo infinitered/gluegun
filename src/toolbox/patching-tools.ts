@@ -25,7 +25,7 @@ export async function exists(filename: string, findPattern: string | RegExp): Pr
   if (!is(String, contents)) return false
 
   // do the appropriate check
-  return patternIsString ? contents.includes(findPattern as string) : (findPattern as RegExp).test(contents)
+  return isPatternIncluded(contents, findPattern)
 }
 
 /**
@@ -117,28 +117,40 @@ export async function readFile(filename: string): Promise<string> {
 
 export function patchString(data: string, opts: GluegunPatchingPatchOptions = {}): string | false {
   // Already includes string, and not forcing it
-  if (data.includes(opts.insert) && !opts.force) return false
+  if (isPatternIncluded(data, opts.insert) && !opts.force) return false
 
   // delete <string> is the same as replace <string> + insert ''
   const replaceString = opts.delete || opts.replace
 
   if (replaceString) {
-    if (!data.includes(replaceString)) return false
+    if (!isPatternIncluded(data, replaceString)) return false
 
     // Replace matching string with new string or nothing if nothing provided
     return data.replace(replaceString, `${opts.insert || ''}`)
   } else {
-    return insertNextToString(data, opts)
+    return insertNextToPattern(data, opts)
   }
 }
 
-function insertNextToString(data: string, opts: GluegunPatchingPatchOptions) {
+function insertNextToPattern(data: string, opts: GluegunPatchingPatchOptions) {
   // Insert before/after a particular string
-  const findString = opts.before || opts.after
-  if (!data.includes(findString)) return false
+  const findPattern: string | RegExp = opts.before || opts.after
 
-  const newContents = opts.after ? `${findString}${opts.insert || ''}` : `${opts.insert || ''}${findString}`
-  return data.replace(findString, newContents)
+  // sanity check the findPattern
+  const patternIsString = typeof findPattern === 'string'
+  if (!(findPattern instanceof RegExp) && !patternIsString) return false
+
+  const isPatternFound = isPatternIncluded(data, findPattern)
+  if (!isPatternFound) return false
+
+  const originalString = patternIsString ? findPattern : data.match(findPattern)[0]
+  const newContents = opts.after ? `${originalString}${opts.insert || ''}` : `${opts.insert || ''}${originalString}`
+  return data.replace(findPattern, newContents)
+}
+
+function isPatternIncluded(data: string, findPattern: string | RegExp): boolean {
+  if (!findPattern) return false
+  return typeof findPattern === 'string' ? data.includes(findPattern) : findPattern.test(data)
 }
 
 const patching: GluegunPatching = { update, append, prepend, replace, patch, exists }

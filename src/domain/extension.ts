@@ -11,5 +11,5 @@ export class Extension {
   /** The file this extension comes from. */
   public file?: string = null
   /** The function used to attach functionality to the toolbox. */
-  public setup?: (toolbox: EmptyToolbox) => void = null
+  public setup?: (toolbox: EmptyToolbox) => void | Promise<void> = null
 }

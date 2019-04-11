@@ -8,3 +8,13 @@ test('loads the core extensions in the right order', () => {
 
   expect(list).toBe('meta, strings, print, filesystem, semver, system, prompt, http, template, patching')
 })
+
+test('loads async extensions correctly', async () => {
+  const r = new Runtime()
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/async-extension`)
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/threepack`)
+
+  const toolbox = await r.run('three')
+  expect(toolbox['asyncData']).toBeDefined()
+  expect(toolbox['asyncData'].a).toEqual(1)
+})

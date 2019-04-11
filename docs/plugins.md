@@ -83,6 +83,20 @@ run: async toolbox => {
 }
 ```
 
+### async extensions
+
+Extensions maybe also be asynchronous, allowing for things like network calls or other asynchronous operations.
+
+```js
+// extensions/getMyData.js
+const { asyncCall } = require('@company/lib')
+
+module.exports = async (toolbox) {
+  const { data } = await asyncCall()
+  toolbox.myData = data
+}
+```
+
 # Configuration File
 
 Gluegun uses [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) to determine configuration. It can be:

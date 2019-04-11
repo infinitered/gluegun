@@ -55,7 +55,7 @@ const NewCommand: GluegunCommand = {
     if (!props.typescript && !props.javascript) {
       info(``)
       const { answer } = await prompt.ask({
-        type: 'list',
+        type: 'select',
         name: 'answer',
         message: 'Which language would you like to use?',
         choices: [
@@ -65,8 +65,8 @@ const NewCommand: GluegunCommand = {
       })
 
       // we default to TypeScript if they just press "enter"
-      props.typescript = !answer || answer.includes('TypeScript')
-      info(``)
+      props.typescript = !answer || answer.toLowerCase().includes('typescript')
+      info(`Language used: ${props.typescript ? 'TypeScript' : 'Modern JavaScript'}`)
     }
 
     // normalize, so they can't pass both --typescript and --javascript
