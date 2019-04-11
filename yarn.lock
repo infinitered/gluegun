@@ -328,10 +328,10 @@
     array-from "^2.1.1"
     lodash "^4.17.11"
 
-"@sinonjs/samsam@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-3.3.0.tgz#9557ea89cd39dbc94ffbd093c8085281cac87416"
-  integrity sha512-beHeJM/RRAaLLsMJhsCvHK31rIqZuobfPLa/80yGH5hnD8PV1hyh9xJBJNFfNmO7yWqm+zomijHsXpI6iTQJfQ==
+"@sinonjs/samsam@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@sinonjs/samsam/-/samsam-3.3.1.tgz#e88c53fbd9d91ad9f0f2b0140c16c7c107fe0d07"
+  integrity sha512-wRSfmyd81swH0hA1bxJZJ57xr22kC07a1N4zuIL47yTS04bDk6AoCkczcqHEjcRPmJ+FruGJ9WBQiJwMtIElFw==
   dependencies:
     "@sinonjs/commons" "^1.0.2"
     array-from "^2.1.1"
@@ -381,10 +381,10 @@
   resolved "https://registry.yarnpkg.com/@types/pluralize/-/pluralize-0.0.29.tgz#6ffa33ed1fc8813c469b859681d09707eb40d03c"
   integrity sha512-BYOID+l2Aco2nBik+iYS4SZX0Lf20KPILP5RGmM1IgzdwNdTs0eebiFriOPcej1sX9mLnSoiNte5zcFxssgpGA==
 
-"@types/sinon@7.0.10":
-  version "7.0.10"
-  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-7.0.10.tgz#1f921f0c347b19f754e61dbc671c088df73fe1ff"
-  integrity sha512-4w7SvsiUOtd4mUfund9QROPSJ5At/GQskDpqd87pJIRI6ULWSJqHI3GIZE337wQuN3aznroJGr94+o8fwvL37Q==
+"@types/sinon@7.0.11":
+  version "7.0.11"
+  resolved "https://registry.yarnpkg.com/@types/sinon/-/sinon-7.0.11.tgz#6f28f005a36e779b7db0f1359b9fb9eef72aae88"
+  integrity sha512-6ee09Ugx6GyEr0opUIakmxIWFNmqYPjkqa3/BuxCBokA0klsOLPgMD5K4q40lH7/yZVuJVzOfQpd7pipwjngkQ==
 
 "@types/strip-ansi@3.0.0":
   version "3.0.0"
@@ -5970,14 +5970,14 @@ simple-git@^1.85.0:
   dependencies:
     debug "^4.0.1"
 
-sinon@7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/sinon/-/sinon-7.3.0.tgz#fd409432bf2ef8ee6a302cf47ca1b0c95fd4de38"
-  integrity sha512-0pYvgRv46fODzT/PByqb79MVNpyxsxf38WEiXTABOF8RfIMcIARfZ+1ORuxwAmHkreZ/jST3UDBdKCRhUy/e1A==
+sinon@7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/sinon/-/sinon-7.3.1.tgz#e8276522104e6c08d1cb52a907270b0e316655c4"
+  integrity sha512-eQKMaeWovtOtYe2xThEvaHmmxf870Di+bim10c3ZPrL5bZhLGtu8cz+rOBTFz0CwBV4Q/7dYwZiqZbGVLZ+vjQ==
   dependencies:
     "@sinonjs/commons" "^1.4.0"
     "@sinonjs/formatio" "^3.2.1"
-    "@sinonjs/samsam" "^3.3.0"
+    "@sinonjs/samsam" "^3.3.1"
     diff "^3.5.0"
     lolex "^3.1.0"
     nise "^1.4.10"
@@ -6728,10 +6728,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.3.tgz#0eb320e4ace9b10eadf5bc6103286b0f8b7c224f"
-  integrity sha512-FFgHdPt4T/duxx6Ndf7hwgMZZjZpB+U0nMNGVCYPq0rEzWKjEDobm4J6yb3CS7naZ0yURFqdw9Gwc7UOh/P9oQ==
+typescript@3.3.4000:
+  version "3.3.4000"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.3.4000.tgz#76b0f89cfdbf97827e1112d64f283f1151d6adf0"
+  integrity sha512-jjOcCZvpkl2+z7JFn0yBOoLQyLoIkNZAs/fYJkUG6VKy6zLPHJGfQJYFHzibB6GJaF/8QrcECtlQ5cpvRHSMEA==
 
 uglify-js@^3.1.4:
   version "3.4.9"

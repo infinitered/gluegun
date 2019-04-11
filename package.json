@@ -90,7 +90,7 @@
     "@types/node": "10.14.4",
     "@types/ora": "3.1.0",
     "@types/pluralize": "0.0.29",
-    "@types/sinon": "7.0.10",
+    "@types/sinon": "7.0.11",
     "@types/strip-ansi": "3.0.0",
     "cpy-cli": "2.0.0",
     "expect": "24.0.0",
@@ -102,7 +102,7 @@
     "prettier": "1.16.4",
     "rimraf": "2.6.3",
     "semantic-release": "15.13.3",
-    "sinon": "7.3.0",
+    "sinon": "7.3.1",
     "strip-ansi": "5.2.0",
     "temp-write": "3.4.0",
     "ts-jest": "24.0.0",
@@ -110,7 +110,7 @@
     "tslint": "5.14.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-config-standard": "8.0.1",
-    "typescript": "3.4.3",
+    "typescript": "3.3.4000",
     "unique-temp-dir": "1.0.0"
   },
   "jest": {
