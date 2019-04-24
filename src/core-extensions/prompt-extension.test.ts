@@ -35,23 +35,12 @@ test('works as expected', async done => {
     io.send(keys.enter)
     await delay(10)
 
-    // rawlist
-    io.send(keys.down)
-    io.send(keys.down)
-    io.send(keys.enter)
-    await delay(10)
-
     // confirm
     io.send('Y')
-    io.send(keys.enter)
+    // io.send(keys.enter)
     await delay(10)
 
-    // expand
-    io.send('a')
-    io.send(keys.enter)
-    await delay(10)
-
-    // checkbox
+    // multiselect
     io.send(keys.space)
     io.send(keys.down)
     io.send(keys.down)
@@ -59,9 +48,8 @@ test('works as expected', async done => {
     io.send(keys.enter)
     await delay(10)
 
-    // radio
+    // select
     io.send(keys.down)
-    io.send(keys.space)
     io.send(keys.enter)
     await delay(10)
 
@@ -90,42 +78,19 @@ test('works as expected', async done => {
       choices: ['Clown', 'Other'],
     },
     {
-      type: 'rawlist',
-      name: 'exrawlist',
-      message: 'What nation?',
-      choices: ['Canada', 'United States', 'Mexico'],
-    },
-    {
       type: 'confirm',
       name: 'exconfirm',
       message: 'Are you sure?',
     },
     {
-      type: 'expand',
-      name: 'exexpand',
-      message: 'What action?',
-      choices: [
-        {
-          key: 'y',
-          name: 'Overwrite',
-          value: 'overwrite',
-        },
-        {
-          key: 'a',
-          name: 'Overwrite this one and all next',
-          value: 'overwrite_all',
-        },
-      ],
-    },
-    {
-      type: 'checkbox',
-      name: 'excheckbox',
+      type: 'multiselect',
+      name: 'exmultiselect',
       message: 'What are your favorite colors?',
       choices: ['red', 'blue', 'yellow'],
     },
     {
-      type: 'radio',
-      name: 'exradio',
+      type: 'select',
+      name: 'exselect',
       message: 'What is your favorite team?',
       choices: ['Jazz', 'Trail Blazers', 'Lakers', 'Warriors'],
     },
@@ -145,21 +110,17 @@ test('works as expected', async done => {
       message: 'State?',
       choices: ['Oregon', 'Washington', 'California'],
       // You can leave this off unless you want to customize behavior
-      suggest: (s: string, choices: any[]) => {
-        return choices.filter(choice => {
-          return choice.message.toLowerCase().startsWith(s.toLowerCase())
-        })
+      suggest(input, choices) {
+        return choices.filter(choice => choice.message.startsWith(input))
       },
     },
   ])
 
   expect(result).toEqual({
     exlist: 'Other',
-    exrawlist: 'Mexico',
     exconfirm: true,
-    exexpand: 'overwrite_all',
-    excheckbox: ['red', 'yellow'],
-    exradio: 'Trail Blazers',
+    exmultiselect: ['red', 'yellow'],
+    exselect: 'Trail Blazers',
     expassword: 'hunter2',
     exinput: 'Alexander',
     exautocomplete: 'Washington',

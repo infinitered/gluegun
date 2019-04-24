@@ -15,12 +15,6 @@ module.exports = {
         choices: ['Clown', 'Other'],
       },
       {
-        type: 'rawlist',
-        name: 'exrawlist',
-        message: 'What nation?',
-        choices: ['Canada', 'United States', 'Mexico'],
-      },
-      {
         type: 'confirm',
         name: 'exconfirm',
         message: 'Are you sure?',
@@ -49,10 +43,16 @@ module.exports = {
         choices: ['red', 'blue', 'yellow'],
       },
       {
-        type: 'radio',
-        name: 'exradio',
+        type: 'select',
+        name: 'exselect',
         message: 'What is your favorite team?',
         choices: ['Jazz', 'Trail Blazers', 'Lakers', 'Warriors'],
+      },
+      {
+        type: 'multiselect',
+        name: 'exmultiselect',
+        message: 'What are your favorite months?',
+        choices: ['January', 'July', 'September', 'November'],
       },
       {
         type: 'password',
@@ -70,7 +70,7 @@ module.exports = {
         message: 'State?',
         choices: ['Oregon', 'Washington', 'California'],
         // You can leave this off unless you want to customize behavior
-        suggest: (s: string, choices: any[]) => {
+        suggest(s, choices) {
           return choices.filter(choice => {
             return choice.message.toLowerCase().startsWith(s.toLowerCase())
           })

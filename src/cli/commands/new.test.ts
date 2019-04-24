@@ -29,7 +29,7 @@ function createFakeToolbox(): Toolbox {
     ask: async () => ({ answer: undefined }),
     confirm: sinon.stub(),
     separator: sinon.stub(),
-  }
+  } as any
   fakeToolbox.template = { generate: sinon.stub() }
   fakeToolbox.print = {
     colors: {
