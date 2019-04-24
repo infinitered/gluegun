@@ -1,10 +1,10 @@
-import { GluegunPrompt, GluegunQuestionType, GluegunAskResponse } from './prompt-types'
+import { GluegunEnquirer, GluegunPrompt } from './prompt-types'
 
-let enquirer = null
-function getEnquirer() {
+let enquirer: GluegunEnquirer = null
+function getEnquirer(): GluegunEnquirer {
   if (enquirer) return enquirer
 
-  const Enquirer = require('enquirer')
+  const Enquirer: GluegunEnquirer = require('enquirer')
   enquirer = new Enquirer()
 
   return enquirer
@@ -30,9 +30,9 @@ const confirm = async (message: string): Promise<boolean> => {
  * "lazy load" the package only if and when we actually are asked for it.
  * This results in a significant speed increase.
  */
-const prompt: GluegunPrompt = {
+const prompt = {
   confirm,
-  ask: async (questions: GluegunQuestionType | GluegunQuestionType[]): Promise<GluegunAskResponse> => {
+  ask: async questions => {
     if (Array.isArray(questions)) {
       // Because Enquirer 2 breaks backwards compatility (and we don't want to)
       // we are translating the previous API to the current equivalent.
