@@ -13,7 +13,7 @@ export interface GluegunPrompt {
       | PromptOptions
       | ((this: GluegunEnquirer) => PromptOptions)
       | (PromptOptions | ((this: GluegunEnquirer) => PromptOptions))[],
-  ): Promise<T>
+  ): Promise<GluegunAskResponse>
   /* Returns a separator. */
   separator(): string
 }
