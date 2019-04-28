@@ -104,7 +104,7 @@
     "semantic-release": "15.13.3",
     "sinon": "7.3.1",
     "strip-ansi": "5.2.0",
-    "temp-write": "3.4.0",
+    "temp-write": "4.0.0",
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
     "tslint": "5.15.0",
