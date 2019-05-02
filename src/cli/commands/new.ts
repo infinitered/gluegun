@@ -25,7 +25,7 @@ const NewCommand: GluegunCommand = {
       name: parameters.first,
       typescript: Boolean(o.typescript || o.ts || o.t),
       javascript: Boolean(o.javascript || o.js || o.j),
-      extension: o.typescript ? 'ts' : 'js',
+      extension: Boolean(o.typescript || o.ts || o.t) ? 'ts' : 'js',
     }
 
     // sanity checks
