@@ -102,7 +102,7 @@
     "prettier": "1.17.0",
     "rimraf": "2.6.3",
     "semantic-release": "15.13.3",
-    "sinon": "7.3.1",
+    "sinon": "7.3.2",
     "strip-ansi": "5.2.0",
     "temp-write": "3.4.0",
     "ts-jest": "24.0.2",
