@@ -19,6 +19,9 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
     commandArray = (commandArray as string).split(COMMAND_DELIMITER)
   }
 
+  // we now know it's a string[], so keep TS happy
+  commandArray = commandArray as string[]
+
   // remove the first 2 args if it comes from process.argv
   if (equals(commandArray, process.argv)) {
     commandArray = commandArray.slice(2)
