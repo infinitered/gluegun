@@ -59,7 +59,7 @@ Extensions are additional functionality that you can monkeypatch onto the `toolb
 
 ```js
 // extensions/sayhello.js
-module.exports = function(toolbox) {
+module.exports = (toolbox) => {
   const { print } = toolbox
 
   toolbox.sayhello = () => {
