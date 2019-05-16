@@ -129,3 +129,18 @@ test('works as expected', async done => {
   await delay(2)
   done()
 })
+
+test('Confirm can accept default value', async () => {
+  const toolbox = new Toolbox()
+  createExtension(toolbox)
+  const { prompt } = toolbox
+
+  const sendKeystrokes = async () => {
+    io.send(keys.enter)
+    await delay(10)
+  }
+  setTimeout(() => sendKeystrokes().then(), 5)
+
+  const result = await prompt.confirm('Is default Yes?', true)
+  expect(result).toBeTruthy()
+})

@@ -6,7 +6,7 @@ export const GluegunEnquirer = Enquirer
 
 export interface GluegunPrompt {
   /* Prompts with a confirm message. */
-  confirm(message: string): Promise<boolean>
+  confirm(message: string, initial?: boolean): Promise<boolean>
   /* Prompts with a set of questions. */
   ask<T = object>(
     questions:

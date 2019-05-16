@@ -16,11 +16,12 @@ function getEnquirer(): GluegunEnquirer {
  * @param message The message to display to the user.
  * @returns The true/false answer.
  */
-const confirm = async (message: string): Promise<boolean> => {
+const confirm = async (message: string, initial?: boolean): Promise<boolean> => {
   const { yesno } = await getEnquirer().prompt({
     name: 'yesno',
     type: 'confirm',
     message,
+    initial,
   })
   return yesno
 }
