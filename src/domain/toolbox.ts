@@ -50,8 +50,8 @@ export interface GluegunEmptyToolbox {
 // Final toolbox
 export interface GluegunToolbox extends GluegunEmptyToolbox {
   // known properties
+  config: Options
   result?: any
-  config?: Options
   parameters: GluegunParameters
   plugin?: Plugin
   command?: Command
@@ -75,8 +75,9 @@ export interface GluegunToolbox extends GluegunEmptyToolbox {
 
 export class EmptyToolbox implements GluegunEmptyToolbox {
   [x: string]: any
+  public config: Options & { loadConfig?: (name: string, src: string) => Options } = {}
+
   public result?: any = null
-  public config?: Options & { loadConfig?: (name: string, src: string) => Options } = {}
   public parameters?: GluegunParameters = { options: {} }
   public plugin?: Plugin = null
   public command?: Command = null
