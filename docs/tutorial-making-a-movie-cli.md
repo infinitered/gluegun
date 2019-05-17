@@ -357,7 +357,7 @@ At the command line, run `movie api reset` and you should see the prompt to dele
 As additional exercises, try doing these things with your new CLI:
 
 1. Show a customized help screen with `movie help`. (Hint: add a `src/commands/help.ts` and remove the `.help()` in `src/cli.ts`)
-2. Show nicer output from the `search.js` command. (Hint: replace `console.debug(movie)` with a table using `print.table()`)
+2. Show nicer output from the `search.js` command. (Hint: replace `print.debug(movie)` with a table using `print.table()`)
 3. Add the ability to search for actors, not just movie titles
 
 ## Notes
