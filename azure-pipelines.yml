@@ -1,0 +1,27 @@
+pool:
+  vmImage: 'win1803'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    choco install yarn -y
+  displayName: 'install yarn'
+
+- script: |
+    yarn install
+  displayName: 'yarn install'
+
+- script: |
+    yarn ci:test
+  displayName: 'yarn ci:test'
+  
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build/'
+    includeRootFolder: false
+
+- task: PublishBuildArtifacts@1
