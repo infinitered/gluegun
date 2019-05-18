@@ -42,6 +42,7 @@ A pre-built prompt which asks a yes or no question.
 #### parameters
 
 - **message** is a `string` required for displaying a message to user. It's the question you're asking.
+- (optional) **initial** is a `boolean` for setting which answer is the default. `true` for Yes, `false` for No. Defaults to false.
 
 #### returns
 
