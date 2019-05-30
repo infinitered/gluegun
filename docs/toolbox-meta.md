@@ -16,6 +16,28 @@ Retrieves the currently running CLI's version.
 toolbox.meta.version() // '1.0.0'
 ```
 
+## packageJSON
+
+Retrieves the currently running CLI's package.json contents as an object.
+
+```js
+toolbox.meta.packageJSON()
+// { name: 'gluegun', version: '9.4.2', ... }
+```
+
+## checkForUpdate
+
+Async function that checks NPM to see if there's an update to the currently running CLI.
+
+```js
+const newVersion = await toolbox.meta.checkForUpdate()
+// false (if none exists)
+// '9.4.3' (new version if exists)
+if (newVersion) {
+  toolbox.print.info(`New version available: ${newVersion})`)
+}
+```
+
 ## commandInfo
 
 Retrieves information about all of this CLI's commands. You can use this to display a custom help screen, for example.

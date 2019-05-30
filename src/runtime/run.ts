@@ -67,6 +67,14 @@ export async function run(
   })
   await Promise.all(extensionSetupPromises)
 
+  // check for updates
+  if (this.checkUpdate) {
+    const updateAvailable = await toolbox.meta.checkForUpdate()
+    if (updateAvailable) {
+      console.log(`Update available: ${updateAvailable}`)
+    }
+  }
+
   // kick it off
   if (toolbox.command.run) {
     // run the command

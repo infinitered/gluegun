@@ -16,6 +16,7 @@ const cli = build('movie')
   .defaultCommand()
   .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
   .exclude(['filesystem', 'semver', 'system', 'prompt', 'http'])
+  .checkForUpdates(5) // check for updates randomly about 5% of the time
   .create()
 
 await cli.run()
@@ -251,6 +252,22 @@ module.exports = {
     // ... use toolbox with your excluded extensions
   },
 }
+```
+
+## checkForUpdates
+
+This allows you to check for updates every so often. Because we don't track how often your CLI is run, instead, we allow you to set a percentage chance of checking for updates. We recommend somewhere between 1-20, depending on how often your CLI is run. If you want to run it every time, set it to 100.
+
+```js
+const cli = build('movie')
+  .src(__dirname)
+  .plugins('./node_modules', { pattern: 'movie-' })
+  .plugin('~/.movie/movie-imdb')
+  .help()
+  .version()
+  .defaultCommand()
+  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .checkForUpdates(5)
 ```
 
 ## create

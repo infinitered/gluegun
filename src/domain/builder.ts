@@ -24,6 +24,7 @@ export class Builder {
     commands: GluegunCommand[]
     plugins: BuilderItem[]
     multiPlugins: { value: string; options: GluegunLoadOptions & GluegunMultiLoadOptions }[]
+    checkUpdate: boolean
   }
 
   constructor(brand?: string) {
@@ -33,6 +34,7 @@ export class Builder {
       commands: [],
       plugins: [],
       multiPlugins: [],
+      checkUpdate: false,
     }
   }
 
@@ -143,6 +145,17 @@ export class Builder {
   }
 
   /**
+   * Check for updates randomly.
+   *
+   * @param frequency % frequency of checking
+   * @return self.
+   */
+  public checkForUpdates(frequency: number): Builder {
+    this.data.checkUpdate = Math.floor(Math.random() * 100) + 1 < frequency
+    return this
+  }
+
+  /**
    * Hand over the runtime.
    */
   public create(): Runtime {
@@ -170,6 +183,9 @@ export class Builder {
 
     // add other commands
     commands.forEach(c => runtime.addCommand(c))
+
+    // check for updates
+    runtime.checkUpdate = this.data.checkUpdate
 
     return runtime
   }

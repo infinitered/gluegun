@@ -13,4 +13,5 @@ test('has the proper interface', () => {
   expect(ext.src).toEqual('/the/path')
   expect(typeof ext.version).toBe('function')
   expect(typeof ext.commandInfo).toBe('function')
+  expect(typeof ext.checkForUpdate).toBe('function')
 })
