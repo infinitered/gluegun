@@ -12,6 +12,8 @@ function createFakeToolbox(): Toolbox {
   fakeToolbox.meta = {
     src: '',
     version: sinon.stub(),
+    packageJSON: sinon.stub(),
+    checkForUpdate: sinon.stub(),
     commandInfo: sinon.stub(),
   }
   fakeToolbox.filesystem = {

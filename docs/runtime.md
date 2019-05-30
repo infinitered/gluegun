@@ -283,6 +283,7 @@ const cli = build('movie')
   .version()
   .defaultCommand()
   .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .checkForUpdates(5)
   .create()
 ```
 
