@@ -1589,13 +1589,15 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cosmiconfig@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.0.1.tgz#1467d4b6010116a3adcc1d8cbcc126d993a5afa9"
-  integrity sha512-Kb8por4Jn2HbgGMmQoS2glS7FipYnNxIDccjLr1y9jRjonlSeHrciUfa2y5D6ucahMnKj5oUAToLU6cRXUfOpg==
+cosmiconfig@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/cosmiconfig/-/cosmiconfig-5.1.0.tgz#6c5c35e97f37f985061cdf653f114784231185cf"
+  integrity sha512-kCNPvthka8gvLtzAxQXvWo4FxqRB+ftRZyPZNuab5ngvM9Y7yw7hbEysglptLgpkGX9nAOKTBVkHUAe8xtYR6Q==
   dependencies:
+    import-fresh "^2.0.0"
     is-directory "^0.3.1"
     js-yaml "^3.9.0"
+    lodash.get "^4.4.2"
     parse-json "^4.0.0"
 
 cosmiconfig@^5.0.1:
