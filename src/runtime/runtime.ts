@@ -33,6 +33,7 @@ export class Runtime {
   public defaultPlugin?: Plugin = null
   public defaultCommand?: Command = null
   public config: Options = {}
+  public checkUpdate: boolean = false
   public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunToolbox>
 
   /**

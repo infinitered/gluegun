@@ -1,13 +1,14 @@
 import { equals, replace } from './utils'
 import { GluegunToolbox } from '../domain/toolbox'
+import { PackageJSON } from './meta-types'
 
 /**
- * Finds the version for the currently running CLI.
+ * Finds the currently running CLI package.json
  *
- * @param toolbox Currently running toolbox.
- * @returns Version as a string.
+ * @param toolbox
+ * @returns Package.json contents as an object.
  */
-export function getVersion(toolbox: GluegunToolbox): string {
+export function getPackageJSON(toolbox: GluegunToolbox): PackageJSON {
   let directory = toolbox.meta.src
   const { filesystem } = toolbox
   if (!directory) throw new Error('getVersion: Unknown CLI version (no src folder found)')
@@ -17,7 +18,7 @@ export function getVersion(toolbox: GluegunToolbox): string {
     const pkg = filesystem.path(directory, 'package.json')
 
     // if we find a package.json, we're done -- read the version and return it
-    if (filesystem.exists(pkg) === 'file') return filesystem.read(pkg, 'json').version
+    if (filesystem.exists(pkg) === 'file') return filesystem.read(pkg, 'json') as PackageJSON
 
     // if we reach the git repo or root, we can't determine the version -- this is where we bail
     const git = filesystem.path(directory, '.git')
@@ -27,7 +28,18 @@ export function getVersion(toolbox: GluegunToolbox): string {
     // go up another directory
     directory = filesystem.path(directory, '..')
   }
-  throw new Error(`getVersion: Unknown CLI version (no package.json found in ${directory}`)
+
+  throw new Error(`getPackageJSON: No package.json found in ${directory}`)
+}
+
+/**
+ * Finds the version for the currently running CLI.
+ *
+ * @param toolbox Currently running toolbox.
+ * @returns Version as a string.
+ */
+export function getVersion(toolbox: GluegunToolbox): string {
+  return getPackageJSON(toolbox).version
 }
 
 /**
@@ -48,4 +60,14 @@ export function commandInfo(toolbox: GluegunToolbox, commandRoot?: string[]): st
 
       return [`${commandPath.join(' ')} ${alias}`, replace('$BRAND', toolbox.runtime.brand, command.description || '-')]
     })
+}
+
+export async function checkForUpdate(toolbox: GluegunToolbox): Promise<false | string> {
+  const { system, semver } = toolbox
+  const packageJSON = getPackageJSON(toolbox)
+  const myVersion = packageJSON.version
+  const packageName = packageJSON.name
+  const latestVersion = await system.run(`npm info ${packageName} dist-tags.latest`)
+  if (semver.gt(latestVersion, myVersion)) return latestVersion
+  return false
 }

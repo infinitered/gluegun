@@ -15,6 +15,7 @@ test('the gauntlet', () => {
     .defaultCommand()
     .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
     .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
+    .checkForUpdates(0) // don't actually check, but run the command
 
   const runtime = builder.create()
   expect(runtime).toBeTruthy()

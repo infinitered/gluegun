@@ -7,6 +7,9 @@ module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     const { print } = toolbox
 
+    const update = await toolbox.meta.checkForUpdate()
+    print.info(`Checking for update: ${update}`)
+
     const result = await prompt.ask([
       {
         type: 'list',
