@@ -98,7 +98,7 @@
     "jest-mock": "24.8.0",
     "lint-staged": "8.2.0",
     "mock-stdin": "0.3.1",
-    "prettier": "1.17.1",
+    "prettier": "1.18.2",
     "rimraf": "2.6.3",
     "semantic-release": "15.13.12",
     "sinon": "7.3.2",
