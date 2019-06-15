@@ -109,7 +109,7 @@
     "tslint": "5.17.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-config-standard": "8.0.1",
-    "typescript": "3.5.1",
+    "typescript": "3.5.2",
     "unique-temp-dir": "1.0.0"
   },
   "jest": {
