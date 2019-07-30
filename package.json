@@ -93,7 +93,7 @@
     "@types/strip-ansi": "5.2.1",
     "cpy-cli": "2.0.0",
     "expect": "24.8.0",
-    "husky": "3.0.1",
+    "husky": "3.0.2",
     "jest": "24.8.0",
     "jest-mock": "24.8.0",
     "lint-staged": "9.2.0",
