@@ -1,4 +1,4 @@
-import { forEach, keys, replace } from './utils'
+import { replace } from './utils'
 import { Options } from '../domain/options'
 import { filesystem } from '../toolbox/filesystem-tools'
 import { strings } from '../toolbox/string-tools'
@@ -27,12 +27,9 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
       config: toolbox && toolbox.config,
       parameters: toolbox && toolbox.parameters,
       props,
+      // add our string tools to the filters available.
+      ...strings,
     }
-
-    // add our string tools to the filters available.
-    forEach(x => {
-      data[x] = strings[x]
-    }, keys(strings))
 
     // pick a base directory for templates
     const directory = opts.directory ? opts.directory : `${plugin && plugin.directory}/templates`

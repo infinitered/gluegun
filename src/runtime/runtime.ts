@@ -63,11 +63,11 @@ export class Runtime {
       'patching',
     ]
 
-    coreExtensions
-      .filter(ex => !exclude.includes(ex))
-      .forEach(ex => {
+    coreExtensions.forEach(ex => {
+      if (!exclude.includes(ex)) {
         this.addExtension(ex, require(`../core-extensions/${ex}-extension`))
-      })
+      }
+    })
   }
 
   /**
