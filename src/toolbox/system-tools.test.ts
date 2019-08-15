@@ -17,5 +17,5 @@ test('run - should reject if the command does not exist', async () => {
 
 test('run - should resolve if the command exists', async () => {
   // `echo` should be a general command for both *nix and windows
-  await expect(system.run('echo "gluegun"', { trim: true })).resolves.toBe('gluegun')
+  await expect(system.run('echo gluegun', { trim: true })).resolves.toBe('gluegun')
 })
