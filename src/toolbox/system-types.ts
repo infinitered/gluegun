@@ -4,7 +4,7 @@ export interface GluegunSystem {
    */
   exec(command: string, options?: any): Promise<any>
   /**
-   * Runs a commmand and returns stdout as a trimmed string.
+   * Runs a command and returns stdout as a trimmed string.
    */
   run(command: string, options?: any): Promise<string>
   /**
@@ -27,3 +27,9 @@ export interface GluegunSystem {
  * Returns the number of milliseconds from when the timer started.
  */
 export type GluegunTimer = () => number
+
+export type StringOrBuffer = string | Buffer
+
+export interface GluegunError extends Error {
+  stderr?: StringOrBuffer
+}

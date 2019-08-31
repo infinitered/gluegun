@@ -1,5 +1,5 @@
 import { Options } from '../domain/options'
-import { GluegunSystem } from './system-types'
+import { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
 import { head, tail, isNil } from './utils'
 
 /**
@@ -15,10 +15,10 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
 
   return new Promise((resolve, reject) => {
     const { exec } = require('child_process')
-    exec(commandLine, nodeOptions, (error: any, stdout: string, stderr: string) => {
+    exec(commandLine, nodeOptions, (error: GluegunError, stdout: StringOrBuffer, stderr: StringOrBuffer) => {
       if (error) {
         error.stderr = stderr
-        reject(error)
+        return reject(error)
       }
       resolve(trimmer(stdout || ''))
     })
