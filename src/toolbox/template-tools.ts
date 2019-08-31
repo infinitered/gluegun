@@ -27,6 +27,7 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
       config: toolbox && toolbox.config,
       parameters: toolbox && toolbox.parameters,
       props,
+      filename: '',
     }
 
     // add our string tools to the filters available.
@@ -38,6 +39,9 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
     const directory = opts.directory ? opts.directory : `${plugin && plugin.directory}/templates`
 
     const pathToTemplate = `${directory}/${template}`
+
+    // add template path to support includes
+    data.filename = pathToTemplate
 
     // bomb if the template doesn't exist
     if (!filesystem.isFile(pathToTemplate)) {
