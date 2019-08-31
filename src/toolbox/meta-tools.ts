@@ -51,15 +51,18 @@ export function getVersion(toolbox: GluegunToolbox): string {
  * @return List of plugins.
  */
 export function commandInfo(toolbox: GluegunToolbox, commandRoot?: string[]): string[][] {
-  return toolbox.runtime.commands
-    .filter(c => !c.hidden)
-    .filter(c => !commandRoot || equals(c.commandPath.slice(0, commandRoot.length), commandRoot))
-    .map(command => {
+  return toolbox.runtime.commands.reduce((commands, command) => {
+    if (!command.hidden && (!commandRoot || equals(command.commandPath.slice(0, commandRoot.length), commandRoot))) {
       const alias = command.hasAlias() ? `(${command.aliases.join(', ')})` : ''
       const commandPath = command.name ? command.commandPath.slice(0, -1).concat(command.name) : command.commandPath
+      commands.push([
+        `${commandPath.join(' ')} ${alias}`,
+        replace('$BRAND', toolbox.runtime.brand, command.description || '-'),
+      ])
+    }
 
-      return [`${commandPath.join(' ')} ${alias}`, replace('$BRAND', toolbox.runtime.brand, command.description || '-')]
-    })
+    return commands
+  }, [])
 }
 
 export async function checkForUpdate(toolbox: GluegunToolbox): Promise<false | string> {
