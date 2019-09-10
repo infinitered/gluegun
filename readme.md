@@ -77,7 +77,7 @@ movieCLI.run()
 Commands are simple objects that provide a name, optional aliases, and a function to run.
 
 ```js
-// in movie/commands/foo.js
+// in movie/src/commands/foo.js
 module.exports = {
   name: 'foo',
   alias: 'f',
