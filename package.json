@@ -104,7 +104,7 @@
     "sinon": "7.5.0",
     "strip-ansi": "5.2.0",
     "temp-write": "4.0.0",
-    "ts-jest": "24.0.2",
+    "ts-jest": "24.1.0",
     "ts-node": "8.4.1",
     "tslint": "5.19.0",
     "tslint-config-prettier": "1.18.0",
