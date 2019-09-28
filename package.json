@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
