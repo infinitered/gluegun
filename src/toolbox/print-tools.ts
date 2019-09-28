@@ -121,7 +121,7 @@ function table(data: string[][], options: any = {}): void {
  *
  * @param message The message to write.
  */
-function fancy(message: string): void {
+function fancy(message: any): void {
   console.log(message)
 }
 
