@@ -1,11 +1,10 @@
 [![npm module](https://badge.fury.io/js/gluegun.svg)](https://www.npmjs.org/package/gluegun)
 [![CircleCI](https://circleci.com/gh/infinitered/gluegun.svg?style=svg)](https://circleci.com/gh/infinitered/gluegun)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Chat about GlueGun in the IR Community](http://infiniteredcommunity.herokuapp.com/badge.svg)](https://community.infinite.red/)
 
 # Gluegun
 
-![gluegun2 0](https://user-images.githubusercontent.com/1479215/50237287-5a23e380-0371-11e9-89ea-85b41cd25217.jpg)
+![gluegun](https://user-images.githubusercontent.com/1479215/50237287-5a23e380-0371-11e9-89ea-85b41cd25217.jpg)
 
 Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs) in TypeScript or modern JavaScript, with support for:
 
@@ -20,8 +19,7 @@ Gluegun is a delightful toolkit for building Node-based command-line interfaces 
 👩‍✈️ *semver* - working with semantic versioning<br />
 🎻 *strings* - manipulating strings & template data<br />
 
-In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set
-of easy-to-write plugins and extensions.
+In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 
 # Why use Gluegun?
 
@@ -38,16 +36,21 @@ If so ... welcome!
 Just run the `gluegun` CLI like this:
 
 ```
-$ yarn global add gluegun
-$ gluegun new movies
-(choose TypeScript or Modern JavaScript)
-$ cd movies
-$ yarn link
-$ movies help
+# spin up your new CLI
+npx gluegun new movies
+
+# choose TypeScript or Modern JavaScript
+# now jump into the source
+cd movies
+
+# and link your new executable
+yarn link
+
+# and run it!
+movies help
 ```
 
-You should see your new CLI help. Open the folder in your favorite editor and
-start building your CLI!
+You should see your new CLI help. Open the folder in your favorite editor and start building your CLI!
 
 # Code
 
@@ -119,15 +122,15 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 ⭐️ [semver](https://github.com/npm/node-semver) for version investigations<br />
 ⭐️ [fs-jetpack](https://github.com/szwacz/fs-jetpack) for the filesystem<br />
 ⭐️ [yargs-parser](https://github.com/yargs/yargs-parser), [enquirer](https://github.com/enquirer/enquirer), [colors](https://github.com/Marak/colors.js), [ora](https://github.com/sindresorhus/ora) and [cli-table3](https://github.com/cli-table/cli-table3) for the command line<br />
-⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/skellock/apisauce) for web & apis<br />
+⭐️ [axios](https://github.com/mzabriskie/axios) & [apisauce](https://github.com/infinitered/apisauce) for web & apis<br />
 ⭐️ [cosmiconfig](https://github.com/davidtheclark/cosmiconfig) for flexible configuration </br>
 ⭐️ [cross-spawn](https://github.com/IndigoUnited/node-cross-spawn) for running sub-commands</br>
 ⭐️ [execa](https://github.com/sindresorhus/execa) for running more sub-commands</br>
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 ⭐️ [pluralize](https://github.com/blakeembrey/pluralize) for manipulating strings</br>
 
-[Node.js 7.6+](https://nodejs.org) is required.
+[Node.js 8.0+](https://nodejs.org) is required. If you need to support Node 7.6, use Gluegun 3.x.
 
 ## Sponsors
 
-[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based out of Portland, Oregon and the San Francisco Bay Area. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
+[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based near Portland, Oregon. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
