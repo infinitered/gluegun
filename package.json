@@ -76,7 +76,7 @@
     "lodash.trimstart": "^4.5.1",
     "lodash.uppercase": "^4.3.0",
     "lodash.upperfirst": "^4.3.1",
-    "ora": "^3.4.0",
+    "ora": "^4.0.0",
     "pluralize": "^8.0.0",
     "ramdasauce": "^2.1.0",
     "semver": "^6.1.1",
