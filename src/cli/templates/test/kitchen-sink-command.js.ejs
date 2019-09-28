@@ -52,7 +52,7 @@ module.exports = {
     asyncs.push(apiDirect.get('/repos/skellock/apisauce/commits'))
 
     // print smoke test
-    print.info(print.colors.success('Hello. I am a chatty plugin.'))
+    print.info(print.colors.success(<%- include helloMessage %>))
     print.spin('Time for fun!').stop()
     print.printHelp(toolbox)
     print.table(

@@ -18,19 +18,18 @@ jobs:
       - restore_cache:
           name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
           name: Install dependencies
           command: |
-            yarn install
+            yarn install --frozen-lockfile
       - save_cache:
           name: Save node modules
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
   tests:
     <<: *defaults
@@ -39,7 +38,7 @@ jobs:
       - restore_cache:
           name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       - run:
@@ -58,7 +57,7 @@ jobs:
       - restore_cache:
           name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
       # Run semantic-release after all the above is set.

@@ -10,8 +10,10 @@
     <% if (props.typescript) { %>
       "format": "prettier --write **/*.{js,ts,tsx,json}",
       "lint": "tslint -p .",
+      "clean-build": "rm -rf ./build",
       "compile": "tsc -p .",
-      "build": "yarn format && yarn lint && yarn compile",
+      "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
+      "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
     <% } else { %>
       "format": "prettier --write **/*.{js,json} && standard --fix",
       "lint": "standard",
@@ -40,7 +42,7 @@
       "typescript": "3.2.2",
       "ts-node": "^7.0.1",
     <% } -%>
-    "gluegun": "^2.1.0"
+    "gluegun": "^3.3.4"
   },
   "devDependencies": {
     <% if (props.typescript) { %>
