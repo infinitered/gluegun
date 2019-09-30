@@ -65,13 +65,13 @@ Passing tests and linting is required before we'll merge a pull request. If you 
 Jump on Github on your fork. Switch to the branch with your new changes, and
 open a PR against `master` of [infinitered/gluegun](https://github.com/infinitered/gluegun).
 
-Screenshots of what the feature is 💯. Animated gifs (licecap, Gif Brewery, or Kap are nice for this) are 💯 + 🦄.
+Screenshots of what the feature is 💯. Animated gifs (suggested apps: licecap, Gif Brewery, or Kap) are 💯 + 🦄.
 
 Then submit the pull request.
 
-- It's 👌 to submit an issue before breaking changes or shenanigans to get a sense if it's cool
-- It's 👌 to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to let us know it's a conversation
-- It's 👌 to submit changes to PRs not yet merged, just make sure it's related to the PR
+- It's okay to submit an issue before breaking changes or shenanigans to get a sense if it's cool
+- It's okay to submit PRs to start a discussion - just mark it 🚨🚨🚨 (or whatever) to let us know it's a conversation
+- It's okay to submit changes to PRs not yet merged, just make sure it's related to the PR
 - If Github is complaining about conflicts, rebase downstream, merge upstream
 
 ## Keeping up to date
@@ -84,8 +84,10 @@ git remote add upstream https://github.com/infinitered/gluegun.git
 
 # then when you need to update
 git checkout master
-git fetch upstream
-git rebase upstream/master
+git pull upstream
+# if on your own branch
+git checkout <your branch>
+git merge master
 
 # and here's where you'd create your branch
 git checkout -b feature/mybranch
