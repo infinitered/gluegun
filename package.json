@@ -89,7 +89,7 @@
     "@types/jest": "24.0.18",
     "@types/node": "12.7.8",
     "@types/pluralize": "0.0.29",
-    "@types/sinon": "7.0.13",
+    "@types/sinon": "7.5.0",
     "@types/strip-ansi": "5.2.1",
     "cpy-cli": "2.0.0",
     "expect": "24.9.0",
