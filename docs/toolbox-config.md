@@ -50,9 +50,9 @@ module.exports = {
     } = toolbox
 
     // use cosmiconfig directly: directory (string) & brand (string)
-    const myConfig = loadConfig(process.cwd(), brand)
+    const myConfig = loadConfig(brand, process.cwd())
     // or
-    const myConfig = loadConfig('~/.myconfig/', 'movie')
+    const myConfig = loadConfig('movie', '~/.myconfig/')
 
     // now access myConfig
     info(myConfig.shirtSize)
