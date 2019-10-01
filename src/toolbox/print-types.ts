@@ -45,7 +45,7 @@ export interface GluegunPrint {
   /* An `ora`-powered spinner. */
   spin(options?: ora.Options | string): ora.Ora
   /* Print help info for known CLI commands. */
-  printCommands(toolbox: GluegunToolbox): void
+  printCommands(toolbox: Toolbox, commandRoot?: string[]): void
   /* Prints help info, including version and commands. */
   printHelp(toolbox: GluegunToolbox): void
 }
