@@ -96,7 +96,7 @@
     "husky": "3.0.7",
     "jest": "24.9.0",
     "jest-mock": "24.9.0",
-    "lint-staged": "9.4.0",
+    "lint-staged": "9.4.1",
     "mock-stdin": "0.3.1",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
