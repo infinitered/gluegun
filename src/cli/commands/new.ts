@@ -1,6 +1,12 @@
 import { GluegunCommand } from '../../domain/command'
 import { GluegunToolbox } from '../../domain/toolbox'
 
+type TemplateProps = {
+  name: string
+  language: 'typescript' | 'javascript' | 'ask'
+  extension: 'ts' | 'js' | undefined
+}
+
 const NewCommand: GluegunCommand = {
   name: 'new',
   alias: ['n', 'create'],
@@ -21,11 +27,13 @@ const NewCommand: GluegunCommand = {
 
     // set up initial props (to pass into templates)
     const o = parameters.options
-    const props = {
+    const ts = Boolean(o.typescript || o.ts || o.t)
+    const js = Boolean(o.javascript || o.js || o.j)
+
+    const props: TemplateProps = {
       name: parameters.first,
-      typescript: Boolean(o.typescript || o.ts || o.t),
-      javascript: Boolean(o.javascript || o.js || o.j),
-      extension: Boolean(o.typescript || o.ts || o.t) ? 'ts' : 'js',
+      language: ts ? 'typescript' : js ? 'javascript' : 'ask',
+      extension: undefined,
     }
 
     // sanity checks
@@ -52,7 +60,7 @@ const NewCommand: GluegunCommand = {
     }
 
     // typescript or javascript?
-    if (!props.typescript && !props.javascript) {
+    if (props.language === 'ask') {
       info(``)
       const { answer } = await prompt.ask({
         type: 'select',
@@ -65,12 +73,13 @@ const NewCommand: GluegunCommand = {
       })
 
       // we default to TypeScript if they just press "enter"
-      props.typescript = !answer || answer.toLowerCase().includes('typescript')
-      info(`Language used: ${props.typescript ? 'TypeScript' : 'Modern JavaScript'}`)
+      const lang = (answer && answer.toLowerCase()) || 'typescript'
+
+      props.language = lang.includes('typescript') ? 'typescript' : 'javascript'
+      info(`Language used: ${props.language === 'typescript' ? 'TypeScript' : 'Modern JavaScript'}`)
     }
 
-    // normalize, so they can't pass both --typescript and --javascript
-    props.javascript = !props.typescript
+    props.extension = props.language === 'typescript' ? 'ts' : 'js'
 
     // create the directory
     filesystem.dir(props.name)
@@ -103,7 +112,7 @@ const NewCommand: GluegunCommand = {
       '.gitignore.ejs',
     ]
 
-    if (props.typescript) {
+    if (props.language === 'typescript') {
       files.push('tsconfig.json.ejs')
       files.push('tslint.json.ejs')
     }
@@ -114,7 +123,9 @@ const NewCommand: GluegunCommand = {
 
       const target =
         `${props.name}/` +
-        (props.typescript && file.includes('.js.ejs') ? file.replace('.js.ejs', '.ts') : file.replace('.ejs', ''))
+        (props.language === 'typescript' && file.includes('.js.ejs')
+          ? file.replace('.js.ejs', '.ts')
+          : file.replace('.ejs', ''))
 
       const gen = generate({ template, target, props })
       return prev.concat([gen])
@@ -127,7 +138,7 @@ const NewCommand: GluegunCommand = {
     filesystem.chmodSync(`${props.name}/bin/${props.name}`, '755')
 
     // rename default.js to project name
-    const ext = props.typescript ? 'ts' : 'js'
+    const ext = props.language === 'typescript' ? 'ts' : 'js'
     filesystem.rename(`${props.name}/src/commands/default.${ext}`, `${props.name}.${ext}`)
 
     // install with yarn or npm i
@@ -141,7 +152,7 @@ const NewCommand: GluegunCommand = {
     // we're done, so show what to do next
     info(``)
     info(colors.green(`Generated ${props.name} CLI with Gluegun ${meta.version()}.`))
-    if (props.typescript) info(colors.gray(`Using TypeScript`))
+    if (props.language === 'typescript') info(colors.gray(`Using TypeScript`))
     info(``)
     info(`Next:`)
     info(`  $ cd ${props.name}`)
@@ -149,7 +160,7 @@ const NewCommand: GluegunCommand = {
     info(`  $ ${yarnOrNpm} link`)
     info(`  $ ${props.name}`)
     info(``)
-    if (props.typescript) {
+    if (props.language === 'typescript') {
       info(colors.gray(`Since you generated a TypeScript project, we've included a build script.`))
       info(colors.gray(`When you link and run the project, it will use ts-node locally to test.`))
       info(colors.gray(`However, you can test the generated JavaScript locally like this:`))

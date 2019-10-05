@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-<% if (props.typescript) { %>
+<% if (props.language === "typescript") { %>
 /* tslint:disable */
 // check if we're running in dev mode
 var devMode = require('fs').existsSync(`${__dirname}/../src`)

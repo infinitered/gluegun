@@ -85,8 +85,7 @@ test('name must pass regex', async () => {
 
 test('generates properly', async () => {
   const name = 'foo'
-  const typescript = false
-  const javascript = true
+  const language = 'javascript'
   const extension = 'js'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
@@ -99,7 +98,7 @@ test('generates properly', async () => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript, javascript, extension }
+  const props = { name, language, extension }
 
   // assure that the directory was created
   expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)
@@ -152,8 +151,7 @@ test('generates properly', async () => {
 
 test('generates with typescript', async () => {
   const name = 'foo'
-  const typescript = true
-  const javascript = false
+  const language = 'typescript'
   const extension = 'ts'
   const toolbox = createFakeToolbox()
   toolbox.parameters.first = name
@@ -166,7 +164,7 @@ test('generates with typescript', async () => {
   const { dir, chmodSync } = toolbox.filesystem
   const { generate } = toolbox.template
   const { spawn } = toolbox.system
-  const props = { name, typescript, javascript, extension }
+  const props = { name, language, extension }
 
   // assure that the directory was created
   expect((dir as sinon.SinonStub).firstCall.args[0]).toBe(name)

@@ -1,10 +1,10 @@
-<% if (props.typescript) { %>
+<% if (props.language === "typescript") { %>
 import { GluegunToolbox } from 'gluegun'
 <% } %>
 
 module.exports = {
   name: '<%= props.name %>',
-  run: async <%= (props.typescript) ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
+  run: async <%= (props.language === "typescript") ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
     const { print } = toolbox
 
     print.info('Welcome to your CLI')

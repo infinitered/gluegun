@@ -16,7 +16,7 @@ test('outputs help', async () => {
 
 test('generates file', async () => {
   const output = await cli('generate foo')
-  <% if (props.typescript) { %>
+  <% if (props.language === "typescript") { %>
     expect(output).toContain('Generated file at models/foo-model.ts')
     const foomodel = filesystem.read('models/foo-model.ts')
   <% } else { %>
