@@ -6,5 +6,4 @@ readme.md
 dist/
 build/
 docs/readme.md
-*.js.ejs
 *.ejs
