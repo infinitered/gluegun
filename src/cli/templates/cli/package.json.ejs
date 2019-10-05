@@ -7,7 +7,7 @@
     "<%= props.name %>": "bin/<%= props.name %>"
   },
   "scripts": {
-    <% if (props.typescript) { %>
+    <% if (props.language === "typescript") { %>
       "format": "prettier --write **/*.{js,ts,tsx,json}",
       "lint": "tslint -p .",
       "clean-build": "rm -rf ./build",
@@ -24,7 +24,7 @@
     "coverage": "jest --coverage"
   },
   "files": [
-    <% if (props.typescript) { %>
+    <% if (props.language === "typescript") { %>
       "tsconfig.json",
       "tslint.json",
       "build",
@@ -38,33 +38,31 @@
   ],
   "license": "MIT",
   "dependencies": {
-    <% if (props.typescript) { %>
-      "typescript": "3.2.2",
-      "ts-node": "^7.0.1",
-    <% } -%>
     "gluegun": "latest"
   },
   "devDependencies": {
-    <% if (props.typescript) { %>
-      "@types/node": "^10.12.12",
-      "@types/jest": "^23.3.10",
-      "ts-jest": "^23.10.5",
+    <% if (props.language === "typescript") { %>
+      "@types/node": "^12.7.11",
+      "@types/jest": "^24.0.18",
+      "ts-node": "^8.4.1",
+      "ts-jest": "^24.1.0",
       "tslint": "^5.12.0",
       "tslint-config-prettier": "^1.17.0",
       "tslint-config-standard": "^8.0.1",
+      "typescript": "^3.6.3",
     <% } else { %>
       "standard": "^12.0.1",
     <% } %>
     "prettier": "^1.12.1",
-    "jest": "^23.6.0"
+    "jest": "^24.1.0"
   },
   "jest": {
-    <% if (props.typescript) { %>
+    <% if (props.language === "typescript") { %>
       "preset": "ts-jest",
     <% } %>
     "testEnvironment": "node"
   },
-  <% if (!props.typescript) { %>
+  <% if (props.language === "javascript") { %>
   "standard": {
     "env": [
       "jest"
