@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-/* tslint:disable */
-
 // speed up `gluegun --version` et al
 if (['v', 'version', '-v', '--v', '-version', '--version'].includes(process.argv[2])) {
   var contents = require('fs').readFileSync(__dirname + '/../package.json')
