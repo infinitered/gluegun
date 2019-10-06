@@ -148,7 +148,6 @@ const NewCommand: GluegunCommand = {
     await system.spawn(`cd ${props.name} && ${yarnOrNpm} install --silent && ${yarnOrNpm} run --quiet format`, {
       shell: true,
       stdio: 'inherit',
-      stderr: 'inherit',
     })
 
     // we're done, so show what to do next

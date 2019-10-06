@@ -157,12 +157,16 @@
       "prettier",
       "prettier/@typescript-eslint"
     ],
-    "rules":  {
-      "@typescript-eslint/explicit-function-return-type": 0
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-explicit-any": 0
     },
     "overrides": [
       {
-        "files": ["sniff.js", "./src/fixtures/**/*.js"],
+        "files": [
+          "sniff.js",
+          "./src/fixtures/**/*.js"
+        ],
         "rules": {
           "@typescript-eslint/no-unused-vars": 0,
           "@typescript-eslint/no-var-requires": 0,
@@ -172,6 +176,9 @@
       }
     ]
   },
+  "eslintIgnore": [
+    "build"
+  ],
   "lint-staged": {
     "*.ts": [
       "prettier --write",

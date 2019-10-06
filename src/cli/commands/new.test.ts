@@ -1,3 +1,5 @@
+/* global test */
+
 import * as expect from 'expect'
 import * as sinon from 'sinon'
 import { Toolbox } from '../../domain/toolbox'
@@ -143,7 +145,7 @@ test('generates properly', async () => {
   // test package installation
   expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
     `cd ${props.name} && npm install --silent && npm run --quiet format`,
-    { shell: true, stdio: 'inherit', stderr: 'inherit' },
+    { shell: true, stdio: 'inherit' },
   ])
 
   expect(result).toBe(`new ${name}`)
@@ -209,7 +211,7 @@ test('generates with typescript', async () => {
   // test package installation
   expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
     `cd ${props.name} && npm install --silent && npm run --quiet format`,
-    { shell: true, stdio: 'inherit', stderr: 'inherit' },
+    { shell: true, stdio: 'inherit' },
   ])
 
   expect(result).toBe(`new ${name}`)
