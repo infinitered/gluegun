@@ -113,6 +113,7 @@ const NewCommand: GluegunCommand = {
     ]
 
     if (props.language === 'typescript') {
+      files.push('./src/types.js.ejs')
       files.push('tsconfig.json.ejs')
       files.push('tslint.json.ejs')
     }
