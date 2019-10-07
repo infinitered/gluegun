@@ -526,6 +526,11 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
+"@types/ansi-escape-sequences@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/ansi-escape-sequences/-/ansi-escape-sequences-4.0.0.tgz#6029357225fe0325b8587802675e04c8aab13531"
+  integrity sha512-y9KJUf19SBowoaqhWdQNnErxFMNsKbuair2i3SGv5Su1ExLPAJz37iPXLHKIFQGYkHGxsSe45rNt8ZekXxJwUw==
+
 "@types/babel__core@^7.1.0":
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/@types/babel__core/-/babel__core-7.1.2.tgz#608c74f55928033fce18b99b213c16be4b3d114f"
@@ -827,6 +832,13 @@ ansi-colors@^3.2.1:
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.3.tgz#57d35b8686e851e2cc04c403f1c00203976a1813"
   integrity sha512-LEHHyuhlPY3TmuUYMh2oz89lTShfvgbmzaBcxve9t/9Wuy7Dwf4yoAKcND7KFT1HAQfqZ12qtc+DUrBMeKF9nw==
 
+ansi-escape-sequences@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/ansi-escape-sequences/-/ansi-escape-sequences-4.1.0.tgz#2483c8773f50dd9174dd9557e92b1718f1816097"
+  integrity sha512-dzW9kHxH011uBsidTXd14JXgzye/YLb2LzeKZ4bsgl/Knwx8AtbSFkkGxagdNOoh0DlqHCmfiEjWKBaqjOanVw==
+  dependencies:
+    array-back "^3.0.1"
+
 ansi-escapes@^3.0.0, ansi-escapes@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-3.1.0.tgz#f73207bb81207d75fd6c83f125af26eea378ca30"
@@ -959,6 +971,11 @@ arr-union@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/arr-union/-/arr-union-3.1.0.tgz#e39b09aea9def866a8f206e288af63919bae39c4"
   integrity sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ=
+
+array-back@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/array-back/-/array-back-3.1.0.tgz#b8859d7a508871c9a7b2cf42f99428f65e96bfb0"
+  integrity sha512-TkuxA4UCOvxuDK6NZYXCalszEzj+TLszyASooky+i742l9TqsOdYCMJJupxRic61hwquNtppB3hgcuq9SVSH1Q==
 
 array-equal@^1.0.0:
   version "1.0.0"

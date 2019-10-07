@@ -1,3 +1,17 @@
+import { SpawnOptions } from 'child_process'
+import * as ansi from 'ansi-escape-sequences'
+
+export interface GluegunSpawnOptions extends SpawnOptions {
+  onInput?: {
+    [match: string]: (input: string, keys?: any) => string
+  }
+}
+export type GluegunSpawnResult = {
+  stdout: string // stdout result
+  error: null | Error // any error that is raised
+  status: null | number // exit code
+}
+
 export interface GluegunSystem {
   /**
    * Executes a command via execa.
@@ -10,7 +24,7 @@ export interface GluegunSystem {
   /**
    * Spawns a command via crosspawn.
    */
-  spawn(command: string, options?: any): Promise<any>
+  spawn(commandLine: string, options: GluegunSpawnOptions): Promise<GluegunSpawnResult>
   /**
    * Uses node-which to find out where the command lines.
    */
@@ -21,6 +35,10 @@ export interface GluegunSystem {
    * it was started.
    */
   startTimer(): GluegunTimer
+  /**
+   * A helper for ANSI key codes.
+   */
+  keys(): GluegunSystemKeys
 }
 
 /**
@@ -33,3 +51,5 @@ export type StringOrBuffer = string | Buffer
 export interface GluegunError extends Error {
   stderr?: StringOrBuffer
 }
+
+export type GluegunSystemKeys = typeof ansi

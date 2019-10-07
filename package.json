@@ -51,6 +51,8 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "@types/ansi-escape-sequences": "^4.0.0",
+    "ansi-escape-sequences": "^4.1.0",
     "apisauce": "^1.0.1",
     "app-module-path": "^2.2.0",
     "cli-table3": "~0.5.0",
@@ -159,7 +161,8 @@
     ],
     "rules": {
       "@typescript-eslint/explicit-function-return-type": 0,
-      "@typescript-eslint/no-explicit-any": 0
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-var-requires": 0
     },
     "overrides": [
       {

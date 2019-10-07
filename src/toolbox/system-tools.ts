@@ -1,17 +1,24 @@
 import { Options } from '../domain/options'
-import { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
-import { head, tail, isNil } from './utils'
+import {
+  GluegunSystem,
+  GluegunError,
+  StringOrBuffer,
+  GluegunSpawnOptions,
+  GluegunSpawnResult,
+  GluegunSystemKeys,
+} from './system-types'
+import { head, tail } from './utils'
+import { ChildProcess, SpawnOptions } from 'child_process'
 
 /**
- * Executes a commandline program asynchronously.
+ * Executes a commandline program asynchronously using child_process#exec.
  *
- * @param commandLine The command line to execute.
- * @param options Additional child_process options for node.
- * @returns Promise with result.
+ * We recommend using `spawn` instead as it supports cross-platform CLIs
+ * better and has a more flexible API.
  */
 async function run(commandLine: string, options: Options = {}): Promise<any> {
   const trimmer = options && options.trim ? s => s.trim() : s => s
-  const { trim, ...nodeOptions } = options
+  const { trim, ...nodeOptions } = options // eslint-disable-line @typescript-eslint/no-unused-vars
 
   return new Promise((resolve, reject) => {
     const { exec } = require('child_process')
@@ -26,11 +33,7 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
 }
 
 /**
- * Executes a commandline via execa.
- *
- * @param commandLine The command line to execute.
- * @param options Additional child_process options for node.
- * @returns Promise with result.
+ * Executes a commandline app via execa.
  */
 async function exec(commandLine: string, options: Options = {}): Promise<any> {
   return new Promise((resolve, reject) => {
@@ -42,36 +45,59 @@ async function exec(commandLine: string, options: Options = {}): Promise<any> {
 }
 
 /**
- * Uses cross-spawn to run a process.
+ * Spawns a new process (using the NPM module `cross-spawn`) and provides
+ * a nice interface.
  *
  * @param commandLine The command line to execute.
- * @param options Additional child_process options for node.
- * @returns The response code.
+ * @param options Additional cross-spawn options.
+ * @returns The response.
  */
-async function spawn(commandLine: string, options: Options = {}): Promise<any> {
+async function spawn(commandLine: string, options: GluegunSpawnOptions = {}): Promise<GluegunSpawnResult> {
   return new Promise((resolve, reject) => {
-    const args = commandLine.split(' ')
-    const spawned = require('cross-spawn')(head(args), tail(args), options)
-    const result = {
-      stdout: null,
-      status: null,
+    // we bring in the child_process TypeScript definition here
+    // via https://github.com/DefinitelyTyped/DefinitelyTyped/blob/be146d853af634c1b3b44c39ae243898c10d630c/types/node/child_process.d.ts#L196
+    const crossSpawn: (command: string, options: SpawnOptions) => ChildProcess = require('cross-spawn')
+
+    // remove spawn-specific options
+    const { onInput, ...rest } = options
+    const bareOptions: SpawnOptions = rest
+
+    // kick off the process
+    const spawned = crossSpawn(commandLine, bareOptions)
+    const result: GluegunSpawnResult = {
+      stdout: '',
       error: null,
+      status: null,
     }
-    if (spawned.stdout) {
-      spawned.stdout.on('data', data => {
-        if (isNil(result.stdout)) {
-          result.stdout = data
-        } else {
-          result.stdout += data
-        }
-      })
-    }
-    spawned.on('close', code => {
-      result.status = code
-      resolve(result)
+
+    spawned.stdout.on('data', data => {
+      data = data.toString()
+      result.stdout += data
+
+      // allow for interactive input / output
+      if (options.onInput) {
+        Object.entries(options.onInput).map(([match, getInput]) => {
+          if (data.includes(match)) {
+            // we match some sort of input, so let's write to stdin now
+            const input = getInput(data)
+            if (input) spawned.stdin.write(input)
+          }
+        })
+      }
     })
+
     spawned.on('error', err => {
       result.error = err
+      // we don't reject as instead we want to
+      // handle the error in the main callback function
+      // ... this is an API decision so we don't have
+      // to wrap everything in try/catch or .catch()
+      // but rather just do `if (result.error) // something`
+      resolve(result)
+    })
+
+    spawned.on('close', code => {
+      result.status = code
       resolve(result)
     })
   })
@@ -97,6 +123,10 @@ function startTimer(): () => number {
   return () => Math.floor((process.uptime() - started) * 1000) // uptime gives us seconds
 }
 
-const system: GluegunSystem = { exec, run, spawn, which, startTimer }
+function keys(): GluegunSystemKeys {
+  return require('ansi-escape-sequences')
+}
+
+const system: GluegunSystem = { exec, run, spawn, which, keys, startTimer }
 
 export { system, GluegunSystem }
