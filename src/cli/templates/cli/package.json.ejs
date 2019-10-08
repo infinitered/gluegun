@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "<%= props.name %> CLI",
   "private": true,
+  <% if (props.language === "typescript") { %>
+    "types": "build/types/types.d.ts",
+  <% } %>
   "bin": {
     "<%= props.name %>": "bin/<%= props.name %>"
   },
