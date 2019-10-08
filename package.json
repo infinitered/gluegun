@@ -9,14 +9,14 @@
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
   "scripts": {
-    "format": "prettier --write \"{**/*.ts,**/*.js,.circleci/**/*.js}\" --loglevel error && tslint -p . --fix",
+    "format": "prettier --write \"{**/*.ts,**/*.js,.circleci/**/*.js}\" --loglevel error && eslint . --fix",
     "clean-build": "rimraf ./build && node ./.circleci/removeDirect.js",
     "compile": "tsc -p .",
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
     "create-direct": "node ./.circleci/createDirect.js",
     "clean-types": "node .circleci/cleanDir.js ./build/types",
     "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn create-direct && yarn clean-types && echo 'Run yarn clean-build to remove build artifacts.'",
-    "lint": "tslint -p .",
+    "lint": "eslint .",
     "integration": "yarn build && jest --config=./.circleci/jest-integration.config.json",
     "test": "jest",
     "watch": "jest --watch",
@@ -91,7 +91,16 @@
     "@types/pluralize": "0.0.29",
     "@types/sinon": "7.5.0",
     "@types/strip-ansi": "5.2.1",
+    "@typescript-eslint/eslint-plugin": "^2.3.2",
+    "@typescript-eslint/parser": "^2.3.2",
     "cpy-cli": "2.0.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "expect": "24.9.0",
     "husky": "3.0.8",
     "jest": "24.9.0",
@@ -106,9 +115,6 @@
     "temp-write": "4.0.0",
     "ts-jest": "24.1.0",
     "ts-node": "8.4.1",
-    "tslint": "5.20.0",
-    "tslint-config-prettier": "1.18.0",
-    "tslint-config-standard": "8.0.1",
     "typescript": "3.6.3",
     "unique-temp-dir": "1.0.0"
   },
@@ -131,10 +137,52 @@
     "singleQuote": true,
     "trailingComma": "all"
   },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint"
+    ],
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "eslint-config-standard",
+      "plugin:@typescript-eslint/recommended",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ],
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": 0,
+      "@typescript-eslint/no-explicit-any": 0
+    },
+    "overrides": [
+      {
+        "files": [
+          "sniff.js",
+          "./src/fixtures/**/*.js"
+        ],
+        "rules": {
+          "@typescript-eslint/no-unused-vars": 0,
+          "@typescript-eslint/no-var-requires": 0,
+          "@typescript-eslint/no-empty-function": 0,
+          "no-empty": 0
+        }
+      }
+    ]
+  },
+  "eslintIgnore": [
+    "build"
+  ],
   "lint-staged": {
     "*.ts": [
       "prettier --write",
-      "tslint --fix",
+      "eslint --fix",
       "git add"
     ],
     "*.md": [

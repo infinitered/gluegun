@@ -75,10 +75,12 @@ const NewCommand: GluegunCommand = {
       // we default to TypeScript if they just press "enter"
       const lang = (answer && answer.toLowerCase()) || 'typescript'
 
+      // eslint-disable-next-line require-atomic-updates
       props.language = lang.includes('typescript') ? 'typescript' : 'javascript'
       info(`Language used: ${props.language === 'typescript' ? 'TypeScript' : 'Modern JavaScript'}`)
     }
 
+    // eslint-disable-next-line require-atomic-updates
     props.extension = props.language === 'typescript' ? 'ts' : 'js'
 
     // create the directory
@@ -114,7 +116,7 @@ const NewCommand: GluegunCommand = {
 
     if (props.language === 'typescript') {
       files.push('tsconfig.json.ejs')
-      files.push('tslint.json.ejs')
+      files.push('tslint.json.ejs') // TODO: swap out TSlint for ESlint in generated CLIs
     }
 
     // rename js files to ts
@@ -146,7 +148,6 @@ const NewCommand: GluegunCommand = {
     await system.spawn(`cd ${props.name} && ${yarnOrNpm} install --silent && ${yarnOrNpm} run --quiet format`, {
       shell: true,
       stdio: 'inherit',
-      stderr: 'inherit',
     })
 
     // we're done, so show what to do next
