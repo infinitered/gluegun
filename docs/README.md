@@ -113,6 +113,7 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 * [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) - A CLI toolchain for simplifying serverless web and mobile development
 * [Sara Vieira's Fiddly](https://github.com/SaraVieira/fiddly) - Create beautiful and simple HTML pages from your Readme.md files - [https://fiddly.netlify.com](https://fiddly.netlify.com)
 * [Graph CLI](https://github.com/graphprotocol/graph-cli) - CLI for building and managing subgraphs that index data from Ethereum and IPFS - [https://thegraph.com/explorer](https://thegraph.com/explorer)
+* [Vts](https://github.com/snowfrogdev/Vts) - Vanilla TypeScript library starter CLI tool
 
 # What's under the hood?
 
