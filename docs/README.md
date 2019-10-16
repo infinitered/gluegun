@@ -131,6 +131,13 @@ We've assembled an _all star cast_ of libraries to help you build your CLI.
 
 [Node.js 8.0+](https://nodejs.org) is required. If you need to support Node 7.6, use Gluegun 3.x.
 
+## Community CLIs and Plugins
+
+Here are a few community CLIs based on Gluegun plus some plugins you can use. Is yours missing? Send a PR to add it!
+
+* [Gluegun-Menu](https://github.com/lenneTech/gluegun-menu) - A command menu for Gluegun-based CLIs
+* [Gluegun CLI-Starter](https://github.com/lenneTech/cli-starter) - A CLI Starter for your next Gluegun CLI project
+
 ## Sponsors
 
 [Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based near Portland, Oregon. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
