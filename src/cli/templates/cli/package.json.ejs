@@ -17,6 +17,7 @@
       "compile": "tsc -p .",
       "copy-templates": "if [ -e ./src/templates ]; then cp -a ./src/templates ./build/; fi",
       "build": "yarn format && yarn lint && yarn clean-build && yarn compile && yarn copy-templates",
+      "prepublishOnly": "yarn compile",
     <% } else { %>
       "format": "prettier --write **/*.{js,json} && standard --fix",
       "lint": "standard",
