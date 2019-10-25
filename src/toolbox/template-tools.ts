@@ -14,6 +14,7 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
    * @return The generated string.
    */
   async function generate(opts: Options = {}): Promise<string> {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ejs = require('ejs')
     // required
     const template = opts.template
@@ -31,18 +32,24 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
       ...strings, // add our string tools to the filters available
     }
 
-    // pick a base directory for templates
-    const directory = opts.directory ? opts.directory : `${plugin && plugin.directory}/templates`
+    // check the base directory for templates
+    const baseDirectory = plugin && plugin.directory
+    let templateDirectory = opts.directory || `${baseDirectory}/templates`
+    let pathToTemplate = `${templateDirectory}/${template}`
 
-    const pathToTemplate = `${directory}/${template}`
-
-    // add template path to support includes
-    data.filename = pathToTemplate
+    // check ./build/templates too, if that doesn't exist
+    if (!filesystem.isFile(pathToTemplate)) {
+      templateDirectory = opts.directory || `${baseDirectory}/build/templates`
+      pathToTemplate = `${templateDirectory}/${template}`
+    }
 
     // bomb if the template doesn't exist
     if (!filesystem.isFile(pathToTemplate)) {
       throw new Error(`template not found ${pathToTemplate}`)
     }
+
+    // add template path to support includes
+    data.filename = pathToTemplate
 
     // read the template
     const templateContent = filesystem.read(pathToTemplate)

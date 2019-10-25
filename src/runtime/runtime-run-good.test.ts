@@ -30,6 +30,17 @@ test('runs a nested command', async () => {
   expect(toolbox.result).toBe('nested thing foo has run')
 })
 
+test('runs a nested command in build folder', async () => {
+  const r = new Runtime()
+  r.addCoreExtensions()
+  r.addPlugin(`${__dirname}/../fixtures/good-plugins/nested-build`)
+  const toolbox = await r.run('thing foo')
+  expect(toolbox.command).toBeTruthy()
+  expect(toolbox.command.name).toBe('foo')
+  expect(toolbox.command.commandPath).toEqual(['thing', 'foo'])
+  expect(toolbox.result).toBe('nested thing foo in build folder has run with loaded extension')
+})
+
 test('runs a command with no name prop', async () => {
   const r = new Runtime()
   r.addCoreExtensions()

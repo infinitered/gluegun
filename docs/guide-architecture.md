@@ -77,6 +77,8 @@ commands
     world.js
 ```
 
+As of Gluegun 4.1.0, you can also nest commands in a `build` folder, if for example you're using TypeScript and want to compile to `./build`.
+
 ## Extensions
 
 Think of extensions as "drawers" full of tools in your Gluegun toolbox. In the above example, the `hello` extension adds two functions, `greetEarthling` and `greetAlien`.

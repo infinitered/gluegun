@@ -1,9 +1,0 @@
-{
-  "extends": ["tslint-config-standard", "tslint-config-prettier"],
-  "rules": {
-    "strict-type-predicates": false
-  },
-  "linterOptions": {
-    "exclude": ["src/cli/templates/**/*.js.ejs", "src/cli/templates/**/*.js.ejs.ejs"]
-  }
-}
