@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -81,20 +81,19 @@
     "ramdasauce": "^2.1.0",
     "semver": "^6.1.1",
     "which": "^2.0.0",
-    "yargs-parser": "^15.0.0"
+    "yargs-parser": "^16.0.0"
   },
   "devDependencies": {
     "@semantic-release/git": "7.0.16",
     "@types/cli-table2": "0.2.2",
-    "@types/jest": "24.0.19",
-    "@types/node": "12.11.1",
+    "@types/jest": "24.0.20",
+    "@types/node": "12.11.7",
     "@types/pluralize": "0.0.29",
     "@types/sinon": "7.5.0",
-    "@types/strip-ansi": "5.2.1",
-    "@typescript-eslint/eslint-plugin": "2.4.0",
-    "@typescript-eslint/parser": "2.4.0",
+    "@typescript-eslint/eslint-plugin": "2.6.0",
+    "@typescript-eslint/parser": "2.6.0",
     "cpy-cli": "2.0.0",
-    "eslint": "6.5.1",
+    "eslint": "6.6.0",
     "eslint-config-prettier": "6.4.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.18.2",
