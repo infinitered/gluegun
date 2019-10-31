@@ -90,7 +90,6 @@
     "@types/node": "12.11.7",
     "@types/pluralize": "0.0.29",
     "@types/sinon": "7.5.0",
-    "@types/strip-ansi": "5.2.1",
     "@typescript-eslint/eslint-plugin": "2.6.0",
     "@typescript-eslint/parser": "2.6.0",
     "cpy-cli": "2.0.0",
@@ -98,6 +97,7 @@
     "eslint-config-prettier": "6.4.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jest": "^22.20.0",
     "eslint-plugin-node": "10.0.0",
     "eslint-plugin-promise": "4.2.1",
     "eslint-plugin-standard": "4.0.1",
@@ -144,11 +144,13 @@
       "sourceType": "module"
     },
     "plugins": [
-      "@typescript-eslint"
+      "@typescript-eslint",
+      "jest"
     ],
     "env": {
       "node": true,
-      "es6": true
+      "es6": true,
+      "jest/globals": true
     },
     "extends": [
       "eslint:recommended",

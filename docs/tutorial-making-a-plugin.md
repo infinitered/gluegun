@@ -36,7 +36,7 @@ $ yarn init
 
 At this point, go through yarn's init. It doesn't matter too much what you put here. I just hit enter on everything.
 
-Lastly, add a `commands` and an `extensions` folder.
+Lastly, add a `commands` and an `extensions` folder. Note that with new versions of Gluegun, you can also use a build pipeline and include your commands and extensions in `build/commands` and `build/extensions` and Gluegun will still find them.
 
 ```bash
 $ mkdir commands extensions

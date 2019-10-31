@@ -49,22 +49,28 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
   plugin.commands = (options.preloadedCommands || []).map(loadCommandFromPreload)
 
   // load the commands found in the commands sub-directory
-  if (jetpackPlugin.exists('commands') === 'dir') {
-    const commands = jetpackPlugin.cwd('commands').find({ matching: commandFilePattern, recursive: true })
+  const commandSearchDirectories = ['commands', 'build/commands']
+  commandSearchDirectories.map(dir => {
+    if (jetpackPlugin.exists(dir) === 'dir') {
+      const commands = jetpackPlugin.cwd(dir).find({ matching: commandFilePattern, recursive: true })
 
-    plugin.commands = plugin.commands.concat(
-      commands.map(file => loadCommandFromFile(path.join(directory, 'commands', file))),
-    )
-  }
+      plugin.commands = plugin.commands.concat(
+        commands.map(file => loadCommandFromFile(path.join(directory, dir, file))),
+      )
+    }
+  })
 
   // load the extensions found in the extensions sub-directory
-  if (jetpackPlugin.exists('extensions') === 'dir') {
-    const extensions = jetpackPlugin.cwd('extensions').find({ matching: extensionFilePattern, recursive: false })
+  const extensionSearchDirectories = ['extensions', 'build/extensions']
+  extensionSearchDirectories.map(dir => {
+    if (jetpackPlugin.exists(dir) === 'dir') {
+      const extensions = jetpackPlugin.cwd(dir).find({ matching: extensionFilePattern, recursive: false })
 
-    plugin.extensions = extensions.map(file => loadExtensionFromFile(`${directory}/extensions/${file}`))
-  } else {
-    plugin.extensions = []
-  }
+      plugin.extensions = plugin.extensions.concat(
+        extensions.map(file => loadExtensionFromFile(`${directory}/${dir}/${file}`)),
+      )
+    }
+  })
 
   // load config using cosmiconfig
   const config = loadConfig(plugin.name, directory)

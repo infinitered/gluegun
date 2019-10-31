@@ -21,8 +21,8 @@ test('the gauntlet', () => {
   expect(runtime).toBeTruthy()
 
   expect(runtime.brand).toBe('test')
-  expect(runtime.commands.length).toBe(26)
-  expect(runtime.extensions.length).toBe(14)
+  expect(runtime.commands.length).toBe(34)
+  expect(runtime.extensions.length).toBe(15)
   expect(runtime.defaultPlugin.commands.length).toBe(6)
 
   const { commands } = runtime.defaultPlugin
@@ -35,5 +35,5 @@ test('the gauntlet', () => {
   expect(commands[5].name).toBe('gimmedatversion')
   expect(commands[5].run(new Toolbox())).toBe('it works')
 
-  expect(runtime.plugins.length).toBe(16)
+  expect(runtime.plugins.length).toBe(18)
 })

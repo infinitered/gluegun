@@ -6,7 +6,7 @@ test('loads all sub-directories', () => {
   r.addCoreExtensions()
   r.addPlugins(`${__dirname}/../fixtures/good-plugins`)
 
-  expect(14).toBe(r.plugins.length)
+  expect(16).toBe(r.plugins.length)
 })
 
 test('matches sub-directories', () => {
