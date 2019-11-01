@@ -94,7 +94,7 @@
     "@typescript-eslint/parser": "2.6.0",
     "cpy-cli": "2.0.0",
     "eslint": "6.6.0",
-    "eslint-config-prettier": "6.4.0",
+    "eslint-config-prettier": "6.5.0",
     "eslint-config-standard": "14.1.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-jest": "22.21.0",
