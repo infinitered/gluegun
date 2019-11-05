@@ -13,7 +13,6 @@ import {
   GluegunPrompt,
   GluegunTemplate,
   GluegunMeta,
-  GluegunParameters,
 } from '..'
 
 export interface GluegunParameters {
