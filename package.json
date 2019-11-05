@@ -84,7 +84,7 @@
     "yargs-parser": "^16.1.0"
   },
   "devDependencies": {
-    "@semantic-release/git": "7.0.17",
+    "@semantic-release/git": "7.0.18",
     "@types/cli-table2": "0.2.2",
     "@types/jest": "24.0.21",
     "@types/node": "12.12.5",
@@ -109,7 +109,7 @@
     "mock-stdin": "0.3.1",
     "prettier": "1.18.2",
     "rimraf": "3.0.0",
-    "semantic-release": "15.13.28",
+    "semantic-release": "15.13.30",
     "sinon": "7.5.0",
     "strip-ansi": "5.2.0",
     "temp-write": "4.0.0",
