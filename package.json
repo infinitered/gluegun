@@ -109,7 +109,7 @@
     "mock-stdin": "0.3.1",
     "prettier": "1.19.1",
     "rimraf": "3.0.0",
-    "semantic-release": "15.13.30",
+    "semantic-release": "15.13.31",
     "sinon": "7.5.0",
     "strip-ansi": "6.0.0",
     "temp-write": "4.0.0",
