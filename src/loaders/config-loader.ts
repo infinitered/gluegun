@@ -1,4 +1,4 @@
-import * as cosmiconfig from 'cosmiconfig'
+import { cosmiconfigSync } from 'cosmiconfig'
 import { Options } from '../domain/options'
 
 /**
@@ -9,7 +9,7 @@ import { Options } from '../domain/options'
  */
 export function loadConfig(name: string, src: string): Options {
   // attempt to load
-  const cosmic: Options = cosmiconfig(name || '').searchSync(src || '')
+  const cosmic: Options = cosmiconfigSync(name || '').search(src || '')
 
   // use what we found or fallback to an empty object
   const config = (cosmic && cosmic.config) || {}
