@@ -232,3 +232,23 @@ test('patch - able to delete text in a text file with regex as delete value', as
   const expectedContents = `These are .\n\nThey're very amazing.\n`
   expect(newContents).toBe(expectedContents)
 })
+test('patch - able to execute multiple file operations', async () => {
+  const updated = await patching.patch(
+    t.context.textFile,
+    {
+      delete: new RegExp('some words'),
+    },
+    {
+      replace: new RegExp('very amazing'),
+      insert: 'patched info',
+    },
+  )
+
+  // returned the updated object
+  expect(updated).toBe(`These are .\n\nThey're patched info.\n`)
+
+  // file was actually written to with the right contents
+  const newContents = await jetpack.read(t.context.textFile, 'utf8')
+  const expectedContents = `These are .\n\nThey're patched info.\n`
+  expect(newContents).toBe(expectedContents)
+})

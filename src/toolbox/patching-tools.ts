@@ -99,8 +99,8 @@ export async function replace(filename: string, oldContent: string, newContent: 
  *   await toolbox.patching.patch('thing.js', { before: 'bar', insert: 'foo' })
  *
  */
-export async function patch(filename: string, opts: GluegunPatchingPatchOptions = {}): Promise<string | false> {
-  return update(filename, data => patchString(data as string, opts)) as Promise<string | false>
+export async function patch(filename: string, ...opts: GluegunPatchingPatchOptions[]): Promise<string | false> {
+  return update(filename, (data: string) => opts.reduce(patchString, data)) as Promise<string | false>
 }
 
 export async function readFile(filename: string): Promise<string> {
