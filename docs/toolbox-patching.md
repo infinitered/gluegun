@@ -83,4 +83,9 @@ await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Somethin
 await toolbox.patching.patch('config.txt', { insert: 'Jamon', replace: 'Something else', force: true })
 await toolbox.patching.patch('config.txt', { delete: 'Something' })
 await toolbox.patching.patch('config.txt', { insert: 'Jamon', after: new RegExp('some regexp') })
+await toolbox.patching.patch(
+  'config.txt',
+  { insert: 'Jamon', after: 'Something else' },
+  { insert: 'Jamon', before: 'Something else' },
+)
 ```
