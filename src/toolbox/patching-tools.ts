@@ -100,7 +100,14 @@ export async function replace(filename: string, oldContent: string, newContent: 
  *
  */
 export async function patch(filename: string, ...opts: GluegunPatchingPatchOptions[]): Promise<string | false> {
-  return update(filename, (data: string) => opts.reduce(patchString, data)) as Promise<string | false>
+  return update(filename, (data: string) => {
+    const result = opts.reduce(
+      (updatedData: string, opt: GluegunPatchingPatchOptions) => patchString(updatedData, opt) || updatedData,
+      data,
+    )
+
+    return result !== data && result
+  }) as Promise<string | false>
 }
 
 export async function readFile(filename: string): Promise<string> {
