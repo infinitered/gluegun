@@ -11,14 +11,19 @@ Generates a new file based on a template.
 ```js
 module.exports = async function(toolbox) {
   const name = toolbox.parameters.first
-  const semicolon = toolbox.options.useSemicolons && ';'
 
   await toolbox.template.generate({
-    template: 'component.njk',
+    template: 'component.ejf',
     target: `app/components/${name}-view.js`,
-    props: { name, semicolon },
+    props: { name },
   })
 }
+```
+
+In the EJS template, you will use the props object to get the data defined previously. 
+
+```ejs
+<title><%= props.name %></title>
 ```
 
 Note: `generate()` will always overwrite the target if given. Make sure to prompt your users if that's
