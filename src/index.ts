@@ -1,4 +1,5 @@
 // first, do a sniff test to ensure our dependencies are met
+// eslint-disable-next-line
 const sniff = require('../sniff')
 
 // check the node version
@@ -29,6 +30,7 @@ export { semver, GluegunSemver } from './toolbox/semver-tools'
 export { http, GluegunHttp } from './toolbox/http-tools'
 export { patching, GluegunPatching, GluegunPatchingPatchOptions } from './toolbox/patching-tools'
 export { prompt, GluegunPrompt } from './toolbox/prompt-tools'
+export { packageManager, GluegunPackageManager } from './toolbox/package-manager-tools'
 
 // TODO: can't export these tools directly as they require the toolbox to run
 // need ideas on how to handle this
