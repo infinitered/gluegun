@@ -1,5 +1,5 @@
 pool:
-  vmImage: 'win1803'
+  vmImage: 'windows-latest'
 
 steps:
 - task: NodeTool@0
