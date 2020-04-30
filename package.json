@@ -115,7 +115,7 @@
     "temp-write": "4.0.0",
     "ts-jest": "24.3.0",
     "ts-node": "8.6.2",
-    "typescript": "3.7.5",
+    "typescript": "3.8.3",
     "unique-temp-dir": "1.0.0"
   },
   "jest": {
@@ -161,7 +161,8 @@
     ],
     "rules": {
       "@typescript-eslint/explicit-function-return-type": 0,
-      "@typescript-eslint/no-explicit-any": 0
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/no-var-requires": 0
     },
     "overrides": [
       {

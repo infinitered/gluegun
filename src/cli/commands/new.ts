@@ -75,12 +75,10 @@ const NewCommand: GluegunCommand = {
       // we default to TypeScript if they just press "enter"
       const lang = (answer && answer.toLowerCase()) || 'typescript'
 
-      // eslint-disable-next-line require-atomic-updates
       props.language = lang.includes('typescript') ? 'typescript' : 'javascript'
       info(`Language used: ${props.language === 'typescript' ? 'TypeScript' : 'Modern JavaScript'}`)
     }
 
-    // eslint-disable-next-line require-atomic-updates
     props.extension = props.language === 'typescript' ? 'ts' : 'js'
 
     // create the directory

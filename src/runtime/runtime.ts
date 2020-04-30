@@ -33,7 +33,7 @@ export class Runtime {
   public defaultPlugin?: Plugin = null
   public defaultCommand?: Command = null
   public config: Options = {}
-  public checkUpdate: boolean = false
+  public checkUpdate = false
   public run: (rawCommand?: string | Options, extraOptions?: Options) => Promise<GluegunToolbox>
 
   /**
@@ -61,6 +61,7 @@ export class Runtime {
       'http',
       'template',
       'patching',
+      'package-manager',
     ]
 
     coreExtensions.forEach(ex => {

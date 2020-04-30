@@ -18,6 +18,7 @@ Gluegun is a delightful toolkit for building Node-based command-line interfaces 
 💃 *print* - printing pretty colors and tables<br />
 👩‍✈️ *semver* - working with semantic versioning<br />
 🎻 *strings* - manipulating strings & template data<br />
+📦 *packageManager* - installing NPM packages with Yarn or NPM<br />
 
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 

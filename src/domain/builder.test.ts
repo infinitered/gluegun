@@ -22,7 +22,7 @@ test('the gauntlet', () => {
 
   expect(runtime.brand).toBe('test')
   expect(runtime.commands.length).toBe(34)
-  expect(runtime.extensions.length).toBe(15)
+  expect(runtime.extensions.length).toBe(16)
   expect(runtime.defaultPlugin.commands.length).toBe(6)
 
   const { commands } = runtime.defaultPlugin
