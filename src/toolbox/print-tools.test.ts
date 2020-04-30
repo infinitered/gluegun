@@ -1,5 +1,6 @@
 import * as expect from 'expect'
 import { print } from './print-tools'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const stripANSI = require('strip-ansi')
 
 // hijack the console
@@ -23,8 +24,17 @@ test('info', () => {
   print.fancy('fancyyyyy')
   print.divider()
   print.newline()
-  print.table([['liam', '5'], ['matthew', '2']])
-  print.table([['liam', '5'], ['matthew', '2']], { format: 'markdown' })
+  print.table([
+    ['liam', '5'],
+    ['matthew', '2'],
+  ])
+  print.table(
+    [
+      ['liam', '5'],
+      ['matthew', '2'],
+    ],
+    { format: 'markdown' },
+  )
 
   expect(spyLogger).toMatchSnapshot()
 })
