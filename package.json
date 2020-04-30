@@ -58,7 +58,7 @@
     "cosmiconfig": "6.0.0",
     "cross-spawn": "^7.0.0",
     "ejs": "^2.6.1",
-    "enquirer": "2.3.2",
+    "enquirer": "2.3.4",
     "execa": "^3.0.0",
     "fs-jetpack": "^2.2.2",
     "lodash.camelcase": "^4.3.0",
