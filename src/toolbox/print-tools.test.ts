@@ -1,6 +1,5 @@
 import * as expect from 'expect'
 import { print } from './print-tools'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const stripANSI = require('strip-ansi')
 
 // hijack the console

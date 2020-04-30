@@ -1,5 +1,4 @@
 // first, do a sniff test to ensure our dependencies are met
-// eslint-disable-next-line
 const sniff = require('../sniff')
 
 // check the node version
