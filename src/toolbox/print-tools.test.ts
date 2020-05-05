@@ -23,8 +23,17 @@ test('info', () => {
   print.fancy('fancyyyyy')
   print.divider()
   print.newline()
-  print.table([['liam', '5'], ['matthew', '2']])
-  print.table([['liam', '5'], ['matthew', '2']], { format: 'markdown' })
+  print.table([
+    ['liam', '5'],
+    ['matthew', '2'],
+  ])
+  print.table(
+    [
+      ['liam', '5'],
+      ['matthew', '2'],
+    ],
+    { format: 'markdown' },
+  )
 
   expect(spyLogger).toMatchSnapshot()
 })

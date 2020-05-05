@@ -8,7 +8,7 @@
 
 Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs) in TypeScript or modern JavaScript, with support for:
 
-🌯 *parameters* - command line arguments and options<br />
+🌯 *parameters* - command-line arguments and options<br />
 🎛 *template* - generating files from templates<br />
 🗄 *patching* - manipulating file contents<br />
 💾 *filesystem* - moving files and directories around<br />
@@ -18,6 +18,7 @@ Gluegun is a delightful toolkit for building Node-based command-line interfaces 
 💃 *print* - printing pretty colors and tables<br />
 👩‍✈️ *semver* - working with semantic versioning<br />
 🎻 *strings* - manipulating strings & template data<br />
+📦 *packageManager* - installing NPM packages with Yarn or NPM<br />
 
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 
@@ -117,7 +118,7 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 
 # What's under the hood?
 
-We've assembled an _all star cast_ of libraries to help you build your CLI.
+We've assembled an _all-star cast_ of libraries to help you build your CLI.
 
 ⭐️ [ejs](https://github.com/mde/ejs) for templating<br />
 ⭐️ [semver](https://github.com/npm/node-semver) for version investigations<br />

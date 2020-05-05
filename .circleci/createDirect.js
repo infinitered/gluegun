@@ -11,7 +11,17 @@
  * They are .gitignore'd by version control and quickly cleaned up after release.
  */
 
-const directFiles = ['filesystem', 'strings', 'print', 'system', 'semver', 'http', 'patching', 'prompt']
+const directFiles = [
+  'filesystem',
+  'strings',
+  'print',
+  'system',
+  'semver',
+  'http',
+  'patching',
+  'prompt',
+  'package-manager',
+]
 
 const fs = require('fs')
 

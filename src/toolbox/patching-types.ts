@@ -22,7 +22,7 @@ export interface GluegunPatching {
   /**
    * Makes a patch inside file.
    */
-  patch(filename: string, options: GluegunPatchingPatchOptions): Promise<string | boolean>
+  patch(filename: string, ...options: GluegunPatchingPatchOptions[]): Promise<string | boolean>
 }
 
 export interface GluegunPatchingPatchOptions {

@@ -13,6 +13,7 @@ import {
   GluegunPrompt,
   GluegunTemplate,
   GluegunMeta,
+  GluegunPackageManager,
 } from '..'
 
 export interface GluegunParameters {
@@ -70,6 +71,7 @@ export interface GluegunToolbox extends GluegunEmptyToolbox {
   system: GluegunSystem
   template: GluegunTemplate
   generate: any
+  packageManager: GluegunPackageManager
 }
 
 export class EmptyToolbox implements GluegunEmptyToolbox {
@@ -113,6 +115,7 @@ export class Toolbox extends EmptyToolbox implements GluegunToolbox {
   system: GluegunSystem
   template: GluegunTemplate
   generate: any
+  packageManager: GluegunPackageManager
 }
 
 // Toolbox used to be known as RunContext. This is for backwards compatibility.

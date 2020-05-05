@@ -49,7 +49,7 @@ module.exports = {
       runtime: { brand },
     } = toolbox
 
-    // use cosmiconfig directly: directory (string) & brand (string)
+    // use cosmiconfig directly: brand (string) & directory (string)
     const myConfig = loadConfig(brand, process.cwd())
     // or
     const myConfig = loadConfig('movie', '~/.myconfig/')
@@ -60,9 +60,9 @@ module.exports = {
     // if you want to load multiple configs and have them override:
     const currentFolder = process.cwd()
     const myConfig = {
-      ...loadConfig('~/.myconfig/', 'movies'),
-      ...loadConfig('~/configurations/myconfig/', 'movies'),
-      ...loadConfig(currentFolder, 'movies'),
+      ...loadConfig('movies', '~/.myconfig/'),
+      ...loadConfig('movies', '~/configurations/myconfig/'),
+      ...loadConfig('movies', currentFolder),
     }
   },
 }

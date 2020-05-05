@@ -14,7 +14,6 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
    * @return The generated string.
    */
   async function generate(opts: Options = {}): Promise<string> {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const ejs = require('ejs')
     // required
     const template = opts.template
