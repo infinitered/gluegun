@@ -2,6 +2,7 @@ import { GluegunToolbox } from '../index'
 import * as CLITable from 'cli-table3'
 import * as importedColors from 'colors'
 import ora = require('ora')
+import { Toolbox } from '../domain/toolbox'
 
 export type GluegunPrintColors = typeof importedColors & {
   highlight: (t: string) => string
@@ -45,7 +46,7 @@ export interface GluegunPrint {
   /* An `ora`-powered spinner. */
   spin(options?: ora.Options | string): ora.Ora
   /* Print help info for known CLI commands. */
-  printCommands(toolbox: GluegunToolbox): void
+  printCommands(toolbox: Toolbox, commandRoot?: string[]): void
   /* Prints help info, including version and commands. */
   printHelp(toolbox: GluegunToolbox): void
 }
