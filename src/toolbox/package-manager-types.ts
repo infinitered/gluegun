@@ -10,7 +10,10 @@ export type GluegunPackageManagerResult = {
   error?: string
 }
 export type GluegunPackageManager = {
-  add: (packageName: string, options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
-  remove: (packageName: string, options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
+  add: (packageName: string | string[], options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
+  remove: (
+    packageName: string | string[],
+    options: GluegunPackageManagerOptions,
+  ) => Promise<GluegunPackageManagerResult>
   hasYarn: () => boolean
 }

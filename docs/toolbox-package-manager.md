@@ -30,6 +30,14 @@ Will return an object similar to the following:
 }
 ```
 
+You can also use an array with the package names you want to install to add it all at once.
+
+```js
+await toolbox.packageManager.add(['infinite_red', 'infinite_blue'], {
+  dev: true,
+  dryRun: false,
+```
+
 ## remove (async)
 
 Removes a package using yarn or npm
@@ -38,5 +46,13 @@ Removes a package using yarn or npm
 await toolbox.packageManager.remove('infinite_red', {
   dryRun: false,
   force: 'npm', //remove this to have the system determine which
+})
+```
+
+Like `add` function, you can also use an array to remove multiple packages.
+
+```js
+await toolbox.packageManager.remove(['infinite_red', 'infinite_blue'], {
+  dryRun: false,
 })
 ```

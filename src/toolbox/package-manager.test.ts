@@ -33,11 +33,29 @@ test('add', async () => {
   })
 })
 
+test('add', async () => {
+  const result = await packageManager.add(['infinite_red', 'infinite_blue'], { dryRun: true })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn add infinite_red infinite_blue',
+    stdout: undefined,
+  })
+})
+
 test('remove', async () => {
   const result = await packageManager.remove('infinite_red', { dryRun: true })
   expect(result).toEqual({
     success: true,
     command: 'yarn remove infinite_red',
+    stdout: undefined,
+  })
+})
+
+test('remove', async () => {
+  const result = await packageManager.remove(['infinite_red', 'infinite_blue'], { dryRun: true })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn remove infinite_red infinite_blue',
     stdout: undefined,
   })
 })
