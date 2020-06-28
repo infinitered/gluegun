@@ -21,10 +21,10 @@ const add = async (
   options: GluegunPackageManagerOptions,
 ): Promise<GluegunPackageManagerResult> => {
   const yarn = options.force === undefined ? hasYarn() : options.force === 'yarn'
-  let dev = ''
-  if (options.dev) dev = yarn ? '--dev ' : '--save-dev '
+  const dev = options.dev ? (yarn ? '--dev ' : '--save-dev ') : ''
+  const folder = options.dir ? options.dir : '.'
 
-  const command = `${yarn ? 'yarn add' : 'npm install'} ${dev}${concatPackages(packageName)}`
+  const command = `${yarn ? 'yarn add --cwd' : 'npm install --prefix'} ${folder} ${dev}${concatPackages(packageName)}`
   let stdout
   if (!options.dryRun) {
     stdout = await system.run(command)
@@ -36,7 +36,10 @@ const remove = async (
   packageName: string | string[],
   options: GluegunPackageManagerOptions,
 ): Promise<GluegunPackageManagerResult> => {
-  const command = `${hasYarn() ? 'yarn remove' : 'npm uninstall'} ${concatPackages(packageName)}`
+  const folder = options.dir ? options.dir : '.'
+  const command = `${hasYarn() ? 'yarn remove --cwd' : 'npm uninstall --prefix'} ${folder} ${concatPackages(
+    packageName,
+  )}`
   let stdout
   if (!options.dryRun) {
     stdout = await system.run(command)

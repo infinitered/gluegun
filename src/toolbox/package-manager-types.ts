@@ -1,6 +1,7 @@
 export type GluegunPackageManagerOptions = {
   dev?: boolean
   dryRun?: boolean
+  dir?: string
   force?: 'npm' | 'yarn'
 }
 export type GluegunPackageManagerResult = {
