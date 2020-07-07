@@ -1,7 +1,7 @@
 <% if (props.language === "typescript") { %>
 import { GluegunToolbox } from 'gluegun'
 <% } %>
-  
+
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
 module.exports = <%= (props.language === "typescript") ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
@@ -14,6 +14,6 @@ module.exports = <%= (props.language === "typescript") ? "(toolbox: GluegunToolb
   // <%= props.name %>.config.json, etc.
   // toolbox.config = {
   //   ...toolbox.config,
-  //   ...toolbox.config.loadConfig(process.cwd(), "<%= props.name %>")
+  //   ...toolbox.config.loadConfig("<%= props.name %>", process.cwd())
   // }
 }
