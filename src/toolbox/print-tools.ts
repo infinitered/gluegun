@@ -3,7 +3,7 @@ import * as importedColors from 'colors/safe'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import { times } from './utils'
-import { GluegunPrint, GluegunPrintColors } from './print-types'
+import { GluegunPrint, GluegunPrintColors, GluegunPrintTableOptions } from './print-types'
 
 // We're extending `colors` with a few more attributes
 const colors = importedColors as GluegunPrintColors
@@ -88,7 +88,7 @@ function columnHeaderDivider(cliTable: CLITable): string[] {
  *
  * @param object The object to turn into a table.
  */
-function table(data: string[][], options: any = {}): void {
+function table(data: string[][], options: GluegunPrintTableOptions = {}): void {
   let t
   switch (options.format) {
     case 'markdown':
@@ -165,7 +165,7 @@ function warning(message: string): void {
  *
  * @param message The message to show.
  */
-function debug(message: string, title: string = 'DEBUG'): void {
+function debug(message: string, title = 'DEBUG'): void {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
