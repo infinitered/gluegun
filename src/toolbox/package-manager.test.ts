@@ -10,7 +10,7 @@ test('add', async () => {
   const result = await packageManager.add('infinite_red', { dryRun: true })
   expect(result).toEqual({
     success: true,
-    command: 'yarn add infinite_red',
+    command: 'yarn add --cwd . infinite_red',
     stdout: undefined,
   })
 })
@@ -19,7 +19,7 @@ test('add', async () => {
   const result = await packageManager.add('infinite_red', { dryRun: true, dev: true })
   expect(result).toEqual({
     success: true,
-    command: 'yarn add --dev infinite_red',
+    command: 'yarn add --cwd . --dev infinite_red',
     stdout: undefined,
   })
 })
@@ -28,7 +28,25 @@ test('add', async () => {
   const result = await packageManager.add('infinite_red', { dryRun: true, dev: true, force: 'npm' })
   expect(result).toEqual({
     success: true,
-    command: 'npm install --save-dev infinite_red',
+    command: 'npm install --prefix . --save-dev infinite_red',
+    stdout: undefined,
+  })
+})
+
+test('add', async () => {
+  const result = await packageManager.add(['infinite_red', 'infinite_blue'], { dryRun: true })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn add --cwd . infinite_red infinite_blue',
+    stdout: undefined,
+  })
+})
+
+test('add', async () => {
+  const result = await packageManager.add(['infinite_red', 'infinite_blue'], { dryRun: true, dir: 'test' })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn add --cwd test infinite_red infinite_blue',
     stdout: undefined,
   })
 })
@@ -37,7 +55,25 @@ test('remove', async () => {
   const result = await packageManager.remove('infinite_red', { dryRun: true })
   expect(result).toEqual({
     success: true,
-    command: 'yarn remove infinite_red',
+    command: 'yarn remove --cwd . infinite_red',
+    stdout: undefined,
+  })
+})
+
+test('remove', async () => {
+  const result = await packageManager.remove(['infinite_red', 'infinite_blue'], { dryRun: true })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn remove --cwd . infinite_red infinite_blue',
+    stdout: undefined,
+  })
+})
+
+test('remove', async () => {
+  const result = await packageManager.remove(['infinite_red', 'infinite_blue'], { dryRun: true, dir: 'test' })
+  expect(result).toEqual({
+    success: true,
+    command: 'yarn remove --cwd test infinite_red infinite_blue',
     stdout: undefined,
   })
 })

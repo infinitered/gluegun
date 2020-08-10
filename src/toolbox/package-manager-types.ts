@@ -1,6 +1,7 @@
 export type GluegunPackageManagerOptions = {
   dev?: boolean
   dryRun?: boolean
+  dir?: string
   force?: 'npm' | 'yarn'
 }
 export type GluegunPackageManagerResult = {
@@ -10,7 +11,10 @@ export type GluegunPackageManagerResult = {
   error?: string
 }
 export type GluegunPackageManager = {
-  add: (packageName: string, options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
-  remove: (packageName: string, options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
+  add: (packageName: string | string[], options: GluegunPackageManagerOptions) => Promise<GluegunPackageManagerResult>
+  remove: (
+    packageName: string | string[],
+    options: GluegunPackageManagerOptions,
+  ) => Promise<GluegunPackageManagerResult>
   hasYarn: () => boolean
 }
