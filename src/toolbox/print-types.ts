@@ -1,8 +1,8 @@
 import { GluegunToolbox } from '../index'
 import * as CLITable from 'cli-table3'
 import * as importedColors from 'colors'
-import ora = require('ora')
 import { Toolbox } from '../domain/toolbox'
+import ora = require('ora')
 
 export type GluegunPrintColors = typeof importedColors & {
   highlight: (t: string) => string
@@ -12,6 +12,10 @@ export type GluegunPrintColors = typeof importedColors & {
   error: (t: string) => string
   line: (t: string) => string
   muted: (t: string) => string
+}
+
+export interface GluegunPrintTableOptions {
+  format?: 'markdown' | 'lean' | 'default'
 }
 
 export interface GluegunPrint {
@@ -42,7 +46,7 @@ export interface GluegunPrint {
   /* Prints a newline. */
   newline: () => void
   /* Prints a table of data (usually a 2-dimensional array). */
-  table: (data: any, options?: any) => void
+  table: (data: string[][], options?: GluegunPrintTableOptions) => void
   /* An `ora`-powered spinner. */
   spin(options?: ora.Options | string): ora.Ora
   /* Print help info for known CLI commands. */
