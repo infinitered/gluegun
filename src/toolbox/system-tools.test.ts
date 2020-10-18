@@ -16,7 +16,11 @@ test('run - should reject if the command does not exist', async () => {
     await system.run('echo "hi" && non-existing-command')
   } catch (e) {
     expect(e.stdout).toContain('hi')
-    expect(e.stderr).toContain('not found')
+    if (process.platform === 'win32') {
+      expect(e.stderr).toContain('is not recognized as an internal or external command')
+    } else {
+      expect(e.stderr).toContain('not found')
+    }
   }
 })
 
