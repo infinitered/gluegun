@@ -16,7 +16,7 @@ test('run - should reject if the command does not exist', async () => {
     await system.run('echo "hi" && non-existing-command')
   } catch (e) {
     expect(e.stdout).toContain('hi')
-    expect(e.stderr).toContain('command not found')
+    expect(e.stderr).toContain('not found')
   }
 })
 
