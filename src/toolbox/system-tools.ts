@@ -17,6 +17,7 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
     const { exec } = require('child_process')
     exec(commandLine, nodeOptions, (error: GluegunError, stdout: StringOrBuffer, stderr: StringOrBuffer) => {
       if (error) {
+        error.stdout = stdout
         error.stderr = stderr
         return reject(error)
       }

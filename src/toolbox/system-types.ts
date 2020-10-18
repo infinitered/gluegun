@@ -31,5 +31,6 @@ export type GluegunTimer = () => number
 export type StringOrBuffer = string | Buffer
 
 export interface GluegunError extends Error {
+  stdout?: StringOrBuffer
   stderr?: StringOrBuffer
 }
