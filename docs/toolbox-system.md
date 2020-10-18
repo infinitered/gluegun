@@ -21,6 +21,7 @@ Should the process fail, an `error` will be thrown with properties such as:
 | -------- | ------ | ----------------------------------------------------- |
 | code     | number | the exit code                                         |
 | cmd      | string | the command we asked to run                           |
+| stdout   | string | any information the process wrote to `stdout`         |
 | stderr   | string | any information the process wrote to `stderr`         |
 | killed   | bool   | if the process was killed or not                      |
 | signal   | number | the signal number used to off the process (if killed) |
