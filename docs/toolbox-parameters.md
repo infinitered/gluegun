@@ -8,7 +8,7 @@ gluegun reactotron plugin MyAwesomePlugin full --comments --lint standard
 | ----------- | ------ | --------------------------------- | ------------------------------------ |
 | **plugin**  | string | the plugin used                   | `'reactotron'`                       |
 | **command** | string | the command used                  | `'plugin'`                           |
-| **string**  | string | the command arguments as a string | `'do thing'`                         |
+| **string**  | string | the command arguments as a string | `'MyAwesomePlugin full'`             |
 | **array**   | array  | the command arguments as an array | `['MyAwesomePlugin', 'full']`        |
 | **first**   | string | the 1st argument                  | `'MyAwesomePlugin'`                  |
 | **second**  | string | the 2nd argument                  | `'full'`                             |
