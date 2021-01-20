@@ -35,6 +35,26 @@ Well, if your next line of code isn't `process.exit(0)`, then it was probably a 
 toolbox.print.error('Out of disk space.  lol.')
 ```
 
+## highlight
+
+Prints a message that's intended to have attention drawn to it.
+You could use it to point out the correct command to be run in an error message.
+Or you could use it to head sections of your help screen printout.
+
+```js
+toolbox.print.highlight('Run `gluegun login` to login')
+```
+
+## muted
+
+Prints a message in a muted gray color.
+This is useful for info that's not the most important but still helpful.
+Think of mundane or commonplace lines in output logging, for example.
+
+```js
+toolbox.print.muted('Connection status: GOOD')
+```
+
 ## debug
 
 Only used for debugging your plugins. You can pass this function a string or an object.
@@ -55,13 +75,14 @@ however we define a theme to make things a bit consistent.
 
 Some available functions include:
 
-| function           | use when you want...                     |
-| ------------------ | ---------------------------------------- |
-| `colors.success()` | the user to smile                        |
-| `colors.error()`   | to say something has failed              |
-| `colors.warning()` | to point out that something might be off |
-| `colors.info()`    | to say something informational           |
-| `colors.muted()`   | you need to say something secondary      |
+| function             | use when you want...                     |
+| -------------------- | ---------------------------------------- |
+| `colors.success()`   | the user to smile                        |
+| `colors.error()`     | to say something has failed              |
+| `colors.warning()`   | to point out that something might be off |
+| `colors.highlight()` | to draw attention to something           |
+| `colors.info()`      | to say something informational           |
+| `colors.muted()`     | you need to say something secondary      |
 
 Each take a `string` parameter and return a `string`.
 

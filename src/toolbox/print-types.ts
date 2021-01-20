@@ -31,6 +31,10 @@ export interface GluegunPrint {
   warning: (message: any) => void
   /* Prints a success-colored message. */
   success: (message: any) => void
+  /* Prints a highlighted (cyan) message. */
+  highlight: (message: any) => void
+  /* Prints a muted (grey) message. */
+  muted: (message: any) => void
   /* Prints an error-colored message. */
   error: (message: any) => void
   /* Prints debug information about any data, with an optional title. */

@@ -16,6 +16,8 @@ test('info', () => {
   print.info('info')
   print.warning('warning!')
   print.success('success!!')
+  print.highlight('highlight')
+  print.muted('muted')
   print.error('error...')
   print.debug('debugging...')
   const title = 'there'

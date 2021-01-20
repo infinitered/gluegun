@@ -92,6 +92,7 @@ function table(data: string[][], options: GluegunPrintTableOptions = {}): void {
   let t
   switch (options.format) {
     case 'markdown':
+      // eslint-disable-next-line no-case-declarations
       const header = data.shift()
       t = new CLITable({
         head: header,
@@ -186,6 +187,28 @@ function success(message: string): void {
 }
 
 /**
+ * Writes a highlighted message.
+ *
+ * To draw attention to specific lines.  Use sparingly.
+ *
+ * @param message The message to show.
+ */
+function highlight(message: string): void {
+  console.log(colors.highlight(message))
+}
+
+/**
+ * Writes a muted message.
+ *
+ * For ancillary info, something that's not the star of the show.
+ *
+ * @param message The message to show.
+ */
+function muted(message: string): void {
+  console.log(colors.muted(message))
+}
+
+/**
  * Creates a spinner and starts it up.
  *
  * @param config The text for the spinner or an ora configuration object.
@@ -232,6 +255,8 @@ const print: GluegunPrint = {
   warning,
   debug,
   success,
+  highlight,
+  muted,
   spin,
   printCommands,
   printHelp,
