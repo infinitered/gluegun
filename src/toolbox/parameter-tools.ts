@@ -1,19 +1,17 @@
 import { GluegunParameters } from '../domain/toolbox'
 import { Options } from '../domain/options'
 import { equals, is } from './utils'
+import { Command } from '../domain/command'
 
 const COMMAND_DELIMITER = ' '
 
 /**
- * Parses given command arguments into a more useful format.
+ * Parses the raw command into an array of strings.
  *
  * @param commandArray Command string or list of command parts.
- * @param extraOpts Extra options.
- * @returns Normalized parameters.
+ * @returns The command as an array of strings.
  */
-export function parseParams(commandArray: string | string[], extraOpts: Options = {}): GluegunParameters {
-  const yargsParse = require('yargs-parser')
-
+export function parseRawCommand(commandArray: string | string[]): string[] {
   // use the command line args if not passed in
   if (is(String, commandArray)) {
     commandArray = (commandArray as string).split(COMMAND_DELIMITER)
@@ -27,8 +25,22 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
     commandArray = commandArray.slice(2)
   }
 
+  return commandArray as string[]
+}
+
+/**
+ * Parses given command arguments into a more useful format.
+ *
+ * @param command Command the parameters are for.
+ * @param args: Array of argument strings.
+ * @param extraOpts Extra options.
+ * @returns Normalized parameters.
+ */
+export function parseParams(command: Command, args: string[], extraOpts: Options = {}): GluegunParameters {
+  const yargsParse = require('yargs-parser')
+
   // chop it up yargsParse!
-  const parsed = yargsParse(commandArray)
+  const parsed = yargsParse(args, command.options || {})
   const array = parsed._.slice()
   delete parsed._
   const options = { ...parsed, ...extraOpts }

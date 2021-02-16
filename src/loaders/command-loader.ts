@@ -57,6 +57,7 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
     command.hidden = Boolean(commandModule.hidden)
     command.alias = reject(isNil, is(Array, commandModule.alias) ? commandModule.alias : [commandModule.alias])
     command.run = commandModule.run
+    command.options = commandModule.options
   } else {
     throw new Error(`Error: Couldn't load command ${command.name} -- needs a "run" property with a function.`)
   }
@@ -74,5 +75,6 @@ export function loadCommandFromPreload(preload: GluegunCommand): Command {
   command.file = null
   command.dashed = Boolean(preload.dashed)
   command.commandPath = preload.commandPath || [preload.name]
+  command.options = preload.options
   return command
 }
