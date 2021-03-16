@@ -110,12 +110,12 @@ const NewCommand: GluegunCommand = {
       'package.json.ejs',
       'readme.md.ejs',
       '.gitignore.ejs',
+      '.eslintrc.js.ejs',
     ]
 
     if (props.language === 'typescript') {
       files.push('src/types.js.ejs')
       files.push('tsconfig.json.ejs')
-      files.push('tslint.json.ejs') // TODO: swap out TSlint for ESlint in generated CLIs
     }
 
     // rename js files to ts
@@ -124,7 +124,7 @@ const NewCommand: GluegunCommand = {
 
       const target =
         `${props.name}/` +
-        (props.language === 'typescript' && file.includes('.js.ejs')
+        (props.language === 'typescript' && file.includes('.js.ejs') && !file.startsWith('.')
           ? file.replace('.js.ejs', '.ts')
           : file.replace('.ejs', ''))
 

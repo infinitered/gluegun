@@ -1,4 +1,8 @@
-const { system, filesystem } = require('gluegun')
+<% if (props.language === "typescript") { %>
+  import { system, filesystem } from 'gluegun'
+<% } else { %>
+  const { system, filesystem } = require('gluegun')
+<% } %>
 
 const src = filesystem.path(__dirname, '..')
 

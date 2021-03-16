@@ -1,4 +1,8 @@
-const { build } = require('gluegun')
+<% if (props.language === "typescript") { %>
+  import { build } from 'gluegun'
+<% } else { %>
+  const { build } = require('gluegun')  
+<% } %>
 
 /**
  * Create the cli and kick it off
