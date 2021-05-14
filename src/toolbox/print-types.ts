@@ -14,8 +14,11 @@ export type GluegunPrintColors = typeof importedColors & {
   muted: (t: string) => string
 }
 
+export type TableStyle = Partial<CLITable.TableInstanceOptions['style']>
+
 export interface GluegunPrintTableOptions {
   format?: 'markdown' | 'lean' | 'default'
+  style?: TableStyle
 }
 
 export interface GluegunPrint {
@@ -46,7 +49,7 @@ export interface GluegunPrint {
   /* Finds the column widths for a table */
   findWidths: (cliTable: CLITable) => number[]
   /* Returns column header dividers for a table */
-  columnHeaderDivider: (cliTable: CLITable) => string[]
+  columnHeaderDivider: (cliTable: CLITable, style: TableStyle) => string[]
   /* Prints a newline. */
   newline: () => void
   /* Prints a table of data (usually a 2-dimensional array). */

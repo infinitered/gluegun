@@ -36,6 +36,20 @@ test('info', () => {
     ],
     { format: 'markdown' },
   )
+  print.table(
+    [
+      ['liam', '5'],
+      ['matthew', '2'],
+    ],
+    { format: 'markdown', style: { 'padding-left': 1, 'padding-right': 3 } },
+  )
+  print.table(
+    [
+      ['liam', '5'],
+      ['matthew', '2'],
+    ],
+    { format: 'lean', style: { compact: true } },
+  )
 
   expect(spyLogger).toMatchSnapshot()
 })
