@@ -193,3 +193,38 @@ Output:
 | Steve      | Kellock   | 43  |
 | Gary       | Busey     | 73  |
 ```
+
+You can also pass styles for the table (as specified in [cli-table3](https://github.com/cli-table/cli-table3)):
+
+```js
+const { table } = toolbox.print
+table(
+  [
+    ['First Name', 'Last Name', 'Age'],
+    ['Jamon', 'Holmgren', 35],
+    ['Gant', 'Laborde', 36],
+    ['Steve', 'Kellock', 43],
+    ['Gary', 'Busey', 73],
+  ],
+  {
+    format: 'lean',
+    style: { 'padding-left': 0 , 'padding-right': 8 }
+  },
+)
+```
+
+Output:
+
+```
+┌──────────────────┬─────────────────┬───────────┐
+│First Name        │Last Name        │Age        │
+├──────────────────┼─────────────────┼───────────┤
+│Jamon             │Holmgren         │35         │
+├──────────────────┼─────────────────┼───────────┤
+│Gant              │Laborde          │36         │
+├──────────────────┼─────────────────┼───────────┤
+│Steve             │Kellock          │43         │
+├──────────────────┼─────────────────┼───────────┤
+│Gary              │Busey            │73         │
+└──────────────────┴─────────────────┴───────────┘
+```
