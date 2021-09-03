@@ -73,5 +73,18 @@ Array [
 | matthew | 2 |",
     undefined,
   ],
+  Array [
+    "| liam        | 5     |
+| ----------- | ----- |
+| matthew     | 2     |",
+    undefined,
+  ],
+  Array [
+    "┌─────────┬───┐
+│ liam    │ 5 │
+│ matthew │ 2 │
+└─────────┴───┘",
+    undefined,
+  ],
 ]
 `;

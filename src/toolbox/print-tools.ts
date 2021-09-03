@@ -3,7 +3,7 @@ import * as importedColors from 'colors/safe'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import { times } from './utils'
-import { GluegunPrint, GluegunPrintColors, GluegunPrintTableOptions } from './print-types'
+import { GluegunPrint, GluegunPrintColors, GluegunPrintTableOptions, TableStyle } from './print-types'
 
 // We're extending `colors` with a few more attributes
 const colors = importedColors as GluegunPrintColors
@@ -73,13 +73,30 @@ function findWidths(cliTable: CLITable): number[] {
 }
 
 /**
- * Returns an array of column dividers based on column widths.
+ * Returns an array of column dividers based on column widths, taking possible
+ * paddings into account.
  *
  * @param cliTable Data table.
  * @returns Array of properly sized column dividers.
  */
-function columnHeaderDivider(cliTable: CLITable): string[] {
-  return findWidths(cliTable).map(w => Array(w).join('-'))
+function columnHeaderDivider(cliTable: CLITable, style: TableStyle = {}): string[] {
+  const padding = (style['padding-left'] || 0) + (style['padding-right'] || 0)
+
+  return findWidths(cliTable).map(w => Array(w + padding).join('-'))
+}
+
+/**
+ * Resets the padding of a table.
+ *
+ * @param cliTable Data table.
+ */
+function resetTablePadding(cliTable: CLITable) {
+  const style = (cliTable as any).options.style
+
+  if (style) {
+    style['padding-left'] = 1
+    style['padding-right'] = 1
+  }
 }
 
 /**
@@ -97,17 +114,22 @@ function table(data: string[][], options: GluegunPrintTableOptions = {}): void {
       t = new CLITable({
         head: header,
         chars: CLI_TABLE_MARKDOWN,
+        style: options.style,
       })
       t.push(...data)
-      t.unshift(columnHeaderDivider(t))
+      t.unshift(columnHeaderDivider(t, options.style))
+      resetTablePadding(t)
       break
     case 'lean':
-      t = new CLITable()
+      t = new CLITable({
+        style: options.style,
+      })
       t.push(...data)
       break
     default:
       t = new CLITable({
         chars: CLI_TABLE_COMPACT,
+        style: options.style,
       })
       t.push(...data)
   }
