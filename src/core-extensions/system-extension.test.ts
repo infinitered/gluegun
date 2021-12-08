@@ -3,7 +3,7 @@ import { platform } from 'os'
 import { Toolbox } from '../domain/toolbox'
 import create from './system-extension'
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const toolbox = new Toolbox()
 create(toolbox)
@@ -36,7 +36,7 @@ test('knows about which', () => {
 test('can spawn and capture results', async () => {
   const good = await system.spawn('echo hello')
   expect(good.status).toBe(0)
-  expect(good.stdout.toString()).toEqual(expect.stringMatching(/\"?hello\"?\w*/))
+  expect(good.stdout.toString()).toEqual(expect.stringMatching(/"?hello"?\w*/))
 })
 
 test('spawn deals with missing programs', async () => {

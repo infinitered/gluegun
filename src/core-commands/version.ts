@@ -3,7 +3,7 @@ export default {
   alias: 'v',
   description: 'Output the version number',
   dashed: true,
-  run: toolbox => {
+  run: (toolbox) => {
     toolbox.print.info(toolbox.meta.version())
   },
 }

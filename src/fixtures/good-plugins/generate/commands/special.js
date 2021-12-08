@@ -1,3 +1,4 @@
+const path = require('path')
 const uniqueTempDir = require('unique-temp-dir')
 
 async function command(toolbox) {
@@ -5,7 +6,7 @@ async function command(toolbox) {
   const dir = uniqueTempDir({ create: true })
   const target = `${dir}/special.txt`
   const props = { thing: toolbox.parameters.first }
-  const directory = `${__dirname}/../custom-directory`
+  const directory = path.join(__dirname, '..', 'custom-directory')
 
   return toolbox.template.generate({ template, target, props, directory })
 }

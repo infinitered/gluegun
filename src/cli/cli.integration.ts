@@ -53,7 +53,7 @@ test('can create a new boilerplate JavaScript cli', async () => {
   const genCommand = await toolbox.system.exec(`node ${tmp}/foo/bin/foo g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.js`)
-  expect(genFile).toMatch(/name\: \'flub\'/)
+  expect(genFile).toMatch(/name: 'flub'/)
 
   // clean up
   process.chdir(pwd)
@@ -94,7 +94,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   const genCommand = await toolbox.system.exec(`node ${tmp}/foo-ts/bin/foo-ts g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/models/flub-model.ts`)
-  expect(genFile).toMatch(/name\: \'flub\'/)
+  expect(genFile).toMatch(/name: 'flub'/)
 
   // Add a command that exercises a lot of Gluegun features
   // Incidentally, it verifies that the template tool works
@@ -104,7 +104,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   })
 
   // Verify the result of the generated command
-  expect(generateResult).toMatch(/module\.exports \= \{/)
+  expect(generateResult).toMatch(/module\.exports = \{/)
 
   // Run that command and check the result
   const kitchenCommand = await toolbox.system.exec(`node ${tmp}/foo-ts/bin/foo-ts kitchen`)

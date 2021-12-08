@@ -25,7 +25,7 @@ export function findCommand(runtime: Runtime, parameters: GluegunParameters): { 
 
   // a fallback command
   const commandNotFound = new Command({
-    run: (toolbox: GluegunToolbox) => {
+    run: (_toolbox: GluegunToolbox) => {
       throw new Error(`Couldn't find that command, and no default command set.`)
     },
   })
@@ -49,10 +49,10 @@ export function findCommand(runtime: Runtime, parameters: GluegunParameters): { 
     tempPathRest = tempPathRest.slice(1)
 
     // find a command that fits the previous path + currentName, which can be an alias
-    let segmentCommand = runtime.commands
+    const segmentCommand = runtime.commands
       .slice() // dup so we keep the original order
       .sort(sortCommands)
-      .find(command => equals(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
+      .find((command) => equals(command.commandPath.slice(0, -1), resolvedPath) && command.matchesAlias(currName))
 
     if (segmentCommand) {
       // found another candidate as the "endpoint" command
@@ -79,6 +79,6 @@ function sortCommands(a, b) {
 
 // finds dashed commands
 function findDashedCommand(commands, options) {
-  const dashedOptions = Object.keys(options).filter(k => options[k] === true)
-  return commands.filter(c => c.dashed).find(c => c.matchesAlias(dashedOptions))
+  const dashedOptions = Object.keys(options).filter((k) => options[k] === true)
+  return commands.filter((c) => c.dashed).find((c) => c.matchesAlias(dashedOptions))
 }

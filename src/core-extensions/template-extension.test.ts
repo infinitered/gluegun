@@ -1,13 +1,14 @@
 import * as os from 'os'
 import * as expect from 'expect'
+import * as path from 'path'
 import { startsWith } from 'ramdasauce'
 import { Runtime } from '../runtime/runtime'
 
 const createRuntime = () => {
   const r = new Runtime()
   r.addCoreExtensions()
-  r.addPlugin(`${__dirname}/../fixtures/good-plugins/generate`)
-  r.addPlugin(`${__dirname}/../fixtures/good-plugins/generate-build`)
+  r.addPlugin(path.join(__dirname, '..', 'fixtures', 'good-plugins', 'generate'))
+  r.addPlugin(path.join(__dirname, '..', 'fixtures', 'good-plugins', 'generate-build'))
   return r
 }
 

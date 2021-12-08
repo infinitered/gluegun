@@ -36,13 +36,13 @@ test('exists - checks a TEXT file for a short form regex', async () => {
 })
 
 test('exists - checks a TEXT file for a RegExp', async () => {
-  const exists = await patching.exists(t.context.textFile, new RegExp('Word', 'i'))
+  const exists = await patching.exists(t.context.textFile, /Word/i)
   expect(exists).toBe(true)
 })
 
 test('update - updates a JSON file', async () => {
   const configFile = tempWrite.sync(CONFIG_STRING, '.json')
-  const updated = (await patching.update(configFile, contents => {
+  const updated = (await patching.update(configFile, (contents) => {
     expect(typeof contents).toBe('object')
     expect(contents.test).toBe('what???')
     expect(contents.test2).toBe('never')
@@ -64,7 +64,7 @@ test('update - updates a JSON file', async () => {
 })
 
 test('update - updates a text file', async () => {
-  const updated = await patching.update(t.context.textFile, contents => {
+  const updated = await patching.update(t.context.textFile, (contents) => {
     expect(contents).toBe(`These are some words.\n\nThey're very amazing.\n`)
 
     contents = `These are some different words.\nEven more amazing.\n`
@@ -81,7 +81,7 @@ test('update - updates a text file', async () => {
 })
 
 test('update - cancel updating a file', async () => {
-  const updated = await patching.update(t.context.textFile, contents => {
+  const updated = await patching.update(t.context.textFile, () => {
     return false
   })
 
@@ -191,7 +191,7 @@ test('patch - deletes text in a text file', async () => {
 
 test('patch - able to patch with regex as the value', async () => {
   const updated = await patching.patch(t.context.textFile, {
-    after: new RegExp('some words'),
+    after: /some words/,
     insert: ' patched info',
   })
 
@@ -206,7 +206,7 @@ test('patch - able to patch with regex as the value', async () => {
 
 test('patch - replaces text in a text file with regex as insert value', async () => {
   const updated = await patching.patch(t.context.textFile, {
-    replace: new RegExp('very amazing'),
+    replace: /very amazing/,
     insert: 'patched info',
   })
 
@@ -221,7 +221,7 @@ test('patch - replaces text in a text file with regex as insert value', async ()
 
 test('patch - able to delete text in a text file with regex as delete value', async () => {
   const updated = await patching.patch(t.context.textFile, {
-    delete: new RegExp('some words'),
+    delete: /some words/,
   })
 
   // returned the updated object
@@ -237,10 +237,10 @@ test('patch - able to execute multiple file operations', async () => {
   const updated = await patching.patch(
     t.context.textFile,
     {
-      delete: new RegExp('some words'),
+      delete: /some words/,
     },
     {
-      replace: new RegExp('very amazing'),
+      replace: /very amazing/,
       insert: 'patched info',
     },
   )
@@ -284,7 +284,7 @@ test('patch - able to make partial changes', async () => {
       insert: 'These are ',
     },
     {
-      delete: new RegExp('some words'),
+      delete: /some words/,
     },
     {
       after: "They're ",

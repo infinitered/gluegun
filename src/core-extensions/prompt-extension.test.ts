@@ -12,7 +12,7 @@ beforeAll(() => (io = stdin()))
 afterAll(() => io.restore())
 
 // helper function for timing
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 test('has the proper interface', () => {
   const toolbox = new Toolbox()
@@ -24,7 +24,7 @@ test('has the proper interface', () => {
   expect(typeof prompt.separator).toBe('function')
 })
 
-test('works as expected', async done => {
+test('works as expected', async (done) => {
   const toolbox = new Toolbox()
   createExtension(toolbox)
   const { prompt } = toolbox
@@ -111,7 +111,7 @@ test('works as expected', async done => {
       choices: ['Oregon', 'Washington', 'California'],
       // You can leave this off unless you want to customize behavior
       suggest(input, choices) {
-        return choices.filter(choice => choice.message.startsWith(input))
+        return choices.filter((choice) => choice.message.startsWith(input))
       },
     },
   ])

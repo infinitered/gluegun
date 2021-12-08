@@ -1,4 +1,4 @@
-module.exports = function(toolbox) {
+module.exports = function (toolbox) {
   toolbox.detectExtension = {
     auto: 'detect',
   }

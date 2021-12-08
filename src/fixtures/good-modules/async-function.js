@@ -1,5 +1,5 @@
-const after = time => {
-  return new Promise(resolve => {
+const after = (time) => {
+  return new Promise((resolve) => {
     setTimeout(resolve, time)
   })
 }

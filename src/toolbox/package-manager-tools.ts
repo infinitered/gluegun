@@ -14,7 +14,7 @@ const hasYarn = () => {
   return Boolean(yarnpath)
 }
 
-const concatPackages = packageName => (Array.isArray(packageName) ? packageName.join(' ') : packageName)
+const concatPackages = (packageName) => (Array.isArray(packageName) ? packageName.join(' ') : packageName)
 
 const add = async (
   packageName: string | string[],

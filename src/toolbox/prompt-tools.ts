@@ -33,11 +33,11 @@ const confirm = async (message: string, initial?: boolean): Promise<boolean> => 
  */
 const prompt = {
   confirm,
-  ask: async questions => {
+  ask: async (questions) => {
     if (Array.isArray(questions)) {
       // Because Enquirer 2 breaks backwards compatility (and we don't want to)
       // we are translating the previous API to the current equivalent.
-      questions = questions.map(q => {
+      questions = questions.map((q) => {
         if (q.type === 'rawlist' || q.type === 'list') q.type = 'select'
         if (q.type === 'expand') q.type = 'autocomplete'
         if (q.type === 'checkbox') q.type = 'multiselect'

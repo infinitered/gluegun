@@ -74,7 +74,7 @@ module.exports = {
         choices: ['Oregon', 'Washington', 'California'],
         // You can leave this off unless you want to customize behavior
         suggest(s, choices) {
-          return choices.filter(choice => {
+          return choices.filter((choice) => {
             return choice.message.toLowerCase().startsWith(s.toLowerCase())
           })
         },

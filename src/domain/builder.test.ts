@@ -1,20 +1,21 @@
 import * as expect from 'expect'
+import * as path from 'path'
 import { build } from './builder'
 import { Toolbox } from './toolbox'
 
 test('the gauntlet', () => {
   const builder = build('test')
     // plugins
-    .src(`${__dirname}/../fixtures/good-plugins/threepack`)
+    .src(path.join(__dirname, '..', 'fixtures', 'good-plugins', 'threepack'))
     .help()
     .version({
       name: 'gimmedatversion',
       alias: ['version', 'v'],
-      run: toolbox => 'it works',
+      run: () => 'it works',
     })
     .defaultCommand()
-    .plugin(`${__dirname}/../fixtures/good-plugins/simplest`)
-    .plugins(`${__dirname}/../fixtures/good-plugins`, { hidden: true })
+    .plugin(path.join(__dirname, '..', 'fixtures', 'good-plugins', 'simplest'))
+    .plugins(path.join(__dirname, '..', 'fixtures', 'good-plugins'), { hidden: true })
     .checkForUpdates(0) // don't actually check, but run the command
 
   const runtime = builder.create()

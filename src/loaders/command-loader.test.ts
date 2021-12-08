@@ -35,7 +35,7 @@ test('load command from preload', async () => {
     description: 'yiss dream',
     alias: ['z'],
     dashed: true,
-    run: toolbox => 'ran!',
+    run: (_toolbox) => 'ran!',
   })
 
   expect(command.name).toBe('hello')
