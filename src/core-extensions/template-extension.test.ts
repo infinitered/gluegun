@@ -62,7 +62,7 @@ test('detects missing templates in a build folder', async () => {
   try {
     await createRuntime().run('build missing')
   } catch (e) {
-    expect(startsWith('template not found', e.message)).toBe(true)
+    expect(e.message).toContain('template not found')
   }
 })
 
