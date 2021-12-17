@@ -937,10 +937,10 @@ anymatch@^2.0.0:
     micromatch "^3.1.4"
     normalize-path "^2.1.1"
 
-apisauce@^2.1.4:
-  version "2.1.4"
-  resolved "https://registry.yarnpkg.com/apisauce/-/apisauce-2.1.4.tgz#c7854da1a0114a1a381ee7d4a5d817adad48c464"
-  integrity sha512-nGVIArky1zTTCcfEsRcd/M90TzSrRdRVQGW8TCYkRHc/rOE3AWBoSYcKfrNDy8zQ1Yiol5E9uM8xHjls5L5+Zw==
+apisauce@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/apisauce/-/apisauce-2.1.5.tgz#546229f8f145711b3b022065afb0f43bd304ecb3"
+  integrity sha512-bkMlz0ZUnyS8vDigej9UBYo5dne9/bQrkgIiIkGaiDHF6e5OxhYRLJDYu65V/Ox86tmWVwepIntAoTmk4Db0Hg==
   dependencies:
     axios "^0.21.4"
 
