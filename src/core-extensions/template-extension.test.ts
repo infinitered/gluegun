@@ -1,6 +1,5 @@
 import * as os from 'os'
 import * as expect from 'expect'
-import { startsWith } from 'ramdasauce'
 import { Runtime } from '../runtime/runtime'
 
 const createRuntime = () => {
@@ -31,7 +30,7 @@ test('detects missing templates', async () => {
   try {
     await createRuntime().run('missing')
   } catch (e) {
-    expect(startsWith('template not found', e.message)).toBe(true)
+    expect(e.message).toContain('template not found')
   }
 })
 
@@ -63,7 +62,7 @@ test('detects missing templates in a build folder', async () => {
   try {
     await createRuntime().run('build missing')
   } catch (e) {
-    expect(startsWith('template not found', e.message)).toBe(true)
+    expect(e.message).toContain('template not found')
   }
 })
 
