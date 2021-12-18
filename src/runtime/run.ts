@@ -1,5 +1,5 @@
 import { EmptyToolbox, GluegunToolbox } from '../domain/toolbox'
-import { createParams, parseParams } from '../toolbox/parameter-tools'
+import { createParams, parseParams, parseRawCommand } from '../toolbox/parameter-tools'
 import { Runtime } from './runtime'
 import { findCommand } from './runtime-find-command'
 import { Options } from '../domain/options'
@@ -27,16 +27,28 @@ export async function run(
   toolbox.runtime = this
 
   // parse the parameters initially
-  toolbox.parameters = parseParams(rawCommand, extraOptions)
+  rawCommand = parseRawCommand(rawCommand)
+
+  console.log('RAW COMMAND:', rawCommand)
 
   // find the command, and parse out aliases
-  const { command, array } = findCommand(this, toolbox.parameters)
+  const { command, args } = findCommand(this, rawCommand)
+
+  console.log('COMMAND:', command)
+  console.log('ARGS:   ', args)
+
+  // parse the command parameters
+  toolbox.parameters = parseParams(command, args, extraOptions)
+
+  console.log('PARAMETERS:', toolbox.parameters)
+
+  console.log('----')
 
   // rebuild the parameters, now that we know the plugin and command
   toolbox.parameters = createParams({
     plugin: command.plugin && command.plugin.name,
     command: command.name,
-    array,
+    array: toolbox.parameters.array,
     options: toolbox.parameters.options,
     raw: rawCommand,
     argv: process.argv,
