@@ -60,7 +60,7 @@
     "ejs": "^2.6.1",
     "enquirer": "2.3.4",
     "execa": "^3.0.0",
-    "fs-jetpack": "^2.2.2",
+    "fs-jetpack": "^4.3.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
     "lodash.lowercase": "^4.3.0",
