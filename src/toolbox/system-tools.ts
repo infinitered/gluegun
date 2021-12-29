@@ -11,6 +11,7 @@ import { head, tail, isNil } from './utils'
  */
 async function run(commandLine: string, options: Options = {}): Promise<any> {
   const trimmer = options && options.trim ? (s) => s.trim() : (s) => s
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { trim, ...nodeOptions } = options
 
   return new Promise((resolve, reject) => {
@@ -50,7 +51,7 @@ async function exec(commandLine: string, options: Options = {}): Promise<any> {
  * @returns The response code.
  */
 async function spawn(commandLine: string, options: Options = {}): Promise<any> {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     const args = commandLine.split(' ')
     const spawned = require('cross-spawn')(head(args), tail(args), options)
     const result = {

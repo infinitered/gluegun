@@ -22,3 +22,4 @@ semver.js
 http.js
 patching.js
 prompt.js
+package-manager.js

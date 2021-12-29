@@ -1,4 +1,4 @@
-import path from 'path'
+import * as path from 'path'
 
 // first, do a sniff test to ensure our dependencies are met
 const sniff = require('../sniff')

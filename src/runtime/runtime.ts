@@ -196,6 +196,7 @@ export class Runtime {
     const subdirs = filesystem.subdirectories(directory, false, options.matching)
 
     // load each one using `this.plugin`
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { matching, ...otherOptions } = options // remove "matching"
     return subdirs.map((dir) => this.addPlugin(dir, otherOptions))
   }
