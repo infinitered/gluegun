@@ -81,7 +81,7 @@
     "pluralize": "^8.0.0",
     "semver": "7.3.5",
     "which": "2.0.2",
-    "yargs-parser": "21.0.0"
+    "yargs-parser": "^21.0.0"
   },
   "devDependencies": {
     "@semantic-release/git": "10.0.1",
