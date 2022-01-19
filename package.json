@@ -1,6 +1,6 @@
 {
   "name": "gluegun",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -52,7 +52,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "apisauce": "2.1.2",
+    "apisauce": "^2.1.5",
     "app-module-path": "^2.2.0",
     "cli-table3": "0.6.0",
     "colors": "^1.3.3",
@@ -79,7 +79,6 @@
     "lodash.upperfirst": "^4.3.1",
     "ora": "4.0.2",
     "pluralize": "^8.0.0",
-    "ramdasauce": "^2.1.0",
     "semver": "7.3.5",
     "which": "2.0.2",
     "yargs-parser": "21.0.0"

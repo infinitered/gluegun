@@ -6,7 +6,7 @@ Let's explore the inside of the famous Gluegun "Toolbox" (or "Context" as it's s
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(toolbox) {
+  run: async function (toolbox) {
     // great! now what?
   },
 }
@@ -25,7 +25,7 @@ Here's what's available inside the `toolbox` object you see all over Gluegun.
 | **print**          | tools to print output to the command line          | colors, ora                    |
 | **prompt**         | tools to acquire extra command line user input     | enquirer                       |
 | **semver**         | utilities for working with semantic versioning     | semver                         |
-| **strings**        | some string helpers like case conversion, etc.     | lodash & ramda                 |
+| **strings**        | some string helpers like case conversion, etc.     | lodash                         |
 | **system**         | ability to execute                                 | node-which, execa, cross-spawn |
 | **template**       | code generation from templates                     | ejs                            |
 | **packageManager** | ability to add or remove packages with Yarn/NPM    |                                |
@@ -36,7 +36,7 @@ The `toolbox` has "drawers" full of useful tools for building CLIs. For example,
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(toolbox) {
+  run: async function (toolbox) {
     // use them like this...
     toolbox.print.info(toolbox.meta.version())
 

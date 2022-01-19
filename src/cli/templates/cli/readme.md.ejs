@@ -13,9 +13,10 @@ To package your CLI up for NPM, do this:
 ```shell
 $ npm login
 $ npm whoami
-$ npm lint
 $ npm test
-(if typescript, run `npm run build` here)
+<% if (props.language === "typescript") { %>
+$ npm run build
+<% } %>
 $ npm publish
 ```
 
