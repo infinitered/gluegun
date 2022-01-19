@@ -39,6 +39,7 @@ interface ArrayPromptOptions extends BasePromptOptions {
   edgeLength?: number
   align?: 'left' | 'right'
   scroll?: boolean
+  suggest?: (input: string, choices: Choice[]) => Choice[]
 }
 
 interface BooleanPromptOptions extends BasePromptOptions {
@@ -142,4 +143,4 @@ declare namespace Enquirer {
   class Prompt extends BasePrompt {}
 }
 
-export = Enquirer
+export default Enquirer

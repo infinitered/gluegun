@@ -24,7 +24,7 @@ test('has the proper interface', () => {
   expect(typeof prompt.separator).toBe('function')
 })
 
-test('works as expected', async (done) => {
+test('works as expected', async () => {
   const toolbox = new Toolbox()
   createExtension(toolbox)
   const { prompt } = toolbox
@@ -127,7 +127,6 @@ test('works as expected', async (done) => {
   })
 
   await delay(2)
-  done()
 })
 
 test('Confirm can accept default value', async () => {
