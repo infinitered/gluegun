@@ -2,6 +2,7 @@ import * as expect from 'expect'
 import * as sinon from 'sinon'
 import * as uniqueTempDir from 'unique-temp-dir'
 import * as path from 'path'
+
 import { run as cli } from './cli'
 
 const stripANSI = require('strip-ansi')
@@ -26,6 +27,13 @@ test('can create a new boilerplate JavaScript cli', async () => {
 
   const toolbox = await cli('new foo --javascript')
   expect(toolbox.command.name).toBe('new')
+
+  // add local version of gluegun to the newly created project
+  const gluegunPath = path.join(__dirname, '..', '..')
+  const gluegunAddCommand = require('which').sync('yarn', { nothrow: true })
+    ? `yarn add ${gluegunPath}`
+    : `npm install ${gluegunPath}`
+  await require('execa')(`${gluegunAddCommand}`)
 
   const pkg = toolbox.filesystem.read(path.join(tmp, 'foo', 'package.json'), 'json')
 
