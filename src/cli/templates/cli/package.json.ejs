@@ -16,9 +16,9 @@
       "copy-templates": "copyfiles ./src/templates/* ./build/templates",
       "build": "yarn clean-build && yarn compile && yarn copy-templates",
       "prepublishOnly": "yarn build",
-      "format": "eslint **/*.{js,jsx,ts,tsx} --fix && prettier **/*.{js,jsx,ts,tsx,json} --write",
+      "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     <% } else { %>
-      "format": "eslint **/*.{js,jsx} --fix && prettier **/*.{js,jsx,json} --write",
+      "format": "eslint \"**/*.{js,jsx}\" --fix && prettier \"**/*.{js,jsx,json}\" --write",
     <% } %>
     "test": "jest",
     "watch": "jest --watch",
