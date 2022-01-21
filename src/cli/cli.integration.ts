@@ -11,10 +11,7 @@ sinon.stub(console, 'log')
 
 const pwd = process.cwd()
 
-// set jest timeout to very long, because these take a while
-beforeAll(() => jest.setTimeout(180 * 1000))
-// reset back
-afterAll(() => jest.setTimeout(5 * 1000))
+jest.setTimeout(180 * 1000)
 
 test('can start the cli', async () => {
   const c = await cli()
@@ -31,9 +28,9 @@ test('can create a new boilerplate JavaScript cli', async () => {
   // add local version of gluegun to the newly created project
   const gluegunPath = path.join(__dirname, '..', '..')
   const gluegunAddCommand = require('which').sync('yarn', { nothrow: true })
-    ? `yarn add ${gluegunPath}`
-    : `npm install ${gluegunPath}`
-  await require('execa')(`${gluegunAddCommand}`)
+    ? `yarn add ${gluegunPath} --silent`
+    : `npm install ${gluegunPath} --silent`
+  await toolbox.system.spawn(`${gluegunAddCommand}`)
 
   const pkg = toolbox.filesystem.read(path.join(tmp, 'foo', 'package.json'), 'json')
 
@@ -75,6 +72,13 @@ test('can create a new boilerplate TypeScript cli', async () => {
 
   const toolbox = await cli('new foo-ts --typescript')
   expect(toolbox.command.name).toBe('new')
+
+  // add local version of gluegun to the newly created project
+  const gluegunPath = path.join(__dirname, '..', '..')
+  const gluegunAddCommand = require('which').sync('yarn', { nothrow: true })
+    ? `yarn add ${gluegunPath} --silent`
+    : `npm install ${gluegunPath} --silent`
+  await toolbox.system.spawn(`${gluegunAddCommand}`)
 
   const pkg = toolbox.filesystem.read(path.join(tmp, 'foo-ts', 'package.json'), 'json')
 
