@@ -11,7 +11,7 @@ sinon.stub(console, 'log')
 
 const pwd = process.cwd()
 
-jest.setTimeout(180 * 1000)
+jest.setTimeout(5 * 60 * 1000)
 
 test('can start the cli', async () => {
   const c = await cli()
