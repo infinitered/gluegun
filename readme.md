@@ -8,17 +8,17 @@
 
 Gluegun is a delightful toolkit for building Node-based command-line interfaces (CLIs) in TypeScript or modern JavaScript, with support for:
 
-🌯 *parameters* - command-line arguments and options<br />
-🎛 *template* - generating files from templates<br />
-🗄 *patching* - manipulating file contents<br />
-💾 *filesystem* - moving files and directories around<br />
-⚒ *system* - executing other command-line scripts<br />
-🎅 *http* - interacting with API servers<br />
-🛎 *prompt* - auto-complete prompts<br />
-💃 *print* - printing pretty colors and tables<br />
-👩‍✈️ *semver* - working with semantic versioning<br />
-🎻 *strings* - manipulating strings & template data<br />
-📦 *packageManager* - installing NPM packages with Yarn or NPM<br />
+🌯 _parameters_ - command-line arguments and options<br />
+🎛 _template_ - generating files from templates<br />
+🗄 _patching_ - manipulating file contents<br />
+💾 _filesystem_ - moving files and directories around<br />
+⚒ _system_ - executing other command-line scripts<br />
+🎅 _http_ - interacting with API servers<br />
+🛎 _prompt_ - auto-complete prompts<br />
+💃 _print_ - printing pretty colors and tables<br />
+👩‍✈️ _semver_ - working with semantic versioning<br />
+🎻 _strings_ - manipulating strings & template data<br />
+📦 _packageManager_ - installing NPM packages with Yarn or NPM<br />
 
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 
@@ -26,9 +26,9 @@ In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set
 
 You might want to use Gluegun if:
 
-* You need to build a CLI app
-* You want to have powerful tools at your fingertips
-* And you don't want to give up flexibility at the same time
+- You need to build a CLI app
+- You want to have powerful tools at your fingertips
+- And you don't want to give up flexibility at the same time
 
 If so ... welcome!
 
@@ -85,7 +85,7 @@ Commands are simple objects that provide a name, optional aliases, and a functio
 module.exports = {
   name: 'foo',
   alias: 'f',
-  run: async function(toolbox) {
+  run: async function (toolbox) {
     // gluegun provides all these features and more!
     const { system, print, filesystem, strings } = toolbox
 
@@ -99,7 +99,7 @@ module.exports = {
     print.info(`${print.checkmark} Citius`)
     print.warning(`${print.checkmark} Altius`)
     print.success(`${print.checkmark} Fortius`)
-  }
+  },
 }
 ```
 
@@ -109,12 +109,12 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 
 # Who Is Using This?
 
-* [Ignite CLI](https://github.com/infinitered/ignite) - React Native CLI and starter kit
-* [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
-* [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) - A CLI toolchain for simplifying serverless web and mobile development
-* [Sara Vieira's Fiddly](https://github.com/SaraVieira/fiddly) - Create beautiful and simple HTML pages from your Readme.md files - [https://fiddly.netlify.com](https://fiddly.netlify.com)
-* [Graph CLI](https://github.com/graphprotocol/graph-cli) - CLI for building and managing subgraphs that index data from Ethereum and IPFS - [https://thegraph.com/explorer](https://thegraph.com/explorer)
-* [Vts](https://github.com/snowfrogdev/Vts) - Vanilla TypeScript library starter CLI tool
+- [Ignite CLI](https://github.com/infinitered/ignite) - React Native CLI and starter kit
+- [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
+- [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) - A CLI toolchain for simplifying serverless web and mobile development
+- [Sara Vieira's Fiddly](https://github.com/SaraVieira/fiddly) - Create beautiful and simple HTML pages from your Readme.md files - [https://fiddly.netlify.com](https://fiddly.netlify.com)
+- [Graph CLI](https://github.com/graphprotocol/graph-cli) - CLI for building and managing subgraphs that index data from Ethereum and IPFS - [https://thegraph.com/explorer](https://thegraph.com/explorer)
+- [Vts](https://github.com/snowfrogdev/Vts) - Vanilla TypeScript library starter CLI tool
 
 # What's under the hood?
 
@@ -137,8 +137,8 @@ We've assembled an _all-star cast_ of libraries to help you build your CLI.
 
 Here are a few community CLIs based on Gluegun plus some plugins you can use. Is yours missing? Send a PR to add it!
 
-* [Gluegun-Menu](https://github.com/lenneTech/gluegun-menu) - A command menu for Gluegun-based CLIs
-* [Gluegun CLI-Starter](https://github.com/lenneTech/cli-starter) - A CLI Starter for your next Gluegun CLI project
+- [Gluegun-Menu](https://github.com/lenneTech/gluegun-menu) - A command menu for Gluegun-based CLIs
+- [Gluegun CLI-Starter](https://github.com/lenneTech/cli-starter) - A CLI Starter for your next Gluegun CLI project
 
 ## Sponsors
 
