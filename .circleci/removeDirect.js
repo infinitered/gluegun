@@ -12,6 +12,7 @@ const directFiles = [
   'patching',
   'prompt',
   'package-manager',
+  'toolbox',
 ]
 const fs = require('fs')
 directFiles.forEach((f) => {
