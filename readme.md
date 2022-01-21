@@ -65,7 +65,7 @@ const { build } = require('gluegun')
 
 // aim
 const movieCLI = build('movie')
-  .src(`${__dirname}/core-plugins`)
+  .src(`${__dirname}/src`)
   .plugins('node_modules', { matching: 'movie-*' })
   .help()
   .version()
@@ -131,7 +131,7 @@ We've assembled an _all-star cast_ of libraries to help you build your CLI.
 ⭐️ [node-which](https://github.com/npm/node-which) for finding executables</br>
 ⭐️ [pluralize](https://github.com/blakeembrey/pluralize) for manipulating strings</br>
 
-[Node.js 8.0+](https://nodejs.org) is required. If you need to support Node 7.6, use Gluegun 3.x.
+[Node.js 12.0+](https://nodejs.org) is required.
 
 ## Community CLIs and Plugins
 
