@@ -175,14 +175,14 @@ export class Builder {
     if (defaultPlugin) runtime.addDefaultPlugin(defaultPlugin.value, defaultPlugin.options)
 
     // add other plugins, both singular and multiple
-    plugins.forEach(p => runtime.addPlugin(p.value, p.options))
-    multiPlugins.forEach(mp => runtime.addPlugins(mp.value, mp.options))
+    plugins.forEach((p) => runtime.addPlugin(p.value, p.options))
+    multiPlugins.forEach((mp) => runtime.addPlugins(mp.value, mp.options))
 
     // add a default command first
     if (defaultCommand) runtime.addCommand(defaultCommand)
 
     // add other commands
-    commands.forEach(c => runtime.addCommand(c))
+    commands.forEach((c) => runtime.addCommand(c))
 
     // check for updates
     runtime.checkUpdate = this.data.checkUpdate

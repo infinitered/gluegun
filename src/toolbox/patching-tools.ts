@@ -58,7 +58,7 @@ export async function update(
  * @param prependedData  String to prepend
  */
 export async function prepend(filename: string, prependedData: string): Promise<string | false> {
-  return update(filename, data => prependedData + data) as Promise<string | false>
+  return update(filename, (data) => prependedData + data) as Promise<string | false>
 }
 
 /**
@@ -68,7 +68,7 @@ export async function prepend(filename: string, prependedData: string): Promise<
  * @param appendedData  String to append
  */
 export async function append(filename: string, appendedData: string): Promise<string | false> {
-  return update(filename, data => data + appendedData) as Promise<string | false>
+  return update(filename, (data) => data + appendedData) as Promise<string | false>
 }
 
 /**
@@ -79,7 +79,7 @@ export async function append(filename: string, appendedData: string): Promise<st
  * @param newContent     String to write
  */
 export async function replace(filename: string, oldContent: string, newContent: string): Promise<string | false> {
-  return update(filename, data => (data as string).replace(oldContent, newContent)) as Promise<string | false>
+  return update(filename, (data) => (data as string).replace(oldContent, newContent)) as Promise<string | false>
 }
 
 /**

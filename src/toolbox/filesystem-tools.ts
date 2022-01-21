@@ -49,12 +49,7 @@ const isNotDirectory = (path: string): boolean => !isDirectory(path)
  * @param matching   A jetpack matching filter
  * @return A list of directories
  */
-function subdirectories(
-  path: string,
-  isRelative: boolean = false,
-  matching: string = '*',
-  symlinks: boolean = false,
-): string[] {
+function subdirectories(path: string, isRelative = false, matching = '*', _symlinks = false): string[] {
   const { strings } = require('./string-tools')
   if (strings.isBlank(path) || !isDirectory(path)) return []
 
@@ -67,7 +62,7 @@ function subdirectories(
   if (isRelative) {
     return dirs
   } else {
-    return dirs.map(dir => pathlib.join(path, dir))
+    return dirs.map((dir) => pathlib.join(path, dir))
   }
 }
 

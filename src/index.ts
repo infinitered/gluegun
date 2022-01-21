@@ -1,3 +1,5 @@
+import * as path from 'path'
+
 // first, do a sniff test to ensure our dependencies are met
 const sniff = require('../sniff')
 
@@ -9,7 +11,7 @@ if (!sniff.isNewEnough) {
 
 // we want to see real exceptions with backtraces and stuff
 process.removeAllListeners('unhandledRejection')
-process.on('unhandledRejection', up => {
+process.on('unhandledRejection', (up) => {
   throw up
 })
 
@@ -38,5 +40,5 @@ export { GluegunMeta } from './core-extensions/meta-extension'
 
 // this adds the node_modules path to the "search path"
 // it's hacky, but it works well!
-require('app-module-path').addPath(`${__dirname}/../node_modules`)
+require('app-module-path').addPath(path.join(__dirname, '..', 'node_modules'))
 require('app-module-path').addPath(process.cwd())

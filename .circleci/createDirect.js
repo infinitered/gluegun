@@ -26,7 +26,7 @@ const directFiles = [
 const fs = require('fs')
 
 // add all the direct access files
-directFiles.forEach(f => {
+directFiles.forEach((f) => {
   const filename = __dirname + '/../' + f + '.js'
   fs.writeFileSync(filename, `module.exports = require('./build/${f}')\n`)
 })

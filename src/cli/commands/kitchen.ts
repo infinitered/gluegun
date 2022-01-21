@@ -23,29 +23,6 @@ module.exports = {
         message: 'Are you sure?',
       },
       {
-        type: 'expand',
-        name: 'exexpand',
-        message: 'What action?',
-        choices: [
-          {
-            key: 'y',
-            name: 'Overwrite',
-            value: 'overwrite',
-          },
-          {
-            key: 'a',
-            name: 'Overwrite this one and all next',
-            value: 'overwrite_all',
-          },
-        ],
-      },
-      {
-        type: 'checkbox',
-        name: 'excheckbox',
-        message: 'What are your favorite colors?',
-        choices: ['red', 'blue', 'yellow'],
-      },
-      {
         type: 'select',
         name: 'exselect',
         message: 'What is your favorite team?',
@@ -74,7 +51,7 @@ module.exports = {
         choices: ['Oregon', 'Washington', 'California'],
         // You can leave this off unless you want to customize behavior
         suggest(s, choices) {
-          return choices.filter(choice => {
+          return choices.filter((choice) => {
             return choice.message.toLowerCase().startsWith(s.toLowerCase())
           })
         },

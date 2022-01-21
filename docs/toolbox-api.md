@@ -6,7 +6,7 @@ Let's explore the inside of the famous Gluegun "Toolbox" (or "Context" as it's s
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(toolbox) {
+  run: async function (toolbox) {
     // great! now what?
   },
 }
@@ -36,7 +36,7 @@ The `toolbox` has "drawers" full of useful tools for building CLIs. For example,
 module.exports = {
   name: 'dostuff',
   alias: 'd',
-  run: async function(toolbox) {
+  run: async function (toolbox) {
     // use them like this...
     toolbox.print.info(toolbox.meta.version())
 

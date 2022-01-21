@@ -22,6 +22,6 @@ export interface GluegunPrompt {
   separator(): string
 }
 
-export interface GluegunQuestionChoices extends Choice {}
+export type GluegunQuestionChoices = Choice
 
 export type GluegunQuestionType = PromptOptions

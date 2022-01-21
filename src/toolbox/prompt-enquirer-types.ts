@@ -1,5 +1,8 @@
-// imported from https://github.com/enquirer/enquirer/blob/9eef2ed3b4b6222985e4eb85098d3c5a3b2b8b93/index.d.ts
-export interface BasePromptOptions {
+// imported from https://github.com/enquirer/enquirer/blob/8d626c206733420637660ac7c2098d7de45e8590/index.d.ts
+
+import { EventEmitter } from 'events'
+
+interface BasePromptOptions {
   name: string | (() => string)
   type: string | (() => string)
   message: string | (() => string) | (() => Promise<string>)
@@ -8,7 +11,7 @@ export interface BasePromptOptions {
   format?(value: string): string | Promise<string>
   result?(value: string): string | Promise<string>
   skip?: ((state: object) => boolean | Promise<boolean>) | boolean
-  validate?(value: string): boolean | Promise<boolean> | string | Promise<string>
+  validate?(value: string): boolean | string | Promise<boolean | string>
   onSubmit?(name: string, value: any, prompt: Enquirer.Prompt): boolean | Promise<boolean>
   onCancel?(name: string, value: any, prompt: Enquirer.Prompt): boolean | Promise<boolean>
   stdin?: NodeJS.ReadStream
@@ -23,24 +26,11 @@ export interface Choice {
   disabled?: boolean | string
 }
 
-export interface ArrayPromptOptions extends BasePromptOptions {
-  type:
-    | 'autocomplete'
-    | 'editable'
-    | 'form'
-    | 'multiselect'
-    | 'select'
-    | 'survey'
-    | 'list'
-    | 'scale'
-    | 'rawlist' // deprecated
-    | 'expand' // deprecated
-    | 'checkbox' // deprecated
-    | 'radio' // deprecated
-    | 'question' // deprecated
+interface ArrayPromptOptions extends BasePromptOptions {
+  type: 'autocomplete' | 'editable' | 'form' | 'multiselect' | 'select' | 'survey' | 'list' | 'scale'
   choices: string[] | Choice[]
   maxChoices?: number
-  multiple?: boolean
+  muliple?: boolean
   initial?: number
   delay?: number
   separator?: boolean
@@ -52,18 +42,18 @@ export interface ArrayPromptOptions extends BasePromptOptions {
   suggest?: (input: string, choices: Choice[]) => Choice[]
 }
 
-export interface BooleanPromptOptions extends BasePromptOptions {
+interface BooleanPromptOptions extends BasePromptOptions {
   type: 'confirm'
   initial?: boolean
 }
 
-export interface StringPromptOptions extends BasePromptOptions {
+interface StringPromptOptions extends BasePromptOptions {
   type: 'input' | 'invisible' | 'list' | 'password' | 'text'
   initial?: string
   multiline?: boolean
 }
 
-export interface NumberPromptOptions extends BasePromptOptions {
+interface NumberPromptOptions extends BasePromptOptions {
   type: 'numeral'
   min?: number
   max?: number
@@ -75,12 +65,13 @@ export interface NumberPromptOptions extends BasePromptOptions {
   initial?: number
 }
 
-export interface SnippetPromptOptions extends BasePromptOptions {
+interface SnippetPromptOptions extends BasePromptOptions {
   type: 'snippet'
   newline?: string
+  template?: string
 }
 
-export interface SortPromptOptions extends BasePromptOptions {
+interface SortPromptOptions extends BasePromptOptions {
   type: 'sort'
   hint?: string
   drag?: boolean
@@ -88,15 +79,15 @@ export interface SortPromptOptions extends BasePromptOptions {
 }
 
 export type PromptOptions =
+  | BasePromptOptions
   | ArrayPromptOptions
   | BooleanPromptOptions
   | StringPromptOptions
   | NumberPromptOptions
   | SnippetPromptOptions
   | SortPromptOptions
-  | BasePromptOptions
 
-declare class BasePrompt extends NodeJS.EventEmitter {
+declare class BasePrompt extends EventEmitter {
   constructor(options?: PromptOptions)
 
   render(): void
@@ -104,7 +95,7 @@ declare class BasePrompt extends NodeJS.EventEmitter {
   run(): Promise<any>
 }
 
-declare class Enquirer<T = object> extends NodeJS.EventEmitter {
+declare class Enquirer<T = object> extends EventEmitter {
   constructor(options?: object, answers?: T)
 
   /**
@@ -152,4 +143,4 @@ declare namespace Enquirer {
   class Prompt extends BasePrompt {}
 }
 
-export { Enquirer }
+export default Enquirer

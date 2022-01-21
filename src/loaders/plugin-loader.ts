@@ -50,24 +50,24 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
 
   // load the commands found in the commands sub-directory
   const commandSearchDirectories = ['commands', 'build/commands']
-  commandSearchDirectories.map(dir => {
+  commandSearchDirectories.forEach((dir) => {
     if (jetpackPlugin.exists(dir) === 'dir') {
       const commands = jetpackPlugin.cwd(dir).find({ matching: commandFilePattern, recursive: true })
 
       plugin.commands = plugin.commands.concat(
-        commands.map(file => loadCommandFromFile(path.join(directory, dir, file))),
+        commands.map((file) => loadCommandFromFile(path.join(directory, dir, file))),
       )
     }
   })
 
   // load the extensions found in the extensions sub-directory
   const extensionSearchDirectories = ['extensions', 'build/extensions']
-  extensionSearchDirectories.map(dir => {
+  extensionSearchDirectories.forEach((dir) => {
     if (jetpackPlugin.exists(dir) === 'dir') {
       const extensions = jetpackPlugin.cwd(dir).find({ matching: extensionFilePattern, recursive: false })
 
       plugin.extensions = plugin.extensions.concat(
-        extensions.map(file => loadExtensionFromFile(`${directory}/${dir}/${file}`)),
+        extensions.map((file) => loadExtensionFromFile(`${directory}/${dir}/${file}`)),
       )
     }
   })
@@ -83,11 +83,11 @@ export function loadPluginFromDirectory(directory: string, options: Options = {}
 
   // set the hidden bit
   if (hidden) {
-    plugin.commands.forEach(command => (command.hidden = true))
+    plugin.commands.forEach((command) => (command.hidden = true))
   }
 
   // set all commands to reference their parent plugin
-  plugin.commands.forEach(c => (c.plugin = plugin))
+  plugin.commands.forEach((c) => (c.plugin = plugin))
 
   // sort plugin commands alphabetically
   plugin.commands = plugin.commands.sort((a, b) => (a.commandPath.join(' ') < b.commandPath.join(' ') ? -1 : 1))

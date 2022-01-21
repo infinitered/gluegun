@@ -1,1 +1,1 @@
-module.exports = { name: 'detectCommand', run: async function(toolbox) {} }
+module.exports = { name: 'detectCommand', run: async function (toolbox) {} }

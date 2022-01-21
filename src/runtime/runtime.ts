@@ -64,7 +64,7 @@ export class Runtime {
       'package-manager',
     ]
 
-    coreExtensions.forEach(ex => {
+    coreExtensions.forEach((ex) => {
       if (!exclude.includes(ex)) {
         this.addExtension(ex, require(`../core-extensions/${ex}-extension`))
       }
@@ -100,7 +100,7 @@ export class Runtime {
     }
 
     // add the command to the runtime (if it isn't already there)
-    if (!this.commands.find(c => c.commandPath === newCommand.commandPath)) {
+    if (!this.commands.find((c) => c.commandPath === newCommand.commandPath)) {
       this.commands.push(newCommand)
     }
 
@@ -177,8 +177,8 @@ export class Runtime {
     })
 
     this.plugins.push(plugin)
-    plugin.extensions.forEach(extension => this.addExtension(extension.name, extension.setup))
-    plugin.commands.forEach(command => this.addCommand(command))
+    plugin.extensions.forEach((extension) => this.addExtension(extension.name, extension.setup))
+    plugin.commands.forEach((command) => this.addCommand(command))
     return plugin
   }
 
@@ -196,7 +196,8 @@ export class Runtime {
     const subdirs = filesystem.subdirectories(directory, false, options.matching)
 
     // load each one using `this.plugin`
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { matching, ...otherOptions } = options // remove "matching"
-    return subdirs.map(dir => this.addPlugin(dir, otherOptions))
+    return subdirs.map((dir) => this.addPlugin(dir, otherOptions))
   }
 }

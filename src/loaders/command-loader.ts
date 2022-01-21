@@ -32,7 +32,7 @@ export function loadCommandFromFile(file: string, options: Options = {}): Comman
   command.name = (filesystem.inspect(file) as any).name.split('.')[0]
 
   // strip the extension from the end of the commandPath
-  command.commandPath = (options.commandPath || last(file.split('commands' + path.sep)).split(path.sep)).map(f =>
+  command.commandPath = (options.commandPath || last(file.split('commands' + path.sep)).split(path.sep)).map((f) =>
     [`${command.name}.js`, `${command.name}.ts`].includes(f) ? command.name : f,
   )
 

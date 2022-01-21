@@ -7,9 +7,7 @@ test('create', () => {
   const { build } = exported
   const runtime = build('test').create()
   expect(runtime.brand).toBe('test')
-  const runtime2 = build()
-    .brand('test2')
-    .create()
+  const runtime2 = build().brand('test2').create()
   expect(runtime2.brand).toBe('test2')
 })
 

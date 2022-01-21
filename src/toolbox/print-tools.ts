@@ -19,7 +19,7 @@ colors.setTheme({
 
 // Generate array of arrays of the data rows for length checking
 // const getRows = t => times(flip(prop)(t), t.length)
-const getRows = t => times(i => t[i], t.length)
+const getRows = (t) => times((i) => t[i], t.length)
 
 const CLI_TABLE_COMPACT = {
   top: '',
@@ -82,7 +82,7 @@ function findWidths(cliTable: CLITable): number[] {
 function columnHeaderDivider(cliTable: CLITable, style: TableStyle = {}): string[] {
   const padding = (style['padding-left'] || 0) + (style['padding-right'] || 0)
 
-  return findWidths(cliTable).map(w => Array(w + padding).join('-'))
+  return findWidths(cliTable).map((w) => Array(w + padding).join('-'))
 }
 
 /**

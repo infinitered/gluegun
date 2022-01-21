@@ -77,6 +77,6 @@ export class Command implements GluegunCommand<Toolbox> {
    */
   public matchesAlias(alias: string | string[]): boolean {
     const aliases = Array.isArray(alias) ? alias : [alias]
-    return Boolean(aliases.find(a => this.name === a || this.aliases.includes(a)))
+    return Boolean(aliases.find((a) => this.name === a || this.aliases.includes(a)))
   }
 }

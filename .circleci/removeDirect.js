@@ -12,9 +12,10 @@ const directFiles = [
   'patching',
   'prompt',
   'package-manager',
+  'toolbox',
 ]
 const fs = require('fs')
-directFiles.forEach(f => {
+directFiles.forEach((f) => {
   const filename = __dirname + '/../' + f + '.js'
   if (fs.existsSync(filename)) fs.unlinkSync(filename)
 })

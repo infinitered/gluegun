@@ -1,3 +1,3 @@
-module.exports = toolbox => {
+module.exports = (toolbox) => {
   toolbox.baz = true
 }

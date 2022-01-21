@@ -10,7 +10,7 @@ import { EmptyToolbox, Toolbox } from '../domain/toolbox'
  * @param file The full path to the file to load.
  * @param options Options, such as
  */
-export function loadExtensionFromFile(file: string, options = {}): Extension {
+export function loadExtensionFromFile(file: string, _options = {}): Extension {
   const extension = new Extension()
 
   // sanity check the input

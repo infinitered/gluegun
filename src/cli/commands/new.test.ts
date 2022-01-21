@@ -131,7 +131,7 @@ test('generates properly', async () => {
   ]
 
   // test that each our files get generated
-  DEFAULT_FILES.forEach(file => {
+  DEFAULT_FILES.forEach((file) => {
     expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,
@@ -197,7 +197,7 @@ test('generates with typescript', async () => {
   ]
 
   // test that each our files get generated
-  DEFAULT_FILES.forEach(file => {
+  DEFAULT_FILES.forEach((file) => {
     expect((generate as sinon.SinonStub).getCall(i++).args[0]).toEqual({
       template: `cli/${file[0]}`,
       target: `${name}/${file[1]}`,

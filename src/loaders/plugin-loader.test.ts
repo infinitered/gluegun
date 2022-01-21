@@ -38,7 +38,7 @@ test('loads commands', async () => {
   expect(plugin.commands.length).toBe(3)
   expect(plugin.defaults).toEqual({ numbers: 3 })
 
-  const two = plugin.commands.find(c => c.name === 'two')
+  const two = plugin.commands.find((c) => c.name === 'two')
   expect(two.name).toBe('two')
   expect(two.file).toBe(path.join(dir, 'commands', 'two.js'))
   expect(typeof two.run).toBe('function')
@@ -55,7 +55,7 @@ test('load commands with front matter', async () => {
   expect(plugin.commands.length).toBe(1)
 
   // test the command
-  const full = plugin.commands.find(c => c.name === 'full')
+  const full = plugin.commands.find((c) => c.name === 'full')
   expect(full.name).toBe('full')
   expect(full.file).toBe(path.join(dir, 'commands', 'full.js'))
   expect(typeof full.run).toBe('function')

@@ -21,7 +21,7 @@ export async function run(
   rawCommand = rawCommand || process.argv
 
   // prepare the run toolbox
-  let toolbox = new EmptyToolbox()
+  const toolbox = new EmptyToolbox()
 
   // attach the runtime
   toolbox.runtime = this
@@ -61,9 +61,9 @@ export async function run(
   toolbox.config.loadConfig = loadConfig
 
   // allow extensions to attach themselves to the toolbox
-  const extensionSetupPromises = this.extensions.map(extension => {
+  const extensionSetupPromises = this.extensions.map((extension) => {
     const setupResult = extension.setup(toolbox)
-    return setupResult === void 0 ? Promise.resolve(null) : Promise.resolve(setupResult)
+    return setupResult === undefined ? Promise.resolve(null) : Promise.resolve(setupResult)
   })
   await Promise.all(extensionSetupPromises)
 
