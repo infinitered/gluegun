@@ -111,10 +111,11 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 
 - [Ignite CLI](https://github.com/infinitered/ignite) - React Native CLI and starter kit
 - [Solidarity](https://github.com/infinitered/solidarity) - audits your system dependencies so you can develop in peace
-- [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) - A CLI toolchain for simplifying serverless web and mobile development
 - [Sara Vieira's Fiddly](https://github.com/SaraVieira/fiddly) - Create beautiful and simple HTML pages from your Readme.md files - [https://fiddly.netlify.com](https://fiddly.netlify.com)
 - [Graph CLI](https://github.com/graphprotocol/graph-cli) - CLI for building and managing subgraphs that index data from Ethereum and IPFS - [https://thegraph.com/explorer](https://thegraph.com/explorer)
 - [Vts](https://github.com/snowfrogdev/Vts) - Vanilla TypeScript library starter CLI tool
+
+*Additionally, the first versions of the [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) (a CLI toolchain for simplifying serverless web and mobile development) used Gluegun. They've since integrated Gluegun's functionality into their CLI in a bespoke way, but you can still see Gluegun patterns in their CLI.*
 
 # What's under the hood?
 
