@@ -22,6 +22,10 @@ Gluegun is a delightful toolkit for building Node-based command-line interfaces 
 
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 
+# Notice
+
+Gluegun is at a stable point and we aren't planning on building new features for it, although the community continues to send in PRs and we release them. Read the [Community Supported](#Community-Supported) section to learn more.
+
 # Why use Gluegun?
 
 You might want to use Gluegun if:
@@ -141,6 +145,14 @@ Here are a few community CLIs based on Gluegun plus some plugins you can use. Is
 - [Gluegun-Menu](https://github.com/lenneTech/gluegun-menu) - A command menu for Gluegun-based CLIs
 - [Gluegun CLI-Starter](https://github.com/lenneTech/cli-starter) - A CLI Starter for your next Gluegun CLI project
 
-## Sponsors
+# Community Supported
 
-[Gluegun](https://github.com/infinitered/gluegun) is sponsored by [Infinite Red](https://infinite.red/), a premium custom mobile app and web design and development agency. We are a team of designers and developers distributed across the USA and based near Portland, Oregon. Our specialties are UI/UX design, React and React Native, Node, and more. Email [hello@infinite.red](mailto:hello@infinite.red) if you'd like to talk about your project!
+While Gluegun is no longer actively developed by [Infinite Red](https://infinite.red), it has built a community that cares deeply about it. Infinite Red won't be building new features ourselves for Gluegun, but we encourage the community to continue to send high quality pull requests. We will try to review and merge them in a timely manner.
+
+If you're looking for alternatives, here's a list:
+
+* [Rust CLI](https://rust-cli.github.io/book/index.html) -- Rust is a rapidly growing community and hot language, and has the benefit of speed and not needing to rely on a local Node engine.
+* [oclif](https://oclif.io/) - oclif is used by some large CLIs and is very actively maintained
+* [commander](https://github.com/tj/commander.js/) and [yeoman](https://yeoman.io/) - commander and yeoman have been around a long time and have very large communities. Keep in mind that we built Gluegun to avoid Commander and Yeoman, so YMMV
+* [vorpal](https://vorpal.js.org/) - unfortunately looks like it isn't actively maintained
+* [just make your own](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js) - you don't need a framework to make a Node CLI. Check out this article from Twilio
