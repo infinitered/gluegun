@@ -46,3 +46,13 @@ Retrieves information about all of this CLI's commands. You can use this to disp
 const commandInfo = toolbox.meta.commandInfo()
 toolbox.print.table(commandInfo)
 ```
+
+## onAbort
+
+Executes the given callback when a [termination signal](https://nodejs.org/api/process.html#process_signal_events) is received. These signals are `SIGINT`, `SIGQUIT`, `SIGTERM`, `SIGHUP`, `SIGBREAK`. If callback returns a promise, it will wait for promise to resolve before aborting.
+
+```js
+toolbox.meta.onAbort((signal) => {
+  console.log('Received termination signal', signal)
+})
+```

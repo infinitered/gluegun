@@ -1,4 +1,4 @@
-import { commandInfo, getVersion, checkForUpdate, getPackageJSON } from '../toolbox/meta-tools'
+import { commandInfo, getVersion, checkForUpdate, getPackageJSON, onAbort } from '../toolbox/meta-tools'
 import { GluegunToolbox } from '../domain/toolbox'
 import { PackageJSON } from '../toolbox/meta-types'
 
@@ -8,6 +8,7 @@ export interface GluegunMeta {
   packageJSON: () => PackageJSON
   commandInfo: () => string[][]
   checkForUpdate: () => Promise<boolean | string>
+  onAbort: typeof onAbort
 }
 
 /**
@@ -22,6 +23,7 @@ export default function attach(toolbox: GluegunToolbox): void {
     packageJSON: () => getPackageJSON(toolbox),
     commandInfo: () => commandInfo(toolbox),
     checkForUpdate: () => checkForUpdate(toolbox),
+    onAbort,
   }
   toolbox.meta = meta
 }
