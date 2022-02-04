@@ -17,6 +17,7 @@ function createFakeToolbox(): Toolbox {
     packageJSON: sinon.stub(),
     checkForUpdate: sinon.stub(),
     commandInfo: sinon.stub(),
+    onAbort: sinon.stub(),
   }
   fakeToolbox.filesystem = {
     resolve: sinon.stub(),

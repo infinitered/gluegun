@@ -35,3 +35,5 @@ export interface PackageJSON {
 
   [k: string]: any
 }
+
+export type AbortSignals = 'SIGINT' | 'SIGQUIT' | 'SIGTERM' | 'SIGHUP' | 'SIGBREAK'

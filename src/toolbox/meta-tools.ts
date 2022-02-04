@@ -1,6 +1,6 @@
 import { equals, replace } from './utils'
 import { GluegunToolbox } from '../domain/toolbox'
-import { PackageJSON } from './meta-types'
+import { PackageJSON, AbortSignals } from './meta-types'
 
 /**
  * Finds the currently running CLI package.json
@@ -73,4 +73,32 @@ export async function checkForUpdate(toolbox: GluegunToolbox): Promise<false | s
   const latestVersion = await system.run(`npm info ${packageName} dist-tags.latest`)
   if (semver.gt(latestVersion, myVersion)) return latestVersion
   return false
+}
+
+/**
+ * Executes the given callback when a termination signal is received.
+ * If callback returns a promise, it will wait for promise to resolve before aborting.
+ *
+ * @param callback Callback function for handling process termination
+ */
+export function onAbort(callback: (signal: AbortSignals) => void | Promise<void>): void {
+  const signals: AbortSignals[] = ['SIGINT', 'SIGQUIT', 'SIGTERM', 'SIGHUP', 'SIGBREAK']
+
+  signals.forEach((signal) => {
+    process.on(signal, async () => {
+      await Promise.resolve()
+
+      signals.forEach((removeSignal) => {
+        // Remove listeners to prevent calling it multiple times
+        process.removeAllListeners(removeSignal)
+
+        // Add empty listeners to prevent terminating while onAbort callback is running
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        process.on(removeSignal, () => {})
+      })
+
+      await callback(signal)
+      process.exit()
+    })
+  })
 }
