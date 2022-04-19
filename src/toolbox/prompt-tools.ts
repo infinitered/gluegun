@@ -1,13 +1,9 @@
 import { GluegunEnquirer, GluegunPrompt } from './prompt-types'
 
-let enquirer: GluegunEnquirer = null
 function getEnquirer(): GluegunEnquirer {
-  if (enquirer) return enquirer
-
   const Enquirer: GluegunEnquirer = require('enquirer')
-  enquirer = new Enquirer()
 
-  return enquirer
+  return new Enquirer()
 }
 
 /**
