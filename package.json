@@ -20,6 +20,7 @@
     "integration": "yarn build && jest --config=./.circleci/jest-integration.config.json",
     "test": "jest",
     "watch": "jest --watch",
+    "watch:debug": "yarn watch --runInBand --verbose",
     "snapupdate": "jest --updateSnapshot",
     "windows:test": "yarn && yarn format && yarn test && yarn clean-build && yarn compile && yarn copy-templates && jest --config=./.circleci/jest-integration.config.json",
     "ci:test": "yarn lint && yarn test --maxWorkers=2 && yarn integration",
