@@ -32,7 +32,19 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
   const parsed = yargsParse(commandArray)
   const array = parsed._.slice()
   delete parsed._
-  const options = { ...parsed, ...extraOpts }
+  const normalizedParsed: Options = Object.fromEntries(
+    Object.entries(parsed).map(([key, value]) => {
+      // if value is 'true' or 'false', convert to boolean
+      if (value === 'true') {
+        return [key, true]
+      }
+      if (value === 'false') {
+        return [key, false]
+      }
+      return [key, value]
+    }),
+  )
+  const options = { ...normalizedParsed, ...extraOpts }
   return { array, options }
 }
 
