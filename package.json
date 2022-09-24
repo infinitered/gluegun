@@ -27,7 +27,12 @@
     "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
-  "author": "Webstone",
+  "author": {
+    "name": "Infinite Red, Inc.",
+    "email": "npm@infinite.red",
+    "url": "https://github.com/infinitered/gluegun"
+  },
+  "contributors": [{"name": "Webstone", "url": "https://github.com/WebstoneHQ"}],
   "files": [
     "docs",
     "bin",
@@ -48,16 +53,16 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "apisauce": "^2.1.5",
+    "apisauce": "^2.1.6",
     "app-module-path": "^2.2.0",
-    "cli-table3": "0.6.0",
+    "cli-table3": "0.6.3",
     "colors": "1.4.0",
     "cosmiconfig": "7.0.1",
     "cross-spawn": "7.0.3",
-    "ejs": "3.1.6",
+    "ejs": "3.1.8",
     "enquirer": "2.3.6",
-    "execa": "5.1.1",
-    "fs-jetpack": "4.3.1",
+    "execa": "6.1.0",
+    "fs-jetpack": "5.0.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
     "lodash.lowercase": "^4.3.0",
@@ -73,45 +78,45 @@
     "lodash.trimstart": "^4.5.1",
     "lodash.uppercase": "^4.3.0",
     "lodash.upperfirst": "^4.3.1",
-    "ora": "4.0.2",
+    "ora": "6.1.2",
     "pluralize": "^8.0.0",
-    "semver": "7.3.5",
+    "semver": "7.3.7",
     "which": "2.0.2",
-    "yargs-parser": "^21.0.0"
+    "yargs-parser": "^21.1.1"
   },
   "devDependencies": {
     "@semantic-release/git": "10.0.1",
     "@types/cli-table2": "0.2.3",
-    "@types/jest": "27.4.0",
-    "@types/node": "16.11.12",
+    "@types/jest": "29.0.3",
+    "@types/node": "18.7.19",
     "@types/pluralize": "0.0.29",
-    "@types/sinon": "10.0.6",
-    "@typescript-eslint/eslint-plugin": "5.6.0",
-    "@typescript-eslint/parser": "5.6.0",
-    "cpy-cli": "3.1.1",
-    "eslint": "8.4.1",
-    "eslint-config-prettier": "8.3.0",
-    "eslint-config-standard": "16.0.3",
-    "eslint-plugin-import": "2.25.3",
-    "eslint-plugin-jest": "25.3.0",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "5.2.0",
+    "@types/sinon": "10.0.13",
+    "@typescript-eslint/eslint-plugin": "5.38.0",
+    "@typescript-eslint/parser": "5.38.0",
+    "cpy-cli": "4.2.0",
+    "eslint": "8.24.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-config-standard": "17.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jest": "27.0.4",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "6.0.1",
     "eslint-plugin-standard": "5.0.0",
-    "expect": "27.4.2",
-    "husky": "^7.0.0",
-    "jest": "27.4.7",
-    "jest-mock": "27.4.6",
-    "lint-staged": "12.1.2",
+    "expect": "29.0.3",
+    "husky": "^8.0.1",
+    "jest": "29.0.3",
+    "jest-mock": "29.0.3",
+    "lint-staged": "13.0.3",
     "mock-stdin": "1.0.0",
-    "prettier": "2.5.1",
+    "prettier": "2.7.1",
     "rimraf": "3.0.2",
-    "semantic-release": "18.0.1",
-    "sinon": "12.0.1",
-    "strip-ansi": "6.0.1",
-    "temp-write": "4.0.0",
-    "ts-jest": "^27.1.3",
-    "ts-node": "10.4.0",
-    "typescript": "4.5.2",
+    "semantic-release": "19.0.5",
+    "sinon": "14.0.0",
+    "strip-ansi": "7.0.1",
+    "temp-write": "5.0.0",
+    "ts-jest": "^29.0.2",
+    "ts-node": "10.9.1",
+    "typescript": "4.8.3",
     "unique-temp-dir": "1.0.0"
   },
   "jest": {
@@ -127,67 +132,6 @@
       "node"
     ]
   },
-  "prettier": {
-    "printWidth": 120,
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "all"
-  },
-  "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-      "ecmaVersion": 2018,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "@typescript-eslint",
-      "jest"
-    ],
-    "env": {
-      "node": true,
-      "es6": true,
-      "jest/globals": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "eslint-config-standard",
-      "plugin:@typescript-eslint/recommended",
-      "prettier"
-    ],
-    "rules": {
-      "@typescript-eslint/explicit-function-return-type": 0,
-      "@typescript-eslint/no-explicit-any": 0,
-      "@typescript-eslint/no-var-requires": 0,
-      "@typescript-eslint/no-namespace": 0,
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_",
-          "caughtErrorsIgnorePattern": "^_"
-        }
-      ],
-      "node/no-path-concat": 0,
-      "no-use-before-define": 0
-    },
-    "overrides": [
-      {
-        "files": [
-          "sniff.js",
-          "./src/fixtures/**/*.js"
-        ],
-        "rules": {
-          "@typescript-eslint/no-unused-vars": 0,
-          "@typescript-eslint/no-var-requires": 0,
-          "@typescript-eslint/no-empty-function": 0,
-          "no-empty": 0
-        }
-      }
-    ]
-  },
-  "eslintIgnore": [
-    "build"
-  ],
   "lint-staged": {
     "*.ts": [
       "prettier --write",

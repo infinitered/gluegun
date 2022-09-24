@@ -1,4 +1,4 @@
-import * as expect from 'expect'
+import expect from 'expect'
 import * as sinon from 'sinon'
 import * as uniqueTempDir from 'unique-temp-dir'
 import * as path from 'path'

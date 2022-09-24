@@ -14,7 +14,7 @@
     "declaration": true,
     "declarationDir": "build/types",
     "strict": false,
-    "target": "es5",
+    "target": "ES6",
     "pretty": true,
     "skipLibCheck": true
   },

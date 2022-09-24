@@ -111,6 +111,7 @@ const NewCommand: GluegunCommand = {
       'readme.md.ejs',
       '.gitignore.ejs',
       '.eslintrc.js.ejs',
+      '.prettierrc.js.ejs',
     ]
 
     if (props.language === 'typescript') {

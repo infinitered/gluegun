@@ -29,7 +29,7 @@ export class Builder {
 
   constructor(brand?: string) {
     this.data = {
-      brand: brand,
+      brand,
       excludes: [],
       commands: [],
       plugins: [],
