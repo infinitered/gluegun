@@ -1,6 +1,6 @@
 {
   "name": "@webstone/gluegun",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "webstoneHQ/gluegun",
   "bin": {

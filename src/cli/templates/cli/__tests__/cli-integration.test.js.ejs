@@ -1,7 +1,7 @@
 <% if (props.language === "typescript") { %>
-  import { system, filesystem } from 'gluegun'
+  import { system, filesystem } from '@webstone/gluegun'
 <% } else { %>
-  const { system, filesystem } = require('gluegun')
+  const { system, filesystem } = require('@webstone/gluegun')
 <% } %>
 
 const src = filesystem.path(__dirname, '..')
