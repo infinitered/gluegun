@@ -1,8 +1,8 @@
 {
-  "name": "gluegun",
-  "version": "5.1.2",
+  "name": "@webstone/gluegun",
+  "version": "0.0.1",
   "description": "A delightful toolkit for building Node-powered CLIs.",
-  "repository": "infinitered/gluegun",
+  "repository": "webstoneHQ/gluegun",
   "bin": {
     "gluegun": "bin/gluegun"
   },
@@ -27,11 +27,7 @@
     "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
-  "author": {
-    "name": "Infinite Red, Inc.",
-    "email": "npm@infinite.red",
-    "url": "https://github.com/infinitered/gluegun"
-  },
+  "author": "Webstone",
   "files": [
     "docs",
     "bin",
