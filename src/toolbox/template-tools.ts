@@ -42,6 +42,18 @@ function buildGenerate(toolbox: GluegunToolbox): (opts: Options) => Promise<stri
       pathToTemplate = `${templateDirectory}/${template}`
     }
 
+    // check .cli/templates too, if that doesn't exist
+    if (!filesystem.isFile(pathToTemplate)) {
+      templateDirectory = opts.directory || `${baseDirectory}/cli/templates`
+      pathToTemplate = `${templateDirectory}/${template}`
+    }
+
+    // check ./build/cli/templates too, if that doesn't exist
+    if (!filesystem.isFile(pathToTemplate)) {
+      templateDirectory = opts.directory || `${baseDirectory}/build/cli/templates`
+      pathToTemplate = `${templateDirectory}/${template}`
+    }
+
     // bomb if the template doesn't exist
     if (!filesystem.isFile(pathToTemplate)) {
       throw new Error(`template not found ${pathToTemplate}`)
