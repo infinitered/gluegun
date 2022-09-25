@@ -1,6 +1,6 @@
 {
   "name": "@webstone/gluegun",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "webstoneHQ/gluegun",
   "bin": {
@@ -32,7 +32,12 @@
     "email": "npm@infinite.red",
     "url": "https://github.com/infinitered/gluegun"
   },
-  "contributors": [{"name": "Webstone", "url": "https://github.com/WebstoneHQ"}],
+  "contributors": [
+    {
+      "name": "Webstone",
+      "url": "https://github.com/WebstoneHQ"
+    }
+  ],
   "files": [
     "docs",
     "bin",
@@ -61,7 +66,7 @@
     "cross-spawn": "7.0.3",
     "ejs": "3.1.8",
     "enquirer": "2.3.6",
-    "execa": "6.1.0",
+    "execa": "^5.1.1",
     "fs-jetpack": "5.0.0",
     "lodash.camelcase": "^4.3.0",
     "lodash.kebabcase": "^4.1.1",
