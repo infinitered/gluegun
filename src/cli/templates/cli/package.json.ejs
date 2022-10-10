@@ -11,7 +11,7 @@
   },
   "scripts": {
     <% if (props.language === "typescript") { %>
-      "clean-build": "rm -rf ./build",
+      "clean-build": "rimraf -rf ./build",
       "compile": "tsc -p .",
       "copy-templates": "copyfiles ./src/templates/* ./build/templates",
       "build": "yarn clean-build && yarn compile && yarn copy-templates",
