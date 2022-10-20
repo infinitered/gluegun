@@ -44,7 +44,7 @@ jobs:
       - run:
           name: Install React Native CLI and Ignite CLI
           command: |
-            sudo npm i -g ignite-cli react-native-cli
+            sudo npm i -g --unsafe-perm ignite-cli react-native-cli
       - run:
           name: Run tests
           command: yarn ci:test # this command will be added to/found in your package.json scripts
