@@ -115,7 +115,7 @@
     "temp-write": "4.0.0",
     "ts-jest": "^27.1.3",
     "ts-node": "10.8.1",
-    "typescript": "4.5.2",
+    "typescript": "4.7.4",
     "unique-temp-dir": "1.0.0"
   },
   "jest": {
