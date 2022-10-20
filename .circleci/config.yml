@@ -20,7 +20,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            # - v1-dependencies-
       - run:
           name: Install dependencies
           command: |
@@ -40,7 +40,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            # - v1-dependencies-
       - run:
           name: Install React Native CLI and Ignite CLI
           command: |
