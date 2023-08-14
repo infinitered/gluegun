@@ -23,6 +23,3 @@ http.js
 patching.js
 prompt.js
 package-manager.js
-
-# Webstorm & IntelliJ
-.idea
