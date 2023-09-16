@@ -17,8 +17,8 @@ steps:
 
   - script: |
       set USE_YARN=true
-      yarn ci:test:windows
-    displayName: 'yarn ci:test:windows'
+      yarn windows:test
+    displayName: 'yarn windows:test'
 
   - task: ArchiveFiles@2
     inputs:
