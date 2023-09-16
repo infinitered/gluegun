@@ -8,8 +8,6 @@ const command = require('./new')
 
 sinon.stub(console, 'log')
 
-const bunYarn = process.env.USE_YARN ? 'yarn' : 'bun'
-
 function createFakeToolbox(): Toolbox {
   const fakeToolbox = new Toolbox()
   fakeToolbox.strings = strings
