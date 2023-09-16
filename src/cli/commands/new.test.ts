@@ -159,7 +159,7 @@ test('generates properly', async () => {
 
   // test package installation
   expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
-    `cd ${props.name} && ${bunYarn} install --silent && ${bunYarn} run format`,
+    `cd ${props.name} && bun install --silent && bun run format`,
     { shell: true, stdio: 'inherit' },
   ])
 })
