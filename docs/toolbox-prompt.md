@@ -79,7 +79,7 @@ Try running `gluegun kitchen` to see what these look like.
 ```typescript
 import { prompt, GluegunToolbox } from 'gluegun'
 
-export default {
+module.exports = {
   name: 'kitchen',
   description: 'Runs through a kitchen sink of Gluegun tools',
   run: async (toolbox: GluegunToolbox) => {

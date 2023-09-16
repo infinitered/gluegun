@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: 'version',
   alias: 'v',
   description: 'Output the version number',

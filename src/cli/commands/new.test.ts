@@ -4,7 +4,7 @@ import * as expect from 'expect'
 import * as sinon from 'sinon'
 import { Toolbox } from '../../domain/toolbox'
 import { strings } from '../../toolbox/string-tools'
-import command from './new'
+const command = require('./new')
 
 sinon.stub(console, 'log')
 

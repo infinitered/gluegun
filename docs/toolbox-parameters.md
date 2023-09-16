@@ -25,7 +25,7 @@ gluegun say hello --loud -v --wave furiously
 ```
 
 ```js
-export default async function (toolbox) {
+module.exports = async function (toolbox) {
   toolbox.parameters.options // { loud: true, v: true, wave: 'furiously' }
 }
 ```
@@ -39,7 +39,7 @@ gluegun say hello there
 ```
 
 ```js
-export default async function (toolbox) {
+module.exports = async function (toolbox) {
   toolbox.parameters.string // 'hello there'
 }
 ```
@@ -53,7 +53,7 @@ gluegun reactotron plugin full
 ```
 
 ```js
-export default async function (toolbox) {
+module.exports = async function (toolbox) {
   toolbox.parameters.array // ['plugin', 'full']
 }
 ```
@@ -68,7 +68,7 @@ gluegun reactotron plugin full
 ```
 
 ```js
-export default async function (toolbox) {
+module.exports = async function (toolbox) {
   toolbox.parameters.first // 'plugin'
   toolbox.parameters.second // 'full'
   toolbox.parameters.third // undefined

@@ -174,4 +174,4 @@ const NewCommand: GluegunCommand = {
   },
 }
 
-export default NewCommand
+module.exports = NewCommand

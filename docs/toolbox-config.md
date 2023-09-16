@@ -5,7 +5,7 @@ This is an object. Each plugin will have its own root level key.
 In `movies.config.js`:
 
 ```js
-export default {
+module.exports = {
   name: 'movies',
   defaults: {
     movie: {
@@ -21,7 +21,7 @@ export default {
 In `movies-imdb.config.js`:
 
 ```js
-export default {
+module.exports = {
   name: 'movies-imdb',
   defaults: {
     fun: true,
@@ -33,7 +33,7 @@ export default {
 It takes the plugin's defaults, and merges the user's changes overtop.
 
 ```js
-export default async (toolbox) => {
+module.exports = async (toolbox) => {
   toolbox.config.movies // { fun: true, level: 10 }
 }
 ```
@@ -41,7 +41,7 @@ export default async (toolbox) => {
 If you'd like to load your own config files, use the `loadConfig` function included in the config object which is powered by [cosmiconfig](https://github.com/davidtheclark/cosmiconfig):
 
 ```js
-export default {
+module.exports = {
   run: async (toolbox) => {
     const {
       config: { loadConfig },

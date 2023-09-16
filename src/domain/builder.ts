@@ -1,9 +1,10 @@
 import { Runtime } from '../runtime/runtime'
-import coreCommandHelp from '../core-commands/help'
-import coreCommandDefault from '../core-commands/default'
-import coreCommandVersion from '../core-commands/version'
-import { GluegunCommand } from './command'
-import { GluegunLoadOptions, GluegunMultiLoadOptions } from './options'
+import type { GluegunCommand } from './command'
+import type { GluegunLoadOptions, GluegunMultiLoadOptions } from './options'
+
+const coreCommandHelp = require('../core-commands/help')
+const coreCommandDefault = require('../core-commands/default')
+const coreCommandVersion = require('../core-commands/version')
 
 interface BuilderItem {
   value: string

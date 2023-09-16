@@ -3,7 +3,7 @@
 Let's explore the inside of the famous Gluegun "Toolbox" (or "Context" as it's sometimes called).
 
 ```js
-export default {
+module.exports = {
   name: 'dostuff',
   alias: 'd',
   run: async function (toolbox) {
@@ -33,7 +33,7 @@ Here's what's available inside the `toolbox` object you see all over Gluegun.
 The `toolbox` has "drawers" full of useful tools for building CLIs. For example, the `toolbox.meta.version` function can be invoked like this:
 
 ```js
-export default {
+module.exports = {
   name: 'dostuff',
   alias: 'd',
   run: async function (toolbox) {

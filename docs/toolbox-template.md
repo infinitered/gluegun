@@ -9,7 +9,7 @@ Generates a new file based on a template.
 #### example
 
 ```js
-export default async function (toolbox) {
+module.exports = async function (toolbox) {
   const name = toolbox.parameters.first
 
   await toolbox.template.generate({

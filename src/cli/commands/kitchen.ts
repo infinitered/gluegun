@@ -63,4 +63,4 @@ const KitchenCommand: GluegunCommand = {
   },
 }
 
-export default KitchenCommand
+module.exports = KitchenCommand

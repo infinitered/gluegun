@@ -52,7 +52,7 @@ Your Gluegun-powered CLI isn't very useful without a command! In your CLI, creat
 
 ```js
 // src/commands/hello.js
-export default {
+module.exports = {
   run: async (toolbox) => {
     toolbox.print.info('Hello, world!')
   },
@@ -64,7 +64,7 @@ For TypeScript, it's not much different:
 ```typescript
 // src/commands/hello.ts
 import { GluegunToolbox } from 'gluegun'
-export default {
+module.exports = {
   run: async (toolbox: GluegunToolbox) => {
     toolbox.print.info('Hello, world!')
   },
@@ -86,7 +86,7 @@ You can add more tools into the `toolbox` for _all_ of your commands to use by c
 
 ```js
 // src/extensions/hello-extension.js
-export default async (toolbox) => {
+module.exports async (toolbox) => {
   toolbox.hello = () => {
     toolbox.print.info('Hello from an extension!')
   }
@@ -98,7 +98,7 @@ Or TypeScript:
 ```typescript
 // src/extensions/hello-extension.ts
 import { GluegunToolbox } from 'gluegun'
-export default async (toolbox: GluegunToolbox) => {
+module.exports = async (toolbox: GluegunToolbox) => {
   toolbox.hello = () => {
     toolbox.print.info('Hello from an extension!')
   }
@@ -109,7 +109,7 @@ Then, in your `hello` command, use that function instead:
 
 ```js
 // src/commands/hello.js
-export default {
+module.exports = {
   run: (toolbox) => {
     const { hello } = toolbox
 

@@ -242,7 +242,7 @@ export interface FooToolbox extends GluegunToolbox {
 
 // in a command
 import { FooToolbox } from '../types'
-export default {
+module.exports = {
   run: async (toolbox: FooToolbox) => {
     // ... use toolbox with your excluded extensions
   },
@@ -338,7 +338,7 @@ It will read the plugin name from the `name` key and the defaults will be read f
 
 ```js
 // in movies.config.js
-export default {
+module.exports = {
   name: 'movies',
   defaults: {
     movie: {

@@ -82,7 +82,7 @@ Commands are simple objects that provide a name, optional aliases, and a functio
 
 ```js
 // in movie/src/commands/foo.js
-export default {
+module.exports = {
   name: 'foo',
   alias: 'f',
   run: async function (toolbox) {
