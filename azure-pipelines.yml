@@ -12,6 +12,10 @@ steps:
     displayName: 'install yarn'
 
   - script: |
+      doskey bun=yarn $*
+    displayName: 'Alias bun to yarn'
+
+  - script: |
       yarn install
     displayName: 'yarn install'
 
