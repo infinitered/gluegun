@@ -1,4 +1,4 @@
-import { GluegunStrings } from './strings-types'
+import type { GluegunStrings } from './strings-types'
 import { is } from './utils'
 
 const camelCase = (...args) => require('lodash.camelcase')(...args)

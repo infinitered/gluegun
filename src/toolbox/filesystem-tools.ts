@@ -3,7 +3,7 @@ import * as pathlib from 'path'
 import * as jetpack from 'fs-jetpack'
 import { chmodSync } from 'fs'
 
-import { GluegunFilesystem } from './filesystem-types'
+import type { GluegunFilesystem } from './filesystem-types'
 
 /**
  * Is this a file?

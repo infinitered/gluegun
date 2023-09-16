@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-<% if (props.language === "typescript") { %>
 /* tslint:disable */
 // check if we're running in dev mode
 var devMode = require('fs').existsSync(`${__dirname}/../src`)
@@ -17,9 +16,3 @@ if (wantsCompiled || !devMode) {
   // run the CLI with the current process arguments
   require(`${__dirname}/../src/cli`).run(process.argv)
 }
-
-<% } else { %>
-// run the CLI with the current process arguments
-require('../src/cli').run(process.argv)
-
-<% } %>

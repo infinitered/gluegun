@@ -11,10 +11,10 @@ Commands should be focused on user interaction and not necessarily on implementa
 _Do this_
 
 ```js
-module.exports = {
+export default {
   name: 'world',
   alias: ['w', 'earth'],
-  run: async toolbox => {
+  run: async (toolbox) => {
     // in this case, `hello` is provided by an extension
     const { hello, prompt } = toolbox
 
@@ -84,7 +84,7 @@ As of Gluegun 4.1.0, you can also nest commands in a `build` folder, if for exam
 Think of extensions as "drawers" full of tools in your Gluegun toolbox. In the above example, the `hello` extension adds two functions, `greetEarthling` and `greetAlien`.
 
 ```js
-module.exports = toolbox => {
+export default (toolbox) => {
   const { print } = toolbox
   toolbox.hello = {
     greetEarthling: () => print.info('Hello, earthling!'),
@@ -120,7 +120,7 @@ You can access Gluegun tools by using `require` (or `import` if you're using Typ
 const { print } = require('gluegun/print')
 
 // toolbox/greetings/earth.js
-module.exports = () => print.info('Hello, earthling!'),
+export default () => print.info('Hello, earthling!'),
 ```
 
 Then attach the functions or objects to your toolbox:
@@ -131,7 +131,7 @@ const earthling = require('../toolbox/greetings/earthling')
 const martian = require('../toolbox/greetings/martian')
 const venusian = require('../toolbox/greetings/venusian')
 
-module.exports = toolbox => {
+export default (toolbox) => {
   toolbox.hello = { earthling, martian, venusian }
 }
 ```
@@ -145,9 +145,9 @@ _Don't do this_
 ```js
 const R = require('ramda')
 
-module.exports = {
+export default {
   name: 'mycommand',
-  run: async toolbox => {
+  run: async (toolbox) => {
     // use Ramda
   },
 }
@@ -156,9 +156,9 @@ module.exports = {
 _Do this_
 
 ```js
-module.exports = {
+export default {
   name: 'mycommand',
-  run: async toolbox => {
+  run: async (toolbox) => {
     const R = require('ramda')
     // use Ramda
   },

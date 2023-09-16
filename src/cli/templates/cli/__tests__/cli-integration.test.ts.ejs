@@ -1,8 +1,4 @@
-<% if (props.language === "typescript") { %>
-  import { system, filesystem } from 'gluegun'
-<% } else { %>
-  const { system, filesystem } = require('gluegun')
-<% } %>
+import { system, filesystem } from 'gluegun'
 
 const src = filesystem.path(__dirname, '..')
 
@@ -20,15 +16,10 @@ test('outputs help', async () => {
 
 test('generates file', async () => {
   const output = await cli('generate foo')
-  <% if (props.language === "typescript") { %>
-    expect(output).toContain('Generated file at models/foo-model.ts')
-    const foomodel = filesystem.read('models/foo-model.ts')
-  <% } else { %>
-    expect(output).toContain('Generated file at models/foo-model.js')
-    const foomodel = filesystem.read('models/foo-model.js')
-  <% } %>
+  expect(output).toContain('Generated file at models/foo-model.ts')
+  const foomodel = filesystem.read('models/foo-model.ts')
 
-  expect(foomodel).toContain(`module.exports = {`)
+  expect(foomodel).toContain(`export default {`)
   expect(foomodel).toContain(`name: 'foo'`)
 
   // cleanup artifact

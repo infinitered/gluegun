@@ -3,34 +3,24 @@
   "version": "0.0.1",
   "description": "<%= props.name %> CLI",
   "private": true,
-  <% if (props.language === "typescript") { %>
-    "types": "build/types/types.d.ts",
-  <% } %>
+  "types": "build/types/types.d.ts",
   "bin": {
     "<%= props.name %>": "bin/<%= props.name %>"
   },
   "scripts": {
-    <% if (props.language === "typescript") { %>
-      "clean-build": "rm -rf ./build",
-      "compile": "tsc -p .",
-      "copy-templates": "copyfiles ./src/templates/* ./build/templates",
-      "build": "yarn clean-build && yarn compile && yarn copy-templates",
-      "prepublishOnly": "yarn build",
-      "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
-    <% } else { %>
-      "format": "eslint \"**/*.{js,jsx}\" --fix && prettier \"**/*.{js,jsx,json}\" --write",
-    <% } %>
+    "clean-build": "rm -rf ./build",
+    "compile": "tsc -p .",
+    "copy-templates": "copyfiles ./src/templates/* ./build/templates",
+    "build": "yarn clean-build && yarn compile && yarn copy-templates",
+    "prepublishOnly": "yarn build",
+    "format": "eslint \"**/*.{js,jsx,ts,tsx}\" --fix && prettier \"**/*.{js,jsx,ts,tsx,json}\" --write",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
     "coverage": "jest --coverage"
   },
   "files": [
-    <% if (props.language === "typescript") { %>
-      "build",
-    <% } else { %>
-      "src",
-    <% } %>
+    "build",
     "LICENSE",
     "readme.md",
     "docs",
@@ -41,15 +31,13 @@
     "gluegun": "latest"
   },
   "devDependencies": {
-    <% if (props.language === "typescript") { %>
-      "@types/node": "^12.7.11",
-      "@types/jest": "^26.0.20",
-      "@typescript-eslint/eslint-plugin": "^4.17.0",
-      "@typescript-eslint/parser": "^4.17.0",
-      "ts-jest": "^26.5.3",
-      "ts-node": "^9.1.1",
-      "typescript": "~4.5.0",
-    <% } %>
+    "@types/node": "^12.7.11",
+    "@types/jest": "^26.0.20",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "ts-jest": "^26.5.3",
+    "ts-node": "^9.1.1",
+    "typescript": "~4.5.0",
     "copyfiles": "^2.4.1",
     "eslint": "^7.22.0",
     "eslint-config-prettier": "^8.1.0",
@@ -60,9 +48,7 @@
     "pretty-quick": "^3.1.0"
   },
   "jest": {
-    <% if (props.language === "typescript") { %>
-      "preset": "ts-jest",
-    <% } %>
+    "preset": "ts-jest",
     "testEnvironment": "node"
   },
   "prettier": {
@@ -73,5 +59,18 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "eslintConfig": {
+    "parser": '@typescript-eslint/parser',  
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": 'module',
+    },
+    "extends": [
+      'plugin:@typescript-eslint/recommended',
+      'prettier',
+      'plugin:prettier/recommended',
+    ],
+    "rules": {}
   }
 }

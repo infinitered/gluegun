@@ -4,7 +4,8 @@
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
-    "gluegun": "bin/gluegun"
+    "gluegun": "bin/gluegun",
+    "bluegun": "bin/bluegun"
   },
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
@@ -15,15 +16,15 @@
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
     "create-direct": "node ./.circleci/createDirect.js",
     "clean-types": "node .circleci/cleanDir.js ./build/types",
-    "build": "yarn format && yarn clean-build && yarn compile && yarn copy-templates && yarn create-direct && yarn clean-types && echo 'Run yarn clean-build to remove build artifacts.'",
+    "build": "bun run format && bun run clean-build && bun run compile && bun run copy-templates && bun run create-direct && bun run clean-types && echo 'Run bun run clean-build to remove build artifacts.'",
     "lint": "eslint .",
-    "integration": "yarn build && jest --config=./.circleci/jest-integration.config.json",
+    "integration": "bun run build && jest --config=./.circleci/jest-integration.config.json",
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "windows:test": "yarn && yarn format && yarn test && yarn clean-build && yarn compile && yarn copy-templates && jest --config=./.circleci/jest-integration.config.json",
-    "ci:test": "yarn lint && yarn test --maxWorkers=2 && yarn integration",
-    "ci:publish": "yarn build && yarn semantic-release",
+    "windows:test": "bun install && bun run format && bun run test && bun run clean-build && bun run compile && bun run copy-templates && jest --config=./.circleci/jest-integration.config.json",
+    "ci:test": "bun run lint && bun run test --maxWorkers=2 && bun run integration",
+    "ci:publish": "bun run build && bun run semantic-release",
     "semantic-release": "semantic-release",
     "prepare": "husky install"
   },
@@ -80,6 +81,7 @@
     "ora": "4.0.2",
     "pluralize": "^8.0.0",
     "semver": "7.3.5",
+    "ts-node": "^10.9.1",
     "which": "2.0.2",
     "yargs-parser": "^21.0.0"
   },
@@ -114,7 +116,6 @@
     "strip-ansi": "6.0.1",
     "temp-write": "4.0.0",
     "ts-jest": "^27.1.3",
-    "ts-node": "10.4.0",
     "typescript": "4.5.2",
     "unique-temp-dir": "1.0.0"
   },

@@ -2,7 +2,7 @@ import { Runtime } from '../runtime/runtime'
 import { Command } from './command'
 import { Options } from './options'
 import { Plugin } from './plugin'
-import {
+import type {
   GluegunFilesystem,
   GluegunStrings,
   GluegunPrint,

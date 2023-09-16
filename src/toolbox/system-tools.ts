@@ -1,5 +1,5 @@
-import { Options } from '../domain/options'
-import { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
+import type { Options } from '../domain/options'
+import type { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
 import { head, tail, isNil } from './utils'
 
 /**

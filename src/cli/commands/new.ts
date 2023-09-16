@@ -1,10 +1,10 @@
 import { GluegunCommand } from '../../domain/command'
 import { GluegunToolbox } from '../../domain/toolbox'
+import { PackageManager } from '../../toolbox/package-manager-types'
 
 type TemplateProps = {
   name: string
-  language: 'typescript' | 'javascript' | 'ask'
-  extension: 'ts' | 'js' | undefined
+  packageManager: PackageManager | 'ask'
 }
 
 const NewCommand: GluegunCommand = {
@@ -23,29 +23,30 @@ const NewCommand: GluegunCommand = {
       system,
       meta,
       prompt,
+      packageManager,
     } = toolbox
 
     // set up initial props (to pass into templates)
     const o = parameters.options
-    const ts = Boolean(o.typescript || o.ts || o.t)
-    const js = Boolean(o.javascript || o.js || o.j)
+    const bun = Boolean(o.bun)
+    const yarn = Boolean(o.yarn)
+    const npm = Boolean(o.npm)
 
     const props: TemplateProps = {
       name: parameters.first,
-      language: ts ? 'typescript' : js ? 'javascript' : 'ask',
-      extension: undefined,
+      packageManager: bun ? 'bun' : yarn ? 'yarn' : npm ? 'npm' : 'ask',
     }
 
     // sanity checks
     if (!props.name || props.name.length === 0) {
       error('You must provide a valid CLI name.')
       error('Example: gluegun new movies')
-      return undefined
+      return `invalid cli name: ${props.name}`
     } else if (!/^[a-z0-9-]+$/.test(props.name)) {
       const validName = kebabCase(props.name)
       error(`${props.name} is not a valid name. Use lower-case and dashes only.`)
       error(`Suggested: gluegun new ${validName}`)
-      return undefined
+      return `invalid cli name: ${props.name}`
     }
 
     if (filesystem.exists(props.name)) {
@@ -55,31 +56,41 @@ const NewCommand: GluegunCommand = {
       if (answer) {
         filesystem.remove(props.name)
       } else {
-        return undefined
+        return `folder exists: ${props.name}`
       }
     }
 
-    // typescript or javascript?
-    if (props.language === 'ask') {
+    if (props.packageManager === 'ask') {
       info(``)
-      const { answer } = await prompt.ask({
-        type: 'select',
-        name: 'answer',
-        message: 'Which language would you like to use?',
-        choices: [
-          'TypeScript - Gives you a build pipeline out of the box (default)',
-          'Modern JavaScript - Node 8.2+ and ES2016+ (https://node.green/)',
-        ],
-      })
 
-      // we default to TypeScript if they just press "enter"
-      const lang = (answer && answer.toLowerCase()) || 'typescript'
+      const choices = ['npm']
+      if (packageManager.has('yarn')) choices.unshift('yarn')
+      if (packageManager.has('bun')) choices.unshift('bun')
 
-      props.language = lang.includes('typescript') ? 'typescript' : 'javascript'
-      info(`Language used: ${props.language === 'typescript' ? 'TypeScript' : 'Modern JavaScript'}`)
+      if (choices.length > 1) {
+        const { answer } = await prompt.ask({
+          type: 'select',
+          name: 'answer',
+          message: 'Which package manager would you like to use?',
+          choices,
+        })
+
+        props.packageManager = (answer || choices[0]) as PackageManager
+      } else {
+        props.packageManager = choices[0] as PackageManager
+      }
+
+      info(`Package manager used: ${props.packageManager}`)
     }
 
-    props.extension = props.language === 'typescript' ? 'ts' : 'js'
+    const managerExists = packageManager.has(props.packageManager)
+    if (!managerExists) {
+      error(``)
+      error(`We couldn't find ${props.packageManager} on your system.`)
+      error(`Please install it and try again.`)
+      error(``)
+      return `package manager not found: ${props.packageManager}`
+    }
 
     // create the directory
     filesystem.dir(props.name)
@@ -98,36 +109,26 @@ const NewCommand: GluegunCommand = {
 
     // all the template files we'll use to generate the CLI
     const files = [
-      '__tests__/cli-integration.test.js.ejs',
+      '__tests__/cli-integration.test.ts.ejs',
       'docs/commands.md.ejs',
       'docs/plugins.md.ejs',
-      'src/commands/generate.js.ejs',
-      'src/commands/default.js.ejs',
-      'src/extensions/cli-extension.js.ejs',
-      'src/templates/model.js.ejs.ejs',
-      'src/cli.js.ejs',
+      'src/commands/generate.ts.ejs',
+      'src/commands/default.ts.ejs',
+      'src/extensions/cli-extension.ts.ejs',
+      'src/templates/model.ts.ejs.ejs',
+      'src/cli.ts.ejs',
+      'src/types.ts.ejs',
       'LICENSE.ejs',
       'package.json.ejs',
-      'readme.md.ejs',
+      'README.md.ejs',
       '.gitignore.ejs',
-      '.eslintrc.js.ejs',
+      'tsconfig.json.ejs',
     ]
 
-    if (props.language === 'typescript') {
-      files.push('src/types.js.ejs')
-      files.push('tsconfig.json.ejs')
-    }
-
-    // rename js files to ts
+    // render all templates
     active = files.reduce((prev, file) => {
       const template = `cli/${file}`
-
-      const target =
-        `${props.name}/` +
-        (props.language === 'typescript' && file.includes('.js.ejs') && !file.startsWith('.')
-          ? file.replace('.js.ejs', '.ts')
-          : file.replace('.ejs', ''))
-
+      const target = `${props.name}/${file.replace('.ejs', '')}`
       const gen = generate({ template, target, props })
       return prev.concat([gen])
     }, active)
@@ -139,12 +140,12 @@ const NewCommand: GluegunCommand = {
     filesystem.chmodSync(`${props.name}/bin/${props.name}`, '755')
 
     // rename default.js to project name
-    const ext = props.language === 'typescript' ? 'ts' : 'js'
-    filesystem.rename(`${props.name}/src/commands/default.${ext}`, `${props.name}.${ext}`)
+    filesystem.rename(`${props.name}/src/commands/default.ts`, `${props.name}.ts`)
 
-    // install with yarn or npm i
-    const yarnOrNpm = system.which('yarn') ? 'yarn' : 'npm'
-    await system.spawn(`cd ${props.name} && ${yarnOrNpm} install --silent && ${yarnOrNpm} run --quiet format`, {
+    // install with bun or yarn or npm i
+
+    const manager = packageManager.which(['bun', 'yarn', 'npm'])
+    await system.spawn(`cd ${props.name} && ${manager} install --silent && ${manager} run format`, {
       shell: true,
       stdio: 'inherit',
     })
@@ -152,23 +153,21 @@ const NewCommand: GluegunCommand = {
     // we're done, so show what to do next
     info(``)
     info(colors.green(`Generated ${props.name} CLI with Gluegun ${meta.version()}.`))
-    if (props.language === 'typescript') info(colors.gray(`Using TypeScript`))
+    info(colors.gray(`Using TypeScript`))
     info(``)
     info(`Next:`)
     info(`  $ cd ${props.name}`)
-    info(`  $ ${yarnOrNpm} test`)
-    info(`  $ ${yarnOrNpm} link`)
+    info(`  $ ${props.packageManager} test`)
+    info(`  $ ${props.packageManager} link`)
     info(`  $ ${props.name}`)
     info(``)
-    if (props.language === 'typescript') {
-      info(colors.gray(`Since you generated a TypeScript project, we've included a build script.`))
-      info(colors.gray(`When you link and run the project, it will use ts-node locally to test.`))
-      info(colors.gray(`However, you can test the generated JavaScript locally like this:`))
-      info(``)
-      info(`  $ ${yarnOrNpm} build`)
-      info(`  $ ${props.name} --compiled-build`)
-      info(``)
-    }
+    info(colors.gray(`Since your project uses TypeScript, we've included a build script.`))
+    info(colors.gray(`When you link and run the project, it will use ts-node or bun locally to test.`))
+    info(colors.gray(`However, you can test the generated JavaScript locally like this:`))
+    info(``)
+    info(`  $ ${props.packageManager} build`)
+    info(`  $ ${props.name} --compiled-build`)
+    info(``)
 
     // for tests
     return `new ${toolbox.parameters.first}`

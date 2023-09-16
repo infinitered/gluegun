@@ -20,10 +20,8 @@ export async function run(argv?: string[] | string): Promise<GluegunToolbox> {
     .exclude(['http', 'patching'])
     .checkForUpdates(25)
     .create()
-
   // and run it
   const toolbox = await gluegunCLI.run(argv)
-
   // send it back (for testing, mostly)
   return toolbox
 }

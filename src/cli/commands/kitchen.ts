@@ -1,7 +1,7 @@
 import { prompt } from '../../toolbox/prompt-tools'
 import { GluegunToolbox } from '../../domain/toolbox'
 
-module.exports = {
+export default {
   name: 'kitchen',
   description: 'Runs through a kitchen sink of Gluegun tools',
   run: async (toolbox: GluegunToolbox) => {

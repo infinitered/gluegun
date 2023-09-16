@@ -1,8 +1,10 @@
+export type PackageManager = 'bun' | 'yarn' | 'npm'
+
 export type GluegunPackageManagerOptions = {
   dev?: boolean
   dryRun?: boolean
   dir?: string
-  force?: 'npm' | 'yarn'
+  force?: PackageManager
 }
 export type GluegunPackageManagerResult = {
   success: boolean
@@ -17,4 +19,6 @@ export type GluegunPackageManager = {
     options: GluegunPackageManagerOptions,
   ) => Promise<GluegunPackageManagerResult>
   hasYarn: () => boolean
+  has: (manager: PackageManager) => boolean
+  which: (managers: PackageManager[]) => PackageManager
 }

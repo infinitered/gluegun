@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 
 // speed up `gluegun --version` et al
 if (['v', 'version', '-v', '--v', '-version', '--version'].includes(process.argv[2])) {
@@ -13,14 +13,6 @@ var devMode = require('fs').existsSync(`${__dirname}/../src`)
 var wantsCompiled = process.argv.indexOf('--compiled-gluegun') >= 0
 
 if (devMode && !wantsCompiled) {
-  // hook into ts-node so we can run typescript on the fly, if not running bun
-  if (typeof Bun === 'undefined') {
-    require('ts-node').register({
-      project: `${__dirname}/../tsconfig.json`,
-      compiler: require.resolve('typescript', { paths: [__dirname] }),
-    })
-  }
-
   // kick off gluegun
   require(`${__dirname}/../src/cli/cli`).run(process.argv)
 } else {

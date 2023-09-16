@@ -79,7 +79,7 @@ Try running `gluegun kitchen` to see what these look like.
 ```typescript
 import { prompt, GluegunToolbox } from 'gluegun'
 
-module.exports = {
+export default {
   name: 'kitchen',
   description: 'Runs through a kitchen sink of Gluegun tools',
   run: async (toolbox: GluegunToolbox) => {
@@ -132,7 +132,7 @@ module.exports = {
         choices: ['Oregon', 'Washington', 'California'],
         // You can leave this off unless you want to customize behavior
         suggest(s, choices) {
-          return choices.filter(choice => {
+          return choices.filter((choice) => {
             return choice.message.toLowerCase().startsWith(s.toLowerCase())
           })
         },

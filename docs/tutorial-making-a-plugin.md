@@ -53,7 +53,7 @@ $ touch commands/macos.js
 Open this file, and put the following:
 
 ```js
-module.exports = {
+export default {
   name: 'macos',
   alias: 'osx',
   run: async ({ system, print }) => {
@@ -76,7 +76,7 @@ $ touch extensions/macos-extension.js
 Edit this file like so:
 
 ```js
-module.exports = toolbox => {
+export default (toolbox) => {
   toolbox.internMac = async () => {
     return await toolbox.system.run(`defaults read loginwindow SystemVersionStampAsString`)
   }
@@ -86,7 +86,7 @@ module.exports = toolbox => {
 This adds a new property to gluegun's awesome `toolbox` object, called `internMac`, which is a function that returns the info we need. Since all extensions are loaded automatically, it's available in our command, so let's use it in `commands/macos.js`:
 
 ```js
-module.exports = {
+export default {
   name: 'macos',
   alias: 'osx',
   run: async ({ print, internMac }) => print.info(await internMac()),

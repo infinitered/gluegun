@@ -28,13 +28,13 @@ const fs = require('fs')
 // add all the direct access files
 directFiles.forEach((f) => {
   const filename = __dirname + '/../' + f + '.js'
-  fs.writeFileSync(filename, `module.exports = require('./build/${f}')\n`)
+  fs.writeFileSync(filename, `export default require('./build/${f}')\n`)
 })
 
 // add the toolbox.js file for backwards compatibility
 fs.writeFileSync(
   __dirname + '/../toolbox.js',
   `// for backwards compatibility with beta-rc7
-module.exports = require('./build/index')
+export default require('./build/index')
 `,
 )

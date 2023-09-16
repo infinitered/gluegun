@@ -9,7 +9,7 @@ Generates a new file based on a template.
 #### example
 
 ```js
-module.exports = async function(toolbox) {
+export default async function (toolbox) {
   const name = toolbox.parameters.first
 
   await toolbox.template.generate({
@@ -20,7 +20,7 @@ module.exports = async function(toolbox) {
 }
 ```
 
-In the EJS template, you will use the props object to get the data defined previously. 
+In the EJS template, you will use the props object to get the data defined previously.
 
 ```ejs
 <title><%= props.name %></title>

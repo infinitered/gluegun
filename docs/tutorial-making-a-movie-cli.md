@@ -55,7 +55,7 @@ In your CLI's `src/extensions` folder, make a new file, called `imdb-extension.t
 import { GluegunToolbox } from 'gluegun'
 import * as imdb from 'imdb-api'
 
-module.exports = (toolbox: GluegunToolbox) => {
+export default (toolbox: GluegunToolbox) => {
   // grab the prompt tool from our toolbox
   const { prompt } = toolbox
 
@@ -92,7 +92,7 @@ Create a file `src/commands/search.ts` and put the following contents into it:
 ```typescript
 import { GluegunToolbox } from 'gluegun'
 
-module.exports = {
+export default {
   name: 'search',
   alias: ['s'],
   description: 'Searches for and displays information about a movie',
@@ -195,7 +195,7 @@ Let's go back to our IMDB extension and add a few tools. Here's the result:
 import { GluegunToolbox } from 'gluegun'
 import * as imdb from 'imdb-api'
 
-module.exports = (toolbox: GluegunToolbox) => {
+export default (toolbox: GluegunToolbox) => {
   const { filesystem } = toolbox
 
   // location of the movie config file
@@ -249,7 +249,7 @@ Go here: http://www.omdbapi.com/apikey.aspx?__EVENTTARGET=freeAcct
 Once you have your API key, enter it below.
 API KEY>`
 
-module.exports = {
+export default {
   name: 'search',
   alias: ['s'],
   description: 'Searches for and displays information about a movie',
@@ -317,7 +317,7 @@ We want to be able to reset the API key if we need to. Let's create another comm
 import { GluegunToolbox } from 'gluegun'
 const CONFIRM_MESSAGE = 'Are you sure you want to reset the IMDB API key?'
 
-module.exports = {
+export default {
   name: 'reset',
   run: async (toolbox: GluegunToolbox) => {
     // retrieve the tools from the toolbox that we will need

@@ -27,13 +27,13 @@ movies actor
 Here, the `actor` command is run. It is a JS file (`src/commands/actor.js`) that exports a structure that looks something like this:
 
 ```js
-module.exports = {
+export default {
   name: 'actor',
   alias: ['a'],
   description: 'Displays the name of an actor',
   hidden: false,
   dashed: false,
-  run: async toolbox => {
+  run: async (toolbox) => {
     const { print } = toolbox
 
     print.info(`Tom Hanks`)
@@ -61,7 +61,7 @@ Extensions are additional functionality that you can monkeypatch onto the `toolb
 
 ```js
 // extensions/sayhello.js
-module.exports = toolbox => {
+export default (toolbox) => {
   const { print } = toolbox
 
   toolbox.sayhello = () => {
@@ -74,7 +74,7 @@ When you have this extension, you can access it in any command file, like this:
 
 ```js
 // ...
-run: async toolbox => {
+run: async (toolbox) => {
   const { sayhello } = toolbox
 
   sayhello()
@@ -93,7 +93,7 @@ Extensions maybe also be asynchronous, allowing for things like network calls or
 // extensions/getMyData.js
 const { asyncCall } = require('@company/lib')
 
-module.exports = async (toolbox) {
+export default async (toolbox) {
   const { data } = await asyncCall()
   toolbox.myData = data
 }

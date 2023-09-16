@@ -49,7 +49,7 @@ npx gluegun new movies
 cd movies
 
 # and link your new executable
-yarn link
+bun link
 
 # and run it!
 movies help
@@ -86,7 +86,7 @@ Commands are simple objects that provide a name, optional aliases, and a functio
 
 ```js
 // in movie/src/commands/foo.js
-module.exports = {
+export default {
   name: 'foo',
   alias: 'f',
   run: async function (toolbox) {

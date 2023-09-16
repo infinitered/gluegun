@@ -1,4 +1,4 @@
-import { GluegunSemver } from './semver-types'
+import type { GluegunSemver } from './semver-types'
 
 /**
  * We're replicating the interface of semver in order to

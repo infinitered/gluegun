@@ -1,20 +1,33 @@
-import {
+import type {
   GluegunPackageManager,
   GluegunPackageManagerOptions,
   GluegunPackageManagerResult,
+  PackageManager,
 } from './package-manager-types'
 import { system } from './system-tools'
 
-let yarnpath
-
-const hasYarn = () => {
-  if (yarnpath === undefined) {
-    yarnpath = system.which('yarn')
-  }
-  return Boolean(yarnpath)
+const managerPath = {
+  bun: undefined,
+  yarn: undefined,
+  npm: undefined,
 }
 
+const has = (manager: PackageManager) => {
+  if (managerPath[manager] === undefined) managerPath[manager] = system.which(manager)
+  return Boolean(managerPath[manager])
+}
+
+// for backwards compatability only
+const hasYarn = () => has('yarn')
+
 const concatPackages = (packageName) => (Array.isArray(packageName) ? packageName.join(' ') : packageName)
+
+const which = (managers: PackageManager[]): PackageManager => {
+  for (const manager of managers) {
+    if (has(manager)) return manager
+  }
+  return 'npm'
+}
 
 const add = async (
   packageName: string | string[],
@@ -51,6 +64,8 @@ const packageManager: GluegunPackageManager = {
   add,
   remove,
   hasYarn,
+  has,
+  which,
 }
 
 export { packageManager, GluegunPackageManager }
