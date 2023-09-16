@@ -5,7 +5,7 @@
   "repository": "infinitered/gluegun",
   "bin": {
     "gluegun": "bin/gluegun",
-    "bluegun": "bin/bluegun"
+    "gluegun-bun": "bin/gluegun-bun"
   },
   "main": "build/index.js",
   "types": "build/types/index.d.ts",
@@ -164,6 +164,7 @@
       "@typescript-eslint/no-explicit-any": 0,
       "@typescript-eslint/no-var-requires": 0,
       "@typescript-eslint/no-namespace": 0,
+      "@typescript-eslint/ban-ts-comment": 0,
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {
