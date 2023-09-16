@@ -11,11 +11,11 @@
   "types": "build/types/index.d.ts",
   "scripts": {
     "format": "prettier --write \"{**/*.ts,**/*.js,.circleci/**/*.js}\" --loglevel error && eslint . --fix",
-    "clean-build": "rimraf ./build && node ./.circleci/removeDirect.js",
+    "clean-build": "rimraf ./build && bun run ./.circleci/removeDirect.js",
     "compile": "tsc -p .",
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
-    "create-direct": "node ./.circleci/createDirect.js",
-    "clean-types": "node .circleci/cleanDir.js ./build/types",
+    "create-direct": "bun run ./.circleci/createDirect.js",
+    "clean-types": "bun run .circleci/cleanDir.js ./build/types",
     "build": "bun run format && bun run clean-build && bun run compile && bun run copy-templates && bun run create-direct && bun run clean-types && echo 'Run bun run clean-build to remove build artifacts.'",
     "lint": "eslint .",
     "integration": "bun run build && jest --config=./.circleci/jest-integration.config.json",
@@ -81,7 +81,6 @@
     "ora": "4.0.2",
     "pluralize": "^8.0.0",
     "semver": "7.3.5",
-    "ts-node": "^10.9.1",
     "which": "2.0.2",
     "yargs-parser": "^21.0.0"
   },

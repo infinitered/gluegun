@@ -4,27 +4,22 @@ The fastest way to get started is to use the built-in Gluegun CLI (very meta!) t
 
 ## Creating a new Gluegun-powered CLI
 
-Gluegun works on macOS, Linux, and Windows 10. First, ensure you have Node installed and that you can access it (minimum version 7.6):
+Gluegun works on macOS, Linux, and Windows 10. First, ensure you have Node OR Bun installed and that you can access it (Node minimum version 7.6, Bun minimum version 1.0.0):
 
 ```
 $ node --version
+$ bun --version
 ```
 
-We will also be using [yarn](https://yarnpkg.com/) in this guide rather than `npm`. You can use `npm` if you want.
+We will also be using [bun](https://bun.sh/) in this guide rather than `npm`. You can use `npm` or `yarn` if you want.
 
-Install `gluegun` globally.
-
-```
-$ yarn global add gluegun
-```
-
-Next, navigate to the folder you'd like to create your CLI in and generate it.
+Navigate to the folder you'd like to create your CLI in and generate it.
 
 ```
-$ gluegun new mycli
+bunx gluegun --bun new mycli
 ```
 
-Gluegun will ask if you want to use TypeScript or modern JavaScript:
+Gluegun will ask if you want to use bun or yarn or npm when developing your app:
 
 ```
 ? Which language would you like to use? (Use arrow keys)
