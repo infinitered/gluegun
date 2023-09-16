@@ -14,9 +14,12 @@ var wantsCompiled = process.argv.indexOf('--compiled-gluegun') >= 0
 
 if (devMode && !wantsCompiled) {
   if (typeof Bun === 'undefined') {
-    console.error("Gluegun's dev mode requires the Bun runtime. Please install it: https://bun.sh.")
-    console.log('curl -fsSL https://bun.sh/install | bash')
-    process.exit(1)
+    console.log('You may want to run gluegun-bun instead.')
+
+    require('ts-node').register({
+      project: `${__dirname}/../tsconfig.json`,
+      compiler: require.resolve('typescript', { paths: [__dirname] }),
+    })
   }
 
   // kick off gluegun

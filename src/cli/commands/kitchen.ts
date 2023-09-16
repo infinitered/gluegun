@@ -2,7 +2,7 @@ import { prompt } from '../../toolbox/prompt-tools'
 import type { GluegunToolbox } from '../../domain/toolbox'
 import type { GluegunCommand } from '../../domain/command'
 
-const KitchenCommand: GluegunCommand = {
+const kitchenCommand: GluegunCommand = {
   name: 'kitchen',
   description: 'Runs through a kitchen sink of Gluegun tools',
   run: async (toolbox: GluegunToolbox) => {
@@ -63,4 +63,4 @@ const KitchenCommand: GluegunCommand = {
   },
 }
 
-module.exports = KitchenCommand
+export default kitchenCommand
