@@ -58,6 +58,7 @@ test('spin', () => {
   expect(typeof print.spin).toBe('function')
   const spinner = print.spin()
   expect(typeof spinner.stop).toBe('function')
+  spinner.stop()
 })
 
 test('colors', () => {
