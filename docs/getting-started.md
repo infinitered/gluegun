@@ -19,30 +19,15 @@ Navigate to the folder you'd like to create your CLI in and generate it.
 bunx gluegun --bun new mycli
 ```
 
-Gluegun will ask if you want to use bun or yarn or npm when developing your app:
-
-```
-? Which language would you like to use? (Use arrow keys)
-  TypeScript - Gives you a build pipeline out of the box (default)
-  Modern JavaScript - Node 8.2+ and ES2016+ (https://node.green/)
-```
-
-You can also pass in `--typescript` or `--javascript` (or `-t` or `-j` for short) to bypass the prompt:
-
-```
-$ gluegun new mycli -t
-$ gluegun new mycli -j
-```
-
-_Note: We recommend TypeScript, but you don't have to use it! Gluegun works great with modern JavaScript._
+Gluegun will ask if you want to use bun or yarn or npm when developing your app. Choose the one you want to use.
 
 ## Linking your CLI so you can access it
 
-Navigate to the new `mycli` folder and run `yarn link` to have it available globally on your command line.
+Navigate to the new `mycli` folder and run `bun link` to have it available globally on your command line.
 
 ```
 $ cd mycli
-$ yarn link
+$ bun link
 $ mycli --help
 ```
 
