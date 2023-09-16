@@ -18,7 +18,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - bun/setup
+      - bun-orb/setup
       - restore_cache:
           keys:
             - v1-bun-deps-{{ checksum "bun.lockb" }}
@@ -37,7 +37,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - bun/setup
+      - bun-orb/setup
       - restore_cache:
           keys:
             - v1-bun-deps-{{ checksum "bun.lockb" }}
@@ -50,7 +50,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - bun/setup
+      - bun-orb/setup
       - restore_cache:
           keys:
             - v1-bun-deps-{{ checksum "bun.lockb" }}
