@@ -3,7 +3,7 @@ import { build, GluegunToolbox } from 'gluegun'
 /**
  * Create the cli and kick it off
  */
-async function run(argv?: string | string[]): Promise<GluegunToolbox> {
+export async function run(argv?: string | string[]): Promise<GluegunToolbox> {
   // create a CLI runtime
   const cli = build()
     .brand('<%= props.name %>')
@@ -22,4 +22,3 @@ async function run(argv?: string | string[]): Promise<GluegunToolbox> {
   return toolbox
 }
 
-module.exports = { run }

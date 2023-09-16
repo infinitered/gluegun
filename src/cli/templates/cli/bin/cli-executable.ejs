@@ -12,7 +12,9 @@ if (wantsCompiled || !devMode) {
 } else {
   // this runs from the typescript source (for dev only)
   // hook into ts-node so we can run typescript on the fly
-  require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
+  if (typeof Bun === 'undefined') {
+    require('ts-node').register({ project: `${__dirname}/../tsconfig.json` })
+  }
   // run the CLI with the current process arguments
   require(`${__dirname}/../src/cli`).run(process.argv)
 }
