@@ -8,6 +8,8 @@ const command = require('./new')
 
 sinon.stub(console, 'log')
 
+const bunYarn = process.env.USE_YARN ? 'yarn' : 'bun'
+
 function createFakeToolbox(): Toolbox {
   const fakeToolbox = new Toolbox()
   fakeToolbox.strings = strings
@@ -157,7 +159,7 @@ test('generates properly', async () => {
 
   // test package installation
   expect((spawn as sinon.SinonStub).firstCall.args).toEqual([
-    `cd ${props.name} && bun install --silent && bun run format`,
+    `cd ${props.name} && ${bunYarn} install --silent && ${bunYarn} run format`,
     { shell: true, stdio: 'inherit' },
   ])
 })

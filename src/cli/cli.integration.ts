@@ -11,6 +11,9 @@ sinon.stub(console, 'log')
 
 const pwd = process.cwd()
 
+// for some CI enviroments, we need to use yarn
+const bunYarn = process.env.USE_YARN ? 'yarn' : 'bun'
+
 jest.setTimeout(5 * 60 * 1000)
 
 test('can start the cli', async () => {
@@ -23,14 +26,14 @@ test('can create a new boilerplate TypeScript cli', async () => {
   console.log(tmp)
   process.chdir(tmp as string)
 
-  const toolbox = await cli('new foo-ts --bun')
+  const toolbox = await cli(`new foo-ts --${bunYarn}`)
   expect(toolbox.command.name).toBe('new')
 
   process.chdir(`${tmp}/foo-ts`)
 
   // add local version of gluegun to the newly created project
   const gluegunPath = path.join(__dirname, '..', '..')
-  const gluegunAddCommand = `cd ${gluegunPath} && bun link && cd - && bun link gluegun`
+  const gluegunAddCommand = `cd ${gluegunPath} && ${bunYarn} link && cd - && ${bunYarn} link gluegun`
   await toolbox.system.spawn(`${gluegunAddCommand}`)
 
   const pkg = toolbox.filesystem.read('./package.json', 'json')
@@ -42,11 +45,11 @@ test('can create a new boilerplate TypeScript cli', async () => {
 
   // Run the tests
 
-  const testResults = await toolbox.system.run(`bun run test`)
+  const testResults = await toolbox.system.run(`${bunYarn} run test`)
   expect(testResults).not.toContain('FAIL')
 
   // Try running the help command, see what it does
-  const runCommand = await toolbox.system.exec(`bun run ./bin/foo-ts --help`)
+  const runCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts --help`)
   const cleanCmd = stripANSI(runCommand)
   expect(cleanCmd).toMatch(/version \(v\)/)
   expect(cleanCmd).toMatch(/Output the version number/)
@@ -54,7 +57,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.exec(`bun run ./bin/foo-ts g flub`)
+  const genCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/foo-ts/models/flub-model.ts`)
   expect(genFile).toMatch(/name: 'flub'/)
@@ -70,7 +73,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(generateResult).toMatch(/module\.exports = \{/)
 
   // Run that command and check the result
-  const kitchenCommand = await toolbox.system.exec(`bun run ./bin/foo-ts kitchen`)
+  const kitchenCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts kitchen`)
   expect(kitchenCommand).toMatch(/Hello. I am a chatty plugin./)
   expect(kitchenCommand).toMatch(/Busey/)
 

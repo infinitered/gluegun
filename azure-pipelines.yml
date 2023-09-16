@@ -16,8 +16,9 @@ steps:
     displayName: 'yarn install'
 
   - script: |
-      doskey bun=yarn $* && yarn ci:test
-    displayName: 'yarn ci:test'
+      set USE_YARN=true
+      yarn ci:test:windows
+    displayName: 'yarn ci:test:windows'
 
   - task: ArchiveFiles@2
     inputs:

@@ -24,6 +24,7 @@
     "snapupdate": "jest --updateSnapshot",
     "windows:test": "bun install && bun run format && bun run test && bun run clean-build && bun run compile && bun run copy-templates && jest --config=./.circleci/jest-integration.config.json",
     "ci:test": "bun run lint && bun run test --maxWorkers=2 && bun run integration",
+    "ci:test:windows": "yarn run lint && yarn run test && yarn run integration",
     "ci:publish": "bun run build && bun run semantic-release",
     "semantic-release": "semantic-release",
     "prepare": "husky install"
