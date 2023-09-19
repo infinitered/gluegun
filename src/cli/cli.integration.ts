@@ -13,6 +13,7 @@ const pwd = process.cwd()
 
 // for some CI enviroments, we need to use yarn
 const bunYarn = process.env.USE_YARN ? 'yarn' : 'bun'
+const bunNode = process.env.USE_YARN ? 'node' : 'bun run'
 
 jest.setTimeout(5 * 60 * 1000)
 
@@ -49,7 +50,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(testResults).not.toContain('FAIL')
 
   // Try running the help command, see what it does
-  const runCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts --help`)
+  const runCommand = await toolbox.system.exec(`${bunNode} ./bin/foo-ts --help`)
   const cleanCmd = stripANSI(runCommand)
   expect(cleanCmd).toMatch(/version \(v\)/)
   expect(cleanCmd).toMatch(/Output the version number/)
@@ -57,7 +58,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(cleanCmd).toMatch(/help \(h\)/)
 
   // Try running the generate command, see what it does
-  const genCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts g flub`)
+  const genCommand = await toolbox.system.exec(`${bunNode} ./bin/foo-ts g flub`)
   console.log(genCommand)
   const genFile = toolbox.filesystem.read(`${tmp}/foo-ts/models/flub-model.ts`)
   expect(genFile).toMatch(/name: 'flub'/)
@@ -73,7 +74,7 @@ test('can create a new boilerplate TypeScript cli', async () => {
   expect(generateResult).toMatch(/module\.exports = \{/)
 
   // Run that command and check the result
-  const kitchenCommand = await toolbox.system.exec(`${bunYarn} run ./bin/foo-ts kitchen`)
+  const kitchenCommand = await toolbox.system.exec(`${bunNode} ./bin/foo-ts kitchen`)
   expect(kitchenCommand).toMatch(/Hello. I am a chatty plugin./)
   expect(kitchenCommand).toMatch(/Busey/)
 
