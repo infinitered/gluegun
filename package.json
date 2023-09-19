@@ -22,7 +22,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "snapupdate": "jest --updateSnapshot",
-    "windows:test": "yarn install && yarn run format && yarn run test && rimraf ./build && node run ./.circleci/removeDirect.js && yarn run compile && yarn run copy-templates && jest --config=./.circleci/jest-integration.config.json",
+    "windows:test": "yarn install && yarn run format && yarn run test && rimraf ./build && node ./.circleci/removeDirect.js && yarn run compile && yarn run copy-templates && jest --config=./.circleci/jest-integration.config.json",
     "ci:test": "bun run lint && bun run test --maxWorkers=2 && bun run integration",
     "ci:publish": "bun run build && bun run semantic-release",
     "semantic-release": "semantic-release",
