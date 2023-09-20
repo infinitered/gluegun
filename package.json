@@ -16,7 +16,7 @@
     "copy-templates": "cp -a ./src/cli/templates ./build/cli/",
     "create-direct": "bun run ./.circleci/createDirect.js",
     "clean-types": "rimraf ./build/types",
-    "build": "bun run format && bun run clean-build && bun run compile && bun run copy-templates && bun run create-direct && bun run clean-types && echo 'Run bun run clean-build to remove build artifacts.'",
+    "build": "bun run format && bun run clean-build && bun run compile && bun run copy-templates && bun run create-direct && echo 'Run bun run clean-build to remove build artifacts.'",
     "lint": "eslint .",
     "integration": "bun run build && jest --config=./.circleci/jest-integration.config.json",
     "test": "jest",
