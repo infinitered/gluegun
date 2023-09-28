@@ -1,15 +1,15 @@
 import * as expect from 'expect'
 import { Toolbox } from '../domain/toolbox'
 import createExtension from './prompt-extension'
-import { stdin } from 'mock-stdin'
+import { type MockSTDIN, stdin } from 'mock-stdin'
 
 // Key codes
 const keys = { up: '\x1B\x5B\x41', down: '\x1B\x5B\x42', enter: '\x0D', space: '\x20' }
 
 // Mock stdin so we can send messages to the CLI
-let io = null
+let io: MockSTDIN | null = null
 beforeAll(() => (io = stdin()))
-afterAll(() => io.restore())
+afterAll(() => io!.restore())
 
 // helper function for timing
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -31,41 +31,41 @@ test('works as expected', async () => {
 
   const sendKeystrokes = async () => {
     // list
-    io.send(keys.down)
-    io.send(keys.enter)
+    io!.send(keys.down)
+    io!.send(keys.enter)
     await delay(10)
 
     // confirm
-    io.send('Y')
-    // io.send(keys.enter)
+    io!.send('Y')
+    // io!.send(keys.enter)
     await delay(10)
 
     // multiselect
-    io.send(keys.space)
-    io.send(keys.down)
-    io.send(keys.down)
-    io.send(keys.space)
-    io.send(keys.enter)
+    io!.send(keys.space)
+    io!.send(keys.down)
+    io!.send(keys.down)
+    io!.send(keys.space)
+    io!.send(keys.enter)
     await delay(10)
 
     // select
-    io.send(keys.down)
-    io.send(keys.enter)
+    io!.send(keys.down)
+    io!.send(keys.enter)
     await delay(10)
 
     // password
-    io.send('hunter2')
-    io.send(keys.enter)
+    io!.send('hunter2')
+    io!.send(keys.enter)
     await delay(10)
 
     // input
-    io.send('Alexander')
-    io.send(keys.enter)
+    io!.send('Alexander')
+    io!.send(keys.enter)
     await delay(10)
 
     // autocomplete
-    io.send('Wash')
-    io.send(keys.enter)
+    io!.send('Wash')
+    io!.send(keys.enter)
     await delay(10)
   }
   setTimeout(() => sendKeystrokes().then(), 5)
@@ -135,7 +135,7 @@ test('Confirm can accept default value', async () => {
   const { prompt } = toolbox
 
   const sendKeystrokes = async () => {
-    io.send(keys.enter)
+    io!.send(keys.enter)
     await delay(10)
   }
   setTimeout(() => sendKeystrokes().then(), 5)

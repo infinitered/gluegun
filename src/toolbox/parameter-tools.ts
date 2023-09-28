@@ -29,8 +29,17 @@ export function parseParams(commandArray: string | string[], extraOpts: Options 
   }
 
   // chop it up yargsParse!
-  const parsed = yargsParse(commandArray)
-  const array = parsed._.slice()
+  const parsed = yargsParse(commandArray, {
+    configuration: {
+      'parse-positional-numbers': false,
+    },
+    alias: {
+      h: 'help',
+      v: 'version',
+    },
+    boolean: ['help', 'version'],
+  })
+  const array: string[] = parsed._.slice().map((x) => x.toString())
   delete parsed._
   const normalizedParsed: Options = Object.fromEntries(
     Object.entries(parsed).map(([key, value]) => {
