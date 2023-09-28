@@ -60,7 +60,7 @@
     "colors": "1.4.0",
     "cosmiconfig": "7.0.1",
     "cross-spawn": "7.0.3",
-    "ejs": "^3.1.7",
+    "ejs": "3.1.8",
     "enquirer": "2.3.6",
     "execa": "5.1.1",
     "fs-jetpack": "4.3.1",
