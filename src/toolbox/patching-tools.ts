@@ -1,6 +1,6 @@
 import { is } from './utils'
 import { filesystem } from './filesystem-tools'
-import { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
+import type { GluegunPatchingPatchOptions, GluegunPatching } from './patching-types'
 
 /**
  * Identifies if something exists in a file. Async.

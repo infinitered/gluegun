@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   run: ({ parameters, runtime, print, strings, meta }) => {
     const infoMessage = strings.isBlank(parameters.first)
       ? `Welcome to ${print.colors.cyan(runtime.brand)} CLI version ${meta.version()}!`

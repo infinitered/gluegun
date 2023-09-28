@@ -4,50 +4,30 @@ The fastest way to get started is to use the built-in Gluegun CLI (very meta!) t
 
 ## Creating a new Gluegun-powered CLI
 
-Gluegun works on macOS, Linux, and Windows 10. First, ensure you have Node installed and that you can access it (minimum version 7.6):
+Gluegun works on macOS, Linux, and Windows 10. First, ensure you have Node OR Bun installed and that you can access it (Node minimum version 7.6, Bun minimum version 1.0.0):
 
 ```
 $ node --version
+$ bun --version
 ```
 
-We will also be using [yarn](https://yarnpkg.com/) in this guide rather than `npm`. You can use `npm` if you want.
+We will also be using [bun](https://bun.sh/) in this guide rather than `npm`. You can use `npm` or `yarn` if you want.
 
-Install `gluegun` globally.
-
-```
-$ yarn global add gluegun
-```
-
-Next, navigate to the folder you'd like to create your CLI in and generate it.
+Navigate to the folder you'd like to create your CLI in and generate it.
 
 ```
-$ gluegun new mycli
+bunx gluegun --bun new mycli
 ```
 
-Gluegun will ask if you want to use TypeScript or modern JavaScript:
-
-```
-? Which language would you like to use? (Use arrow keys)
-  TypeScript - Gives you a build pipeline out of the box (default)
-  Modern JavaScript - Node 8.2+ and ES2016+ (https://node.green/)
-```
-
-You can also pass in `--typescript` or `--javascript` (or `-t` or `-j` for short) to bypass the prompt:
-
-```
-$ gluegun new mycli -t
-$ gluegun new mycli -j
-```
-
-_Note: We recommend TypeScript, but you don't have to use it! Gluegun works great with modern JavaScript._
+Gluegun will ask if you want to use bun or yarn or npm when developing your app. Choose the one you want to use.
 
 ## Linking your CLI so you can access it
 
-Navigate to the new `mycli` folder and run `yarn link` to have it available globally on your command line.
+Navigate to the new `mycli` folder and run `bun link` to have it available globally on your command line.
 
 ```
 $ cd mycli
-$ yarn link
+$ bun link
 $ mycli --help
 ```
 
@@ -58,7 +38,7 @@ Your Gluegun-powered CLI isn't very useful without a command! In your CLI, creat
 ```js
 // src/commands/hello.js
 module.exports = {
-  run: async toolbox => {
+  run: async (toolbox) => {
     toolbox.print.info('Hello, world!')
   },
 }
@@ -91,7 +71,7 @@ You can add more tools into the `toolbox` for _all_ of your commands to use by c
 
 ```js
 // src/extensions/hello-extension.js
-module.exports = async toolbox => {
+module.exports async (toolbox) => {
   toolbox.hello = () => {
     toolbox.print.info('Hello from an extension!')
   }
@@ -115,7 +95,7 @@ Then, in your `hello` command, use that function instead:
 ```js
 // src/commands/hello.js
 module.exports = {
-  run: toolbox => {
+  run: (toolbox) => {
     const { hello } = toolbox
 
     hello()

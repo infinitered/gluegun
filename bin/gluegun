@@ -13,11 +13,15 @@ var devMode = require('fs').existsSync(`${__dirname}/../src`)
 var wantsCompiled = process.argv.indexOf('--compiled-gluegun') >= 0
 
 if (devMode && !wantsCompiled) {
-  // hook into ts-node so we can run typescript on the fly
-  require('ts-node').register({
-    project: `${__dirname}/../tsconfig.json`,
-    compiler: require.resolve('typescript', { paths: [__dirname] }),
-  })
+  if (typeof Bun === 'undefined') {
+    console.log('You may want to run gluegun-bun instead.')
+
+    require('ts-node').register({
+      project: `${__dirname}/../tsconfig.json`,
+      compiler: require.resolve('typescript', { paths: [__dirname] }),
+    })
+  }
+
   // kick off gluegun
   require(`${__dirname}/../src/cli/cli`).run(process.argv)
 } else {

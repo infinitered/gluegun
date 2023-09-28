@@ -8,9 +8,11 @@ Bug fixes, features, docs, marketing, and issue support are all contributions. W
 
 If you're reading this, you might be interested in pitching in from a code point of view.
 
-`gluegun` is powered by Node (7.6 or above). Install Node using `brew` (if on macOS) or by following the instructions here: [https://nodejs.org/en/download/current/](https://nodejs.org/en/download/current/)
+`gluegun` is powered by Bun or Node in production, and Bun only during development. Your CLI users may be running via Node, so having both is important so you can test both.
 
-Also install yarn: `brew install yarn` or [https://yarnpkg.com](https://yarnpkg.com).
+Install Node using `brew` (if on macOS) or by following the instructions here: [https://nodejs.org/en/download/current/](https://nodejs.org/en/download/current/)
+
+Also install Bun: `curl -fsSL https://bun.sh/install | bash` or [https://bun.sh](https://bun.sh).
 
 ## Installing `gluegun`
 
@@ -24,7 +26,7 @@ Install all the dependencies.
 
 ```
 cd gluegun
-yarn
+bun install
 ```
 
 Gluegun's source files are mostly in `./src` and are written in [TypeScript](www.typescriptlang.org). Documentation lives in `/docs`.
@@ -34,17 +36,17 @@ Gluegun's source files are mostly in `./src` and are written in [TypeScript](www
 On macOS or Linux:
 
 ```sh
-yarn test
-yarn lint
-yarn watch
-yarn integration
+bun run test
+bun run lint
+bun run watch
+bun run integration
 ```
 
 On windows:
 
 ```sh
-yarn lint
-yarn windows:test
+bun run lint
+bun run windows:test
 ```
 
 ## Features & Fixes
@@ -52,8 +54,8 @@ yarn windows:test
 ```sh
 git branch feature/fun
 # furious typing
-yarn test
-yarn lint
+bun run test
+bun run lint
 git commit -m "Adds fun"
 git push -u origin --HEAD
 ```

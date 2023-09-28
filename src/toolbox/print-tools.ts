@@ -1,9 +1,10 @@
-import * as CLITable from 'cli-table3'
-import * as importedColors from 'colors/safe'
 import { commandInfo } from './meta-tools'
 import { Toolbox } from '../domain/toolbox'
 import { times } from './utils'
-import { GluegunPrint, GluegunPrintColors, GluegunPrintTableOptions, TableStyle } from './print-types'
+import type { GluegunPrint, GluegunPrintColors, GluegunPrintTableOptions, TableStyle } from './print-types'
+const CLITable3 = require('cli-table3')
+type CLITable = typeof CLITable3
+const importedColors = require('colors/safe')
 
 // We're extending `colors` with a few more attributes
 const colors = importedColors as GluegunPrintColors
@@ -111,7 +112,7 @@ function table(data: string[][], options: GluegunPrintTableOptions = {}): void {
     case 'markdown':
       // eslint-disable-next-line no-case-declarations
       const header = data.shift()
-      t = new CLITable({
+      t = new CLITable3({
         head: header,
         chars: CLI_TABLE_MARKDOWN,
         style: options.style,
@@ -121,13 +122,13 @@ function table(data: string[][], options: GluegunPrintTableOptions = {}): void {
       resetTablePadding(t)
       break
     case 'lean':
-      t = new CLITable({
+      t = new CLITable3({
         style: options.style,
       })
       t.push(...data)
       break
     default:
-      t = new CLITable({
+      t = new CLITable3({
         chars: CLI_TABLE_COMPACT,
         style: options.style,
       })

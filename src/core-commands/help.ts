@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   name: 'help',
   alias: 'h',
   dashed: true,

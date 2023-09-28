@@ -2,25 +2,21 @@
 
 _You can see the latest version of the result of this tutorial on Github at [https://github.com/infinitered/tutorial-movie](https://github.com/infinitered/tutorial-movie)!_
 
-In this tutorial, we'll make a Gluegun-powered command-line interface called `movie`. Before doing this tutorial, make sure you've followed the installation instructions in [Getting Started](/getting-started). We will also be using [yarn](https://yarnpkg.com/) in this tutorial rather than `npm`. You can use `npm` if you want.
+In this tutorial, we'll make a Gluegun-powered command-line interface called `movie`. Before doing this tutorial, make sure you've followed the installation instructions in [Getting Started](/getting-started). We will also be using [bun](https://bun.sh/) in this tutorial rather than `npm`. You can use `npm` or `yarn` if you want.
 
 ## Generate a new CLI
 
 At your terminal prompt, run the following commands.
 
 ```
-$ gluegun new movie --typescript
+$ bunx --bun gluegun new movie --bun
 
 Generated movie CLI.
 
 Next:
   $ cd movie
-  $ yarn link
-  $ movie
-
-$ cd movie
-$ yarn link
-$ movie --help
+  $ bun link
+  $ movie --help
 
 movie version 0.0.1
 
@@ -39,7 +35,7 @@ At this point, open the folder in your editor. You should see something like thi
 We want to hook into IMDB's API to find information about movies and actors. Luckily, there's a nice little [NPM package](https://github.com/worr/node-imdb-api) for that!
 
 ```
-$ yarn add imdb-api
+$ bun add imdb-api
 ```
 
 In order to use the API, you'll need an API key. We are not going to hard-code our API key into the CLI source. Instead, we'll ask the user for an API key and then store it locally.

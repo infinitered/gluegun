@@ -9,61 +9,57 @@ defaults: &defaults
     - image: cimg/node:18.17.1
   working_directory: ~/repo
 
-version: 2
+version: 2.1
+orbs:
+  # https://circleci.com/developer/orbs/orb/cmgriffing/bun-orb
+  bun-orb: cmgriffing/bun-orb@0.0.26
 jobs:
   setup:
     <<: *defaults
     steps:
       - checkout
+      - bun-orb/setup
       - restore_cache:
-          name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-bun-deps-{{ checksum "bun.lockb" }}
+            - v1-bun-deps-
       - run:
           name: Install dependencies
           command: |
-            yarn install --frozen-lockfile
+            bun install
       - save_cache:
-          name: Save node modules
+          key: v1-bun-deps-{{ checksum "bun.lockb" }}
           paths:
+            - ~/.bun/install/cache
             - node_modules
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
   tests:
     <<: *defaults
     steps:
       - checkout
+      - bun-orb/setup
       - restore_cache:
-          name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-      - run:
-          name: Install React Native CLI and Ignite CLI
-          command: |
-            sudo npm i -g ignite-cli react-native-cli
+            - v1-bun-deps-{{ checksum "bun.lockb" }}
+            - v1-bun-deps-
       - run:
           name: Run tests
-          command: yarn ci:test # this command will be added to/found in your package.json scripts
+          command: bun run ci:test
 
   publish:
     <<: *defaults
     steps:
       - checkout
-      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - bun-orb/setup
       - restore_cache:
-          name: Restore node modules
           keys:
-            - v1-dependencies-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-bun-deps-{{ checksum "bun.lockb" }}
+            - v1-bun-deps-
+      - run: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
       # Run semantic-release after all the above is set.
       - run:
           name: Publish to NPM
-          command: yarn ci:publish # this will be added to your package.json scripts
+          command: bun run ci:publish # this will be added to your package.json scripts
 
 workflows:
   version: 2

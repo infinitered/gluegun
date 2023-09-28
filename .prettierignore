@@ -2,8 +2,8 @@
 package.json
 package-lock.json
 yarn.lock
-readme.md
+README.md
 dist/
 build/
-docs/readme.md
+docs/README.md
 *.ejs

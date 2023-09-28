@@ -1,10 +1,8 @@
-<% if (props.language === "typescript") { %>
-import { GluegunToolbox } from 'gluegun'
-<% } %>
+import type { GluegunToolbox } from 'gluegun'
 
 // add your CLI-specific functionality here, which will then be accessible
 // to your commands
-module.exports = <%= (props.language === "typescript") ? "(toolbox: GluegunToolbox)" : "toolbox" %> => {
+module.exports = (toolbox: GluegunToolbox) => {
   toolbox.foo = () => {
     toolbox.print.info('called foo extension')
   }

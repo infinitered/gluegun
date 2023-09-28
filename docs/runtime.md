@@ -14,7 +14,7 @@ const cli = build('movie')
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .command({ name: 'hi', run: (toolbox) => toolbox.print.info('hi!') })
   .exclude(['filesystem', 'semver', 'system', 'prompt', 'http'])
   .checkForUpdates(5) // check for updates randomly about 5% of the time
   .create()
@@ -86,9 +86,7 @@ movie-credits
 You can load a plugin from a directory:
 
 ```js
-const cli = build('movie')
-  .src(__dirname)
-  .plugin('~/.movie/movie-imdb')
+const cli = build('movie').src(__dirname).plugin('~/.movie/movie-imdb')
 ```
 
 ## plugins
@@ -96,10 +94,7 @@ const cli = build('movie')
 You can also load multiple plugins within a directory.
 
 ```js
-const cli = build('movie')
-  .src(__dirname)
-  .plugin('~/.movie/movie-imdb')
-  .plugins('./node_modules', { pattern: 'movie-' })
+const cli = build('movie').src(__dirname).plugin('~/.movie/movie-imdb').plugins('./node_modules', { pattern: 'movie-' })
 ```
 
 `plugins` supports a `fs-jetpack` [matching pattern](https://github.com/szwacz/fs-jetpack#findpath-searchoptions) so you can filter out a subset of directories instead of just all.
@@ -189,7 +184,7 @@ const cli = build('movie')
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .command({ name: 'hi', run: (toolbox) => toolbox.print.info('hi!') })
 ```
 
 In this case, if you ran `movie hi`, it would run the function provided and print out 'hi!'.
@@ -266,7 +261,7 @@ const cli = build('movie')
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .command({ name: 'hi', run: (toolbox) => toolbox.print.info('hi!') })
   .checkForUpdates(5)
 ```
 
@@ -282,7 +277,7 @@ const cli = build('movie')
   .help()
   .version()
   .defaultCommand()
-  .command({ name: 'hi', run: toolbox => toolbox.print.info('hi!') })
+  .command({ name: 'hi', run: (toolbox) => toolbox.print.info('hi!') })
   .checkForUpdates(5)
   .create()
 ```

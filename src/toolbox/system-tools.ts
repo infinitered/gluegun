@@ -1,5 +1,5 @@
-import { Options } from '../domain/options'
-import { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
+import type { Options } from '../domain/options'
+import type { GluegunSystem, GluegunError, StringOrBuffer } from './system-types'
 import { head, tail, isNil } from './utils'
 
 /**
@@ -15,15 +15,22 @@ async function run(commandLine: string, options: Options = {}): Promise<any> {
   const { trim, ...nodeOptions } = options
 
   return new Promise((resolve, reject) => {
-    const { exec } = require('child_process')
-    exec(commandLine, nodeOptions, (error: GluegunError, stdout: StringOrBuffer, stderr: StringOrBuffer) => {
-      if (error) {
-        error.stdout = stdout
-        error.stderr = stderr
-        return reject(error)
-      }
-      resolve(trimmer(stdout || ''))
-    })
+    // @ts-ignore-next-line
+    if (typeof Bun === 'undefined') {
+      const { exec } = require('child_process')
+      exec(commandLine, nodeOptions, (error: GluegunError, stdout: StringOrBuffer, stderr: StringOrBuffer) => {
+        if (error) {
+          error.stdout = stdout
+          error.stderr = stderr
+          return reject(error)
+        }
+        resolve(trimmer(stdout || ''))
+      })
+    } else {
+      // @ts-ignore-next-line
+      const proc = Bun.spawnSync(commandLine.split(' '))
+      resolve(proc.stdout.toString().trim())
+    }
   })
 }
 

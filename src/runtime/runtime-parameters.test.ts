@@ -47,7 +47,7 @@ test('can pass arguments with mixed options', async () => {
   expect(parameters.command).toBe('hello')
   expect(parameters.options.foo).toBe(true)
   expect(parameters.options.n).toBe(1)
-  expect(parameters.options.chocolate).toBe('true')
+  expect(parameters.options.chocolate).toBe(true)
 })
 
 test('properly infers the heirarchy from folder structure', async () => {

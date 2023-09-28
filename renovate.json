@@ -1,7 +1,0 @@
-{
-  "extends": [
-    "config:base"
-  ],
-  "timezone": "America/Los_Angeles",
-  "schedule": "12th of every month"
-}

@@ -14,7 +14,7 @@ _Do this_
 module.exports = {
   name: 'world',
   alias: ['w', 'earth'],
-  run: async toolbox => {
+  run: async (toolbox) => {
     // in this case, `hello` is provided by an extension
     const { hello, prompt } = toolbox
 
@@ -84,7 +84,7 @@ As of Gluegun 4.1.0, you can also nest commands in a `build` folder, if for exam
 Think of extensions as "drawers" full of tools in your Gluegun toolbox. In the above example, the `hello` extension adds two functions, `greetEarthling` and `greetAlien`.
 
 ```js
-module.exports = toolbox => {
+module.exports = (toolbox) => {
   const { print } = toolbox
   toolbox.hello = {
     greetEarthling: () => print.info('Hello, earthling!'),
@@ -131,7 +131,7 @@ const earthling = require('../toolbox/greetings/earthling')
 const martian = require('../toolbox/greetings/martian')
 const venusian = require('../toolbox/greetings/venusian')
 
-module.exports = toolbox => {
+module.exports = (toolbox) => {
   toolbox.hello = { earthling, martian, venusian }
 }
 ```
@@ -147,7 +147,7 @@ const R = require('ramda')
 
 module.exports = {
   name: 'mycommand',
-  run: async toolbox => {
+  run: async (toolbox) => {
     // use Ramda
   },
 }
@@ -158,7 +158,7 @@ _Do this_
 ```js
 module.exports = {
   name: 'mycommand',
-  run: async toolbox => {
+  run: async (toolbox) => {
     const R = require('ramda')
     // use Ramda
   },

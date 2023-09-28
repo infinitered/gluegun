@@ -1,4 +1,4 @@
-import { GluegunEnquirer, GluegunPrompt } from './prompt-types'
+import type { GluegunEnquirer, GluegunPrompt } from './prompt-types'
 
 function getEnquirer(): GluegunEnquirer {
   const Enquirer: GluegunEnquirer = require('enquirer')

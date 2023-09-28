@@ -46,4 +46,5 @@ test('connects to a server', async () => {
   })
   const response = await api.get('/')
   expect(response.data).toBe('hi')
+  server.close()
 })

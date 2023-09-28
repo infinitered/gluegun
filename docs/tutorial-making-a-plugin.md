@@ -76,7 +76,7 @@ $ touch extensions/macos-extension.js
 Edit this file like so:
 
 ```js
-module.exports = toolbox => {
+module.exports = (toolbox) => {
   toolbox.internMac = async () => {
     return await toolbox.system.run(`defaults read loginwindow SystemVersionStampAsString`)
   }

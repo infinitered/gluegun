@@ -1,13 +1,9 @@
-<% if (props.language === "typescript") { %>
-  import { build } from 'gluegun'
-<% } else { %>
-  const { build } = require('gluegun')  
-<% } %>
+import { build, GluegunToolbox } from 'gluegun'
 
 /**
  * Create the cli and kick it off
  */
-async function run(argv) {
+export async function run(argv?: string | string[]): Promise<GluegunToolbox> {
   // create a CLI runtime
   const cli = build()
     .brand('<%= props.name %>')
@@ -26,4 +22,3 @@ async function run(argv) {
   return toolbox
 }
 
-module.exports = { run }

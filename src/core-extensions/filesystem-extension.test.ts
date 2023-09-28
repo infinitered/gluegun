@@ -15,7 +15,7 @@ test('has the proper interface', () => {
   expect(typeof ext.copy).toBe('function')
   expect(typeof ext.path).toBe('function')
   expect(typeof ext.subdirectories).toBe('function')
-  expect(ext.read(__filename).split(os.EOL)[0]).toBe(`import * as expect from 'expect'`)
+  expect(ext.read(__filename)!).toContain(`import * as expect from 'expect'`)
   // the extra values we've added
   expect(ext.eol).toBe(os.EOL)
   expect(ext.separator).toBe(path.sep)

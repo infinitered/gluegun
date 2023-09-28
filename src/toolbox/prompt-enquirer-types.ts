@@ -141,4 +141,4 @@ declare namespace Enquirer {
   class Prompt extends BasePrompt {}
 }
 
-export default Enquirer
+module.exports = Enquirer

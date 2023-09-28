@@ -49,7 +49,7 @@ npx gluegun new movies
 cd movies
 
 # and link your new executable
-yarn link
+bun link
 
 # and run it!
 movies help
@@ -119,7 +119,7 @@ See the [runtime docs](./docs/runtime.md) for more details on building your own 
 - [Graph CLI](https://github.com/graphprotocol/graph-cli) - CLI for building and managing subgraphs that index data from Ethereum and IPFS - [https://thegraph.com/explorer](https://thegraph.com/explorer)
 - [Vts](https://github.com/snowfrogdev/Vts) - Vanilla TypeScript library starter CLI tool
 
-*Additionally, the first versions of the [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) (a CLI toolchain for simplifying serverless web and mobile development) used Gluegun. They've since integrated Gluegun's functionality into their CLI in a bespoke way, but you can still see Gluegun patterns in their CLI.*
+_Additionally, the first versions of the [AWS Amplify CLI](https://github.com/aws-amplify/amplify-cli) (a CLI toolchain for simplifying serverless web and mobile development) used Gluegun. They've since integrated Gluegun's functionality into their CLI in a bespoke way, but you can still see Gluegun patterns in their CLI._
 
 # What's under the hood?
 
@@ -151,8 +151,8 @@ While Gluegun is no longer actively developed by [Infinite Red](https://infinite
 
 If you're looking for alternatives, here's a list:
 
-* [Rust CLI](https://rust-cli.github.io/book/index.html) -- Rust is a rapidly growing community and hot language, and has the benefit of speed and not needing to rely on a local Node engine.
-* [oclif](https://oclif.io/) - oclif is used by some large CLIs and is very actively maintained
-* [commander](https://github.com/tj/commander.js/) and [yeoman](https://yeoman.io/) - commander and yeoman have been around a long time and have very large communities. Keep in mind that we built Gluegun to avoid Commander and Yeoman, so YMMV
-* [vorpal](https://vorpal.js.org/) - unfortunately looks like it isn't actively maintained
-* [just make your own](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js) - you don't need a framework to make a Node CLI. Check out this article from Twilio
+- [Rust CLI](https://rust-cli.github.io/book/index.html) -- Rust is a rapidly growing community and hot language, and has the benefit of speed and not needing to rely on a local Node engine.
+- [oclif](https://oclif.io/) - oclif is used by some large CLIs and is very actively maintained
+- [commander](https://github.com/tj/commander.js/) and [yeoman](https://yeoman.io/) - commander and yeoman have been around a long time and have very large communities. Keep in mind that we built Gluegun to avoid Commander and Yeoman, so YMMV
+- [vorpal](https://vorpal.js.org/) - unfortunately looks like it isn't actively maintained
+- [just make your own](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js) - you don't need a framework to make a Node CLI. Check out this article from Twilio

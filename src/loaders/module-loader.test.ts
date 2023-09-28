@@ -42,13 +42,13 @@ test('handles files with an object', () => {
   expect(Object.keys(m)).toEqual([])
 })
 
-test('export default function', () => {
+test('module.exports = function', () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/module-exports-function.js`)
   expect(typeof m).toBe('function')
   expect(m()).toBe('hi')
 })
 
-test('export default {}', async () => {
+test('module.exports = {}', async () => {
   const m = loadModule(`${__dirname}/../fixtures/good-modules/module-exports-object.js`)
   expect(typeof m).toBe('object')
   expect(await m.hi()).toBe('hi')
