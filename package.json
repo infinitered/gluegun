@@ -1,6 +1,7 @@
 {
   "name": "gluegun",
   "alpha.version": "6.0.0-alpha.4",
+  "version": "5.1.5",
   "description": "A delightful toolkit for building Node-powered CLIs.",
   "repository": "infinitered/gluegun",
   "bin": {
@@ -20,6 +21,7 @@
     "integration": "bun run build && jest --config=./.circleci/jest-integration.config.json",
     "test": "jest",
     "watch": "jest --watch",
+    "watch:debug": "yarn watch --runInBand --verbose",
     "snapupdate": "jest --updateSnapshot",
     "windows:test": "yarn install && yarn run format && yarn run test && rimraf ./build && node ./.circleci/removeDirect.js && yarn run compile && yarn run copy-templates && jest --config=./.circleci/jest-integration.config.json",
     "ci:test": "bun run lint && bun run test --maxWorkers=2 && bun run integration",

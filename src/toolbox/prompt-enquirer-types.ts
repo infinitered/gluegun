@@ -1,7 +1,5 @@
 // imported from https://github.com/enquirer/enquirer/blob/8d626c206733420637660ac7c2098d7de45e8590/index.d.ts
 
-import { EventEmitter } from 'events'
-
 interface BasePromptOptions {
   name: string | (() => string)
   type: string | (() => string)
@@ -87,7 +85,7 @@ export type PromptOptions =
   | SnippetPromptOptions
   | SortPromptOptions
 
-declare class BasePrompt extends EventEmitter {
+declare class BasePrompt {
   constructor(options?: PromptOptions)
 
   render(): void
@@ -95,7 +93,7 @@ declare class BasePrompt extends EventEmitter {
   run(): Promise<any>
 }
 
-declare class Enquirer<T = object> extends EventEmitter {
+declare class Enquirer<T = object> {
   constructor(options?: object, answers?: T)
 
   /**
