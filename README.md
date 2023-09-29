@@ -24,9 +24,11 @@ In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set
 
 # Notice
 
-Gluegun is at a stable point and we aren't planning on building new features for it, although the community continues to send in PRs and we release them. Read the [Community Supported](#Community-Supported) section to learn more.
+Gluegun is at a stable point and we aren't planning on building new features for it, although the community continues to send in PRs and we release them if they are performance, stability, types, or other similar enhancements. Read the [Community Supported](#Community-Supported) section to learn more.
 
 # Why use Gluegun?
+
+Introductory YouTube video by our CTO, Jamon Holmgren: [https://www.youtube.com/watch?v=_KEqXfLOSQY](https://www.youtube.com/watch?v=_KEqXfLOSQY)
 
 You might want to use Gluegun if:
 
