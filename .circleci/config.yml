@@ -75,16 +75,16 @@ jobs:
 
 # Parameters for the publish-docs orb
 publish-details: &publish-details
-  description: "Use MLKit Models in React Native apps"
-  git_email: "ci@infinite.red"
-  git_username: "Infinite Red CI"
-  label: "React Native MLKit"
-  project_name: 'react-native-mlkit'
-  source_docs_dir: docs
-  source_repo_directory: "source"
-  target_docs_dir: "docs"
-  target_repo: "git@github.com:infinitered/ir-docs.git"
-  target_repo_directory: "target"
+  description: Use MLKit Models in React Native apps
+  git_email: ci@infinite.red
+  git_username: Infinite Red CI
+  label: Gluegun
+  project_name: gluegun
+  source_docs_dir: ir-docs
+  source_repo_directory: source
+  target_docs_dir: docs
+  target_repo: git@github.com:infinitered/ir-docs.git
+  target_repo_directory: target
 
 workflows:
   version: 2
@@ -106,27 +106,27 @@ workflows:
     jobs:
       - publish-docs/publish_docs:
           <<: *publish-details
-  test_docs:
-    when:
-      and:
-        - not: << pipeline.parameters.force-docs >>
-        - true  # Placeholder for correct YAML structure
-    jobs:
-      - publish-docs/build_docs:
-          <<: *publish-details
-          filters:
-            branches:
-              ignore:
-                - main
-  publish_docs:
-    when:
-      and:
-        - not: << pipeline.parameters.force-docs >>
-        - true  # Placeholder for correct YAML structure
-    jobs:
-      - publish-docs/publish_docs:
-          <<: *publish-details
-          filters:
-            branches:
-              only:
-                - main
+#  test_docs:
+#    when:
+#      and:
+#        - not: << pipeline.parameters.force-docs >>
+#        - true  # Placeholder for correct YAML structure
+#    jobs:
+#      - publish-docs/build_docs:
+#          <<: *publish-details
+#          filters:
+#            branches:
+#              ignore:
+#                - main
+#  publish_docs:
+#    when:
+#      and:
+#        - not: << pipeline.parameters.force-docs >>
+#        - true  # Placeholder for correct YAML structure
+#    jobs:
+#      - publish-docs/publish_docs:
+#          <<: *publish-details
+#          filters:
+#            branches:
+#              only:
+#                - main
