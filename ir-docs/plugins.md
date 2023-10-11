@@ -53,7 +53,7 @@ The `name` and `description` properties are used in `printCommands` calls to pri
 
 `dashed` lets you run the command as a dashed command, like `--version` or `-v`.
 
-The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `toolbox` object which contains the [core extensions](./toolbox-api.md) and any additional extensions you've loaded.
+The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `toolbox` object which contains the [core extensions](./toolbox-api/index.md) and any additional extensions you've loaded.
 
 ## templates
 

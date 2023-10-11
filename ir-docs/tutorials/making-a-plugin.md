@@ -137,4 +137,4 @@ After that, the new command should be available on your project like we explored
 
 _Still have questions? Let us know in the [IR Community Slack](https://community.infinite.red)._
 
-If you'd like to learn more about what plugins are, check out the [plugins documentation](./plugins.md).
+If you'd like to learn more about what plugins are, check out the [plugins documentation](../plugins.md).

@@ -51,7 +51,7 @@ module.exports = {
 }
 ```
 
-To learn more about each tool, explore the rest of the `toolbox-*.md` files in this folder.
+To learn more about each tool, explore the rest of docs in this category.
 
 ## Accessing Tools Directly
 
