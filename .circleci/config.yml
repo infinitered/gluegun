@@ -75,7 +75,7 @@ jobs:
 
 # Parameters for the publish-docs orb
 publish-details: &publish-details
-  description: Use MLKit Models in React Native apps
+  description: A delightful toolkit for building Node-based CLIs in TS/JS
   git_email: ci@infinite.red
   git_username: Infinite Red CI
   label: Gluegun
