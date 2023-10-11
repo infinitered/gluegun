@@ -2,7 +2,7 @@
 
 _You can see the latest version of the result of this tutorial on Github at [https://github.com/infinitered/tutorial-movie](https://github.com/infinitered/tutorial-movie)!_
 
-In this tutorial, we'll make a Gluegun-powered command-line interface called `movie`. Before doing this tutorial, make sure you've followed the installation instructions in [Getting Started](../getting-started). We will also be using [yarn](https://yarnpkg.com/) in this tutorial rather than `npm`. You can use `npm` if you want.
+In this tutorial, we'll make a Gluegun-powered command-line interface called `movie`. Before doing this tutorial, make sure you've followed the installation instructions in [Getting Started](/getting-started). We will also be using [yarn](https://yarnpkg.com/) in this tutorial rather than `npm`. You can use `npm` if you want.
 
 ## Generate a new CLI
 

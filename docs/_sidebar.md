@@ -1,8 +1,9 @@
 - [Home](/)
-- [Getting Started](/getting-started)
-- [Runtime API](/runtime)
-- [Toolbox API](/toolbox-api)
-  - [config](/toolbox-config)
+
+* [Getting Started](/getting-started)
+* [Runtime API](/runtime)
+* [Toolbox API](/toolbox-api)
+  - [config](/ir-docs/toolbox-api/config.md)
   - [filesystem](/toolbox-filesystem)
   - [semver](/toolbox-semver)
   - [http](/toolbox-http)
@@ -14,10 +15,10 @@
   - [template](/toolbox-template)
   - [patching](/toolbox-patching)
   - [packageManager](/toolbox-package-manager)
-- Tutorials
+* Tutorials
   - [Tutorial: Making a Movie CLI](/tutorial-making-a-movie-cli)
   - [Tutorial: Making a Plugin](/tutorial-making-a-plugin)
-- Guides
+* Guides
   - [Guide: Architecting Your Gluegun CLI](/guide-architecture)
-- [Plugins](/plugins)
-- [Contributing](/contributing)
+* [Plugins](/plugins)
+* [Contributing](/contributing)

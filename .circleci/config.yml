@@ -3,13 +3,21 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 
+version: 2
+
+orbs:
+  publish-docs: infinitered/publish-docs@0.4
+
+parameters:
+  "force-docs":
+    type: boolean
+    default: false
+
 defaults: &defaults
-  docker:
-    # Choose the version of Node you want here
+  docker: # Choose the version of Node you want here
     - image: cimg/node:18.17.1
   working_directory: ~/repo
 
-version: 2
 jobs:
   setup:
     <<: *defaults
@@ -65,6 +73,19 @@ jobs:
           name: Publish to NPM
           command: yarn ci:publish # this will be added to your package.json scripts
 
+# Parameters for the publish-docs orb
+publish-details: &publish-details
+  description: "Use MLKit Models in React Native apps"
+  git_email: "ci@infinite.red"
+  git_username: "Infinite Red CI"
+  label: "React Native MLKit"
+  project_name: 'react-native-mlkit'
+  source_docs_dir: docs
+  source_repo_directory: "source"
+  target_docs_dir: "docs"
+  target_repo: "git@github.com:infinitered/ir-docs.git"
+  target_repo_directory: "target"
+
 workflows:
   version: 2
   test_and_release:
@@ -79,3 +100,33 @@ workflows:
           filters:
             branches:
               only: master
+  # for testing and debugging
+  force-docs:
+    when: << pipeline.parameters.force-docs >>
+    jobs:
+      - publish-docs/publish_docs:
+          <<: *publish-details
+  test_docs:
+    when:
+      and:
+        - not: << pipeline.parameters.force-docs >>
+        - true  # Placeholder for correct YAML structure
+    jobs:
+      - publish-docs/build_docs:
+          <<: *publish-details
+          filters:
+            branches:
+              ignore:
+                - main
+  publish_docs:
+    when:
+      and:
+        - not: << pipeline.parameters.force-docs >>
+        - true  # Placeholder for correct YAML structure
+    jobs:
+      - publish-docs/publish_docs:
+          <<: *publish-details
+          filters:
+            branches:
+              only:
+                - main
