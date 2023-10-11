@@ -172,5 +172,5 @@ module.exports = {
 The topics above will get you very far. Some other things to consider as you dig deeper into your CLI are:
 
 1.  Where do I access and store configuration values?
-2.  How do consumers of my CLI install and configure [plugins](../plugins)?
+2.  How do consumers of my CLI install and configure [plugins](../plugins.md)?
 3.  How will templates be organized? (Hint: look at the [Gluegun CLI source](https://github.com/infinitered/gluegun/tree/master/src/cli))

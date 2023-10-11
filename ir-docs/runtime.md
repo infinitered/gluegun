@@ -6,7 +6,7 @@ sidebar_position: 300
 
 Gluegun provides a builder that lets you initialize and configure Gluegun to work with your CLI. It lets you load & execute commands, extensions, and plugins.
 
-_Note: Check out the [sniff](./sniff) module for detecting if your environment is able to run._
+_Note: Check out the [sniff](../sniff) module for detecting if your environment is able to run._
 
 Here's a kitchen sink version, which we're about to cover.
 
@@ -71,7 +71,7 @@ $ movie producers "Planes, Trains, & Automobiles" --sort age
 
 ## plugin
 
-Additional functionality can be added to the `gluegun` object with [plugins](./plugins). Plugins can be yours or your users.
+Additional functionality can be added to the `gluegun` object with [plugins](../plugins). Plugins can be yours or your users.
 
 _Hint: `src` and `plugin` are almost identical under the hood. The only thing they do differently is `src` will be loaded first and be the "default plugin"._
 

@@ -27,7 +27,7 @@ cd gluegun
 yarn
 ```
 
-Gluegun's source files are mostly in `./src` and are written in [TypeScript](www.typescriptlang.org). Documentation lives in `/docs`.
+Gluegun's source files are mostly in `./src` and are written in [TypeScript](https://www.typescriptlang.org). Documentation lives in `/docs`.
 
 ## Running Tests And Linting
 
