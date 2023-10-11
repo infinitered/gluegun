@@ -187,7 +187,7 @@ Success!
 
 We don't want to ask the user for an API key every time. So, if it's a valid API key, we want to save it to the user's filesystem and retrieve it on every load.
 
-We also don't want to be asking for user input in our _extension_. That's the role of the _command_. (Read more about this in [Guide: Architecting Your Gluegun CLI](/guide-architecture).)
+We also don't want to be asking for user input in our _extension_. That's the role of the _command_. (Read more about this in [Guide: Architecting Your Gluegun CLI](../guides/architecture.md).)
 
 Let's go back to our IMDB extension and add a few tools. Here's the result:
 
@@ -362,6 +362,6 @@ As additional exercises, try doing these things with your new CLI:
 
 ## Notes
 
-- The architecture of the above CLI works, but as it grows, you'll want to start organizing it a little better. Read [Guide: Architecting Your Gluegun CLI](../guides/guide-architecture) to learn more.
+- The architecture of the above CLI works, but as it grows, you'll want to start organizing it a little better. Read [Guide: Architecting Your Gluegun CLI](../guides/architecture.md) to learn more.
 
 _Questions? Jump in our [Infinite Red Community Slack](http://community.infinite.red) in the #gluegun channel and ask away!_
