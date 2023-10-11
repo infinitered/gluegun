@@ -89,6 +89,10 @@ publish-details: &publish-details
 workflows:
   version: 2
   test_and_release:
+    when:
+      and:
+        - not: << pipeline.parameters.force-docs >>
+        - true  # Placeholder for correct YAML structure
     jobs:
       - setup
       - tests:
