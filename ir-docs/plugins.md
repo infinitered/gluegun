@@ -144,4 +144,4 @@ Default configuration settings which may be used by your commands and overridden
 }
 ```
 
-If you'd like to follow a tutorial to make a plugin, check out the ["Making a Plugin" tutorial](./tutorial-making-a-plugin.md).
+If you'd like to follow a tutorial to make a plugin, check out the ["Making a Plugin" tutorial](./making-a-plugin.md).
