@@ -1,9 +1,9 @@
 ---
 sidebar_position: 1
-title: Gluegun 2.0
+title: Gluegun
 ---
 
-# Gluegun <small>2.0</small>
+# Gluegun
 
 > A delightful toolkit for building Node-powered CLIs.
 
