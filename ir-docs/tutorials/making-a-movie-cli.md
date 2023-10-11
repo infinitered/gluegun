@@ -362,6 +362,6 @@ As additional exercises, try doing these things with your new CLI:
 
 ## Notes
 
-- The architecture of the above CLI works, but as it grows, you'll want to start organizing it a little better. Read [Guide: Architecting Your Gluegun CLI](../../guide-architecture) to learn more.
+- The architecture of the above CLI works, but as it grows, you'll want to start organizing it a little better. Read [Guide: Architecting Your Gluegun CLI](../guides/guide-architecture) to learn more.
 
 _Questions? Jump in our [Infinite Red Community Slack](http://community.infinite.red) in the #gluegun channel and ask away!_
