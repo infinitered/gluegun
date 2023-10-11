@@ -122,15 +122,15 @@ workflows:
 #            branches:
 #              ignore:
 #                - main
-#  publish_docs:
-#    when:
-#      and:
-#        - not: << pipeline.parameters.force-docs >>
-#        - true  # Placeholder for correct YAML structure
-#    jobs:
-#      - publish-docs/publish_docs:
-#          <<: *publish-details
-#          filters:
-#            branches:
-#              only:
-#                - main
+  publish_docs:
+    when:
+      and:
+        - not: << pipeline.parameters.force-docs >>
+        - true  # Placeholder for correct YAML structure
+    jobs:
+      - publish-docs/publish_docs:
+          <<: *publish-details
+          filters:
+            branches:
+              only:
+                - ir-docs
