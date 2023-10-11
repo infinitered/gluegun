@@ -6,7 +6,7 @@
 version: 2.1
 
 orbs:
-  publish-docs: infinitered/publish-docs@dev:commit-message
+  publish-docs: infinitered/publish-docs@dev:commit-message-abcd
 #  publish-docs: infinitered/publish-docs@0.4
 
 parameters:
