@@ -6,7 +6,7 @@
 version: 2.1
 
 orbs:
-  publish-docs: infinitered/publish-docs@dev:parse-repo-url-fdeq
+  publish-docs: infinitered/publish-docs@dev:parse-repo-url-nrjo
 #  publish-docs: infinitered/publish-docs@0.4
 
 parameters:
