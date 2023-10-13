@@ -6,7 +6,7 @@ Bug fixes, features, docs, marketing, and issue support are all contributions. W
 
 ## Global Dependencies
 
-If you're reading this, you might be interested in pitching in from a code point of view.
+If you're reading this, you are probably interested in pitching in from a code point of view.
 
 `gluegun` is powered by Node (7.6 or above). Install Node using `brew` (if on macOS) or by following the instructions here: [https://nodejs.org/en/download/current/](https://nodejs.org/en/download/current/)
 
