@@ -1,3 +1,7 @@
+---
+title: Architecting Your Gluegun CLI
+---
+
 # Guide: Architecting Your Gluegun CLI
 
 There are many ways to architect Gluegun-powered CLIs. This guide is intended to be a living document, collecting the lessons learned along the way of building CLIs with Gluegun. It is not necessarily the only correct way to build a CLI.
