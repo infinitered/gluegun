@@ -7,7 +7,7 @@ version: 2.1
 
 orbs:
 #  publish-docs: infinitered/publish-docs@0.4
-  publish-docs: infinitered/publish-docs@dev:parse-var-fixes-rwsw
+  publish-docs: infinitered/publish-docs@dev:parse-var-fixes-jmqs
 
 parameters:
   "force-docs":
