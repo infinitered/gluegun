@@ -3,7 +3,7 @@
 * [Getting Started](/getting-started)
 * [Runtime API](/runtime)
 * [Toolbox API](/toolbox-api)
-  - [config](/ir-docs/toolbox-api/config.md)
+  - [config](/toolbox-api/config)
   - [filesystem](/toolbox-filesystem)
   - [semver](/toolbox-semver)
   - [http](/toolbox-http)

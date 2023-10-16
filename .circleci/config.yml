@@ -105,30 +105,6 @@ workflows:
           filters:
             branches:
               only: master
-  # for testing and debugging
-  force-docs:
-    when: << pipeline.parameters.force-docs >>
-    jobs:
-      - publish-docs/publish_docs:
-          <<: *publish-details
-#  test_docs:
-#    when:
-#      and:
-#        - not: << pipeline.parameters.force-docs >>
-#        - true  # Placeholder for correct YAML structure
-#    jobs:
-#      - publish-docs/build_docs:
-#          <<: *publish-details
-#          filters:
-#            branches:
-#              ignore:
-#                - main
-  publish_docs:
-    when:
-      and:
-        - not: << pipeline.parameters.force-docs >>
-        - true  # Placeholder for correct YAML structure
-    jobs:
       - publish-docs/publish_docs:
           <<: *publish-details
           filters:
@@ -136,4 +112,12 @@ workflows:
               only:
                 - ir-docs
           requires:
+            - publish
             - test_and_release
+  # for testing and debugging
+  force-docs:
+    when: << pipeline.parameters.force-docs >>
+    jobs:
+      - publish-docs/publish_docs:
+          <<: *publish-details
+
