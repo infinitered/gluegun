@@ -135,3 +135,5 @@ workflows:
             branches:
               only:
                 - ir-docs
+          requires:
+            - test_and_release
