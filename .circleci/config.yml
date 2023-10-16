@@ -6,8 +6,8 @@
 version: 2.1
 
 orbs:
-#  publish-docs: infinitered/publish-docs@0.4
-  publish-docs: infinitered/publish-docs@dev:parse-var-fixes-gquk
+  publish-docs: infinitered/publish-docs@0.4
+
 
 parameters:
   "force-docs":

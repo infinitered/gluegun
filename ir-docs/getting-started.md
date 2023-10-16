@@ -1,12 +1,23 @@
 ---
-sidebar_position: 200
+sidebar_position: 1
 ---
 
-# Getting Started
+# Gluegun
+
+> A delightful toolkit for building Node-powered CLIs.
+
+- Lightweight (~83kB tarball)
+- Batteries included
+- Plugin-ready
+
+[GitHub](https://github.com/infinitered/gluegun)
+[Get Started](#quick-start)
+
+## Getting Started
 
 The fastest way to get started is to use the built-in Gluegun CLI (very meta!) to generate it.
 
-## Creating a new Gluegun-powered CLI
+### Creating a new Gluegun-powered CLI
 
 Gluegun works on macOS, Linux, and Windows 10. First, ensure you have Node installed and that you can access it (minimum version 7.6):
 
@@ -45,7 +56,7 @@ $ gluegun new mycli -j
 
 _Note: We recommend TypeScript, but you don't have to use it! Gluegun works great with modern JavaScript._
 
-## Linking your CLI so you can access it
+### Linking your CLI so you can access it
 
 Navigate to the new `mycli` folder and run `yarn link` to have it available globally on your command line.
 
@@ -55,7 +66,7 @@ $ yarn link
 $ mycli --help
 ```
 
-## Creating your first command
+### Creating your first command
 
 Your Gluegun-powered CLI isn't very useful without a command! In your CLI, create a new JS file in `src/commands` called `hello.js`. In that file, add this:
 
@@ -89,7 +100,7 @@ Hello, world!
 
 Yay!
 
-## Creating your first extension
+### Creating your first extension
 
 You can add more tools into the `toolbox` for _all_ of your commands to use by creating an `extension`. In your `mycli` folder, add a new file in `src/extensions` called `hello-extension.js`. (It doesn't _have_ to end in `-extension`, but that's a convention.)
 
