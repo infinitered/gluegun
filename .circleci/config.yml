@@ -7,7 +7,7 @@ version: 2.1
 
 orbs:
 #  publish-docs: infinitered/publish-docs@0.4
-  publish-docs: infinitered/publish-docs@dev:parse-var-fixes-jcwf
+  publish-docs: infinitered/publish-docs@dev:parse-var-fixes-tnsu
 
 parameters:
   "force-docs":
