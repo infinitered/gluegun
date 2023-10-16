@@ -12,7 +12,6 @@ sidebar_position: 1
 - Plugin-ready
 
 [GitHub](https://github.com/infinitered/gluegun)
-[Get Started](#quick-start)
 
 ## Getting Started
 
