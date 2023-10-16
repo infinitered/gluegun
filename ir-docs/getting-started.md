@@ -127,7 +127,7 @@ module.exports = {
 }
 ```
 
-When you run the command, this time it'll use the extension's output.
+When you run the command, this time it'll use the extension's output:
 
 ```
 $ mycli hello
