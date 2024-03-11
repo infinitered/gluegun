@@ -159,4 +159,4 @@ If you're looking for alternatives, here's a list:
 * [vorpal](https://vorpal.js.org/) - unfortunately looks like it isn't actively maintained
 * [just make your own](https://www.twilio.com/blog/how-to-build-a-cli-with-node-js) - you don't need a framework to make a Node CLI. Check out this article from Twilio
 
-And of course, check out your favorite [React Native Consultants](React Native Consultants, Infinite Red)!.
+And of course, check out your favorite [React Native Consultants, Infinite Red](https://infinite.red/react-native-consultants)!.
