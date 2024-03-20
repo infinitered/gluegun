@@ -156,7 +156,7 @@ function fancy(message: any): void {
  * @param message The message to show.
  */
 function info(message: string): void {
-  console.log(colors.info(message))
+  console.info(colors.info(message))
 }
 
 /**
@@ -167,7 +167,7 @@ function info(message: string): void {
  * @param message The message to show.
  */
 function error(message: string): void {
-  console.log(colors.error(message))
+  console.error(colors.error(message))
 }
 
 /**
@@ -178,7 +178,7 @@ function error(message: string): void {
  * @param message The message to show.
  */
 function warning(message: string): void {
-  console.log(colors.warning(message))
+  console.warn(colors.warning(message))
 }
 
 /**
@@ -192,9 +192,9 @@ function debug(message: string, title = 'DEBUG'): void {
   const topLine = `vvv -----[ ${title} ]----- vvv`
   const botLine = `^^^ -----[ ${title} ]----- ^^^`
 
-  console.log(colors.rainbow(topLine))
-  console.log(message)
-  console.log(colors.rainbow(botLine))
+  console.debug(colors.rainbow(topLine))
+  console.debug(message)
+  console.debug(colors.rainbow(botLine))
 }
 
 /**
