@@ -6,7 +6,7 @@
 defaults: &defaults
   docker:
     # Choose the version of Node you want here
-    - image: cimg/node:18.17.1
+    - image: cimg/node:lts
   working_directory: ~/repo
 
 version: 2
