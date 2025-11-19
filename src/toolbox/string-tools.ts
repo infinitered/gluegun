@@ -1,22 +1,20 @@
 import { GluegunStrings } from './strings-types'
 import { is } from './utils'
-import {
-  camelCase,
-  kebabCase,
-  lowerCase,
-  lowerFirst,
-  pad,
-  padEnd,
-  padStart,
-  repeat,
-  snakeCase,
-  startCase,
-  trim,
-  trimEnd,
-  trimStart,
-  upperCase,
-  upperFirst,
-} from 'lodash'
+const camelCase = require('lodash/camelCase')
+const kebabCase = require('lodash/kebabCase')
+const lowerCase = require('lodash/lowerCase')
+const lowerFirst = require('lodash/lowerFirst')
+const pad = require('lodash/pad')
+const padEnd = require('lodash/padEnd')
+const padStart = require('lodash/padStart')
+const repeat = require('lodash/repeat')
+const snakeCase = require('lodash/snakeCase')
+const startCase = require('lodash/startCase')
+const trim = require('lodash/trim')
+const trimEnd = require('lodash/trimEnd')
+const trimStart = require('lodash/trimStart')
+const upperCase = require('lodash/upperCase')
+const upperFirst = require('lodash/upperFirst')
 
 const pluralize = (word: string, count?: number, inclusive?: boolean) => require('pluralize')(word, count, inclusive)
 pluralize.plural = (word: string) => require('pluralize').plural(word)
