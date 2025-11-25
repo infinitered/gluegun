@@ -2,9 +2,9 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: NodeTool@0
+- task: UseNode@1
   inputs:
-    versionSpec: '14.x'
+    versionSpec: '20.x'
   displayName: 'Install Node.js'
 
 - script: |
