@@ -33,7 +33,7 @@ module.exports = {
   description: 'Displays the name of an actor',
   hidden: false,
   dashed: false,
-  run: async toolbox => {
+  run: async (toolbox) => {
     const { print } = toolbox
 
     print.info(`Tom Hanks`)
@@ -49,7 +49,7 @@ The `name` and `description` properties are used in `printCommands` calls to pri
 
 `dashed` lets you run the command as a dashed command, like `--version` or `-v`.
 
-The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `toolbox` object which contains the [core extensions](./toolbox-api.md) and any additional extensions you've loaded.
+The `run` property should be a function (async or not) that does whatever you want it to. You'll receive the gluegun `toolbox` object which contains the [core extensions](/toolbox-api) and any additional extensions you've loaded.
 
 ## templates
 
@@ -61,7 +61,7 @@ Extensions are additional functionality that you can monkeypatch onto the `toolb
 
 ```js
 // extensions/sayhello.js
-module.exports = toolbox => {
+module.exports = (toolbox) => {
   const { print } = toolbox
 
   toolbox.sayhello = () => {
@@ -74,7 +74,7 @@ When you have this extension, you can access it in any command file, like this:
 
 ```js
 // ...
-run: async toolbox => {
+run: async (toolbox) => {
   const { sayhello } = toolbox
 
   sayhello()
