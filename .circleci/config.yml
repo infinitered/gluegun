@@ -3,13 +3,22 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 
+version: 2.1
+
+orbs:
+  publish-docs: infinitered/publish-docs@0.4
+
+
+parameters:
+  "force-docs":
+    type: boolean
+    default: false
+
 defaults: &defaults
-  docker:
-    # Choose the version of Node you want here
+  docker: # Choose the version of Node you want here
     - image: cimg/node:18.17.1
   working_directory: ~/repo
 
-version: 2
 jobs:
   setup:
     <<: *defaults
@@ -65,9 +74,26 @@ jobs:
           name: Publish to NPM
           command: yarn ci:publish # this will be added to your package.json scripts
 
+# Parameters for the publish-docs orb
+publish-details: &publish-details
+  description: A delightful toolkit for building Node-based CLIs in TS/JS
+  git_email: ci@infinite.red
+  git_username: Infinite Red CI
+  label: Gluegun
+  project_name: gluegun
+  source_docs_dir: ir-docs
+  source_repo_directory: source
+  target_docs_dir: docs
+  target_repo: git@github.com:infinitered/ir-docs.git
+  target_repo_directory: target
+
 workflows:
   version: 2
   test_and_release:
+    when:
+      and:
+        - not: << pipeline.parameters.force-docs >>
+        - true  # Placeholder for correct YAML structure
     jobs:
       - setup
       - tests:
@@ -79,3 +105,19 @@ workflows:
           filters:
             branches:
               only: master
+      - publish-docs/publish_docs:
+          <<: *publish-details
+          filters:
+            branches:
+              only:
+                - ir-docs
+          requires:
+            - publish
+            - test_and_release
+  # for testing and debugging
+  force-docs:
+    when: << pipeline.parameters.force-docs >>
+    jobs:
+      - publish-docs/publish_docs:
+          <<: *publish-details
+
