@@ -22,6 +22,8 @@ Gluegun is a delightful toolkit for building Node-based command-line interfaces 
 
 In addition, `gluegun` supports expanding your CLI's ecosystem with a robust set of easy-to-write plugins and extensions.
 
+Originally built by [Infinite Red](https://infinite.red), a U.S.-based web and mobile development company.
+
 # Notice
 
 Gluegun is at a stable point and we aren't planning on building new features for it, although the community continues to send in PRs and we release them if they are performance, stability, types, or other similar enhancements. Read the [Community Supported](#Community-Supported) section to learn more.
